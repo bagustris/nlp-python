@@ -6,10 +6,10 @@
 carpentry: "swc"
 
 # Overall title for pages.
-title: "Lesson Title"
+title: "NLP dengan Python"
 
 # Email address, no mailto:
-email: "lessons@software-carpentry.org"
+email: "bagus@ep.its.ac.id"
 
 #------------------------------------------------------------
 # Generic settings (should not need to change).
@@ -20,7 +20,7 @@ kind: "lesson"
 
 # Magic to make URLs resolve both locally and on GitHub.
 # See https://help.github.com/articles/repository-metadata-on-github-pages/.
-repository: <USERNAME>/<PROJECT>
+repository: bagustris/nlp-python
 
 # Sites.
 amy_site: "https://amy.software-carpentry.org/workshops"
@@ -82,3 +82,6 @@ exclude:
 
 # Turn on built-in syntax highlighting.
 highlighter: rouge
+
+# Use maruku to support mathjax
+markdown: kramdown
