@@ -48,10 +48,18 @@ Named entity recognition
 Corereference
 : Given a corpus, one refer another
 
-Semantic role labelling
+Semantic (role labelling)
 : labelling sentence to give (different) meaning
   e.q: /I saw a man/ with telescope/ or /I saw/ a man with telescope/
 
 Lexicon
-: meaing of words
+: dictionary of words and its type
 
+Syntatic
+: Relation of word to other words (structure).
+
+Discourse (analysis)
+: Analyze not a single sentence but a set of sentences
+
+Natural language generation
+: generation of text from semantic interpretation
