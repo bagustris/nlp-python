@@ -49,11 +49,11 @@ Corereference
 : Given a corpus, one refer another
 
 Semantic (role labelling)
-: labelling sentence to give (different) meaning
+: Labelling sentence to give (different) meaning
   e.q: /I saw a man/ with telescope/ or /I saw/ a man with telescope/
 
 Lexicon
-: dictionary of words and its type
+: Dictionary of words and its type
 
 Syntatic
 : Relation of word to other words (structure).
@@ -63,3 +63,6 @@ Discourse (analysis)
 
 Natural language generation
 : generation of text from semantic interpretation
+
+Bag-of-words
+: Modelling a text (such as a sentence or a document) which is represented as the bag (multiset) of its words, disregarding grammar and even word order but keeping multiplicity.
