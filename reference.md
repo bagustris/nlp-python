@@ -8,6 +8,12 @@ layout: reference
 Bag-of-words
 : Modeling a text (such as a sentence or a document) which is represented as the bag (multiset) of its words, disregarding grammar and even word order but keeping multiplicity.
 
+Arc
+: Connector of two nodes,represents a partial structure between them. Buffer of arcs to be added to the chart in future (stack)
+
+Chart 
+: Figure showing a process of parsing (nodes and arcs)
+
 Corpus
 : A body of text, usually containing a large number of sen-
 tences.
@@ -23,6 +29,9 @@ Discourse (analysis)
 
 Grammar
 : Set of rule/formalism that is used to specify what sentence are possible in language
+
+History
+: List of arcs showing all generated arcs during parsing
 
 Lexicon
 : Dictionary of words and its type
@@ -72,4 +81,7 @@ Named entity recognition
 
 Natural language generation
 : generation of text from semantic interpretation
+
+Node
+: Virtual node between words
 
