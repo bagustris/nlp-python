@@ -76,6 +76,12 @@ Token
 needs to be segmented into linguistic units such as words, punctuation,
 numbers or alphanumerics. These units are known as tokens.
 
+Morphology (Morphological analysis)
+: Divide word into morphemes
+
+Morphemes
+: Minimum linguistic Unit smaller than word, e.g. play-ing, un-kind-ly.
+
 Named entity recognition
 : Given sentence, to identify the person, loc, org
 
