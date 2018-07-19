@@ -15,8 +15,7 @@ Chart
 : Figure showing a process of parsing (nodes and arcs)
 
 Corpus
-: A body of text, usually containing a large number of sen-
-tences.
+: A collection of (text) sentences, usually containing a large number of sentences.
 
 Chunking
 : how to combine word into phrase/sentences
@@ -35,6 +34,9 @@ History
 
 Lexicon
 : Dictionary of words and its type
+
+Multimodal data
+: Data collected from various way from the same target, e.g: text, speech, video
 
 Part-of-speech  (POS)  Tag
 : A word can be classified into one or
@@ -83,10 +85,10 @@ Morphemes
 : Minimum linguistic Unit smaller than word, e.g. play-ing, un-kind-ly.
 
 Named entity recognition
-: Given sentence, to identify the person, loc, org
+: Given sentence, to identify the person, location, organization
 
 Natural language generation
-: generation of text from semantic interpretation
+: Generation of text from semantic interpretation
 
 Node
 : Virtual node between words
