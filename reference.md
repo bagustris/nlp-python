@@ -29,6 +29,9 @@ Corereference
 Dependency annotated
 : annotation based on dependency in a sentence
 
+Document frequency
+: Number of documents containing an index term j
+
 Dictionary
 : Database of words including various kinds of information
 
@@ -52,6 +55,9 @@ Information retrieval (IR)
 
 Information (Compiled in Dictionary
 : Necessary information for NLP i.e: Morphological analysis, Syntatic analysis, Semantic analysis
+
+Inverted Index
+: List of index term for each document in inverted form (row=index, column=document)
 
 Lexicon
 : Dictionary of words and its type
@@ -80,6 +86,15 @@ Parallel Corpus
 PCFG (Probabilistic Context Free Grammar)
 : Product (multiplication) of probabilities of rules in parse tree
 
+Precision
+: Number of relevant documents in system output per number of documents in system output (how many selected items are relevant?)
+
+Recall
+: Number of relevant document in system output per number of all relevant document in overall collection (how many relevant are the selected items?)
+
+Relevance feedback
+: Asking user to judge whether retrieved documents are relevant or not
+
 Sentence
 : An ordered sequence of tokens.
 
@@ -93,7 +108,7 @@ Semantic primitive
 Stop word
 : word not to be index term (function word; be, have, symbol; etc)
 
-Syntatic
+Syntactic
 : Relation of word to other words (structure).
 
 Thesaurus
@@ -140,9 +155,16 @@ Natural language generation
 Node
 : Virtual node between words, 
 
+Vector space model
+: Vector represented both documents and query (from inverted index)
+
 Query
 : An index terms or combination of index term
 
+Query expansion
+: Automatic procedure to add related words to a query. 
+E.g: Q=(car) --> Q=(car, automobile, auto, motorcar)
+
 Zipf's law
-Law about distribution of frequency of English words. There are two ways 
+: Law about distribution of frequency of English words. There are two ways 
 to count words: type (how many types of word) and token (how many word apperas)
