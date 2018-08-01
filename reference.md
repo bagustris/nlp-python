@@ -5,11 +5,14 @@ layout: reference
 ## Glossary
 {:auto_ids}
 
-Bag-of-words
-: Modeling a text (such as a sentence or a document) which is represented as the bag (multiset) of its words, disregarding grammar and even word order but keeping multiplicity.
+Annotated Corpus
+: Corpora to which some information is attached (POS, word boundaries, etc)
 
 Arc
 : Connector of two nodes,represents a partial structure between them. Buffer of arcs to be added to the chart in future (stack)
+
+Bag-of-words
+: Modeling a text (such as a sentence or a document) which is represented as the bag (multiset) of its words, disregarding grammar and even word order but keeping multiplicity.
 
 Chart 
 : Figure showing a process of parsing (nodes and arcs)
@@ -23,14 +26,32 @@ Chunking
 Corereference
 : Given a corpus, one refer another
 
+Dependency annotated
+: annotation based on dependency in a sentence
+
+Dictionary
+: Database of words including various kinds of information
+
 Discourse (analysis)
 : Analyze not a single sentence but a set of sentences
 
 Grammar
 : Set of rule/formalism that is used to specify what sentence are possible in language
 
+Hash function, H(q)
+: Functino calculating the index for a search word q
+
 History
 : List of arcs showing all generated arcs during parsing
+
+Indexing
+: Procedure to extract index from documents
+
+Information retrieval (IR)
+: process to find documents which are relevant to an users's query from a document collection
+
+Information (Compiled in Dictionary
+: Necessary information for NLP i.e: Morphological analysis, Syntatic analysis, Semantic analysis
 
 Lexicon
 : Dictionary of words and its type
@@ -53,6 +74,12 @@ Parse Tree
 : A tree defined over a given sentence that represents the
 syntactic structure of the sentence as defined by a formal grammar.etail below
 
+Parallel Corpus
+: Collection of (translation) corpus of two or more language in parallel.
+
+PCFG (Probabilistic Context Free Grammar)
+: Product (multiplication) of probabilities of rules in parse tree
+
 Sentence
 : An ordered sequence of tokens.
 
@@ -60,8 +87,17 @@ Semantic (role labelling)
 : Labelling sentence to give (different) meaning
   e.q: /I saw a man/ with telescope/ or /I saw/ a man with telescope/
 
+Semantic primitive
+: Basic primitive of sense of word, e.g: human, abstract, concrete
+
+Stop word
+: word not to be index term (function word; be, have, symbol; etc)
+
 Syntatic
 : Relation of word to other words (structure).
+
+Thesaurus
+: Database showing *semantic relation* between words
 
 Tokenization
 : The process of splitting a sentence into its constituent
@@ -78,6 +114,17 @@ Token
 needs to be segmented into linguistic units such as words, punctuation,
 numbers or alphanumerics. These units are known as tokens.
 
+Trie
+: A tree structure such that common prefix of words are shares
+
+N-gram
+: Collocation frequency of n words, e.g: 2-gram, 3-gram, etc.
+
+N-gram model
+: Markov model for generation probability of a sentence by 
+  calculating probality of a word Ci depends only preceding N-1 
+  words (for 2-gram)
+
 Morphology (Morphological analysis)
 : Divide word into morphemes
 
@@ -91,5 +138,11 @@ Natural language generation
 : Generation of text from semantic interpretation
 
 Node
-: Virtual node between words
+: Virtual node between words, 
 
+Query
+: An index terms or combination of index term
+
+Zipf's law
+Law about distribution of frequency of English words. There are two ways 
+to count words: type (how many types of word) and token (how many word apperas)
