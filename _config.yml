@@ -85,3 +85,4 @@ highlighter: rouge
 
 # Use maruku to support mathjax
 markdown: kramdown
+require_mathjax: true
