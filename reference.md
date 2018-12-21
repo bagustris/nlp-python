@@ -117,9 +117,9 @@ Thesaurus
 Tokenization
 : The process of splitting a sentence into its constituent
 tokens.  For segmented languages such as English, the existence of
-whitespace makes tokenization relatively easier and uninteresting. How-
-ever, for languages such as Chinese and Arabic, the task is more dif-
-ficult since there are no explicit boundaries. Furthermore, almost all
+whitespace makes tokenization relatively easier and uninteresting. 
+However, for languages such as Chinese and Arabic, the task is more 
+difficult since there are no explicit boundaries. Furthermore, almost all
 characters in such non-segmented languages can exist as one-character
 words by themselves but can also join together to form multi-character
 words.
