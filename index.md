@@ -8,7 +8,7 @@ This page is rendered from [NLTK Book](https://nltk.org/book). If a term cannot 
 in the top of this page, maybe the definition of the term is there.
 
 > ## Prerequisites
-> Komputer dengan sistem operasi berbasis Linux (Ubuntu 16.04), 
-> Python 3.6, dan
+> A computer with Linux-based Operating System (Ubuntu 16.04), 
+> Python 3.6, and
 > NLTK 3.2.5
 {: .prereq}
