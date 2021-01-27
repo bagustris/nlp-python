@@ -1,5 +1,5 @@
 ---
-title: "Mengatur data linguistik"
+title: "Managing linguistic data"
 teaching: 10
 exercises: 0
 questions:
@@ -14,7 +14,7 @@ keypoints:
 - "Lessons are design in four stages: conceptual, summative, formative, and connective."
 ---
 
-## Mengatur data linguistik
+## Managing linguistic data
 
 Structured collections of annotated linguistic data are essential in
 most areas of |NLP|, however, we still face many obstacles in using
