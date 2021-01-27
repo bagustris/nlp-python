@@ -1,7 +1,7 @@
 ---
-title: "Menganalisa struktur kalimat"
-teaching: 10
-exercises: 0
+title: "Analyzing structure of sentence"
+teaching: 60
+exercises: 30
 questions:
 -  "Korpora teks apa yang dimanfaatkan dengan menggunakan Python"
 -  "Model pemrograman python yang seperti apa yang cocok untuk pekerjaan
@@ -14,7 +14,7 @@ keypoints:
 - "Lessons are design in four stages: conceptual, summative, formative, and connective."
 ---
 
-## Menganalisa struktur kalimat
+## Analyzing structure of sentence
 
 Earlier chapters focused on words: how to identify them, analyze their
 structure, assign them to lexical categories, and access their meanings.
