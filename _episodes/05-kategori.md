@@ -1,7 +1,7 @@
 ---
-title: "Kategorisasi dan pengetagan kata"
-teaching: 10
-exercises: 0
+title: "Categorization and words tagging"
+teaching: 60
+exercises: 30
 questions:
 -  "What are some useful text corpora and lexical resources, and how can
    we access them with Python?"
