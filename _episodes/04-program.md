@@ -1,5 +1,5 @@
 ---
-title: "Menulis program terstruktur"
+title: "Writing structured program"
 teaching: 10
 exercises: 0
 questions:
