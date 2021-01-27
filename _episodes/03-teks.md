@@ -1,5 +1,5 @@
 ---
-title: "Pemrosesan teks mentah"
+title: "Processing raw text"
 teaching: 10
 exercises: 0
 questions:
