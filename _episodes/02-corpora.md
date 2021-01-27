@@ -1,20 +1,19 @@
 ---
-title: "Teks korpora dan sumber-sumber leksikal"
-teaching: 10
+title: "Text corpora and lexical resources"
+teaching: 60
 exercises: 0
 questions:
--  "Korpora teks apa yang dimanfaatkan dengan menggunakan Python"
--  "Model pemrograman python yang seperti apa yang cocok untuk pekerjaan
-    semacam ini?"
--  "Bagaimana kita menghindari pengulangan penulisan kode Python?"
+-  "What kind of text corpora can be used with Python"
+-  "What kind of Python programming model suit to this task?"
+-  "How to avoid repetion for the same task in Python?"
 objectives:
 - "Describe the reverse instructional design process."
 - "Describe the purpose and implementation of formative assessments."
 keypoints:
-- "Mengakses teks korpora."
-- "Distribusi Frekuensi Kondisional (CDF)"
-- "Menggunakan kembali kode Python."
-- "Sumber-sumber leksikal"
+- "Accessing text corpora."
+- "Conditional Distribution Frequency (CDF)"
+- "Re-use the Python codes."
+- "Lexical sources"
 - "WordNet"
 ---
 
