@@ -1,5 +1,5 @@
 ---
-title: "Pemrosesan bahasa dan Python"
+title: "Language processing and Python"
 teaching: 0
 exercises: 0
 questions:
