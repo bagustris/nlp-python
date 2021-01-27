@@ -16,7 +16,7 @@ keypoints:
 - "Undestanding Python and NLP"
 ---
 
-## anguage processing and Python
+## Language processing and Python
 =================================
 
 It is easy to get our hands on millions of words of text. What can we do
