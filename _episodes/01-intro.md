@@ -1,25 +1,22 @@
 ---
 title: "Language processing and Python"
-teaching: 0
-exercises: 0
+teaching: 60
+exercises: 30
 questions:
-- "Bagaimana mengkombinasikan pemrograman python sederhana denga teks berukuran 
-    besar?"
-- "Bagaimana kita bisa mengekstrak kata kunci dan frase secara otomatis dari
-    konten suatu teks?"
-- "Perangkat dan teknik apa saja yang disediakan oleh Python untuk tipe 
-    pekerjaan ini?"
-- "Apa tantangan yang menarik dari pemrosesan bahasa alami?"
+- "How to combine simple Python programming with large text data?"
+- "How to extract keywords automatically from a content of text?"
+- "What tools and techniques provided by Python for this kind of work?"
+- "What is the interesting thing of natural language processing?"
 objectives:
-- "Bisa menggunakan pemrograman python untuk mengolah teks berukuran besar"
-- "Bisa mengekstrak kata kunci dan frase konten dari sebuah teks"
-- "Mampu menggunakan tools yang disediakan Python untuk pemrosesan teks"
-- "Mengetahui tantangan menarik pada pemrosesan bahasa alami"
+- "Ability to process large text data with Python"
+- "Abilty to extract keywords from text content"
+- "Ability to use tools provided by Python to process text data"
+- "Knowing the interesting challenge in Natural Language Processing"
 keypoints:
-- "Memahami pemrosesan bahasa dan python"
+- "Undestanding Python and NLP"
 ---
 
-## Pemrosesan bahasa dan Python
+## anguage processing and Python
 =================================
 
 It is easy to get our hands on millions of words of text. What can we do
