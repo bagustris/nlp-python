@@ -1,7 +1,7 @@
 ---
-title: "Pembelajaran untuk mengklasifikasikan teks"
-teaching: 10
-exercises: 0
+title: "Learning to classifying text"
+teaching: 60
+exercises: 30
 questions:
 -  "What are some useful text corpora and lexical resources, and how can
    we access them with Python?"
@@ -14,7 +14,7 @@ keypoints:
 - "Lessons are design in four stages: conceptual, summative, formative, and connective."
 ---
 
-## Pembelajaran untuk mengklasifikasikan teks
+## Learning to classifying text
 
 Detecting patterns is a central part of Natural Language Processing.
 Words ending in -ed tend to be past tense verbs (chap-tag\_). Frequent
