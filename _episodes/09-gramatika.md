@@ -1,7 +1,7 @@
 ---
-title: "Membangun fitur berbasis gramatika"
-teaching: 10
-exercises: 0
+title: "Building features based on grannar"
+teaching: 60
+exercises: 30
 questions:
 -  "What are some useful text corpora and lexical resources, and how can
    we access them with Python?"
@@ -14,7 +14,7 @@ keypoints:
 - "Lessons are design in four stages: conceptual, summative, formative, and connective."
 ---
 
-## Membangun fitur berbasis gramatika
+## Building features based on grannar
 
 Natural languages have an extensive range of grammatical constructions
 which are hard to handle with the simple methods described in
