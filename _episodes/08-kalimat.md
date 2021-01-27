@@ -3,10 +3,9 @@ title: "Analyzing structure of sentence"
 teaching: 60
 exercises: 30
 questions:
--  "Korpora teks apa yang dimanfaatkan dengan menggunakan Python"
--  "Model pemrograman python yang seperti apa yang cocok untuk pekerjaan
-    semacam ini?"
--  "Bagaimana kita menghindari pengulangan penulisan kode Python?"
+-  "What kind of text corpora can be used within Python"
+-  "What kind of python programming flow suitable for this task?"
+-  "How to avoid repeating codes in Python?"
 objectives:
 - "Describe the reverse instructional design process."
 - "Describe the purpose and implementation of formative assessments."
