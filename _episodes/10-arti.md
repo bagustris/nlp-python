@@ -1,5 +1,5 @@
 ---
-title: "Menganalisa arti dari kalimat"
+title: "Analyzing the meaning of sentence"
 teaching: 10
 exercises: 0
 questions:
@@ -14,7 +14,7 @@ keypoints:
 - "Lessons are design in four stages: conceptual, summative, formative, and connective."
 ---
 
-## Menganalisa arti dari kalimat
+## Analyzing the meaning of sentence
 
 We have seen how useful it is to harness the power of a computer to
 process text on a large scale. However, now that we have the machinery
