@@ -1,7 +1,7 @@
 ---
-title: "Mengekstrak informasi dari teks"
-teaching: 10
-exercises: 0
+title: "Extracting information from text"
+teaching: 60
+exercises: 30
 questions:
 -  "What are some useful text corpora and lexical resources, and how can
    we access them with Python?"
@@ -14,7 +14,7 @@ keypoints:
 - "Lessons are design in four stages: conceptual, summative, formative, and connective."
 ---
 
-## Mengekstrak informasi dari teks
+## Extracting information from text
 
 For any given question, it's likely that someone has written the answer
 down somewhere. The amount of natural language text that is available in
