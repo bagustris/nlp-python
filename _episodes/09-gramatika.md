@@ -1,5 +1,5 @@
 ---
-title: "Building features based on grannar"
+title: "Building features based on grammar"
 teaching: 60
 exercises: 30
 questions:
@@ -14,7 +14,7 @@ keypoints:
 - "Lessons are design in four stages: conceptual, summative, formative, and connective."
 ---
 
-## Building features based on grannar
+## Building features based on grammar
 
 Natural languages have an extensive range of grammatical constructions
 which are hard to handle with the simple methods described in
