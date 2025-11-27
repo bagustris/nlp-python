@@ -89,26 +89,33 @@ supplemented with a recipe for constructing a value for the feature
 case, we use the string concatenation operation `+` to splice the values
 for the child constituents to make a value for the parent constituent.
 
-> &gt;&gt;&gt; nltk.data.show\_cfg('grammars/book\_grammars/sql0.fcfg')
-> % start S S\[SEM=(?np + WHERE + ?vp)\] -&gt; NP\[SEM=?np\]
-> VP\[SEM=?vp\] VP\[SEM=(?v + ?pp)\] -&gt; IV\[SEM=?v\] PP\[SEM=?pp\]
-> VP\[SEM=(?v + ?ap)\] -&gt; IV\[SEM=?v\] AP\[SEM=?ap\] NP\[SEM=(?det +
-> ?n)\] -&gt; Det\[SEM=?det\] N\[SEM=?n\] PP\[SEM=(?p + ?np)\] -&gt;
-> P\[SEM=?p\] NP\[SEM=?np\] AP\[SEM=?pp\] -&gt; A\[SEM=?a\]
-> PP\[SEM=?pp\] NP\[SEM='Country="greece"'\] -&gt; 'Greece'
-> NP\[SEM='Country="china"'\] -&gt; 'China' Det\[SEM='SELECT'\] -&gt;
-> 'Which' | 'What' N\[SEM='City FROM city\_table'\] -&gt; 'cities'
-> IV\[SEM=''\] -&gt; 'are' A\[SEM=''\] -&gt; 'located' P\[SEM=''\] -&gt;
+> >>> nltk.data.show\_cfg('grammars/book\_grammars/sql0.fcfg')
+> % start S S\[SEM=(?np + WHERE + ?vp)\] -> NP\[SEM=?np\]
+> VP\[SEM=?vp\] VP\[SEM=(?v + ?pp)\] -> IV\[SEM=?v\] PP\[SEM=?pp\]
+> VP\[SEM=(?v + ?ap)\] -> IV\[SEM=?v\] AP\[SEM=?ap\] NP\[SEM=(?det +
+> ?n)\] -> Det\[SEM=?det\] N\[SEM=?n\] PP\[SEM=(?p + ?np)\] ->
+> P\[SEM=?p\] NP\[SEM=?np\] AP\[SEM=?pp\] -> A\[SEM=?a\]
+> PP\[SEM=?pp\] NP\[SEM='Country="greece"'\] -> 'Greece'
+> NP\[SEM='Country="china"'\] -> 'China' Det\[SEM='SELECT'\] ->
+> 'Which' | 'What' N\[SEM='City FROM city\_table'\] -> 'cities'
+> IV\[SEM=''\] -> 'are' A\[SEM=''\] -> 'located' P\[SEM=''\] ->
 > 'in'
 
 This allows us to parse a query into SQL.
 
-> &gt;&gt;&gt; from nltk import load\_parser &gt;&gt;&gt; cp =
-> load\_parser('grammars/book\_grammars/sql0.fcfg') &gt;&gt;&gt; query =
-> 'What cities are located in China' &gt;&gt;&gt; trees =
-> list(cp.parse(query.split())) &gt;&gt;&gt; answer =
-> trees\[0\].label()\['SEM'\] &gt;&gt;&gt; answer = \[s for s in answer
-> if s\] &gt;&gt;&gt; q = ' '.join(answer) &gt;&gt;&gt; print(q) SELECT
+> >>> from nltk import load\_parser
+> >>> cp =
+> load\_parser('grammars/book\_grammars/sql0.fcfg')
+> >>> query =
+> 'What cities are located in China'
+> >>> trees =
+> list(cp.parse(query.split()))
+> >>> answer =
+> trees\[0\].label()\['SEM'\]
+> >>> answer = \[s for s in answer
+> if s\]
+> >>> q = ' '.join(answer)
+> >>> print(q) SELECT
 > City FROM city\_table WHERE Country="china"
 
 > **note**
@@ -121,8 +128,10 @@ This allows us to parse a query into SQL.
 Finally, we execute the query over the database `city.db` and retrieve
 some results.
 
-> &gt;&gt;&gt; from nltk.sem import chat80 &gt;&gt;&gt; rows =
-> chat80.sql\_query('corpora/city\_database/city.db', q) &gt;&gt;&gt;
+> >>> from nltk.sem import chat80
+> >>> rows =
+> chat80.sql\_query('corpora/city\_database/city.db', q)
+> >>>
 > for r in rows: print(r\[0\], end=" ") \# \[\_tuple-val\] canton
 > chungking dairen harbin kowloon mukden peking shanghai sian tientsin
 
@@ -359,8 +368,8 @@ varying conventions for representing boolean operators. Since we will be
 focusing on ways of exploring logic within NLTK, we will stick to the
 following ASCII versions of the operators:
 
-> &gt;&gt;&gt; nltk.boolean\_ops() negation - conjunction & disjunction
-> | implication -&gt; equivalence &lt;-&gt;
+> >>> nltk.boolean\_ops() negation - conjunction & disjunction
+> | implication -> equivalence <->
 
 From the propositional symbols and the boolean operators we can build an
 infinite set of well formed formulas (or just formulas, for short) of
@@ -384,12 +393,15 @@ true.
 NLTKs `Expression` object can process logical expressions into various
 subclasses of `Expression`:
 
-> &gt;&gt;&gt; read\_expr = nltk.sem.Expression.fromstring &gt;&gt;&gt;
-> read\_expr('-(P & Q)') &lt;NegatedExpression -(P & Q)&gt; &gt;&gt;&gt;
-> read\_expr('P & Q') &lt;AndExpression (P & Q)&gt; &gt;&gt;&gt;
-> read\_expr('P | (R -&gt; Q)') &lt;OrExpression (P | (R -&gt; Q))&gt;
-> &gt;&gt;&gt; read\_expr('P &lt;-&gt; -- P') &lt;IffExpression (P
-> &lt;-&gt; --P)&gt;
+> >>> read\_expr = nltk.sem.Expression.fromstring
+> >>>
+> read\_expr('-(P & Q)') <NegatedExpression -(P & Q)>
+> >>>
+> read\_expr('P & Q') <AndExpression (P & Q)>
+> >>>
+> read\_expr('P | (R -> Q)') <OrExpression (P | (R -> Q))>
+> >>> read\_expr('P <-> -- P') <IffExpression (P
+> <-> --P)>
 
 From a computational perspective, logics give us an important tool for
 performing inference. Suppose you state that Freedonia is not to the
@@ -452,10 +464,14 @@ example *via* an interface to the third-party theorem prover Prover9.
 The inputs to the inference mechanism first have to be converted into
 logical expressions.
 
-> &gt;&gt;&gt; lp = nltk.sem.Expression.fromstring &gt;&gt;&gt; SnF =
-> read\_expr('SnF') &gt;&gt;&gt; NotFnS = read\_expr('-FnS')
-> &gt;&gt;&gt; R = read\_expr('SnF -&gt; -FnS') &gt;&gt;&gt; prover =
-> nltk.Prover9() &gt;&gt;&gt; prover.prove(NotFnS, \[SnF, R\]) True
+> >>> lp = nltk.sem.Expression.fromstring
+> >>> SnF =
+> read\_expr('SnF')
+> >>> NotFnS = read\_expr('-FnS')
+> >>> R = read\_expr('SnF -> -FnS')
+> >>> prover =
+> nltk.Prover9()
+> >>> prover.prove(NotFnS, \[SnF, R\]) True
 
 Here's another way of seeing why the conclusion follows. `SnF -> -FnS`
 is semantically equivalent to `-SnF | -FnS`, where "`|`" is the
@@ -476,7 +492,7 @@ of complex formulas by consulting the meanings of the boolean operators
 formula's components. A `Valuation` is a mapping from basic expressions
 of the logic to their values. Here's an example:
 
-> &gt;&gt;&gt; val = nltk.Valuation(\[('P', True), ('Q', True), ('R',
+> >>> val = nltk.Valuation(\[('P', True), ('Q', True), ('R',
 > False)\])
 
 We initialize a `Valuation` with a list of pairs, each of which consists
@@ -484,27 +500,31 @@ of a semantic symbol and a semantic value. The resulting object is
 essentially just a dictionary that maps logical expressions (treated as
 strings) to appropriate values.
 
-> &gt;&gt;&gt; val\['P'\] True
+> >>> val\['P'\] True
 
 As we will see later, our models need to be somewhat more complicated in
 order to handle the more complex logical forms discussed in the next
 section; for the time being, just ignore the `dom` and `g` parameters in
 the following declarations.
 
-> &gt;&gt;&gt; dom = set() &gt;&gt;&gt; g = nltk.Assignment(dom)
+> >>> dom = set()
+> >>> g = nltk.Assignment(dom)
 
 Now let's initialize a model `m` that uses `val`:
 
-> &gt;&gt;&gt; m = nltk.Model(dom, val)
+> >>> m = nltk.Model(dom, val)
 
 Every model comes with an `evaluate()` method, which will determine the
 semantic value of logical expressions, such as formulas of propositional
 logic; of course, these values depend on the initial truth values we
 assigned to propositional symbols such as `P`, `Q` and `R`.
 
-> &gt;&gt;&gt; print(m.evaluate('(P & Q)', g)) True &gt;&gt;&gt;
-> print(m.evaluate('-(P & Q)', g)) False &gt;&gt;&gt;
-> print(m.evaluate('(P & R)', g)) False &gt;&gt;&gt;
+> >>> print(m.evaluate('(P & Q)', g)) True
+> >>>
+> print(m.evaluate('-(P & Q)', g)) False
+> >>>
+> print(m.evaluate('(P & R)', g)) False
+> >>>
 > print(m.evaluate('(P | R)', g)) True
 
 > **note**
@@ -582,11 +602,16 @@ functions from 'σ things' to 'τ things'. For example,
 values, namely unary predicates. The logical expression can be processed
 with type checking.
 
-> &gt;&gt;&gt; read\_expr = nltk.sem.Expression.fromstring &gt;&gt;&gt;
-> expr = read\_expr('walk(angus)', type\_check=True) &gt;&gt;&gt;
-> expr.argument &lt;ConstantExpression angus&gt; &gt;&gt;&gt;
-> expr.argument.type e &gt;&gt;&gt; expr.function &lt;ConstantExpression
-> walk&gt; &gt;&gt;&gt; expr.function.type &lt;e,?&gt;
+> >>> read\_expr = nltk.sem.Expression.fromstring
+> >>>
+> expr = read\_expr('walk(angus)', type\_check=True)
+> >>>
+> expr.argument <ConstantExpression angus>
+> >>>
+> expr.argument.type e
+> >>> expr.function <ConstantExpression
+> walk>
+> >>> expr.function.type <e,?>
 
 Why do we see `<e,?>` at the end of this example? Although the
 type-checker will try to infer as many types as possible, in this case
@@ -597,8 +622,10 @@ of some other type such as `<e, e>` or `<e, <e, t>`. To help the
 type-checker, we need to specify a signature, implemented as a
 dictionary that explicitly associates types with non-logical constants:
 
-> &gt;&gt;&gt; sig = {'walk': '&lt;e, t&gt;'} &gt;&gt;&gt; expr =
-> read\_expr('walk(angus)', signature=sig) &gt;&gt;&gt;
+> >>> sig = {'walk': '<e, t>'}
+> >>> expr =
+> read\_expr('walk(angus)', signature=sig)
+> >>>
 > expr.function.type e
 
 A binary predicate has type ⟨e, ⟨
@@ -685,13 +712,18 @@ and returns objects of class `Expression`. Each instance `expr` of this
 class comes with a method `free()` which returns the set of variables
 that are free in `expr`.
 
-> &gt;&gt;&gt; read\_expr = nltk.sem.Expression.fromstring &gt;&gt;&gt;
-> read\_expr('dog(cyril)').free() set() &gt;&gt;&gt;
-> read\_expr('dog(x)').free() {Variable('x')} &gt;&gt;&gt;
-> read\_expr('own(angus, cyril)').free() set() &gt;&gt;&gt;
-> read\_expr('exists x.dog(x)').free() set() &gt;&gt;&gt;
-> read\_expr('((some x. walk(x)) -&gt; sing(x))').free() {Variable('x')}
-> &gt;&gt;&gt; read\_expr('exists x.own(y, x)').free() {Variable('y')}
+> >>> read\_expr = nltk.sem.Expression.fromstring
+> >>>
+> read\_expr('dog(cyril)').free() set()
+> >>>
+> read\_expr('dog(x)').free() {Variable('x')}
+> >>>
+> read\_expr('own(angus, cyril)').free() set()
+> >>>
+> read\_expr('exists x.dog(x)').free() set()
+> >>>
+> read\_expr('((some x. walk(x)) -> sing(x))').free() {Variable('x')}
+> >>> read\_expr('exists x.own(y, x)').free() {Variable('y')}
 
 ### First Order Theorem Proving
 
@@ -721,18 +753,21 @@ and the two assumptions ass1\_ ass2\_. Then we create a `Prover9`
 instance new-prover\_, and call its `prove()` method on the goal, given
 the list of assumptions prove\_.
 
-> &gt;&gt;&gt; NotFnS = read\_expr('-north\_of(f, s)') \# \[\_goal\]
-> &gt;&gt;&gt; SnF = read\_expr('north\_of(s, f)') \# \[\_ass1\]
-> &gt;&gt;&gt; R = read\_expr('all x. all y. (north\_of(x, y) -&gt;
-> -north\_of(y, x))') \# \[\_ass2\] &gt;&gt;&gt; prover = nltk.Prover9()
-> \# \[\_new-prover\] &gt;&gt;&gt; prover.prove(NotFnS, \[SnF, R\]) \#
+> >>> NotFnS = read\_expr('-north\_of(f, s)') \# \[\_goal\]
+> >>> SnF = read\_expr('north\_of(s, f)') \# \[\_ass1\]
+> >>> R = read\_expr('all x. all y. (north\_of(x, y) ->
+> -north\_of(y, x))') \# \[\_ass2\]
+> >>> prover = nltk.Prover9()
+> \# \[\_new-prover\]
+> >>> prover.prove(NotFnS, \[SnF, R\]) \#
 > \[\_prove\] True
 
 Happily, the theorem prover agrees with us that the argument is valid.
 By contrast, it concludes that it is not possible to infer
 `north_of(f, s)` from our assumptions:
 
-> &gt;&gt;&gt; FnS = read\_expr('north\_of(f, s)') &gt;&gt;&gt;
+> >>> FnS = read\_expr('north\_of(f, s)')
+> >>>
 > prover.prove(FnS, \[SnF, R\]) False
 
 ### Summarizing the Language of First Order Logic
@@ -802,15 +837,16 @@ Cyril, where Bertie is a boy, Olive is a girl and Cyril is a dog. For
 mnemonic reasons, we use `b`, `o` and `c` as the corresponding labels in
 the model. We can declare the domain as follows:
 
-> &gt;&gt;&gt; dom = {'b', 'o', 'c'}
+> >>> dom = {'b', 'o', 'c'}
 
 We will use the utility function `Valuation.fromstring()` to convert a
 list of strings of the form symbol `=>` value into a `Valuation` object.
 
-> &gt;&gt;&gt; v = """ ... bertie =&gt; b ... olive =&gt; o ... cyril
-> =&gt; c ... boy =&gt; {b} ... girl =&gt; {o} ... dog =&gt; {c} ...
-> walk =&gt; {o, c} ... see =&gt; {(b, o), (c, b), (o, c)} ... """
-> &gt;&gt;&gt; val = nltk.Valuation.fromstring(v) &gt;&gt;&gt;
+> >>> v = """ ... bertie => b ... olive => o ... cyril
+> => c ... boy => {b} ... girl => {o} ... dog => {c} ...
+> walk => {o, c} ... see => {(b, o), (c, b), (o, c)} ... """
+> >>> val = nltk.Valuation.fromstring(v)
+> >>>
 > print(val) {'bertie': 'b', 'boy': {('b',)}, 'cyril': 'c', 'dog':
 > {('c',)}, 'girl': {('o',)}, 'olive': 'o', 'see': {('o', 'c'), ('c',
 > 'b'), ('b', 'o')}, 'walk': {('c',), ('o',)}}
@@ -832,7 +868,8 @@ $P$(τ~1~, ... τ~n~), where $P$ is of arity $n$, comes out true
 just in case the tuple of values corresponding to (τ~1~, ... τ
 ~n~) belongs to the set of tuples in the value of $P$.
 
-> &gt;&gt;&gt; ('o', 'c') in val\['see'\] True &gt;&gt;&gt; ('b',) in
+> >>> ('o', 'c') in val\['see'\] True
+> >>> ('b',) in
 > val\['boy'\] True
 
 ### Individual Variables and Assignments
@@ -844,19 +881,20 @@ which also takes the model's domain of discourse as a parameter. We are
 not required to actually enter any bindings, but if we do, they are in a
 (variable, value) format similar to what we saw earlier for valuations.
 
-> &gt;&gt;&gt; g = nltk.Assignment(dom, \[('x', 'o'), ('y', 'c')\])
-> &gt;&gt;&gt; g {'y': 'c', 'x': 'o'}
+> >>> g = nltk.Assignment(dom, \[('x', 'o'), ('y', 'c')\])
+> >>> g {'y': 'c', 'x': 'o'}
 
 In addition, there is a `print()` format for assignments which uses a
 notation closer to that often found in logic textbooks:
 
-> &gt;&gt;&gt; print(g) g\[c/y\]\[o/x\]
+> >>> print(g) g\[c/y\]\[o/x\]
 
 Let's now look at how we can evaluate an atomic formula of FOL. First,
 we create a model, then we call the `evaluate()` method to compute the
 truth value.
 
-> &gt;&gt;&gt; m = nltk.Model(dom, val) &gt;&gt;&gt;
+> >>> m = nltk.Model(dom, val)
+> >>>
 > m.evaluate('see(olive, y)', g) True
 
 What's happening here? We are evaluating a formula which is similar to
@@ -865,7 +903,7 @@ interpretation function encounters the variable `y`, rather than
 checking for a value in `val`, it asks the variable assignment `g` to
 come up with a value:
 
-> &gt;&gt;&gt; g\['y'\] 'c'
+> >>> g\['y'\] 'c'
 
 Since we already know that individuals `o` and `c` stand in the see
 relation, the value `True` is what we expected. In this case, we can say
@@ -873,26 +911,27 @@ that assignment `g` satisfies the formula `see(olive, y)`. By contrast,
 the following formula evaluates to `False` relative to `g` — check
 that you see why this is.
 
-> &gt;&gt;&gt; m.evaluate('see(y, x)', g) False
+> >>> m.evaluate('see(y, x)', g) False
 
 In our approach (though not in standard FOL), variable assignments are
 partial. For example, `g` says nothing about any variables apart from
 `x` and `y`. The method `purge()` clears all bindings from an
 assignment.
 
-> &gt;&gt;&gt; g.purge() &gt;&gt;&gt; g {}
+> >>> g.purge()
+> >>> g {}
 
 If we now try to evaluate a formula such as `see(olive, y)` relative to
 `g`, it is like trying to interpret a sentence containing a him when we
 don't know what him refers to. In this case, the evaluation function
 fails to deliver a truth value.
 
-> &gt;&gt;&gt; m.evaluate('see(olive, y)', g) 'Undefined'
+> >>> m.evaluate('see(olive, y)', g) 'Undefined'
 
 Since our models already contain rules for interpreting boolean
 operators, arbitrarily complex formulas can be composed and evaluated.
 
-> &gt;&gt;&gt; m.evaluate('see(bertie, olive) & boy(bertie) &
+> >>> m.evaluate('see(bertie, olive) & boy(bertie) &
 > -walk(bertie)', g) True
 
 The general process of determining truth or falsity of a formula in a
@@ -914,25 +953,30 @@ formula [ex-exists2](..%20ex::%20%60%60girl(x)%20&%20walk(x)%60%60).
 
 Consider the following:
 
-> &gt;&gt;&gt; m.evaluate('exists x.(girl(x) & walk(x))', g) True
+> >>> m.evaluate('exists x.(girl(x) & walk(x))', g) True
 
 `evaluate()` returns `True` here because there is some *u* in `dom` such
 that [ex-exists2](..%20ex::%20%60%60girl(x)%20&%20walk(x)%60%60) is
 satisfied by an assignment which binds `x` to *u*. In fact, `o` is such
 a *u*:
 
-> &gt;&gt;&gt; m.evaluate('girl(x) & walk(x)', g.add('x', 'o')) True
+> >>> m.evaluate('girl(x) & walk(x)', g.add('x', 'o')) True
 
 One useful tool offered by NLTK is the `satisfiers()` method. This
 returns a set of all the individuals that satisfy an open formula. The
 method parameters are a parsed formula, a variable, and an assignment.
 Here are a few examples:
 
-> &gt;&gt;&gt; fmla1 = read\_expr('girl(x) | boy(x)') &gt;&gt;&gt;
-> m.satisfiers(fmla1, 'x', g) {'b', 'o'} &gt;&gt;&gt; fmla2 =
-> read\_expr('girl(x) -&gt; walk(x)') &gt;&gt;&gt; m.satisfiers(fmla2,
-> 'x', g) {'c', 'b', 'o'} &gt;&gt;&gt; fmla3 = read\_expr('walk(x) -&gt;
-> girl(x)') &gt;&gt;&gt; m.satisfiers(fmla3, 'x', g) {'b', 'o'}
+> >>> fmla1 = read\_expr('girl(x) | boy(x)')
+> >>>
+> m.satisfiers(fmla1, 'x', g) {'b', 'o'}
+> >>> fmla2 =
+> read\_expr('girl(x) -> walk(x)')
+> >>> m.satisfiers(fmla2,
+> 'x', g) {'c', 'b', 'o'}
+> >>> fmla3 = read\_expr('walk(x) ->
+> girl(x)')
+> >>> m.satisfiers(fmla3, 'x', g) {'b', 'o'}
 
 It's useful to think about why `fmla2` and `fmla3` receive the values
 they do. The truth conditions for `->` mean that `fmla2` is equivalent
@@ -943,7 +987,7 @@ of course `o` satisfies the formula because `o` satisfies both
 disjuncts. Now, since every member of the domain of discourse satisfies
 `fmla2`, the corresponding universally quantified formula is also true.
 
-> &gt;&gt;&gt; m.evaluate('all x.(girl(x) -&gt; walk(x))', g) True
+> >>> m.evaluate('all x.(girl(x) -> walk(x))', g) True
 
 In other words, a universally quantified formula ∀
 x.φ is true with respect to `g` just in case for every *u*, φ is
@@ -987,9 +1031,10 @@ for truth in a model.
 In order to examine the ambiguity more closely, let's fix our valuation
 as follows:
 
-> &gt;&gt;&gt; v2 = """ ... bruce =&gt; b ... elspeth =&gt; e ... julia
-> =&gt; j ... matthew =&gt; m ... person =&gt; {b, e, j, m} ... admire
-> =&gt; {(j, b), (b, b), (m, e), (e, m)} ... """ &gt;&gt;&gt; val2 =
+> >>> v2 = """ ... bruce => b ... elspeth => e ... julia
+> => j ... matthew => m ... person => {b, e, j, m} ... admire
+> => {(j, b), (b, b), (m, e), (e, m)} ... """
+> >>> val2 =
 > nltk.Valuation.fromstring(v2)
 
 The admire relation can be visualized using the mapping diagram shown in
@@ -1003,24 +1048,29 @@ admires `m` and `m` admires `e`. In this model, formula ex-scope2a\_
 above is true but ex-scope2b\_ is false. One way of exploring these
 results is by using the `satisfiers()` method of `Model` objects.
 
-> &gt;&gt;&gt; dom2 = val2.domain &gt;&gt;&gt; m2 = nltk.Model(dom2,
-> val2) &gt;&gt;&gt; g2 = nltk.Assignment(dom2) &gt;&gt;&gt; fmla4 =
-> read\_expr('(person(x) -&gt; exists y.(person(y) & admire(x, y)))')
-> &gt;&gt;&gt; m2.satisfiers(fmla4, 'x', g2) {'e', 'b', 'm', 'j'}
+> >>> dom2 = val2.domain
+> >>> m2 = nltk.Model(dom2,
+> val2)
+> >>> g2 = nltk.Assignment(dom2)
+> >>> fmla4 =
+> read\_expr('(person(x) -> exists y.(person(y) & admire(x, y)))')
+> >>> m2.satisfiers(fmla4, 'x', g2) {'e', 'b', 'm', 'j'}
 
 This shows that `fmla4` holds of every individual in the domain. By
 contrast, consider the formula `fmla5` below; this has no satisfiers for
 the variable `y`.
 
-> &gt;&gt;&gt; fmla5 = read\_expr('(person(y) & all x.(person(x) -&gt;
-> admire(x, y)))') &gt;&gt;&gt; m2.satisfiers(fmla5, 'y', g2) set()
+> >>> fmla5 = read\_expr('(person(y) & all x.(person(x) ->
+> admire(x, y)))')
+> >>> m2.satisfiers(fmla5, 'y', g2) set()
 
 That is, there is no person that is admired by everybody. Taking a
 different open formula, `fmla6`, we can verify that there is a person,
 namely Bruce, who is admired by both Julia and Bruce.
 
-> &gt;&gt;&gt; fmla6 = read\_expr('(person(y) & all x.((x = bruce | x =
-> julia) -&gt; admire(x, y)))') &gt;&gt;&gt; m2.satisfiers(fmla6, 'y',
+> >>> fmla6 = read\_expr('(person(y) & all x.((x = bruce | x =
+> julia) -> admire(x, y)))')
+> >>> m2.satisfiers(fmla6, 'y',
 > g2) {'b'}
 
 > **note**
@@ -1045,12 +1095,14 @@ following interaction shows how both `[a, c1]` and `[a, c2]` are
 consistent lists, since Mace succeeds in building a model for each of
 them, while `[c1, c2]` is inconsistent.
 
-> &gt;&gt;&gt; a3 = read\_expr('exists x.(man(x) & walks(x))')
-> &gt;&gt;&gt; c1 = read\_expr('mortal(socrates)') &gt;&gt;&gt; c2 =
-> read\_expr('-mortal(socrates)') &gt;&gt;&gt; mb = nltk.Mace(5)
-> &gt;&gt;&gt; print(mb.build\_model(None, \[a3, c1\])) True
-> &gt;&gt;&gt; print(mb.build\_model(None, \[a3, c2\])) True
-> &gt;&gt;&gt; print(mb.build\_model(None, \[c1, c2\])) False
+> >>> a3 = read\_expr('exists x.(man(x) & walks(x))')
+> >>> c1 = read\_expr('mortal(socrates)')
+> >>> c2 =
+> read\_expr('-mortal(socrates)')
+> >>> mb = nltk.Mace(5)
+> >>> print(mb.build\_model(None, \[a3, c1\])) True
+> >>> print(mb.build\_model(None, \[a3, c2\])) True
+> >>> print(mb.build\_model(None, \[c1, c2\])) False
 
 We can also use the model builder as an adjunct to the theorem prover.
 Let's suppose we are trying to prove `S` ⊢ `g`, i.e. that `g` is
@@ -1073,17 +1125,21 @@ which the premises are true but the conclusion is false? In the
 following code, we use `MaceCommand()` which will let us inspect the
 model that has been built.
 
-> &gt;&gt;&gt; a4 = read\_expr('exists y. (woman(y) & all x. (man(x)
-> -&gt; love(x,y)))') &gt;&gt;&gt; a5 = read\_expr('man(adam)')
-> &gt;&gt;&gt; a6 = read\_expr('woman(eve)') &gt;&gt;&gt; g =
-> read\_expr('love(adam,eve)') &gt;&gt;&gt; mc = nltk.MaceCommand(g,
-> assumptions=\[a4, a5, a6\]) &gt;&gt;&gt; mc.build\_model() True
+> >>> a4 = read\_expr('exists y. (woman(y) & all x. (man(x)
+> -> love(x,y)))')
+> >>> a5 = read\_expr('man(adam)')
+> >>> a6 = read\_expr('woman(eve)')
+> >>> g =
+> read\_expr('love(adam,eve)')
+> >>> mc = nltk.MaceCommand(g,
+> assumptions=\[a4, a5, a6\])
+> >>> mc.build\_model() True
 
 So the answer is Yes: Mace4 found a countermodel in which there is some
 woman other than Eve that Adam loves. But let's have a closer look at
 Mace4's model, converted to the format we use for valuations.
 
-> &gt;&gt;&gt; print(mc.valuation) {'C1': 'b', 'adam': 'a', 'eve': 'a',
+> >>> print(mc.valuation) {'C1': 'b', 'adam': 'a', 'eve': 'a',
 > 'love': {('a', 'b')}, 'man': {('a',)}, 'woman': {('a',), ('b',)}}
 
 The general form of this valuation should be familiar to you: it
@@ -1107,10 +1163,13 @@ about. So let's add a new assumption which makes the sets of men and
 women disjoint. The model builder still produces a countermodel, but
 this time it is more in accord with our intuitions about the situation:
 
-> &gt;&gt;&gt; a7 = read\_expr('all x. (man(x) -&gt; -woman(x))')
-> &gt;&gt;&gt; g = read\_expr('love(adam,eve)') &gt;&gt;&gt; mc =
-> nltk.MaceCommand(g, assumptions=\[a4, a5, a6, a7\]) &gt;&gt;&gt;
-> mc.build\_model() True &gt;&gt;&gt; print(mc.valuation) {'C1': 'c',
+> >>> a7 = read\_expr('all x. (man(x) -> -woman(x))')
+> >>> g = read\_expr('love(adam,eve)')
+> >>> mc =
+> nltk.MaceCommand(g, assumptions=\[a4, a5, a6, a7\])
+> >>>
+> mc.build\_model() True
+> >>> print(mc.valuation) {'C1': 'c',
 > 'adam': 'a', 'eve': 'b', 'love': {('a', 'c')}, 'man': {('a',)},
 > 'woman': {('c',), ('b',)}}
 
@@ -1238,10 +1297,14 @@ Remember that `\` is a special character in Python strings. We could
 escape it (with another `\`), or else use "raw strings"
 (sec-regular-expressions-word-patterns\_):
 
-> &gt;&gt;&gt; read\_expr = nltk.sem.Expression.fromstring &gt;&gt;&gt;
-> expr = read\_expr(r'x.(walk(x) & chew\_gum(x))') &gt;&gt;&gt; expr
-> &lt;LambdaExpression x.(walk(x) & chew\_gum(x))&gt; &gt;&gt;&gt;
-> expr.free() set() &gt;&gt;&gt; print(read\_expr(r'x.(walk(x) &
+> >>> read\_expr = nltk.sem.Expression.fromstring
+> >>>
+> expr = read\_expr(r'x.(walk(x) & chew\_gum(x))')
+> >>> expr
+> <LambdaExpression x.(walk(x) & chew\_gum(x))>
+> >>>
+> expr.free() set()
+> >>> print(read\_expr(r'x.(walk(x) &
 > chew\_gum(y))')) x.(walk(x) & chew\_gum(y))
 
 We have a special name for the result of binding the variables in an
@@ -1296,9 +1359,9 @@ This is indeed true, subject to a slight complication that we will come
 to shortly. In order to carry of β-reduction of expressions in
 NLTK, we can call the `simplify()` method simplify\_.
 
-> &gt;&gt;&gt; expr = read\_expr(r'x.(walk(x) & chew\_gum(x))(gerald)')
-> &gt;&gt;&gt; print(expr) x.(walk(x) & chew\_gum(x))(gerald)
-> &gt;&gt;&gt; print(expr.simplify()) \# \[\_simplify\] (walk(gerald) &
+> >>> expr = read\_expr(r'x.(walk(x) & chew\_gum(x))(gerald)')
+> >>> print(expr) x.(walk(x) & chew\_gum(x))(gerald)
+> >>> print(expr.simplify()) \# \[\_simplify\] (walk(gerald) &
 > chew\_gum(gerald))
 
 Although we have so far only considered cases where the body of the
@@ -1313,8 +1376,9 @@ arguments dbl-lambda\_. Logical expressions may contain nested λs
 such as `\x.\y.` to be written in the abbreviated form `\x y.`
 dbl-lambda\_.
 
-> &gt;&gt;&gt; print(read\_expr(r'x.y.(dog(x) & own(y,
-> x))(cyril)').simplify()) y.(dog(cyril) & own(y,cyril)) &gt;&gt;&gt;
+> >>> print(read\_expr(r'x.y.(dog(x) & own(y,
+> x))(cyril)').simplify()) y.(dog(cyril) & own(y,cyril))
+> >>>
 > print(read\_expr(r'x y.(dog(x) & own(y, x))(cyril,
 > angus)').simplify()) \# \[\_dbl-lambda\] (dog(cyril) &
 > own(angus,cyril))
@@ -1366,10 +1430,14 @@ as α-conversion. When we test for equality of
 `VariableBinderExpression`s in the `logic` module (i.e., using `==`), we
 are in fact testing for α-equivalence:
 
-> &gt;&gt;&gt; expr1 = read\_expr('exists x.P(x)') &gt;&gt;&gt;
-> print(expr1) exists x.P(x) &gt;&gt;&gt; expr2 =
-> expr1.alpha\_convert(nltk.sem.Variable('z')) &gt;&gt;&gt; print(expr2)
-> exists z.P(z) &gt;&gt;&gt; expr1 == expr2 True
+> >>> expr1 = read\_expr('exists x.P(x)')
+> >>>
+> print(expr1) exists x.P(x)
+> >>> expr2 =
+> expr1.alpha\_convert(nltk.sem.Variable('z'))
+> >>> print(expr2)
+> exists z.P(z)
+> >>> expr1 == expr2 True
 
 When β-reduction is carried out on an application `f(a)`, we check
 whether there are free variables in `a` which also occur as bound
@@ -1381,8 +1449,9 @@ reduction. This relabeling is carried out automatically by the
 β-reduction code in `logic`, and the results can be seen in the
 following example.
 
-> &gt;&gt;&gt; expr3 = read\_expr('P.(exists x.P(x))(y.see(y, x))')
-> &gt;&gt;&gt; print(expr3) (P.exists x.P(x))(y.see(y,x)) &gt;&gt;&gt;
+> >>> expr3 = read\_expr('P.(exists x.P(x))(y.see(y, x))')
+> >>> print(expr3) (P.exists x.P(x))(y.see(y,x))
+> >>>
 > print(expr3.simplify()) exists z1.see(z1,x)
 
 > **note**
@@ -1513,11 +1582,16 @@ the result after β-reduction is equivalent to
 [ex-sem99](..%20ex::%20%60%60\y.exists%20x.(dog(x)%20&%20chase(y,%20x))%60%60),
 which is what we wanted all along:
 
-> &gt;&gt;&gt; read\_expr = nltk.sem.Expression.fromstring &gt;&gt;&gt;
-> tvp = read\_expr(r'X x.X(y.chase(x,y))') &gt;&gt;&gt; np =
-> read\_expr(r'(P.exists x.(dog(x) & P(x)))') &gt;&gt;&gt; vp =
-> nltk.sem.ApplicationExpression(tvp, np) &gt;&gt;&gt; print(vp) (X
-> x.X(y.chase(x,y)))(P.exists x.(dog(x) & P(x))) &gt;&gt;&gt;
+> >>> read\_expr = nltk.sem.Expression.fromstring
+> >>>
+> tvp = read\_expr(r'X x.X(y.chase(x,y))')
+> >>> np =
+> read\_expr(r'(P.exists x.(dog(x) & P(x)))')
+> >>> vp =
+> nltk.sem.ApplicationExpression(tvp, np)
+> >>> print(vp) (X
+> x.X(y.chase(x,y)))(P.exists x.(dog(x) & P(x)))
+> >>>
 > print(vp.simplify()) x.exists z2.(dog(z2) & chase(x,z2))
 
 In order to build a semantic representation for a sentence, we also need
@@ -1548,12 +1622,15 @@ The grammar `simple-sem.fcfg` contains a small set of rules for parsing
 and translating simple examples of the kind that we have been looking
 at. Here's a slightly more complicated example.
 
-> &gt;&gt;&gt; from nltk import load\_parser &gt;&gt;&gt; parser =
+> >>> from nltk import load\_parser
+> >>> parser =
 > load\_parser('grammars/book\_grammars/simple-sem.fcfg', trace=0)
-> &gt;&gt;&gt; sentence = 'Angus gives a bone to every dog' &gt;&gt;&gt;
-> tokens = sentence.split() &gt;&gt;&gt; for tree in
+> >>> sentence = 'Angus gives a bone to every dog'
+> >>>
+> tokens = sentence.split()
+> >>> for tree in
 > parser.parse(tokens): ... print(tree.label()\['SEM'\]) all z2.(dog(z2)
-> -&gt; exists z1.(bone(z1) & give(angus,z1,z2)))
+> -> exists z1.(bone(z1) & give(angus,z1,z2)))
 
 NLTK provides some utilities to make it easier to derive and inspect
 semantic interpretations. The function `interpret_sents()` is intended
@@ -1564,23 +1641,23 @@ representations for `sent`. The value is a list since `sent` may be
 syntactically ambiguous; in the following example, however, there is
 only one parse tree per sentence in the list.
 
-> &gt;&gt;&gt; sents = \['Irene walks', 'Cyril bites an ankle'\]
-> &gt;&gt;&gt; grammar\_file = 'grammars/book\_grammars/simple-sem.fcfg'
-> &gt;&gt;&gt; for results in nltk.interpret\_sents(sents,
+> >>> sents = \['Irene walks', 'Cyril bites an ankle'\]
+> >>> grammar\_file = 'grammars/book\_grammars/simple-sem.fcfg'
+> >>> for results in nltk.interpret\_sents(sents,
 > grammar\_file): ... for (synrep, semrep) in results: ... print(synrep)
-> (S\[SEM=&lt;walk(irene)&gt;\] (NP\[-LOC, NUM='sg',
-> SEM=&lt;P.P(irene)&gt;\] (PropN\[-LOC, NUM='sg',
-> SEM=&lt;P.P(irene)&gt;\] Irene)) (VP\[NUM='sg',
-> SEM=&lt;x.walk(x)&gt;\] (IV\[NUM='sg', SEM=&lt;x.walk(x)&gt;,
-> TNS='pres'\] walks))) (S\[SEM=&lt;exists z3.(ankle(z3) &
-> bite(cyril,z3))&gt;\] (NP\[-LOC, NUM='sg', SEM=&lt;P.P(cyril)&gt;\]
-> (PropN\[-LOC, NUM='sg', SEM=&lt;P.P(cyril)&gt;\] Cyril))
-> (VP\[NUM='sg', SEM=&lt;x.exists z3.(ankle(z3) & bite(x,z3))&gt;\]
-> (TV\[NUM='sg', SEM=&lt;X x.X(y.bite(x,y))&gt;, TNS='pres'\] bites)
-> (NP\[NUM='sg', SEM=&lt;Q.exists x.(ankle(x) & Q(x))&gt;\]
-> (Det\[NUM='sg', SEM=&lt;P Q.exists x.(P(x) & Q(x))&gt;\] an)
-> (Nom\[NUM='sg', SEM=&lt;x.ankle(x)&gt;\] (N\[NUM='sg',
-> SEM=&lt;x.ankle(x)&gt;\] ankle)))))
+> (S\[SEM=<walk(irene)>\] (NP\[-LOC, NUM='sg',
+> SEM=<P.P(irene)>\] (PropN\[-LOC, NUM='sg',
+> SEM=<P.P(irene)>\] Irene)) (VP\[NUM='sg',
+> SEM=<x.walk(x)>\] (IV\[NUM='sg', SEM=<x.walk(x)>,
+> TNS='pres'\] walks))) (S\[SEM=<exists z3.(ankle(z3) &
+> bite(cyril,z3))>\] (NP\[-LOC, NUM='sg', SEM=<P.P(cyril)>\]
+> (PropN\[-LOC, NUM='sg', SEM=<P.P(cyril)>\] Cyril))
+> (VP\[NUM='sg', SEM=<x.exists z3.(ankle(z3) & bite(x,z3))>\]
+> (TV\[NUM='sg', SEM=<X x.X(y.bite(x,y))>, TNS='pres'\] bites)
+> (NP\[NUM='sg', SEM=<Q.exists x.(ankle(x) & Q(x))>\]
+> (Det\[NUM='sg', SEM=<P Q.exists x.(P(x) & Q(x))>\] an)
+> (Nom\[NUM='sg', SEM=<x.ankle(x)>\] (N\[NUM='sg',
+> SEM=<x.ankle(x)>\] ankle)))))
 
 We have seen now how to convert English sentences into logical forms,
 and earlier we saw how logical forms could be checked as true or false
@@ -1593,16 +1670,21 @@ assignment as parameters. The output is a triple (*synrep*, *semrep*,
 value. For simplicity, the following example only processes a single
 sentence.
 
-> &gt;&gt;&gt; v = """ ... bertie =&gt; b ... olive =&gt; o ... cyril
-> =&gt; c ... boy =&gt; {b} ... girl =&gt; {o} ... dog =&gt; {c} ...
-> walk =&gt; {o, c} ... see =&gt; {(b, o), (c, b), (o, c)} ... """
-> &gt;&gt;&gt; val = nltk.Valuation.fromstring(v) &gt;&gt;&gt; g =
-> nltk.Assignment(val.domain) &gt;&gt;&gt; m = nltk.Model(val.domain,
-> val) &gt;&gt;&gt; sent = 'Cyril sees every boy' &gt;&gt;&gt;
-> grammar\_file = 'grammars/book\_grammars/simple-sem.fcfg' &gt;&gt;&gt;
+> >>> v = """ ... bertie => b ... olive => o ... cyril
+> => c ... boy => {b} ... girl => {o} ... dog => {c} ...
+> walk => {o, c} ... see => {(b, o), (c, b), (o, c)} ... """
+> >>> val = nltk.Valuation.fromstring(v)
+> >>> g =
+> nltk.Assignment(val.domain)
+> >>> m = nltk.Model(val.domain,
+> val)
+> >>> sent = 'Cyril sees every boy'
+> >>>
+> grammar\_file = 'grammars/book\_grammars/simple-sem.fcfg'
+> >>>
 > results = nltk.evaluate\_sents(\[sent\], grammar\_file, m, g)\[0\]
-> &gt;&gt;&gt; for (syntree, semrep, value) in results: ...
-> print(semrep) ... print(value) all z4.(boy(z4) -&gt; see(cyril,z4))
+> >>> for (syntree, semrep, value) in results: ...
+> print(semrep) ... print(value) all z4.(boy(z4) -> see(cyril,z4))
 > True
 
 ### Quantifier Ambiguity Revisited
@@ -1735,26 +1817,32 @@ storage-style semantic representations into standard logical forms.
 First, we construct a `CooperStore` instance, and inspect its `store`
 and `core`.
 
-> &gt;&gt;&gt; from nltk.sem import cooper\_storage as cs &gt;&gt;&gt;
-> sentence = 'every girl chases a dog' &gt;&gt;&gt; trees =
+> >>> from nltk.sem import cooper\_storage as cs
+> >>>
+> sentence = 'every girl chases a dog'
+> >>> trees =
 > cs.parse\_with\_bindops(sentence,
-> grammar='grammars/book\_grammars/storage.fcfg') &gt;&gt;&gt; semrep =
-> trees\[0\].label()\['SEM'\] &gt;&gt;&gt; cs\_semrep =
-> cs.CooperStore(semrep) &gt;&gt;&gt; print(cs\_semrep.core)
-> chase(z2,z4) &gt;&gt;&gt; for bo in cs\_semrep.store: ... print(bo)
-> bo(P.all x.(girl(x) -&gt; P(x)),z2) bo(P.exists x.(dog(x) & P(x)),z4)
+> grammar='grammars/book\_grammars/storage.fcfg')
+> >>> semrep =
+> trees\[0\].label()\['SEM'\]
+> >>> cs\_semrep =
+> cs.CooperStore(semrep)
+> >>> print(cs\_semrep.core)
+> chase(z2,z4)
+> >>> for bo in cs\_semrep.store: ... print(bo)
+> bo(P.all x.(girl(x) -> P(x)),z2) bo(P.exists x.(dog(x) & P(x)),z4)
 
 Finally we call `s_retrieve()` and check the readings.
 
-> &gt;&gt;&gt; cs\_semrep.s\_retrieve(trace=True) Permutation 1 (P.all
-> x.(girl(x) -&gt; P(x)))(z2.chase(z2,z4)) (P.exists x.(dog(x) &
-> P(x)))(z4.all x.(girl(x) -&gt; chase(x,z4))) Permutation 2 (P.exists
-> x.(dog(x) & P(x)))(z4.chase(z2,z4)) (P.all x.(girl(x) -&gt;
+> >>> cs\_semrep.s\_retrieve(trace=True) Permutation 1 (P.all
+> x.(girl(x) -> P(x)))(z2.chase(z2,z4)) (P.exists x.(dog(x) &
+> P(x)))(z4.all x.(girl(x) -> chase(x,z4))) Permutation 2 (P.exists
+> x.(dog(x) & P(x)))(z4.chase(z2,z4)) (P.all x.(girl(x) ->
 > P(x)))(z2.exists x.(dog(x) & chase(z2,x)))
 >
-> &gt;&gt;&gt; for reading in cs\_semrep.readings: ... print(reading)
-> exists x.(dog(x) & all z3.(girl(z3) -&gt; chase(z3,x))) all x.(girl(x)
-> -&gt; exists z4.(dog(z4) & chase(x,z4)))
+> >>> for reading in cs\_semrep.readings: ... print(reading)
+> exists x.(dog(x) & all z3.(girl(z3) -> chase(z3,x))) all x.(girl(x)
+> -> exists z4.(dog(z4) & chase(x,z4)))
 
 Discourse Semantics
 -------------------
@@ -1829,16 +1917,17 @@ of a list of discourse of referents and a list of DRS conditions:
 The easiest way to build a `DRS` object in NLTK is by parsing a string
 representation parse-drs\_.
 
-> &gt;&gt;&gt; read\_dexpr = nltk.sem.DrtExpression.fromstring
-> &gt;&gt;&gt; drs1 = read\_dexpr('(\[x, y\], \[angus(x), dog(y), own(x,
-> y)\])') \# \[\_parse-drs\] &gt;&gt;&gt; print(drs1)
+> >>> read\_dexpr = nltk.sem.DrtExpression.fromstring
+> >>> drs1 = read\_dexpr('(\[x, y\], \[angus(x), dog(y), own(x,
+> y)\])') \# \[\_parse-drs\]
+> >>> print(drs1)
 > (\[x,y\],\[angus(x), dog(y), own(x,y)\])
 
 We can use the `draw()` method draw-drs\_ to visualize the result, as
 shown in
 [fig-drs-screenshot](..%20figure::%20../images/drs_screenshot0.png:scale:%20180:100:180).
 
-> &gt;&gt;&gt; drs1.draw() \# \[\_draw-drs\] \# doctest: +SKIP
+> >>> drs1.draw() \# \[\_draw-drs\] \# doctest: +SKIP
 
 > DRS Screenshot
 
@@ -1849,7 +1938,7 @@ existential quantifiers, while the conditions were interpreted as though
 they are conjoined. In fact, every DRS can be translated into a
 formula of FOL, and the `fol()` method implements this translation.
 
-> &gt;&gt;&gt; print(drs1.fol()) exists x y.(angus(x) & dog(y) &
+> >>> print(drs1.fol()) exists x y.(angus(x) & dog(y) &
 > own(x,y))
 
 In addition to the functionality available for FOL expressions, DRT
@@ -1859,9 +1948,11 @@ the merged discourse referents and the conditions from both arguments.
 DRS-concatenation automatically α-converts bound variables to
 avoid name-clashes.
 
-> &gt;&gt;&gt; drs2 = read\_dexpr('(\[x\], \[walk(x)\]) + (\[y\],
-> \[run(y)\])') &gt;&gt;&gt; print(drs2) ((\[x\],\[walk(x)\]) +
-> (\[y\],\[run(y)\])) &gt;&gt;&gt; print(drs2.simplify())
+> >>> drs2 = read\_dexpr('(\[x\], \[walk(x)\]) + (\[y\],
+> \[run(y)\])')
+> >>> print(drs2) ((\[x\],\[walk(x)\]) +
+> (\[y\],\[run(y)\]))
+> >>> print(drs2.simplify())
 > (\[x,y\],\[walk(x), run(y)\])
 
 While all the conditions seen so far have been atomic, it is possible to
@@ -1871,9 +1962,10 @@ the sole condition is made up of two sub-DRSs, connected by an
 implication. Again, we can use `fol()` to get a handle on the truth
 conditions.
 
-> &gt;&gt;&gt; drs3 = read\_dexpr('(\[\], \[((\[x\], \[dog(x)\]) -&gt;
-> (\[y\],\[ankle(y), bite(x, y)\]))\])') &gt;&gt;&gt; print(drs3.fol())
-> all x.(dog(x) -&gt; exists y.(ankle(y) & bite(x,y)))
+> >>> drs3 = read\_dexpr('(\[\], \[((\[x\], \[dog(x)\]) ->
+> (\[y\],\[ankle(y), bite(x, y)\]))\])')
+> >>> print(drs3.fol())
+> all x.(dog(x) -> exists y.(ankle(y) & bite(x,y)))
 
 We pointed out earlier that DRT is designed to allow anaphoric
 pronouns to be interpreted by linking to existing discourse referents.
@@ -1885,11 +1977,15 @@ strategy: if the DRS contains a condition of the form `PRO(x)`, the
 method `resolve_anaphora()` replaces this with a condition of the form
 `x = [...]`, where `[...]` is a list of possible antecedents.
 
-> &gt;&gt;&gt; drs4 = read\_dexpr('(\[x, y\], \[angus(x), dog(y), own(x,
-> y)\])') &gt;&gt;&gt; drs5 = read\_dexpr('(\[u, z\], \[PRO(u),
-> irene(z), bite(u, z)\])') &gt;&gt;&gt; drs6 = drs4 + drs5 &gt;&gt;&gt;
+> >>> drs4 = read\_dexpr('(\[x, y\], \[angus(x), dog(y), own(x,
+> y)\])')
+> >>> drs5 = read\_dexpr('(\[u, z\], \[PRO(u),
+> irene(z), bite(u, z)\])')
+> >>> drs6 = drs4 + drs5
+> >>>
 > print(drs6.simplify()) (\[u,x,y,z\],\[angus(x), dog(y), own(x,y),
-> PRO(u), irene(z), bite(u,z)\]) &gt;&gt;&gt;
+> PRO(u), irene(z), bite(u,z)\])
+> >>>
 > print(drs6.simplify().resolve\_anaphora()) (\[u,x,y,z\],\[angus(x),
 > dog(y), own(x,y), (u = \[x,y,z\]), irene(z), bite(u,z)\])
 
@@ -1926,10 +2022,13 @@ In order to parse with grammar `drt.fcfg`, we specify in the call to
 `load_parser()` that `SEM` values in feature structures are to be parsed
 using `DrtParser`.
 
-> &gt;&gt;&gt; from nltk import load\_parser &gt;&gt;&gt; parser =
+> >>> from nltk import load\_parser
+> >>> parser =
 > load\_parser('grammars/book\_grammars/drt.fcfg',
-> logic\_parser=nltk.sem.drt.DrtParser()) &gt;&gt;&gt; trees =
-> list(parser.parse('Angus owns a dog'.split())) &gt;&gt;&gt;
+> logic\_parser=nltk.sem.drt.DrtParser())
+> >>> trees =
+> list(parser.parse('Angus owns a dog'.split()))
+> >>>
 > print(trees\[0\].label()\['SEM'\].simplify()) (\[x,z2\],\[Angus(x),
 > dog(z2), own(x,z2)\])
 
@@ -1951,11 +2050,12 @@ processes sentences incrementally, keeping track of all possible threads
 when there is ambiguity. For simplicity, the following example ignores
 scope ambiguity.
 
-> &gt;&gt;&gt; dt = nltk.DiscourseTester(\['A student dances', 'Every
-> student is a person'\]) &gt;&gt;&gt; dt.readings() &lt;BLANKLINE&gt;
-> s0 readings: &lt;BLANKLINE&gt; s0-r0: exists x.(student(x) & dance(x))
-> &lt;BLANKLINE&gt; s1 readings: &lt;BLANKLINE&gt; s1-r0: all
-> x.(student(x) -&gt; person(x))
+> >>> dt = nltk.DiscourseTester(\['A student dances', 'Every
+> student is a person'\])
+> >>> dt.readings() <BLANKLINE>
+> s0 readings: <BLANKLINE> s0-r0: exists x.(student(x) & dance(x))
+> <BLANKLINE> s1 readings: <BLANKLINE> s1-r0: all
+> x.(student(x) -> person(x))
 
 When a new sentence is added to the current discourse, setting the
 parameter `consistchk=True` causes consistency to be checked by invoking
@@ -1963,12 +2063,12 @@ the model checker for each thread, i.e., sequence of admissible
 readings. In this case, the user has the option of retracting the
 sentence in question.
 
-> &gt;&gt;&gt; dt.add\_sentence('No person dances', consistchk=True)
+> >>> dt.add\_sentence('No person dances', consistchk=True)
 > Inconsistent discourse: d0 \['s0-r0', 's1-r0', 's2-r0'\]: s0-r0:
-> exists x.(student(x) & dance(x)) s1-r0: all x.(student(x) -&gt;
+> exists x.(student(x) & dance(x)) s1-r0: all x.(student(x) ->
 > person(x)) s2-r0: -exists x.(person(x) & dance(x))
 >
-> &gt;&gt;&gt; dt.retract\_sentence('No person dances', verbose=True)
+> >>> dt.retract\_sentence('No person dances', verbose=True)
 > Current sentences are s0: A student dances s1: Every student is a
 > person
 
@@ -1978,7 +2078,7 @@ theorem prover treats existing sentences in the thread as assumptions
 and attempts to prove φ; it is informative if no such proof can be
 found.
 
-> &gt;&gt;&gt; dt.add\_sentence('A person dances', informchk=True)
+> >>> dt.add\_sentence('A person dances', informchk=True)
 > Sentence 'A person dances' under reading 'exists x.(person(x) &
 > dance(x))': Not informative relative to thread 'd0'
 
@@ -1993,18 +2093,21 @@ configured to use the wide-coverage Malt dependency parser, the input
 (Every dog chases a boy.  He runs.) needs to be tagged as well as
 tokenized.
 
-> &gt;&gt;&gt; from nltk.tag import RegexpTagger &gt;&gt;&gt; tagger =
+> >>> from nltk.tag import RegexpTagger
+> >>> tagger =
 > RegexpTagger( ... \[('\^(chases|runs)\$', 'VB'), ... ('\^(a)\$',
 > 'ex\_quant'), ... ('\^(every)\$', 'univ\_quant'), ...
-> ('\^(dog|boy)\$', 'NN'), ... ('\^(He)\$', 'PRP') ... \]) &gt;&gt;&gt;
+> ('\^(dog|boy)\$', 'NN'), ... ('\^(He)\$', 'PRP') ... \])
+> >>>
 > rc =
 > nltk.DrtGlueReadingCommand(depparser=nltk.MaltParser(tagger=tagger))
-> &gt;&gt;&gt; dt = nltk.DiscourseTester(\['Every dog chases a boy', 'He
-> runs'\], rc) &gt;&gt;&gt; dt.readings() &lt;BLANKLINE&gt; s0 readings:
-> &lt;BLANKLINE&gt; s0-r0: (\[\],\[((\[x\],\[dog(x)\]) -&gt;
+> >>> dt = nltk.DiscourseTester(\['Every dog chases a boy', 'He
+> runs'\], rc)
+> >>> dt.readings() <BLANKLINE> s0 readings:
+> <BLANKLINE> s0-r0: (\[\],\[((\[x\],\[dog(x)\]) ->
 > (\[z3\],\[boy(z3), chases(x,z3)\]))\]) s0-r1: (\[z4\],\[boy(z4),
-> ((\[x\],\[dog(x)\]) -&gt; (\[\],\[chases(x,z4)\]))\])
-> &lt;BLANKLINE&gt; s1 readings: &lt;BLANKLINE&gt; s1-r0:
+> ((\[x\],\[dog(x)\]) -> (\[\],\[chases(x,z4)\]))\])
+> <BLANKLINE> s1 readings: <BLANKLINE> s1-r0:
 > (\[x\],\[PRO(x), runs(x)\])
 
 The first sentence of the discourse has two possible readings, depending
@@ -2013,9 +2116,9 @@ represents the pronoun He via the condition
 PRO(x). Now let's look at the discourse threads that
 result:
 
-    &gt;&gt;&gt; dt.readings(show\_thread\_readings=True)
+    >>> dt.readings(show\_thread\_readings=True)
     d0: \['s0-r0', 's1-r0'\] : INVALID: AnaphoraResolutionException
-    d1: \['s0-r1', 's1-r0'\] : (\[z6,z10\],\[boy(z6), ((\[x\],\[dog(x)\]) -&gt; 
+    d1: \['s0-r1', 's1-r0'\] : (\[z6,z10\],\[boy(z6), ((\[x\],\[dog(x)\]) -> 
     (\[\],\[chases(x,z6)\])), (z10 = z6), runs(z10)\])
 
 When we examine threads d0\` and `d1`, we see that reading `s0-r0`,
@@ -2027,9 +2130,9 @@ equation `(z24 = z20)`.
 Inadmissible readings can be filtered out by passing the parameter
 `filter=True`.
 
-> &gt;&gt;&gt; dt.readings(show\_thread\_readings=True, filter=True) d1:
+> >>> dt.readings(show\_thread\_readings=True, filter=True) d1:
 > \['s0-r1', 's1-r0'\] : (\[z12,z15\],\[boy(z12), ((\[x\],\[dog(x)\])
-> -&gt; (\[\],\[chases(x,z12)\])), (z17 = z12), runs(z15)\])
+> -> (\[\],\[chases(x,z12)\])), (z17 = z12), runs(z15)\])
 
 Although this little discourse is extremely limited, it should give you
 a feel for the kind of semantic processing issues that arise when we go
@@ -2189,10 +2292,10 @@ Exercises
 
 5.  ☆ Consider the following statements:
 
-    > &gt;&gt;&gt; read\_expr =
-    > nltk.sem.Expression.fromstring &gt;&gt;&gt; e2 =
-    > read\_expr('pat') &gt;&gt;&gt; e3 =
-    > nltk.sem.ApplicationExpression(e1, e2) &gt;&gt;&gt;
+    > >>> read\_expr =
+    > nltk.sem.Expression.fromstring >>> e2 =
+    > read\_expr('pat') >>> e3 =
+    > nltk.sem.ApplicationExpression(e1, e2) >>>
     > print(e3.simplify()) exists y.love(pat, y)
 
     Clearly something is missing here, namely a declaration of the value
@@ -2207,43 +2310,43 @@ Exercises
     Now carry on doing this same task for the further cases of
     `e3.simplify()` shown below.
 
-    > &gt;&gt;&gt; print(e3.simplify()) exists y.(love(pat,y)
+    > >>> print(e3.simplify()) exists y.(love(pat,y)
     > | love(y,pat))
 
-    > &gt;&gt;&gt; print(e3.simplify()) exists y.(love(pat,y)
+    > >>> print(e3.simplify()) exists y.(love(pat,y)
     > | love(y,pat))
 
-    > &gt;&gt;&gt; print(e3.simplify()) walk(fido)
+    > >>> print(e3.simplify()) walk(fido)
 
 6.  ☆ As in the preceding exercise, find a λ abstract `e1`
     that yields results equivalent to those shown below.
 
-    > &gt;&gt;&gt; e2 = read\_expr('chase') &gt;&gt;&gt; e3 =
-    > nltk.sem.ApplicationExpression(e1, e2) &gt;&gt;&gt;
-    > print(e3.simplify()) x.all y.(dog(y) -&gt; chase(x,pat))
+    > >>> e2 = read\_expr('chase') >>> e3 =
+    > nltk.sem.ApplicationExpression(e1, e2) >>>
+    > print(e3.simplify()) x.all y.(dog(y) -> chase(x,pat))
 
-    > &gt;&gt;&gt; e2 = read\_expr('chase') &gt;&gt;&gt; e3 =
-    > nltk.sem.ApplicationExpression(e1, e2) &gt;&gt;&gt;
+    > >>> e2 = read\_expr('chase') >>> e3 =
+    > nltk.sem.ApplicationExpression(e1, e2) >>>
     > print(e3.simplify()) x.exists y.(dog(y) & chase(pat,x))
 
-    > &gt;&gt;&gt; e2 = read\_expr('give') &gt;&gt;&gt; e3 =
-    > nltk.sem.ApplicationExpression(e1, e2) &gt;&gt;&gt;
+    > >>> e2 = read\_expr('give') >>> e3 =
+    > nltk.sem.ApplicationExpression(e1, e2) >>>
     > print(e3.simplify()) x0 x1.exists y.(present(y) & give(x1,y,x0))
 
 7.  ☆ As in the preceding exercise, find a λ abstract `e1`
     that yields results equivalent to those shown below.
 
-    > &gt;&gt;&gt; e2 = read\_expr('bark') &gt;&gt;&gt; e3 =
-    > nltk.sem.ApplicationExpression(e1, e2) &gt;&gt;&gt;
+    > >>> e2 = read\_expr('bark') >>> e3 =
+    > nltk.sem.ApplicationExpression(e1, e2) >>>
     > print(e3.simplify()) exists y.(dog(x) & bark(x))
 
-    > &gt;&gt;&gt; e2 = read\_expr('bark') &gt;&gt;&gt; e3 =
-    > nltk.sem.ApplicationExpression(e1, e2) &gt;&gt;&gt;
+    > >>> e2 = read\_expr('bark') >>> e3 =
+    > nltk.sem.ApplicationExpression(e1, e2) >>>
     > print(e3.simplify()) bark(fido)
 
-    > &gt;&gt;&gt; e2 = read\_expr('\\P. all x. (dog(x) -&gt;
-    > P(x))') &gt;&gt;&gt; e3 = nltk.sem.ApplicationExpression(e1,
-    > e2) &gt;&gt;&gt; print(e3.simplify()) all x.(dog(x) -&gt; bark(x))
+    > >>> e2 = read\_expr('\\P. all x. (dog(x) ->
+    > P(x))') >>> e3 = nltk.sem.ApplicationExpression(e1,
+    > e2) >>> print(e3.simplify()) all x.(dog(x) -> bark(x))
 
 8.  ☆☆ Develop a method for translating English sentences into
     formulas with binary generalized quantifiers. In such an approach,

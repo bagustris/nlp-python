@@ -79,11 +79,12 @@ customary way. Both access methods permit an optional argument
 `offset=True` which includes the start and end offsets of the
 corresponding span in the audio file.
 
-> &gt;&gt;&gt; phonetic = nltk.corpus.timit.phones('dr1-fvmh0/sa1')
-> &gt;&gt;&gt; phonetic \['h\#', 'sh', 'iy', 'hv', 'ae', 'dcl', 'y',
+> >>> phonetic = nltk.corpus.timit.phones('dr1-fvmh0/sa1')
+> >>> phonetic \['h\#', 'sh', 'iy', 'hv', 'ae', 'dcl', 'y',
 > 'ix', 'dcl', 'd', 'aa', 'kcl', 's', 'ux', 'tcl', 'en', 'gcl', 'g',
 > 'r', 'iy', 's', 'iy', 'w', 'aa', 'sh', 'epi', 'w', 'aa', 'dx', 'ax',
-> 'q', 'ao', 'l', 'y', 'ih', 'ax', 'h\#'\] &gt;&gt;&gt;
+> 'q', 'ao', 'l', 'y', 'ih', 'ax', 'h\#'\]
+> >>>
 > nltk.corpus.timit.word\_times('dr1-fvmh0/sa1') \[('she', 7812, 10610),
 > ('had', 10610, 14496), ('your', 14496, 15791), ('dark', 15791, 20720),
 > ('suit', 20720, 25647), ('in', 25647, 26906), ('greasy', 26906,
@@ -94,10 +95,11 @@ In addition to this text data, TIMIT includes a lexicon that provides
 the canonical pronunciation of every word, which can be compared with a
 particular utterance:
 
-> &gt;&gt;&gt; timitdict = nltk.corpus.timit.transcription\_dict()
-> &gt;&gt;&gt; timitdict\['greasy'\] + timitdict\['wash'\] +
+> >>> timitdict = nltk.corpus.timit.transcription\_dict()
+> >>> timitdict\['greasy'\] + timitdict\['wash'\] +
 > timitdict\['water'\] \['g', 'r', 'iy1', 's', 'iy', 'w', 'ao1', 'sh',
-> 'w', 'ao1', 't', 'axr'\] &gt;&gt;&gt; phonetic\[17:30\] \['g', 'r',
+> 'w', 'ao1', 't', 'axr'\]
+> >>> phonetic\[17:30\] \['g', 'r',
 > 'iy', 's', 'iy', 'w', 'aa', 'sh', 'epi', 'w', 'aa', 'dx', 'ax'\]
 
 This gives us a sense of what a speech processing system would have to
@@ -106,7 +108,7 @@ England). Finally, TIMIT includes demographic data about the speakers,
 permitting fine-grained study of vocal, social, and gender
 characteristics.
 
-> &gt;&gt;&gt; nltk.corpus.timit.spkrinfo('dr1-fvmh0')
+> >>> nltk.corpus.timit.spkrinfo('dr1-fvmh0')
 > SpeakerInfo(id='VMH0', sex='F', dr='1', use='TRN', recdate='03/11/86',
 > birthdate='01/08/60', ht='5'05"', race='WHT', edu='BS', comments='BEST
 > NEW ENGLAND ACCENT SO FAR')
@@ -330,10 +332,14 @@ into a sequence of zeros and ones, to record when a token is followed by
 a boundary, we can represent the segmentations as strings, and apply the
 windowdiff scorer.
 
-> &gt;&gt;&gt; s1 = "00000010000000001000000" &gt;&gt;&gt; s2 =
-> "00000001000000010000000" &gt;&gt;&gt; s3 = "00010000000000000001000"
-> &gt;&gt;&gt; nltk.windowdiff(s1, s1, 3) 0.0 &gt;&gt;&gt;
-> nltk.windowdiff(s1, s2, 3) 0.190... &gt;&gt;&gt; nltk.windowdiff(s2,
+> >>> s1 = "00000010000000001000000"
+> >>> s2 =
+> "00000001000000010000000"
+> >>> s3 = "00010000000000000001000"
+> >>> nltk.windowdiff(s1, s1, 3) 0.0
+> >>>
+> nltk.windowdiff(s1, s2, 3) 0.190...
+> >>> nltk.windowdiff(s2,
 > s3, 3) 0.571...
 
 In the above example, the window had a size of 3. The windowdiff
@@ -490,13 +496,14 @@ sub-expression; only the material that matches this sub-expression is
 returned by `re.findall`. Finally, the program constructs the set of
 illegal parts-of-speech as `used_pos - legal_pos`:
 
-> &gt;&gt;&gt; legal\_pos = set(\['n', 'v.t.', 'v.i.', 'adj', 'det'\])
-> &gt;&gt;&gt; pattern =
-> re.compile(r"'font-size:11.0pt'&gt;(\[a-z.\]+)&lt;") &gt;&gt;&gt;
+> >>> legal\_pos = set(\['n', 'v.t.', 'v.i.', 'adj', 'det'\])
+> >>> pattern =
+> re.compile(r"'font-size:11.0pt'>(\[a-z.\]+)<")
+> >>>
 > document = open("dict.htm", encoding="windows-1252").read()
-> &gt;&gt;&gt; used\_pos = set(re.findall(pattern, document))
-> &gt;&gt;&gt; illegal\_pos = used\_pos.difference(legal\_pos)
-> &gt;&gt;&gt; print(list(illegal\_pos)) \['v.i', 'intrans'\]
+> >>> used\_pos = set(re.findall(pattern, document))
+> >>> illegal\_pos = used\_pos.difference(legal\_pos)
+> >>> print(list(illegal\_pos)) \['v.i', 'intrans'\]
 
 This simple program represents the tip of the iceberg. We can develop
 sophisticated tools to check the consistency of word processor files,
@@ -553,11 +560,16 @@ was now available in a CSV file `dict.csv`:
 
 Now we can express this query as shown below:
 
-> &gt;&gt;&gt; import csv &gt;&gt;&gt; lexicon =
-> csv.reader(open('dict.csv')) &gt;&gt;&gt; pairs = \[(lexeme, defn) for
-> (lexeme, \_, \_, defn) in lexicon\] &gt;&gt;&gt; lexemes, defns =
-> zip(\*pairs) &gt;&gt;&gt; defn\_words = set(w for defn in defns for w
-> in defn.split()) &gt;&gt;&gt; sorted(defn\_words.difference(lexemes))
+> >>> import csv
+> >>> lexicon =
+> csv.reader(open('dict.csv'))
+> >>> pairs = \[(lexeme, defn) for
+> (lexeme, \_, \_, defn) in lexicon\]
+> >>> lexemes, defns =
+> zip(\*pairs)
+> >>> defn\_words = set(w for defn in defns for w
+> in defn.split())
+> >>> sorted(defn\_words.difference(lexemes))
 > \['...', 'a', 'and', 'body', 'by', 'cease', 'condition', 'down',
 > 'each', 'foot', 'lifting', 'mind', 'of', 'progress', 'setting', 'to'\]
 
@@ -589,11 +601,12 @@ words short-words\_. Once the index has been constructed we open a file
 and then iterate over the index entries, to write out the lines in the
 required format required-format\_.
 
-> &gt;&gt;&gt; idx = nltk.Index((defn\_word, lexeme) \#
+> >>> idx = nltk.Index((defn\_word, lexeme) \#
 > \[\_map-word-lexeme\] ... for (lexeme, defn) in pairs \#
 > \[\_lexical-entry\] ... for defn\_word in nltk.word\_tokenize(defn) \#
-> \[\_definition-text\] ... if len(defn\_word) &gt; 3) \#
-> \[\_short-words\] &gt;&gt;&gt; with open("dict.idx", "w") as
+> \[\_definition-text\] ... if len(defn\_word) > 3) \#
+> \[\_short-words\]
+> >>> with open("dict.idx", "w") as
 > idx\_file: ... for word in sorted(idx): ... idx\_words = ',
 > '.join(idx\[word\]) ... idx\_line = "{}: {}".format(word, idx\_words)
 > \# \[\_required-format\] ... print(idx\_line, file=idx\_file)
@@ -796,21 +809,25 @@ versions. We might also notice that the relative order of letters within
 a cluster of consonants is a source of spelling errors, and so we
 normalize the order of consonants.
 
-> &gt;&gt;&gt; mappings = \[('ph', 'f'), ('ght', 't'), ('\^kn', 'n'),
-> ('qu', 'kw'), ... ('\[aeiou\]+', 'a'), (r'(.)1', r'1')\] &gt;&gt;&gt;
+> >>> mappings = \[('ph', 'f'), ('ght', 't'), ('\^kn', 'n'),
+> ('qu', 'kw'), ... ('\[aeiou\]+', 'a'), (r'(.)1', r'1')\]
+> >>>
 > def signature(word): ... for patt, repl in mappings: ... word =
 > re.sub(patt, repl, word) ... pieces = re.findall('\[\^aeiou\]+', word)
 > ... return ''.join(char for piece in pieces for char in
-> sorted(piece))\[:8\] &gt;&gt;&gt; signature('illefent') 'lfnt'
-> &gt;&gt;&gt; signature('ebsekwieous') 'bskws' &gt;&gt;&gt;
+> sorted(piece))\[:8\]
+> >>> signature('illefent') 'lfnt'
+> >>> signature('ebsekwieous') 'bskws'
+> >>>
 > signature('nuculerr') 'nclr'
 
 Next, we create a mapping from signatures to words, for all the words in
 our lexicon. We can use this to get candidate corrections for a given
 input word (but we must first compute that word's signature).
 
-> &gt;&gt;&gt; signatures = nltk.Index((signature(w), w) for w in
-> nltk.corpus.words.words()) &gt;&gt;&gt;
+> >>> signatures = nltk.Index((signature(w), w) for w in
+> nltk.corpus.words.words())
+> >>>
 > signatures\[signature('nuculerr')\] \['anicular', 'inocular',
 > 'nucellar', 'nuclear', 'unicolor', 'uniocular', 'unocular'\]
 
@@ -818,14 +835,18 @@ Finally, we should rank the results in terms of similarity with the
 original word. This is done by the function `rank()`. The only remaining
 function provides a simple interface to the user:
 
-> &gt;&gt;&gt; def rank(word, wordlist): ... ranked =
+> >>> def rank(word, wordlist): ... ranked =
 > sorted((nltk.edit\_distance(word, w), w) for w in wordlist) ... return
-> \[word for (\_, word) in ranked\] &gt;&gt;&gt; def fuzzy\_spell(word):
+> \[word for (\_, word) in ranked\]
+> >>> def fuzzy\_spell(word):
 > ... sig = signature(word) ... if sig in signatures: ... return
-> rank(word, signatures\[sig\]) ... else: ... return \[\] &gt;&gt;&gt;
+> rank(word, signatures\[sig\]) ... else: ... return \[\]
+> >>>
 > fuzzy\_spell('illefent') \['olefiant', 'elephant', 'oliphant',
-> 'elephanta'\] &gt;&gt;&gt; fuzzy\_spell('ebsekwieous')
-> \['obsequious'\] &gt;&gt;&gt; fuzzy\_spell('nucular') \['anicular',
+> 'elephanta'\]
+> >>> fuzzy\_spell('ebsekwieous')
+> \['obsequious'\]
+> >>> fuzzy\_spell('nucular') \['anicular',
 > 'inocular', 'nucellar', 'nuclear', 'unocular', 'uniocular',
 > 'unicolor'\]
 
@@ -878,31 +899,31 @@ such as WordNet, using external identifiers. In
 [ex-xml-nested](..%20ex::::) we group the gloss and a synset identifier
 inside a new element which we have called "sense".
 
-> &lt;entry&gt;
+> <entry>
 >
-> :   &lt;headword&gt;whale&lt;/headword&gt; &lt;pos&gt;noun&lt;/pos&gt;
->     &lt;sense&gt; &lt;gloss&gt;any of the larger cetacean mammals
+> :   <headword>whale</headword> <pos>noun</pos>
+>     <sense> <gloss>any of the larger cetacean mammals
 >     having a streamlined body and breathing through a blowhole on the
->     head&lt;/gloss&gt; &lt;synset&gt;whale.n.02&lt;/synset&gt;
->     &lt;/sense&gt; &lt;sense&gt; &lt;gloss&gt;a very large person;
->     impressive in size or qualities&lt;/gloss&gt;
->     &lt;synset&gt;giant.n.04&lt;/synset&gt; &lt;/sense&gt;
+>     head</gloss> <synset>whale.n.02</synset>
+>     </sense> <sense> <gloss>a very large person;
+>     impressive in size or qualities</gloss>
+>     <synset>giant.n.04</synset> </sense>
 >
-> &lt;/entry&gt;
+> </entry>
 
 Alternatively, we could have represented the synset identifier using an
 XML attribute, without the need for any nested structure, as in
 [ex-xml-attribute](..%20ex::::).
 
-> &lt;entry&gt;
+> <entry>
 >
-> :   &lt;headword&gt;whale&lt;/headword&gt; &lt;pos&gt;noun&lt;/pos&gt;
->     &lt;gloss synset="whale.n.02"&gt;any of the larger cetacean
+> :   <headword>whale</headword> <pos>noun</pos>
+>     <gloss synset="whale.n.02">any of the larger cetacean
 >     mammals having a streamlined body and breathing through a blowhole
->     on the head&lt;/gloss&gt; &lt;gloss synset="giant.n.04"&gt;a very
->     large person; impressive in size or qualities&lt;/gloss&gt;
+>     on the head</gloss> <gloss synset="giant.n.04">a very
+>     large person; impressive in size or qualities</gloss>
 >
-> &lt;/entry&gt;
+> </entry>
 
 This illustrates some of the flexibility of XML. If it seems somewhat
 arbitrary that's because it is! Following the rules of XML we can invent
@@ -965,18 +986,21 @@ called `play.dtd`, followed by the root element `PLAY`. We pick it up
 again at the start of Act 1 start-act-one\_. (Some blank lines have been
 omitted from the output.)
 
-> &gt;&gt;&gt; merchant\_file =
-> nltk.data.find('corpora/shakespeare/merchant.xml') &gt;&gt;&gt; raw =
-> open(merchant\_file).read() &gt;&gt;&gt; print(raw\[:163\]) \#
-> \[\_top-of-file\] &lt;?xml version="1.0"?&gt; &lt;?xml-stylesheet
-> type="text/css" href="shakes.css"?&gt; &lt;!-- &lt;!DOCTYPE PLAY
-> SYSTEM "play.dtd"&gt; --&gt; &lt;PLAY&gt; &lt;TITLE&gt;The Merchant of
-> Venice&lt;/TITLE&gt; &gt;&gt;&gt; print(raw\[1789:2006\]) \#
-> \[\_start-act-one\] &lt;TITLE&gt;ACT I&lt;/TITLE&gt;
-> &lt;SCENE&gt;&lt;TITLE&gt;SCENE I. Venice. A street.&lt;/TITLE&gt;
-> &lt;STAGEDIR&gt;Enter ANTONIO, SALARINO, and SALANIO&lt;/STAGEDIR&gt;
-> &lt;SPEECH&gt; &lt;SPEAKER&gt;ANTONIO&lt;/SPEAKER&gt; &lt;LINE&gt;In
-> sooth, I know not why I am so sad:&lt;/LINE&gt;
+> >>> merchant\_file =
+> nltk.data.find('corpora/shakespeare/merchant.xml')
+> >>> raw =
+> open(merchant\_file).read()
+> >>> print(raw\[:163\]) \#
+> \[\_top-of-file\] <?xml version="1.0"?> <?xml-stylesheet
+> type="text/css" href="shakes.css"?> <!-- <!DOCTYPE PLAY
+> SYSTEM "play.dtd"> --> <PLAY> <TITLE>The Merchant of
+> Venice</TITLE>
+> >>> print(raw\[1789:2006\]) \#
+> \[\_start-act-one\] <TITLE>ACT I</TITLE>
+> <SCENE><TITLE>SCENE I. Venice. A street.</TITLE>
+> <STAGEDIR>Enter ANTONIO, SALARINO, and SALANIO</STAGEDIR>
+> <SPEECH> <SPEAKER>ANTONIO</SPEAKER> <LINE>In
+> sooth, I know not why I am so sad:</LINE>
 
 We have just accessed the XML data as a string. As we can see, the
 string at the start of Act 1 contains XML tags for title, scene, stage
@@ -992,34 +1016,43 @@ see the text content of this element, the title of the play
 element-text\_. To get a list of all the child elements, we use the
 `getchildren()` method getchildren-method\_.
 
-> &gt;&gt;&gt; from xml.etree.ElementTree import ElementTree
-> &gt;&gt;&gt; merchant = ElementTree().parse(merchant\_file) \#
-> \[\_xml-parse\] &gt;&gt;&gt; merchant &lt;Element 'PLAY' at
-> 0x10ac43d18&gt; \# \[\_element-play\] &gt;&gt;&gt; merchant\[0\]
-> &lt;Element 'TITLE' at 0x10ac43c28&gt; \# \[\_element-title\]
-> &gt;&gt;&gt; merchant\[0\].text 'The Merchant of Venice' \#
-> \[\_element-text\] &gt;&gt;&gt; merchant.getchildren() \#
-> \[\_getchildren-method\] \[&lt;Element 'TITLE' at 0x10ac43c28&gt;,
-> &lt;Element 'PERSONAE' at 0x10ac43bd8&gt;, &lt;Element 'SCNDESCR' at
-> 0x10b067f98&gt;, &lt;Element 'PLAYSUBT' at 0x10af37048&gt;,
-> &lt;Element 'ACT' at 0x10af37098&gt;, &lt;Element 'ACT' at
-> 0x10b936368&gt;, &lt;Element 'ACT' at 0x10b934b88&gt;, &lt;Element
-> 'ACT' at 0x10cfd8188&gt;, &lt;Element 'ACT' at 0x10cfadb38&gt;\]
+> >>> from xml.etree.ElementTree import ElementTree
+> >>> merchant = ElementTree().parse(merchant\_file) \#
+> \[\_xml-parse\]
+> >>> merchant <Element 'PLAY' at
+> 0x10ac43d18> \# \[\_element-play\]
+> >>> merchant\[0\]
+> <Element 'TITLE' at 0x10ac43c28> \# \[\_element-title\]
+> >>> merchant\[0\].text 'The Merchant of Venice' \#
+> \[\_element-text\]
+> >>> merchant.getchildren() \#
+> \[\_getchildren-method\] \[<Element 'TITLE' at 0x10ac43c28>,
+> <Element 'PERSONAE' at 0x10ac43bd8>, <Element 'SCNDESCR' at
+> 0x10b067f98>, <Element 'PLAYSUBT' at 0x10af37048>,
+> <Element 'ACT' at 0x10af37098>, <Element 'ACT' at
+> 0x10b936368>, <Element 'ACT' at 0x10b934b88>, <Element
+> 'ACT' at 0x10cfd8188>, <Element 'ACT' at 0x10cfadb38>\]
 
 The play consists of a title, the personae, a scene description, a
 subtitle, and five acts. Each act has a title and some scenes, and each
 scene consists of speeches which are made up of lines, a structure with
 four levels of nesting. Let's dig down into Act IV:
 
-> &gt;&gt;&gt; merchant\[-2\]\[0\].text 'ACT IV' &gt;&gt;&gt;
-> merchant\[-2\]\[1\] &lt;Element 'SCENE' at 0x10cfd8228&gt;
-> &gt;&gt;&gt; merchant\[-2\]\[1\]\[0\].text 'SCENE I. Venice. A court
-> of justice.' &gt;&gt;&gt; merchant\[-2\]\[1\]\[54\] &lt;Element
-> 'SPEECH' at 0x10cfb02c8&gt; &gt;&gt;&gt;
-> merchant\[-2\]\[1\]\[54\]\[0\] &lt;Element 'SPEAKER' at
-> 0x10cfb0318&gt; &gt;&gt;&gt; merchant\[-2\]\[1\]\[54\]\[0\].text
-> 'PORTIA' &gt;&gt;&gt; merchant\[-2\]\[1\]\[54\]\[1\] &lt;Element
-> 'LINE' at 0x10cfb0368&gt; &gt;&gt;&gt;
+> >>> merchant\[-2\]\[0\].text 'ACT IV'
+> >>>
+> merchant\[-2\]\[1\] <Element 'SCENE' at 0x10cfd8228>
+> >>> merchant\[-2\]\[1\]\[0\].text 'SCENE I. Venice. A court
+> of justice.'
+> >>> merchant\[-2\]\[1\]\[54\] <Element
+> 'SPEECH' at 0x10cfb02c8>
+> >>>
+> merchant\[-2\]\[1\]\[54\]\[0\] <Element 'SPEAKER' at
+> 0x10cfb0318>
+> >>> merchant\[-2\]\[1\]\[54\]\[0\].text
+> 'PORTIA'
+> >>> merchant\[-2\]\[1\]\[54\]\[1\] <Element
+> 'LINE' at 0x10cfb0368>
+> >>>
 > merchant\[-2\]\[1\]\[54\]\[1\].text "The quality of mercy is not
 > strain'd,"
 
@@ -1036,7 +1069,7 @@ the types we are interested in (such as the acts), using
 `merchant.findall('ACT')`. Here's an example of doing such tag-specific
 searches at every level of nesting:
 
-> &gt;&gt;&gt; for i, act in enumerate(merchant.findall('ACT')): ... for
+> >>> for i, act in enumerate(merchant.findall('ACT')): ... for
 > j, scene in enumerate(act.findall('SCENE')): ... for k, speech in
 > enumerate(scene.findall('SPEECH')): ... for line in
 > speech.findall('LINE'): ... if 'music' in str(line.text): ...
@@ -1061,22 +1094,29 @@ search for particular embedded elements. For example, let's examine the
 sequence of speakers. We can use a frequency distribution to see who has
 the most to say:
 
-> &gt;&gt;&gt; from collections import Counter &gt;&gt;&gt; speaker\_seq
+> >>> from collections import Counter
+> >>> speaker\_seq
 > = \[s.text for s in merchant.findall('ACT/SCENE/SPEECH/SPEAKER')\]
-> &gt;&gt;&gt; speaker\_freq = Counter(speaker\_seq) &gt;&gt;&gt; top5 =
-> speaker\_freq.most\_common(5) &gt;&gt;&gt; top5 \[('PORTIA', 117),
+> >>> speaker\_freq = Counter(speaker\_seq)
+> >>> top5 =
+> speaker\_freq.most\_common(5)
+> >>> top5 \[('PORTIA', 117),
 > ('SHYLOCK', 79), ('BASSANIO', 73), ('GRATIANO', 48), ('LORENZO', 47)\]
 
 We can also look for patterns in who follows who in the dialogues. Since
 there's 23 speakers, we need to reduce the "vocabulary" to a manageable
 size first, using the method described in sec-dictionaries\_.
 
-> &gt;&gt;&gt; from collections import defaultdict &gt;&gt;&gt;
-> abbreviate = defaultdict(lambda: 'OTH') &gt;&gt;&gt; for speaker, \_
-> in top5: ... abbreviate\[speaker\] = speaker\[:4\] ... &gt;&gt;&gt;
+> >>> from collections import defaultdict
+> >>>
+> abbreviate = defaultdict(lambda: 'OTH')
+> >>> for speaker, \_
+> in top5: ... abbreviate\[speaker\] = speaker\[:4\] ...
+> >>>
 > speaker\_seq2 = \[abbreviate\[speaker\] for speaker in speaker\_seq\]
-> &gt;&gt;&gt; cfd =
-> nltk.ConditionalFreqDist(nltk.bigrams(speaker\_seq2)) &gt;&gt;&gt;
+> >>> cfd =
+> nltk.ConditionalFreqDist(nltk.bigrams(speaker\_seq2))
+> >>>
 > cfd.tabulate() ANTO BASS GRAT OTH PORT SHYL ANTO 0 11 4 11 9 12 BASS
 > 10 0 11 10 26 16 GRAT 6 8 0 19 9 5 OTH 8 16 18 153 52 25 PORT 7 23 13
 > 53 0 21 SHYL 15 15 2 26 21 0
@@ -1098,7 +1138,8 @@ We can use the `toolbox.xml()` method to access a Toolbox file and load
 it into an `elementtree` object. This file contains a lexicon for the
 Rotokas language of Papua New Guinea.
 
-> &gt;&gt;&gt; from nltk.corpus import toolbox &gt;&gt;&gt; lexicon =
+> >>> from nltk.corpus import toolbox
+> >>> lexicon =
 > toolbox.xml('rotokas.dic')
 
 There are two ways to access the contents of the lexicon object, by
@@ -1106,8 +1147,9 @@ indexes and by paths. Indexes use the familiar syntax, thus `lexicon[3]`
 returns entry number 3 (which is actually the fourth entry counting from
 zero); `lexicon[3][0]` returns its first field:
 
-> &gt;&gt;&gt; lexicon\[3\]\[0\] &lt;Element 'lx' at 0x10b2f6958&gt;
-> &gt;&gt;&gt; lexicon\[3\]\[0\].tag 'lx' &gt;&gt;&gt;
+> >>> lexicon\[3\]\[0\] <Element 'lx' at 0x10b2f6958>
+> >>> lexicon\[3\]\[0\].tag 'lx'
+> >>>
 > lexicon\[3\]\[0\].text 'kaa'
 
 The second way to access the contents of the lexicon object uses paths.
@@ -1117,7 +1159,7 @@ the lexemes using the path `record/lx`. Here we use the `findall()`
 function to search for any matches to the path `record/lx`, and we
 access the text content of the element, normalizing it to lowercase.
 
-> &gt;&gt;&gt; \[lexeme.text.lower() for lexeme in
+> >>> \[lexeme.text.lower() for lexeme in
 > lexicon.findall('record/lx')\] \['kaa', 'kaa', 'kaa', 'kaakaaro',
 > 'kaakaaviko', 'kaakaavo', 'kaakaoko', 'kaakasi', 'kaakau', 'kaakauko',
 > 'kaakito', 'kaakuupato', ..., 'kuvuto'\]
@@ -1129,19 +1171,24 @@ displayed on the screen, we can use a special pre-defined file object
 called `stdout` sys-stdout\_ (standard output), defined in Python's
 `sys` module.
 
-> &gt;&gt;&gt; import sys &gt;&gt;&gt; from nltk.util import
-> elementtree\_indent &gt;&gt;&gt; from xml.etree.ElementTree import
-> ElementTree &gt;&gt;&gt; elementtree\_indent(lexicon) &gt;&gt;&gt;
-> tree = ElementTree(lexicon\[3\]) &gt;&gt;&gt; tree.write(sys.stdout,
-> encoding='unicode') \# \[\_sys-stdout\] &lt;record&gt;
-> &lt;lx&gt;kaa&lt;/lx&gt; &lt;ps&gt;N&lt;/ps&gt;
-> &lt;pt&gt;MASC&lt;/pt&gt; &lt;cl&gt;isi&lt;/cl&gt; &lt;ge&gt;cooking
-> banana&lt;/ge&gt; &lt;tkp&gt;banana bilong kukim&lt;/tkp&gt;
-> &lt;pt&gt;itoo&lt;/pt&gt; &lt;sf&gt;FLORA&lt;/sf&gt;
-> &lt;dt&gt;12/Aug/2005&lt;/dt&gt; &lt;ex&gt;Taeavi iria kaa isi
-> kovopaueva kaparapasia.&lt;/ex&gt; &lt;xp&gt;Taeavi i bin planim gaden
-> banana bilong kukim tasol long paia.&lt;/xp&gt; &lt;xe&gt;Taeavi
-> planted banana in order to cook it.&lt;/xe&gt; &lt;/record&gt;
+> >>> import sys
+> >>> from nltk.util import
+> elementtree\_indent
+> >>> from xml.etree.ElementTree import
+> ElementTree
+> >>> elementtree\_indent(lexicon)
+> >>>
+> tree = ElementTree(lexicon\[3\])
+> >>> tree.write(sys.stdout,
+> encoding='unicode') \# \[\_sys-stdout\] <record>
+> <lx>kaa</lx> <ps>N</ps>
+> <pt>MASC</pt> <cl>isi</cl> <ge>cooking
+> banana</ge> <tkp>banana bilong kukim</tkp>
+> <pt>itoo</pt> <sf>FLORA</sf>
+> <dt>12/Aug/2005</dt> <ex>Taeavi iria kaa isi
+> kovopaueva kaparapasia.</ex> <xp>Taeavi i bin planim gaden
+> banana bilong kukim tasol long paia.</xp> <xe>Taeavi
+> planted banana in order to cook it.</xe> </record>
 
 ### Formatting Entries
 
@@ -1150,28 +1197,31 @@ plain text. This would be useful for publishing a Toolbox lexicon on the
 web. It produces HTML elements `<table>`, `<tr>` (table row), and `<td>`
 (table data).
 
-> &gt;&gt;&gt; html = "&lt;table&gt;n" &gt;&gt;&gt; for entry in
+> >>> html = "<table>n"
+> >>> for entry in
 > lexicon\[70:80\]: ... lx = entry.findtext('lx') ... ps =
 > entry.findtext('ps') ... ge = entry.findtext('ge') ... html += "
-> &lt;tr&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;td&gt;%s&lt;/td&gt;&lt;/tr&gt;n"
-> % (lx, ps, ge) &gt;&gt;&gt; html += "&lt;/table&gt;" &gt;&gt;&gt;
-> print(html) &lt;table&gt;
-> &lt;tr&gt;&lt;td&gt;kakae&lt;/td&gt;&lt;td&gt;???&lt;/td&gt;&lt;td&gt;small&lt;/td&gt;&lt;/tr&gt;
-> &lt;tr&gt;&lt;td&gt;kakae&lt;/td&gt;&lt;td&gt;CLASS&lt;/td&gt;&lt;td&gt;child&lt;/td&gt;&lt;/tr&gt;
-> &lt;tr&gt;&lt;td&gt;kakaevira&lt;/td&gt;&lt;td&gt;ADV&lt;/td&gt;&lt;td&gt;small-like&lt;/td&gt;&lt;/tr&gt;
-> &lt;tr&gt;&lt;td&gt;kakapikoa&lt;/td&gt;&lt;td&gt;???&lt;/td&gt;&lt;td&gt;small&lt;/td&gt;&lt;/tr&gt;
-> &lt;tr&gt;&lt;td&gt;kakapikoto&lt;/td&gt;&lt;td&gt;N&lt;/td&gt;&lt;td&gt;newborn
-> baby&lt;/td&gt;&lt;/tr&gt;
-> &lt;tr&gt;&lt;td&gt;kakapu&lt;/td&gt;&lt;td&gt;V&lt;/td&gt;&lt;td&gt;place
-> in sling for purpose of carrying&lt;/td&gt;&lt;/tr&gt;
-> &lt;tr&gt;&lt;td&gt;kakapua&lt;/td&gt;&lt;td&gt;N&lt;/td&gt;&lt;td&gt;sling
-> for lifting&lt;/td&gt;&lt;/tr&gt;
-> &lt;tr&gt;&lt;td&gt;kakara&lt;/td&gt;&lt;td&gt;N&lt;/td&gt;&lt;td&gt;arm
-> band&lt;/td&gt;&lt;/tr&gt;
-> &lt;tr&gt;&lt;td&gt;Kakarapaia&lt;/td&gt;&lt;td&gt;N&lt;/td&gt;&lt;td&gt;village
-> name&lt;/td&gt;&lt;/tr&gt;
-> &lt;tr&gt;&lt;td&gt;kakarau&lt;/td&gt;&lt;td&gt;N&lt;/td&gt;&lt;td&gt;frog&lt;/td&gt;&lt;/tr&gt;
-> &lt;/table&gt;
+> <tr><td>%s</td><td>%s</td><td>%s</td></tr>n"
+> % (lx, ps, ge)
+> >>> html += "</table>"
+> >>>
+> print(html) <table>
+> <tr><td>kakae</td><td>???</td><td>small</td></tr>
+> <tr><td>kakae</td><td>CLASS</td><td>child</td></tr>
+> <tr><td>kakaevira</td><td>ADV</td><td>small-like</td></tr>
+> <tr><td>kakapikoa</td><td>???</td><td>small</td></tr>
+> <tr><td>kakapikoto</td><td>N</td><td>newborn
+> baby</td></tr>
+> <tr><td>kakapu</td><td>V</td><td>place
+> in sling for purpose of carrying</td></tr>
+> <tr><td>kakapua</td><td>N</td><td>sling
+> for lifting</td></tr>
+> <tr><td>kakara</td><td>N</td><td>arm
+> band</td></tr>
+> <tr><td>Kakarapaia</td><td>N</td><td>village
+> name</td></tr>
+> <tr><td>kakarau</td><td>N</td><td>frog</td></tr>
+> </table>
 
 Working with Toolbox Data
 -------------------------
@@ -1183,8 +1233,10 @@ distributions, tabulating co-occurrences, can be applied to the content
 of Toolbox entries. For example, we can trivially compute the average
 number of fields for each entry:
 
-> &gt;&gt;&gt; from nltk.corpus import toolbox &gt;&gt;&gt; lexicon =
-> toolbox.xml('rotokas.dic') &gt;&gt;&gt; sum(len(entry) for entry in
+> >>> from nltk.corpus import toolbox
+> >>> lexicon =
+> toolbox.xml('rotokas.dic')
+> >>> sum(len(entry) for entry in
 > lexicon) / len(lexicon) 13.635...
 
 In this section we will discuss two tasks that arise in the context of
@@ -1223,9 +1275,11 @@ new way. Manually inspecting thousands of lexical entries is not
 practicable. However, we can easily identify frequent field sequences,
 with the help of a `Counter`:
 
-> &gt;&gt;&gt; from collections import Counter &gt;&gt;&gt;
+> >>> from collections import Counter
+> >>>
 > field\_sequences = Counter(':'.join(field.tag for field in entry) for
-> entry in lexicon) &gt;&gt;&gt; field\_sequences.most\_common()
+> entry in lexicon)
+> >>> field\_sequences.most\_common()
 > \[('lx:ps:pt:ge:tkp:dt:ex:xp:xe', 41),
 > ('lx:rt:ps:pt:ge:tkp:dt:ex:xp:xe', 37),
 > ('lx:rt:ps:pt:ge:tkp:dt:ex:xp:xe:ex:xp:xe', 27),
@@ -1253,19 +1307,23 @@ is shown in
 
 > grammar = r"""
 >
-> :   lexfunc: {&lt;lf&gt;(&lt;lv&gt;&lt;ln|le&gt;*)*} example:
->     {&lt;rf|xv&gt;&lt;xn|xe&gt;*} sense:
->     {&lt;sn&gt;&lt;ps&gt;&lt;pngvdvgn-gpdnrn≥de|re&gt;*&lt;example&gt;*&lt;lexfunc&gt;*}
->     record: {&lt;lx&gt;&lt;hm&gt;&lt;sense&gt;+&lt;dt&gt;}
+> :   lexfunc: {<lf>(<lv><ln|le>*)*} example:
+>     {<rf|xv><xn|xe>*} sense:
+>     {<sn><ps><pngvdvgn-gpdnrn≥de|re>*<example>*<lexfunc>*}
+>     record: {<lx><hm><sense>+<dt>}
 >
 > > """
 >
-> &gt;&gt;&gt; from xml.etree.ElementTree import ElementTree
-> &gt;&gt;&gt; from nltk.toolbox import ToolboxData &gt;&gt;&gt; db =
-> ToolboxData() &gt;&gt;&gt;
+> >>> from xml.etree.ElementTree import ElementTree
+> >>> from nltk.toolbox import ToolboxData
+> >>> db =
+> ToolboxData()
+> >>>
 > db.open(nltk.data.find('corpora/toolbox/iu\_mien\_samp.db'))
-> &gt;&gt;&gt; lexicon = db.parse(grammar, encoding='utf8') &gt;&gt;&gt;
-> tree = ElementTree(lexicon) &gt;&gt;&gt; with
+> >>> lexicon = db.parse(grammar, encoding='utf8')
+> >>>
+> tree = ElementTree(lexicon)
+> >>> with
 > open("iu\_mien\_samp.xml", "wb") as output: ... tree.write(output)
 >
 > XML Representation of a Lexical Entry, Resulting from Chunk Parsing a

@@ -129,18 +129,19 @@ Let's take a closer look at the ambiguity in the phrase:
 I shot an elephant in my pajamas. First we need to define a simple
 grammar:
 
-> &gt;&gt;&gt; groucho\_grammar = nltk.CFG.fromstring(""" ... S -&gt; NP
-> VP ... PP -&gt; P NP ... NP -&gt; Det N | Det N PP | 'I' ... VP -&gt;
-> V NP | VP PP ... Det -&gt; 'an' | 'my' ... N -&gt; 'elephant' |
-> 'pajamas' ... V -&gt; 'shot' ... P -&gt; 'in' ... """)
+> >>> groucho\_grammar = nltk.CFG.fromstring(""" ... S -> NP
+> VP ... PP -> P NP ... NP -> Det N | Det N PP | 'I' ... VP ->
+> V NP | VP PP ... Det -> 'an' | 'my' ... N -> 'elephant' |
+> 'pajamas' ... V -> 'shot' ... P -> 'in' ... """)
 
 This grammar permits the sentence to be analyzed in two ways, depending
 on whether the prepositional phrase in my pajamas describes the elephant
 or the shooting event.
 
-> &gt;&gt;&gt; sent = \['I', 'shot', 'an', 'elephant', 'in', 'my',
-> 'pajamas'\] &gt;&gt;&gt; parser = nltk.ChartParser(groucho\_grammar)
-> &gt;&gt;&gt; for tree in parser.parse(sent): ... print(tree) ... (S
+> >>> sent = \['I', 'shot', 'an', 'elephant', 'in', 'my',
+> 'pajamas'\]
+> >>> parser = nltk.ChartParser(groucho\_grammar)
+> >>> for tree in parser.parse(sent): ... print(tree) ... (S
 > (NP I) (VP (VP (V shot) (NP (Det an) (N elephant))) (PP (P in) (NP
 > (Det my) (N pajamas))))) (S (NP I) (VP (V shot) (NP (Det an) (N
 > elephant) (PP (P in) (NP (Det my) (N pajamas))))))
@@ -455,8 +456,9 @@ them result in a parse.
 
 NLTK provides a recursive descent parser:
 
-> &gt;&gt;&gt; rd\_parser = nltk.RecursiveDescentParser(grammar1)
-> &gt;&gt;&gt; sent = 'Mary saw a dog'.split() &gt;&gt;&gt; for tree in
+> >>> rd\_parser = nltk.RecursiveDescentParser(grammar1)
+> >>> sent = 'Mary saw a dog'.split()
+> >>> for tree in
 > rd\_parser.parse(sent): ... print(tree) (S (NP Mary) (VP (V saw) (NP
 > (Det a) (N dog))))
 
@@ -523,8 +525,9 @@ exist. We can provide an optional `trace` parameter that controls how
 verbosely the parser reports the steps that it takes as it parses a
 text:
 
-> &gt;&gt;&gt; sr\_parser = nltk.ShiftReduceParser(grammar1)
-> &gt;&gt;&gt; sent = 'Mary saw a dog'.split() &gt;&gt;&gt; for tree in
+> >>> sr\_parser = nltk.ShiftReduceParser(grammar1)
+> >>> sent = 'Mary saw a dog'.split()
+> >>> for tree in
 > sr\_parser.parse(sent): ... print(tree) (S (NP Mary) (VP (V saw) (NP
 > (Det a) (N dog))))
 
@@ -643,9 +646,10 @@ is ~a~0~a~1 ... ~a~n, and our grammar contains a production of the form
 So, for every word in `text`, we can look up in our grammar what
 category it belongs to.
 
-> &gt;&gt;&gt; text = \['I', 'shot', 'an', 'elephant', 'in', 'my',
-> 'pajamas'\] &gt;&gt;&gt; groucho\_grammar.productions(rhs=text\[1\])
-> \[V -&gt; 'shot'\]
+> >>> text = \['I', 'shot', 'an', 'elephant', 'in', 'my',
+> 'pajamas'\]
+> >>> groucho\_grammar.productions(rhs=text\[1\])
+> \[V -> 'shot'\]
 
 For our WFST, we create an $(n-1)$ × $(n-1)$ matrix as a list of
 lists in Python, and initialize it with the lexical categories of each
@@ -666,12 +670,12 @@ WFST. By setting `trace` to `True` when calling the function
 `complete_wfst()`, we see tracing output that shows the WFST being
 constructed:
 
-> &gt;&gt;&gt; wfst1 = complete\_wfst(wfst0, tokens, groucho\_grammar,
-> trace=True) \[2\] Det \[3\] N \[4\] ==&gt; \[2\] NP \[4\] \[5\] Det
-> \[6\] N \[7\] ==&gt; \[5\] NP \[7\] \[1\] V \[2\] NP \[4\] ==&gt;
-> \[1\] VP \[4\] \[4\] P \[5\] NP \[7\] ==&gt; \[4\] PP \[7\] \[0\] NP
-> \[1\] VP \[4\] ==&gt; \[0\] S \[4\] \[1\] VP \[4\] PP \[7\] ==&gt;
-> \[1\] VP \[7\] \[0\] NP \[1\] VP \[7\] ==&gt; \[0\] S \[7\]
+> >>> wfst1 = complete\_wfst(wfst0, tokens, groucho\_grammar,
+> trace=True) \[2\] Det \[3\] N \[4\] ==> \[2\] NP \[4\] \[5\] Det
+> \[6\] N \[7\] ==> \[5\] NP \[7\] \[1\] V \[2\] NP \[4\] ==>
+> \[1\] VP \[4\] \[4\] P \[5\] NP \[7\] ==> \[4\] PP \[7\] \[0\] NP
+> \[1\] VP \[4\] ==> \[0\] S \[4\] \[1\] VP \[4\] PP \[7\] ==>
+> \[1\] VP \[7\] \[0\] NP \[1\] VP \[7\] ==> \[0\] S \[7\]
 
 For example, this says that since we found `Det` at `wfst[2][3]` and `N`
 at `wfst[3][4]`, we can add `NP` to `wfst[2][4]`.
@@ -755,13 +759,14 @@ Here's one way of encoding a dependency grammar in NLTK — note
 that it only captures bare dependency information without specifying the
 type of dependency:
 
-> &gt;&gt;&gt; groucho\_dep\_grammar =
-> nltk.DependencyGrammar.fromstring(""" ... 'shot' -&gt; 'I' |
-> 'elephant' | 'in' ... 'elephant' -&gt; 'an' | 'in' ... 'in' -&gt;
-> 'pajamas' ... 'pajamas' -&gt; 'my' ... """) &gt;&gt;&gt;
+> >>> groucho\_dep\_grammar =
+> nltk.DependencyGrammar.fromstring(""" ... 'shot' -> 'I' |
+> 'elephant' | 'in' ... 'elephant' -> 'an' | 'in' ... 'in' ->
+> 'pajamas' ... 'pajamas' -> 'my' ... """)
+> >>>
 > print(groucho\_dep\_grammar) Dependency grammar with 7 productions
-> 'shot' -&gt; 'I' 'shot' -&gt; 'elephant' 'shot' -&gt; 'in' 'elephant'
-> -&gt; 'an' 'elephant' -&gt; 'in' 'in' -&gt; 'pajamas' 'pajamas' -&gt;
+> 'shot' -> 'I' 'shot' -> 'elephant' 'shot' -> 'in' 'elephant'
+> -> 'an' 'elephant' -> 'in' 'in' -> 'pajamas' 'pajamas' ->
 > 'my'
 
 A dependency graph is projective if, when all the words are written in
@@ -776,10 +781,13 @@ projective dependency parser. The next example shows how
 attachment ambiguity that we examined earlier with phrase structure
 grammar.
 
-> &gt;&gt;&gt; pdp =
-> nltk.ProjectiveDependencyParser(groucho\_dep\_grammar) &gt;&gt;&gt;
-> sent = 'I shot an elephant in my pajamas'.split() &gt;&gt;&gt; trees =
-> pdp.parse(sent) &gt;&gt;&gt; for tree in trees: ... print(tree) (shot
+> >>> pdp =
+> nltk.ProjectiveDependencyParser(groucho\_dep\_grammar)
+> >>>
+> sent = 'I shot an elephant in my pajamas'.split()
+> >>> trees =
+> pdp.parse(sent)
+> >>> for tree in trees: ... print(tree) (shot
 > I (elephant an (in (pajamas my)))) (shot I (elephant an) (in (pajamas
 > my)))
 
@@ -919,8 +927,10 @@ of developing broad-coverage grammars.
 The `corpus` module defines the `treebank` corpus reader, which contains
 a 10% sample of the Penn Treebank corpus.
 
-> &gt;&gt;&gt; from nltk.corpus import treebank &gt;&gt;&gt; t =
-> treebank.parsed\_sents('wsj\_0001.mrg')\[0\] &gt;&gt;&gt; print(t) (S
+> >>> from nltk.corpus import treebank
+> >>> t =
+> treebank.parsed\_sents('wsj\_0001.mrg')\[0\]
+> >>> print(t) (S
 > (NP-SBJ (NP (NNP Pierre) (NNP Vinken)) (, ,) (ADJP (NP (CD 61) (NNS
 > years)) (JJ old)) (, ,)) (VP (MD will) (VP (VB join) (NP (DT the) (NN
 > board)) (PP-CLR (IN as) (NP (DT a) (JJ nonexecutive) (NN director)))
@@ -956,7 +966,7 @@ Treebank Corpus*, consisting of 10,000 parsed sentences drawn from the
 *Academia Sinica Balanced Corpus of Modern Chinese*. Let's load and
 display one of the trees in this corpus.
 
-> &gt;&gt;&gt;
+> >>>
 > nltk.corpus.sinica\_treebank.parsed\_sents()\[3450\].draw() \#
 > doctest: +SKIP
 
@@ -974,8 +984,8 @@ fish fish fish, meaning *fish like to fish for other fish*. (Try this
 with police if you prefer something more sensible.) Here is a toy
 grammar for the "fish" sentences.
 
-> &gt;&gt;&gt; grammar = nltk.CFG.fromstring(""" ... S -&gt; NP V NP ...
-> NP -&gt; NP Sbar ... Sbar -&gt; NP V ... NP -&gt; 'fish' ... V -&gt;
+> >>> grammar = nltk.CFG.fromstring(""" ... S -> NP V NP ...
+> NP -> NP Sbar ... Sbar -> NP V ... NP -> 'fish' ... V ->
 > 'fish' ... """)
 
 Now we can try parsing a longer sentence, fish fish fish fish
@@ -984,8 +994,10 @@ in the habit of fishing fish themselves'. We use the NLTK chart
 parser, which was mentioned earlier in this chapter. This sentence has
 two readings.
 
-> &gt;&gt;&gt; tokens = \["fish"\] \* 5 &gt;&gt;&gt; cp =
-> nltk.ChartParser(grammar) &gt;&gt;&gt; for tree in cp.parse(tokens):
+> >>> tokens = \["fish"\] \* 5
+> >>> cp =
+> nltk.ChartParser(grammar)
+> >>> for tree in cp.parse(tokens):
 > ... print(tree) (S (NP fish) (V fish) (NP (NP fish) (Sbar (NP fish) (V
 > fish)))) (S (NP (NP fish) (Sbar (NP fish) (V fish))) (V fish) (NP
 > fish))
@@ -1096,8 +1108,8 @@ one production, with a probability of 1.0; for `VP`, 0.4+0.3+0.3=1.0;
 and for `NP`, 0.8+0.2=1.0. The parse tree returned by `parse()` includes
 probabilities:
 
-> &gt;&gt;&gt; viterbi\_parser = nltk.ViterbiParser(grammar)
-> &gt;&gt;&gt; for tree in viterbi\_parser.parse(\['Jack', 'saw',
+> >>> viterbi\_parser = nltk.ViterbiParser(grammar)
+> >>> for tree in viterbi\_parser.parse(\['Jack', 'saw',
 > 'telescopes'\]): ... print(tree) (S (NP Jack) (VP (TV saw) (NP
 > telescopes))) (p=0.064)
 
@@ -1279,7 +1291,7 @@ Exercises
 20. ☆☆ To compare multiple trees in a single window, we can use the
     `draw_trees()` method. Define some trees and try it out:
 
-    > &gt;&gt;&gt; from nltk.draw.tree import draw\_trees &gt;&gt;&gt;
+    > >>> from nltk.draw.tree import draw\_trees >>>
     > draw\_trees(tree1, tree2, tree3) \# doctest: +SKIP
 
 21. ☆☆ Using tree positions, list the subjects of the first 100

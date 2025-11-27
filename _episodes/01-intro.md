@@ -85,7 +85,8 @@ The `>>>` prompt indicates that the Python interpreter is now waiting
 for input. When copying examples from this book, don't type the "`>>>`"
 yourself. Now, let's begin by using Python as a calculator:
 
-> &gt;&gt;&gt; 1 + 5 \* 2 - 3 8 &gt;&gt;&gt;
+> >>> 1 + 5 \* 2 - 3 8
+> >>>
 
 Once the interpreter has finished calculating the answer and displaying
 it, the prompt reappears. This means the Python interpreter is waiting
@@ -102,11 +103,11 @@ the Python interpreter, experimenting with various expressions in the
 language to see what they do. Now let's try a nonsensical expression to
 see how the interpreter handles it:
 
-> &gt;&gt;&gt; 1 +
+> >>> 1 +
 >
 > :   
 >
->     File "&lt;stdin&gt;", line 1
+>     File "<stdin>", line 1
 >
 >     :   
 >
@@ -114,7 +115,8 @@ see how the interpreter handles it:
 >
 >         :   \^
 >
-> SyntaxError: invalid syntax &gt;&gt;&gt;
+> SyntaxError: invalid syntax
+> >>>
 
 This produced a syntax error. In Python, it doesn't make sense to end an
 instruction with a plus sign. The Python interpreter indicates the line
@@ -147,7 +149,7 @@ few seconds). Here's the command again, together with the output that
 you will see. Take care to get spelling and punctuation right, and
 remember that you don't type the `>>>`.
 
-> &gt;&gt;&gt; from nltk.book import \* **\* Introductory Examples for
+> >>> from nltk.book import \* **\* Introductory Examples for
 > the NLTK Book**\* Loading text1, ..., text9 and sent1, ..., sent9 Type
 > the name of the text or sentence to view it. Type: 'texts()' or
 > 'sents()' to list the materials. text1: Moby Dick by Herman Melville
@@ -155,14 +157,16 @@ remember that you don't type the `>>>`.
 > of Genesis text4: Inaugural Address Corpus text5: Chat Corpus text6:
 > Monty Python and the Holy Grail text7: Wall Street Journal text8:
 > Personals Corpus text9: The Man Who Was Thursday by G . K . Chesterton
-> 1908 &gt;&gt;&gt;
+> 1908
+> >>>
 
 Any time we want to find out about these texts, we just have to enter
 their names at the Python prompt:
 
-> &gt;&gt;&gt; text1 &lt;Text: Moby Dick by Herman Melville 1851&gt;
-> &gt;&gt;&gt; text2 &lt;Text: Sense and Sensibility by Jane Austen
-> 1811&gt; &gt;&gt;&gt;
+> >>> text1 <Text: Moby Dick by Herman Melville 1851>
+> >>> text2 <Text: Sense and Sensibility by Jane Austen
+> 1811>
+> >>>
 
 Now that we can use the Python interpreter, and have some data to work
 with, we're ready to get started.
@@ -175,7 +179,7 @@ word, together with some context. Here we look up the word monstrous in
 *Moby Dick* by entering `text1` followed by a period, then the term
 `concordance`, and then placing `"monstrous"` in parentheses:
 
-> &gt;&gt;&gt; text1.concordance("monstrous") Displaying 11 of 11
+> >>> text1.concordance("monstrous") Displaying 11 of 11
 > matches: ong the former , one was of a most monstrous size . ... This
 > came towards us , ON OF THE PSALMS . " Touching that monstrous bulk of
 > the whale or ork we have r ll over with a heathenish array of
@@ -189,7 +193,7 @@ word, together with some context. Here we look up the word monstrous in
 > monstrous stories of them which are to be fo ght have been rummaged
 > out of this monstrous cabinet there is no telling . But of Whale -
 > Bones ; for Whales of a monstrous size are oftentimes cast up dead u
-> &gt;&gt;&gt;
+> >>>
 
 The first time you use a concordance on a particular text, it takes a
 few extra seconds to build an index so that subsequent searches are
@@ -222,11 +226,12 @@ a \_\_\_ size . What other words appear in a similar range of contexts?
 We can find out by appending the term `similar` to the name of the text
 in question, then inserting the relevant word in parentheses:
 
-> &gt;&gt;&gt; text1.similar("monstrous") mean part maddens doleful
+> >>> text1.similar("monstrous") mean part maddens doleful
 > gamesome subtly uncommon careful untoward exasperate loving passing
 > mouldy christian few true mystifying imperial modifies contemptible
-> &gt;&gt;&gt; text2.similar("monstrous") very heartily so exceedingly
-> remarkably as vast a great amazingly extremely good sweet &gt;&gt;&gt;
+> >>> text2.similar("monstrous") very heartily so exceedingly
+> remarkably as vast a great amazingly extremely good sweet
+> >>>
 
 Observe that we get different results for different texts. Austen uses
 this word quite differently from Melville; for her, monstrous has
@@ -238,8 +243,9 @@ are shared by two or more words, such as monstrous and very. We have to
 enclose these words by square brackets as well as parentheses, and
 separate them with a comma:
 
-> &gt;&gt;&gt; text2.common\_contexts(\["monstrous", "very"\]) a\_pretty
-> is\_pretty am\_glad be\_glad a\_lucky &gt;&gt;&gt;
+> >>> text2.common\_contexts(\["monstrous", "very"\]) a\_pretty
+> is\_pretty am\_glad be\_glad a\_lucky
+> >>>
 
 > **note**
 >
@@ -278,13 +284,14 @@ styles we have just seen. To do this, we type the name of the text
 followed by the term `generate`. (We need to include the parentheses,
 but there's nothing that goes between them.)
 
-> &gt;&gt;&gt; text3.generate() In the beginning of his brother is a
+> >>> text3.generate() In the beginning of his brother is a
 > hairy man , whose top may reach unto heaven ; and ye shall sow the
 > land of Egypt there was no bread in all that he was taken out of the
 > month , upon the earth . So shall thy wages be ? And they made their
 > father ; and Isaac was old , and kissed him : and Laban with his
 > cattle in the midst of the hands of Esau thy first born , and Phichol
-> the chief butler unto his son Isaac , she &gt;&gt;&gt;
+> the chief butler unto his son Isaac , she
+> >>>
 
 > **note**
 >
@@ -306,7 +313,8 @@ terms of the words and punctuation symbols that appear. We use the term
 `len` to get the length of something, which we'll apply here to the book
 of Genesis:
 
-> &gt;&gt;&gt; len(text3) 44764 &gt;&gt;&gt;
+> >>> len(text3) 44764
+> >>>
 
 So Genesis has 44,764 words and punctuation symbols, or "tokens." A
 token is the technical name for a sequence of characters — such as
@@ -323,11 +331,12 @@ together. In Python we can obtain the vocabulary items of `text3` with
 the command: `set(text3)`. When you do this, many screens of words will
 fly past. Now try the following:
 
-> &gt;&gt;&gt; sorted(set(text3)) \# \[\_sorted-set\] \['!', "'", '(',
+> >>> sorted(set(text3)) \# \[\_sorted-set\] \['!', "'", '(',
 > ')', ',', ',)', '.', '.)', ':', ';', ';)', '?', '?)', 'A', 'Abel',
 > 'Abelmizraim', 'Abidah', 'Abide', 'Abimael', 'Abimelech', 'Abr',
 > 'Abrah', 'Abraham', 'Abram', 'Accad', 'Achbor', 'Adah', ...\]
-> &gt;&gt;&gt; len(set(text3)) \# \[\_len-set\] 2789 &gt;&gt;&gt;
+> >>> len(set(text3)) \# \[\_len-set\] 2789
+> >>>
 
 By wrapping `sorted()` around the Python expression `set(text3)`
 sorted-set\_, we obtain a sorted list of vocabulary items, beginning
@@ -348,15 +357,17 @@ the total number of words, or equivalently that each word is used 16
 times on average (remember if you're using Python 2, to start with
 `from __future__ import division`).
 
-> &gt;&gt;&gt; len(set(text3)) / len(text3) 0.06230453042623537
-> &gt;&gt;&gt;
+> >>> len(set(text3)) / len(text3) 0.06230453042623537
+> >>>
 
 Next, let's focus on particular words. We can count how often a word
 occurs in a text, and compute what percentage of the text is taken up by
 a specific word:
 
-> &gt;&gt;&gt; text3.count("smote") 5 &gt;&gt;&gt; 100 \*
-> text4.count('a') / len(text4) 1.4643016433938312 &gt;&gt;&gt;
+> >>> text3.count("smote") 5
+> >>> 100 \*
+> text4.count('a') / len(text4) 1.4643016433938312
+> >>>
 
 > **note**
 >
@@ -373,14 +384,16 @@ us is called a function, and we define a short name for our function
 with the keyword `def`. The next example shows how to define two new
 functions, `lexical_diversity()` and `percentage()`:
 
-> &gt;&gt;&gt; def lexical\_diversity(text): \# \[\_fun-parameter1\] ...
-> return len(set(text)) / len(text) \# \[\_locvar\] ... &gt;&gt;&gt; def
+> >>> def lexical\_diversity(text): \# \[\_fun-parameter1\] ...
+> return len(set(text)) / len(text) \# \[\_locvar\] ...
+> >>> def
 > percentage(count, total): \# \[\_fun-parameter2\] ... return 100 \*
 > count / total ...
 
 > **caution**
 >
-> The Python interpreter changes the prompt from `>>>` to `...` after
+> The Python interpreter changes the prompt from `
+> >>> ` to `...` after
 > encountering the colon at the end of the first line. The `...` prompt
 > indicates that Python expects an indented code block to appear next.
 > It is up to you to do the indentation, by typing four spaces or
@@ -398,11 +411,12 @@ Once Python knows that `lexical_diversity()` and `percentage()` are the
 names for specific blocks of code, we can go ahead and use these
 functions:
 
-> &gt;&gt;&gt; lexical\_diversity(text3) 0.06230453042623537
-> &gt;&gt;&gt; lexical\_diversity(text5) 0.13477005109975562
-> &gt;&gt;&gt; percentage(4, 5) 80.0 &gt;&gt;&gt;
+> >>> lexical\_diversity(text3) 0.06230453042623537
+> >>> lexical\_diversity(text5) 0.13477005109975562
+> >>> percentage(4, 5) 80.0
+> >>>
 > percentage(text4.count('a'), len(text4)) 1.4643016433938312
-> &gt;&gt;&gt;
+> >>>
 
 To recap, we use or call a function such as `lexical_diversity()` by
 typing its name, followed by an open parenthesis, the name of the text,
@@ -441,7 +455,8 @@ and so on. However, for our purposes, we will think of a text as nothing
 more than a sequence of words and punctuation. Here's how we represent
 text in Python, in this case the opening sentence of *Moby Dick*:
 
-> &gt;&gt;&gt; sent1 = \['Call', 'me', 'Ishmael', '.'\] &gt;&gt;&gt;
+> >>> sent1 = \['Call', 'me', 'Ishmael', '.'\]
+> >>>
 
 After the prompt we've given a name we made up, `sent1`, followed by the
 equals sign, and then some quoted words, separated with commas, and
@@ -450,9 +465,12 @@ Python: it is how we store a text. We can inspect it by typing the name
 inspect-var\_. We can ask for its length len-sent\_. We can even apply
 our own `lexical_diversity()` function to it apply-function\_.
 
-> &gt;&gt;&gt; sent1 \# \[\_inspect-var\] \['Call', 'me', 'Ishmael',
-> '.'\] &gt;&gt;&gt; len(sent1) \# \[\_len-sent\] 4 &gt;&gt;&gt;
-> lexical\_diversity(sent1) \# \[\_apply-function\] 1.0 &gt;&gt;&gt;
+> >>> sent1 \# \[\_inspect-var\] \['Call', 'me', 'Ishmael',
+> '.'\]
+> >>> len(sent1) \# \[\_len-sent\] 4
+> >>>
+> lexical\_diversity(sent1) \# \[\_apply-function\] 1.0
+> >>>
 
 Some more lists have been defined for you, one for the opening sentence
 of each of our texts, `sent2` … `sent9`. We inspect two of them
@@ -460,10 +478,12 @@ here; you can see the rest for yourself using the Python interpreter (if
 you get an error which says that `sent2` is not defined, you need to
 first type `from nltk.book import *`).
 
-> &gt;&gt;&gt; sent2 \['The', 'family', 'of', 'Dashwood', 'had', 'long',
-> 'been', 'settled', 'in', 'Sussex', '.'\] &gt;&gt;&gt; sent3 \['In',
+> >>> sent2 \['The', 'family', 'of', 'Dashwood', 'had', 'long',
+> 'been', 'settled', 'in', 'Sussex', '.'\]
+> >>> sent3 \['In',
 > 'the', 'beginning', 'God', 'created', 'the', 'heaven', 'and', 'the',
-> 'earth', '.'\] &gt;&gt;&gt;
+> 'earth', '.'\]
+> >>>
 
 > **note**
 >
@@ -479,9 +499,10 @@ lists. Adding two lists list-plus-list\_ creates a new list with
 everything from the first list, followed by everything from the second
 list:
 
-> &gt;&gt;&gt; \['Monty', 'Python'\] + \['and', 'the', 'Holy', 'Grail'\]
+> >>> \['Monty', 'Python'\] + \['and', 'the', 'Holy', 'Grail'\]
 > \# \[\_list-plus-list\] \['Monty', 'Python', 'and', 'the', 'Holy',
-> 'Grail'\] &gt;&gt;&gt;
+> 'Grail'\]
+> >>>
 
 > **note**
 >
@@ -492,16 +513,19 @@ list:
 We don't have to literally type the lists either; we can use short names
 that refer to pre-defined lists.
 
-> &gt;&gt;&gt; sent4 + sent1 \['Fellow', '-', 'Citizens', 'of', 'the',
+> >>> sent4 + sent1 \['Fellow', '-', 'Citizens', 'of', 'the',
 > 'Senate', 'and', 'of', 'the', 'House', 'of', 'Representatives', ':',
-> 'Call', 'me', 'Ishmael', '.'\] &gt;&gt;&gt;
+> 'Call', 'me', 'Ishmael', '.'\]
+> >>>
 
 What if we want to add a single item to a list? This is known as
 appending. When we `append()` to a list, the list itself is updated as a
 result of the operation.
 
-> &gt;&gt;&gt; sent1.append("Some") &gt;&gt;&gt; sent1 \['Call', 'me',
-> 'Ishmael', '.', 'Some'\] &gt;&gt;&gt;
+> >>> sent1.append("Some")
+> >>> sent1 \['Call', 'me',
+> 'Ishmael', '.', 'Some'\]
+> >>>
 
 ### Indexing Lists
 
@@ -518,32 +542,39 @@ represents this position is the item's index. We instruct Python to show
 us the item that occurs at an index such as `173` in a text by writing
 the name of the text followed by the index inside square brackets:
 
-> &gt;&gt;&gt; text4\[173\] 'awaken' &gt;&gt;&gt;
+> >>> text4\[173\] 'awaken'
+> >>>
 
 We can do the converse; given a word, find the index of when it first
 occurs:
 
-> &gt;&gt;&gt; text4.index('awaken') 173 &gt;&gt;&gt;
+> >>> text4.index('awaken') 173
+> >>>
 
 Indexes are a common way to access the words of a text, or, more
 generally, the elements of any list. Python permits us to access
 sublists as well, extracting manageable pieces of language from large
 texts, a technique known as slicing.
 
-> &gt;&gt;&gt; text5\[16715:16735\] \['U86', 'thats', 'why',
+> >>> text5\[16715:16735\] \['U86', 'thats', 'why',
 > 'something', 'like', 'gamefly', 'is', 'so', 'good', 'because', 'you',
 > 'can', 'actually', 'play', 'a', 'full', 'game', 'without', 'buying',
-> 'it'\] &gt;&gt;&gt; text6\[1600:1625\] \['We', "'", 're', 'an',
+> 'it'\]
+> >>> text6\[1600:1625\] \['We', "'", 're', 'an',
 > 'anarcho', '-', 'syndicalist', 'commune', '.', 'We', 'take', 'it',
 > 'in', 'turns', 'to', 'act', 'as', 'a', 'sort', 'of', 'executive',
-> 'officer', 'for', 'the', 'week'\] &gt;&gt;&gt;
+> 'officer', 'for', 'the', 'week'\]
+> >>>
 
 Indexes have some subtleties, and we'll explore these with the help of
 an artificial sentence:
 
-> &gt;&gt;&gt; sent = \['word1', 'word2', 'word3', 'word4', 'word5', ...
-> 'word6', 'word7', 'word8', 'word9', 'word10'\] &gt;&gt;&gt; sent\[0\]
-> 'word1' &gt;&gt;&gt; sent\[9\] 'word10' &gt;&gt;&gt;
+> >>> sent = \['word1', 'word2', 'word3', 'word4', 'word5', ...
+> 'word6', 'word7', 'word8', 'word9', 'word10'\]
+> >>> sent\[0\]
+> 'word1'
+> >>> sent\[9\] 'word10'
+> >>>
 
 Notice that our indexes start from zero: `sent` element zero, written
 `sent[0]`, is the first word, `'word1'`, whereas `sent` element 9 is
@@ -563,9 +594,9 @@ steps forward leaves it at the first element.
 
 Now, if we accidentally use an index that is too large, we get an error:
 
-> &gt;&gt;&gt; sent\[10\] Traceback (most recent call last): File
-> "&lt;stdin&gt;", line 1, in ? IndexError: list index out of range
-> &gt;&gt;&gt;
+> >>> sent\[10\] Traceback (most recent call last): File
+> "<stdin>", line 1, in ? IndexError: list index out of range
+> >>>
 
 This time it is not a syntax error, because the program fragment is
 syntactically correct. Instead, it is a runtime error, and it produces a
@@ -576,24 +607,29 @@ Let's take a closer look at slicing, using our artificial sentence
 again. Here we verify that the slice `5:8` includes `sent` elements at
 indexes 5, 6, and 7:
 
-> &gt;&gt;&gt; sent\[5:8\] \['word6', 'word7', 'word8'\] &gt;&gt;&gt;
-> sent\[5\] 'word6' &gt;&gt;&gt; sent\[6\] 'word7' &gt;&gt;&gt;
-> sent\[7\] 'word8' &gt;&gt;&gt;
+> >>> sent\[5:8\] \['word6', 'word7', 'word8'\]
+> >>>
+> sent\[5\] 'word6'
+> >>> sent\[6\] 'word7'
+> >>>
+> sent\[7\] 'word8'
+> >>>
 
 By convention, `m:n` means elements m…n-1. As the next example
 shows, we can omit the first number if the slice begins at the start of
 the list slice2\_, and we can omit the second number if the slice goes
 to the end slice3\_:
 
-> &gt;&gt;&gt; sent\[:3\] \# \[\_slice2\] \['word1', 'word2', 'word3'\]
-> &gt;&gt;&gt; text2\[141525:\] \# \[\_slice3\] \['among', 'the',
+> >>> sent\[:3\] \# \[\_slice2\] \['word1', 'word2', 'word3'\]
+> >>> text2\[141525:\] \# \[\_slice3\] \['among', 'the',
 > 'merits', 'and', 'the', 'happiness', 'of', 'Elinor', 'and',
 > 'Marianne', ',', 'let', 'it', 'not', 'be', 'ranked', 'as', 'the',
 > 'least', 'considerable', ',', 'that', 'though', 'sisters', ',', 'and',
 > 'living', 'almost', 'within', 'sight', 'of', 'each', 'other', ',',
 > 'they', 'could', 'live', 'without', 'disagreement', 'between',
 > 'themselves', ',', 'or', 'producing', 'coolness', 'between', 'their',
-> 'husbands', '.', 'THE', 'END'\] &gt;&gt;&gt;
+> 'husbands', '.', 'THE', 'END'\]
+> >>>
 
 We can modify an element of a list by assigning to one of its index
 values. In the next example, we put `sent[0]` on the left of the equals
@@ -602,13 +638,18 @@ material slice-assignment\_. A consequence of this last change is that
 the list only has four elements, and accessing a later value generates
 an error list-error\_.
 
-> &gt;&gt;&gt; sent\[0\] = 'First' \# \[\_list-assignment\] &gt;&gt;&gt;
-> sent\[9\] = 'Last' &gt;&gt;&gt; len(sent) 10 &gt;&gt;&gt; sent\[1:9\]
-> = \['Second', 'Third'\] \# \[\_slice-assignment\] &gt;&gt;&gt; sent
-> \['First', 'Second', 'Third', 'Last'\] &gt;&gt;&gt; sent\[9\] \#
+> >>> sent\[0\] = 'First' \# \[\_list-assignment\]
+> >>>
+> sent\[9\] = 'Last'
+> >>> len(sent) 10
+> >>> sent\[1:9\]
+> = \['Second', 'Third'\] \# \[\_slice-assignment\]
+> >>> sent
+> \['First', 'Second', 'Third', 'Last'\]
+> >>> sent\[9\] \#
 > \[\_list-error\] Traceback (most recent call last): File
-> "&lt;stdin&gt;", line 1, in ? IndexError: list index out of range
-> &gt;&gt;&gt;
+> "<stdin>", line 1, in ? IndexError: list index out of range
+> >>>
 
 > **note**
 >
@@ -626,7 +667,8 @@ name like this! In general, we can make up names for anything we care to
 calculate. We did this ourselves in the previous sections, e.g.,
 defining a variable `sent1`, as follows:
 
-> &gt;&gt;&gt; sent1 = \['Call', 'me', 'Ishmael', '.'\] &gt;&gt;&gt;
+> >>> sent1 = \['Call', 'me', 'Ishmael', '.'\]
+> >>>
 
 Such lines have the form: *variable = expression*. Python will evaluate
 the expression, and save its result to the variable. This process is
@@ -638,11 +680,15 @@ the variable can be anything you like, e.g., `my_sent`, `sentence`,
 `xyzzy`. It must start with a letter, and can include numbers and
 underscores. Here are some examples of variables and assignments:
 
-> &gt;&gt;&gt; my\_sent = \['Bravely', 'bold', 'Sir', 'Robin', ',',
-> 'rode', ... 'forth', 'from', 'Camelot', '.'\] &gt;&gt;&gt;
-> noun\_phrase = my\_sent\[1:4\] &gt;&gt;&gt; noun\_phrase \['bold',
-> 'Sir', 'Robin'\] &gt;&gt;&gt; wOrDs = sorted(noun\_phrase)
-> &gt;&gt;&gt; wOrDs \['Robin', 'Sir', 'bold'\] &gt;&gt;&gt;
+> >>> my\_sent = \['Bravely', 'bold', 'Sir', 'Robin', ',',
+> 'rode', ... 'forth', 'from', 'Camelot', '.'\]
+> >>>
+> noun\_phrase = my\_sent\[1:4\]
+> >>> noun\_phrase \['bold',
+> 'Sir', 'Robin'\]
+> >>> wOrDs = sorted(noun\_phrase)
+> >>> wOrDs \['Robin', 'Sir', 'bold'\]
+> >>>
 
 Remember that capitalized words appear before lowercase words in sorted
 lists.
@@ -666,15 +712,18 @@ that a variable name cannot be any of Python's reserved words, such as
 `def`, `if`, `not`, and `import`. If you use a reserved word, Python
 will produce a syntax error:
 
-> &gt;&gt;&gt; not = 'Camelot' \# doctest: +SKIP File "&lt;stdin&gt;",
-> line 1 not = 'Camelot' \^ SyntaxError: invalid syntax &gt;&gt;&gt;
+> >>> not = 'Camelot' \# doctest: +SKIP File "<stdin>",
+> line 1 not = 'Camelot' \^ SyntaxError: invalid syntax
+> >>>
 
 We will often use variables to hold intermediate steps of a computation,
 especially when this makes the code easier to follow. Thus
 `len(set(text1))` could also be written:
 
-> &gt;&gt;&gt; vocab = set(text1) &gt;&gt;&gt; vocab\_size = len(vocab)
-> &gt;&gt;&gt; vocab\_size 19317 &gt;&gt;&gt;
+> >>> vocab = set(text1)
+> >>> vocab\_size = len(vocab)
+> >>> vocab\_size 19317
+> >>>
 
 > **caution**
 >
@@ -695,20 +744,25 @@ with individual words, or strings. For example, we can assign a string
 to a variable assign-string\_, index a string index-string\_, and slice
 a string slice-string\_:
 
-> &gt;&gt;&gt; name = 'Monty' \# \[\_assign-string\] &gt;&gt;&gt;
-> name\[0\] \# \[\_index-string\] 'M' &gt;&gt;&gt; name\[:4\] \#
-> \[\_slice-string\] 'Mont' &gt;&gt;&gt;
+> >>> name = 'Monty' \# \[\_assign-string\]
+> >>>
+> name\[0\] \# \[\_index-string\] 'M'
+> >>> name\[:4\] \#
+> \[\_slice-string\] 'Mont'
+> >>>
 
 We can also perform multiplication and addition with strings:
 
-> &gt;&gt;&gt; name \* 2 'MontyMonty' &gt;&gt;&gt; name + '!' 'Monty!'
-> &gt;&gt;&gt;
+> >>> name \* 2 'MontyMonty'
+> >>> name + '!' 'Monty!'
+> >>>
 
 We can join the words of a list to make a single string, or split a
 string into a list, as follows:
 
-> &gt;&gt;&gt; ' '.join(\['Monty', 'Python'\]) 'Monty Python'
-> &gt;&gt;&gt; 'Monty Python'.split() \['Monty', 'Python'\] &gt;&gt;&gt;
+> >>> ' '.join(\['Monty', 'Python'\]) 'Monty Python'
+> >>> 'Monty Python'.split() \['Monty', 'Python'\]
+> >>>
 
 We will come back to the topic of strings in chap-words\_. For the time
 being, we have two important building blocks — lists and strings
@@ -736,10 +790,14 @@ use the interpreter to check whether you got it right. If you're not
 sure how to do this task, it would be a good idea to review the previous
 section before continuing further.
 
-> &gt;&gt;&gt; saying = \['After', 'all', 'is', 'said', 'and', 'done',
-> ... 'more', 'is', 'said', 'than', 'done'\] &gt;&gt;&gt; tokens =
-> set(saying) &gt;&gt;&gt; tokens = sorted(tokens) &gt;&gt;&gt;
-> tokens\[-2:\] what output do you expect here? &gt;&gt;&gt;
+> >>> saying = \['After', 'all', 'is', 'said', 'and', 'done',
+> ... 'more', 'is', 'said', 'than', 'done'\]
+> >>> tokens =
+> set(saying)
+> >>> tokens = sorted(tokens)
+> >>>
+> tokens\[-2:\] what output do you expect here?
+> >>>
 
 ### Frequency Distributions
 
@@ -764,9 +822,10 @@ vocabulary items. Since we often need frequency distributions in
 language processing, NLTK provides built-in support for them. Let's use
 a `FreqDist` to find the 50 most frequent words of *Moby Dick*:
 
-> &gt;&gt;&gt; fdist1 = FreqDist(text1) \# \[\_freq-dist-call\]
-> &gt;&gt;&gt; print(fdist1) \# \[\_freq-dist-inspect\] &lt;FreqDist
-> with 19317 samples and 260819 outcomes&gt; &gt;&gt;&gt;
+> >>> fdist1 = FreqDist(text1) \# \[\_freq-dist-call\]
+> >>> print(fdist1) \# \[\_freq-dist-inspect\] <FreqDist
+> with 19317 samples and 260819 outcomes>
+> >>>
 > fdist1.most\_common(50) \# \[\_freq-dist-most-common\] \[(',', 18713),
 > ('the', 13721), ('.', 6862), ('of', 6536), ('and', 6024), ('a', 4569),
 > ('to', 4542), (';', 4072), ('in', 3916), ('that', 2982), ("'", 2684),
@@ -778,7 +837,9 @@ a `FreqDist` to find the 50 most frequent words of *Moby Dick*:
 > 1005), ('so', 918), ('whale', 906), ('one', 889), ('you', 841),
 > ('had', 767), ('have', 760), ('there', 715), ('But', 705), ('or',
 > 697), ('were', 680), ('now', 646), ('which', 640), ('?', 637), ('me',
-> 627), ('like', 624)\] &gt;&gt;&gt; fdist1\['whale'\] 906 &gt;&gt;&gt;
+> 627), ('like', 624)\]
+> >>> fdist1\['whale'\] 906
+> >>>
 
 When we first invoke `FreqDist`, we pass the name of the text as an
 argument freq-dist-call\_. We can inspect the total number of words
@@ -833,8 +894,10 @@ ex-set-comprehension-python\_. (Note that it produces a list, not a set,
 which means that duplicates are possible.) Observe how similar the two
 notations are. Let's go one more step and write executable Python code:
 
-> &gt;&gt;&gt; V = set(text1) &gt;&gt;&gt; long\_words = \[w for w in V
-> if len(w) &gt; 15\] &gt;&gt;&gt; sorted(long\_words)
+> >>> V = set(text1)
+> >>> long\_words = \[w for w in V
+> if len(w) > 15\]
+> >>> sorted(long\_words)
 > \['CIRCUMNAVIGATION', 'Physiognomically', 'apprehensiveness',
 > 'cannibalistically', 'characteristically', 'circumnavigating',
 > 'circumnavigation', 'circumnavigations', 'comprehensiveness',
@@ -843,7 +906,7 @@ notations are. Let's go one more step and write executable Python code:
 > 'responsibilities', 'simultaneousness', 'subterraneousness',
 > 'supernaturalness', 'superstitiousness', 'uncomfortableness',
 > 'uncompromisedness', 'undiscriminating', 'uninterpenetratingly'\]
-> &gt;&gt;&gt;
+> >>>
 
 For each word `w` in the vocabulary `V`, we check whether `len(w)` is
 greater than 15; all other words will be ignored. We will discuss this
@@ -868,12 +931,14 @@ short words (e.g., the) and infrequent long words (e.g.
 antiphilosophists). Here are all words from the chat corpus that are
 longer than seven characters, that occur more than seven times:
 
-> &gt;&gt;&gt; fdist5 = FreqDist(text5) &gt;&gt;&gt; sorted(w for w in
-> set(text5) if len(w) &gt; 7 and fdist5\[w\] &gt; 7) \['\#14-19teens',
+> >>> fdist5 = FreqDist(text5)
+> >>> sorted(w for w in
+> set(text5) if len(w) > 7 and fdist5\[w\] > 7) \['\#14-19teens',
 > '\#talkcity\_adults', '((((((((((', '........', 'Question',
 > 'actually', 'anything', 'computer', 'cute.-ass', 'everyone',
 > 'football', 'innocent', 'listening', 'remember', 'seriously',
-> 'something', 'together', 'tomorrow', 'watching'\] &gt;&gt;&gt;
+> 'something', 'together', 'tomorrow', 'watching'\]
+> >>>
 
 Notice how we have used two conditions: `len(w) > 7` ensures that the
 words are longer than seven letters, and `fdist5[w] > 7` ensures that
@@ -894,9 +959,9 @@ To get a handle on collocations, we start off by extracting from a text
 a list of word pairs, also known as bigrams. This is easily accomplished
 with the function `bigrams()`:
 
-> &gt;&gt;&gt; list(bigrams(\['more', 'is', 'said', 'than', 'done'\]))
+> >>> list(bigrams(\['more', 'is', 'said', 'than', 'done'\]))
 > \[('more', 'is'), ('is', 'said'), ('said', 'than'), ('than', 'done')\]
-> &gt;&gt;&gt;
+> >>>
 
 > **note**
 >
@@ -915,16 +980,17 @@ that occur more often than we would expect based on the frequency of the
 individual words. The `collocations()` function does this for us. We
 will see how it works later.
 
-> &gt;&gt;&gt; text4.collocations() United States; fellow citizens; four
+> >>> text4.collocations() United States; fellow citizens; four
 > years; years ago; Federal Government; General Government; American
 > people; Vice President; Old World; Almighty God; Fellow citizens;
 > Chief Magistrate; Chief Justice; God bless; every citizen; Indian
 > tribes; public debt; one another; foreign nations; political parties
-> &gt;&gt;&gt; text8.collocations() would like; medium build; social
+> >>> text8.collocations() would like; medium build; social
 > drinker; quiet nights; non smoker; long term; age open; Would like;
 > easy going; financially secure; fun times; similar interests; Age
 > open; weekends away; poss rship; well presented; never married; single
-> mum; permanent relationship; slim build &gt;&gt;&gt;
+> mum; permanent relationship; slim build
+> >>>
 
 The collocations that emerge are very specific to the genre of the
 texts. In order to find red wine as a collocation, we would need to
@@ -937,14 +1003,18 @@ example, we can look at the distribution of word lengths in a text, by
 creating a `FreqDist` out of a long list of numbers, where each number
 is the length of the corresponding word in the text:
 
-> &gt;&gt;&gt; \[len(w) for w in text1\] \# \[\_word-lengths\] \[1, 4,
+> >>> \[len(w) for w in text1\] \# \[\_word-lengths\] \[1, 4,
 > 4, 2, 6, 8, 4, 1, 9, 1, 1, 8, 2, 1, 4, 11, 5, 2, 1, 7, 6, 1, 3, 4, 5,
-> 2, ...\] &gt;&gt;&gt; fdist = FreqDist(len(w) for w in text1) \#
-> \[\_freq-word-lengths\] &gt;&gt;&gt; print(fdist) \#
-> \[\_freq-word-lengths-size\] &lt;FreqDist with 19 samples and 260819
-> outcomes&gt; &gt;&gt;&gt; fdist FreqDist({3: 50223, 1: 47933, 4:
+> 2, ...\]
+> >>> fdist = FreqDist(len(w) for w in text1) \#
+> \[\_freq-word-lengths\]
+> >>> print(fdist) \#
+> \[\_freq-word-lengths-size\] <FreqDist with 19 samples and 260819
+> outcomes>
+> >>> fdist FreqDist({3: 50223, 1: 47933, 4:
 > 42345, 2: 38513, 5: 26597, 6: 17111, 7: 14399, 8: 9966, 9: 6428, 10:
-> 3528, ...}) &gt;&gt;&gt;
+> 3528, ...})
+> >>>
 
 We start by deriving a list of the lengths of words in `text1`
 word-lengths\_, and the `FreqDist` then counts the number of times each
@@ -959,12 +1029,15 @@ wonder how frequent the different lengths of word are (e.g., how many
 words of length four appear in the text, are there more words of length
 five than length four, etc). We can do this as follows:
 
-> &gt;&gt;&gt; fdist.most\_common() \[(3, 50223), (1, 47933), (4,
+> >>> fdist.most\_common() \[(3, 50223), (1, 47933), (4,
 > 42345), (2, 38513), (5, 26597), (6, 17111), (7, 14399), (8, 9966), (9,
 > 6428), (10, 3528), (11, 1873), (12, 1053), (13, 567), (14, 177), (15,
-> 70), (16, 22), (17, 12), (18, 1), (20, 1)\] &gt;&gt;&gt; fdist.max() 3
-> &gt;&gt;&gt; fdist\[3\] 50223 &gt;&gt;&gt; fdist.freq(3)
-> 0.19255882431878046 &gt;&gt;&gt;
+> 70), (16, 22), (17, 12), (18, 1), (20, 1)\]
+> >>> fdist.max() 3
+> >>> fdist\[3\] 50223
+> >>> fdist.freq(3)
+> 0.19255882431878046
+> >>>
 
 From this we see that the most frequent word length is 3, and that words
 of length 3 account for roughly 50,000 (or 20%) of the words making up
@@ -1003,16 +1076,19 @@ line to the next. They all use `sent7`, the first sentence from `text7`
 (*Wall Street Journal*). As before, if you get an error saying that
 `sent7` is undefined, you need to first type: `from nltk.book import *`
 
-> &gt;&gt;&gt; sent7 \['Pierre', 'Vinken', ',', '61', 'years', 'old',
+> >>> sent7 \['Pierre', 'Vinken', ',', '61', 'years', 'old',
 > ',', 'will', 'join', 'the', 'board', 'as', 'a', 'nonexecutive',
-> 'director', 'Nov.', '29', '.'\] &gt;&gt;&gt; \[w for w in sent7 if
-> len(w) &lt; 4\] \[',', '61', 'old', ',', 'the', 'as', 'a', '29', '.'\]
-> &gt;&gt;&gt; \[w for w in sent7 if len(w) &lt;= 4\] \[',', '61',
+> 'director', 'Nov.', '29', '.'\]
+> >>> \[w for w in sent7 if
+> len(w) < 4\] \[',', '61', 'old', ',', 'the', 'as', 'a', '29', '.'\]
+> >>> \[w for w in sent7 if len(w) <= 4\] \[',', '61',
 > 'old', ',', 'will', 'join', 'the', 'as', 'a', 'Nov.', '29', '.'\]
-> &gt;&gt;&gt; \[w for w in sent7 if len(w) == 4\] \['will', 'join',
-> 'Nov.'\] &gt;&gt;&gt; \[w for w in sent7 if len(w) != 4\] \['Pierre',
+> >>> \[w for w in sent7 if len(w) == 4\] \['will', 'join',
+> 'Nov.'\]
+> >>> \[w for w in sent7 if len(w) != 4\] \['Pierre',
 > 'Vinken', ',', '61', 'years', 'old', ',', 'the', 'board', 'as', 'a',
-> 'nonexecutive', 'director', '29', '.'\] &gt;&gt;&gt;
+> 'nonexecutive', 'director', '29', '.'\]
+> >>>
 
 There is a common pattern to all of these examples:
 `[w for w in text if` *condition* `]`, where *condition* is a Python
@@ -1025,14 +1101,18 @@ Here are some examples of these operators being used to select words
 from our texts: words ending with -ableness; words containing gnt; words
 having an initial capital; and words consisting entirely of digits.
 
-> &gt;&gt;&gt; sorted(w for w in set(text1) if w.endswith('ableness'))
+> >>> sorted(w for w in set(text1) if w.endswith('ableness'))
 > \['comfortableness', 'honourableness', 'immutableness',
-> 'indispensableness', ...\] &gt;&gt;&gt; sorted(term for term in
+> 'indispensableness', ...\]
+> >>> sorted(term for term in
 > set(text4) if 'gnt' in term) \['Sovereignty', 'sovereignties',
-> 'sovereignty'\] &gt;&gt;&gt; sorted(item for item in set(text6) if
+> 'sovereignty'\]
+> >>> sorted(item for item in set(text6) if
 > item.istitle()) \['A', 'Aaaaaaaaah', 'Aaaaaaaah', 'Aaaaaah', 'Aaaah',
-> 'Aaaaugh', 'Aaagh', ...\] &gt;&gt;&gt; sorted(item for item in
-> set(sent7) if item.isdigit()) \['29', '61'\] &gt;&gt;&gt;
+> 'Aaaaugh', 'Aaagh', ...\]
+> >>> sorted(item for item in
+> set(sent7) if item.isdigit()) \['29', '61'\]
+> >>>
 
 We can also create more complex conditions. If $c$ is a condition, then
 `not` $c$ is also a condition. If we have two conditions $c$~1~ and
@@ -1050,10 +1130,12 @@ In sec-computing-with-language-simple-statistics\_, we saw some examples
 of counting items other than words. Let's take a closer look at the
 notation we used:
 
-> &gt;&gt;&gt; \[len(w) for w in text1\] \[1, 4, 4, 2, 6, 8, 4, 1, 9, 1,
-> 1, 8, 2, 1, 4, 11, 5, 2, 1, 7, 6, 1, 3, 4, 5, 2, ...\] &gt;&gt;&gt;
+> >>> \[len(w) for w in text1\] \[1, 4, 4, 2, 6, 8, 4, 1, 9, 1,
+> 1, 8, 2, 1, 4, 11, 5, 2, 1, 7, 6, 1, 3, 4, 5, 2, ...\]
+> >>>
 > \[w.upper() for w in text1\] \['\[', 'MOBY', 'DICK', 'BY', 'HERMAN',
-> 'MELVILLE', '1851', '\]', 'ETYMOLOGY', '.', ...\] &gt;&gt;&gt;
+> 'MELVILLE', '1851', '\]', 'ETYMOLOGY', '.', ...\]
+> >>>
 
 These expressions have the form `[f(w) for ...]` or `[w.f() for ...]`,
 where `f` is a function that operates on a word to compute its length,
@@ -1074,17 +1156,19 @@ performing the specified operation on the variable.
 Let's return to the question of vocabulary size, and apply the same
 idiom here:
 
-> &gt;&gt;&gt; len(text1) 260819 &gt;&gt;&gt; len(set(text1)) 19317
-> &gt;&gt;&gt; len(set(word.lower() for word in text1)) 17231
-> &gt;&gt;&gt;
+> >>> len(text1) 260819
+> >>> len(set(text1)) 19317
+> >>> len(set(word.lower() for word in text1)) 17231
+> >>>
 
 Now that we are not double-counting words like This and this, which
 differ only in capitalization, we've wiped 2,000 off the vocabulary
 count! We can go a step further and eliminate numbers and punctuation
 from the vocabulary count by filtering out any non-alphabetic items:
 
-> &gt;&gt;&gt; len(set(word.lower() for word in text1 if
-> word.isalpha())) 16948 &gt;&gt;&gt;
+> >>> len(set(word.lower() for word in text1 if
+> word.isalpha())) 16948
+> >>>
 
 This example is slightly complicated: it lowercases all the purely
 alphabetic items. Perhaps it would have been simpler just to count the
@@ -1106,9 +1190,11 @@ is, so the body of the `if` statement is invoked and the `print`
 statement is executed, displaying a message to the user. Remember to
 indent the `print` statement by typing four spaces.
 
-> &gt;&gt;&gt; word = 'cat' &gt;&gt;&gt; if len(word) &lt; 5: ...
+> >>> word = 'cat'
+> >>> if len(word) < 5: ...
 > print('word length is less than 5') ... \# \[\_blank-line\] word
-> length is less than 5 &gt;&gt;&gt;
+> length is less than 5
+> >>>
 
 When we use the Python interpreter we have to add an extra blank line
 blank-line\_ in order for it to detect that the nested block is
@@ -1119,23 +1205,25 @@ complete.
 > If you are using Python 2.6 or 2.7, you need to include the following
 > line in order for the above `print` function to be recognized:
 >
-> &gt;&gt;&gt; from \_\_future\_\_ import print\_function
+> >>> from \_\_future\_\_ import print\_function
 
 If we change the conditional test to `len(word) >= 5`, to check that the
 length of `word` is greater than or equal to `5`, then the test will no
 longer be true. This time, the body of the `if` statement will not be
 executed, and no message is shown to the user:
 
-> &gt;&gt;&gt; if len(word) &gt;= 5: ... print('word length is greater
-> than or equal to 5') ... &gt;&gt;&gt;
+> >>> if len(word) >= 5: ... print('word length is greater
+> than or equal to 5') ...
+> >>>
 
 An `if` statement is known as a control structure because it controls
 whether the code in the indented block will be run. Another control
 structure is the `for` loop. Try the following, and remember to include
 the colon and the four spaces:
 
-> &gt;&gt;&gt; for word in \['Call', 'me', 'Ishmael', '.'\]: ...
-> print(word) ... Call me Ishmael . &gt;&gt;&gt;
+> >>> for word in \['Call', 'me', 'Ishmael', '.'\]: ...
+> print(word) ... Call me Ishmael .
+> >>>
 
 This is called a loop because Python executes the code in circular
 fashion. It starts by performing the assignment `word = 'Call'`,
@@ -1152,9 +1240,11 @@ every item of the list, and print the item only if it ends with the
 letter *l*. We'll pick another name for the variable to demonstrate that
 Python doesn't try to make sense of variable names.
 
-> &gt;&gt;&gt; sent1 = \['Call', 'me', 'Ishmael', '.'\] &gt;&gt;&gt; for
+> >>> sent1 = \['Call', 'me', 'Ishmael', '.'\]
+> >>> for
 > xyzzy in sent1: ... if xyzzy.endswith('l'): ... print(xyzzy) ... Call
-> Ishmael &gt;&gt;&gt;
+> Ishmael
+> >>>
 
 You will notice that `if` and `for` statements have a colon at the end
 of the line, before the indentation begins. In fact, all Python control
@@ -1166,11 +1256,12 @@ statement is not met. Here we see the `elif` (else if) statement, and
 the `else` statement. Notice that these also have colons before the
 indented code.
 
-> &gt;&gt;&gt; for token in sent1: ... if token.islower(): ...
+> >>> for token in sent1: ... if token.islower(): ...
 > print(token, 'is a lowercase word') ... elif token.istitle(): ...
 > print(token, 'is a titlecase word') ... else: ... print(token, 'is
 > punctuation') ... Call is a titlecase word me is a lowercase word
-> Ishmael is a titlecase word . is punctuation &gt;&gt;&gt;
+> Ishmael is a titlecase word . is punctuation
+> >>>
 
 As you can see, even with this small amount of Python knowledge, you can
 start to build multiline Python programs. It's important to develop such
@@ -1184,10 +1275,12 @@ a list of cie and cei words, then we loop over each item and print it.
 Notice the extra information given in the print statement: end=' '. This
 tells Python to print a space (not the default newline) after each word.
 
-> &gt;&gt;&gt; tricky = sorted(w for w in set(text2) if 'cie' in w or
-> 'cei' in w) &gt;&gt;&gt; for word in tricky: ... print(word, end=' ')
+> >>> tricky = sorted(w for w in set(text2) if 'cie' in w or
+> 'cei' in w)
+> >>> for word in tricky: ... print(word, end=' ')
 > ancient ceiling conceit conceited conceive conscience conscientious
-> conscientiously deceitful deceive ... &gt;&gt;&gt;
+> conscientiously deceitful deceive ...
+> >>>
 
 Automatic Natural Language Understanding
 ----------------------------------------
@@ -1303,20 +1396,20 @@ these systems have some serious shortcomings, which are starkly revealed
 by translating a sentence back and forth between a pair of languages
 until equilibrium is reached, e.g.:
 
-0&gt; how long before the next flight to Alice Springs?\
-1&gt; wie lang vor dem folgenden Flug zu Alice Springs?\
-2&gt; how long before the following flight to Alice jump?\
-3&gt; wie lang vor dem folgenden Flug zu Alice springen Sie?\
-4&gt; how long before the following flight to Alice do you jump?\
-5&gt; wie lang, bevor der folgende Flug zu Alice tun, Sie springen?\
-6&gt; how long, before the following flight to Alice does, do you jump?\
-7&gt; wie lang bevor der folgende Flug zu Alice tut, tun Sie springen?\
-8&gt; how long before the following flight to Alice does, do you jump?\
-9&gt; wie lang, bevor der folgende Flug zu Alice tut, tun Sie springen?\
-10&gt; how long, before the following flight does to Alice, do do you
+0> how long before the next flight to Alice Springs?\
+1> wie lang vor dem folgenden Flug zu Alice Springs?\
+2> how long before the following flight to Alice jump?\
+3> wie lang vor dem folgenden Flug zu Alice springen Sie?\
+4> how long before the following flight to Alice do you jump?\
+5> wie lang, bevor der folgende Flug zu Alice tun, Sie springen?\
+6> how long, before the following flight to Alice does, do you jump?\
+7> wie lang bevor der folgende Flug zu Alice tut, tun Sie springen?\
+8> how long before the following flight to Alice does, do you jump?\
+9> wie lang, bevor der folgende Flug zu Alice tut, tun Sie springen?\
+10> how long, before the following flight does to Alice, do do you
 jump?\
-11&gt; wie lang bevor der folgende Flug zu Alice tut, Sie tun Sprung?\
-12&gt; how long before the following flight does leap to Alice, does
+11> wie lang bevor der folgende Flug zu Alice tut, Sie tun Sprung?\
+12> how long before the following flight does leap to Alice, does
 you?
 
 Observe that the system correctly translates Alice Springs from English
