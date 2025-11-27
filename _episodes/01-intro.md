@@ -44,7 +44,7 @@ range of elementary concepts in linguistics and computer science. If you
 have basic familiarity with both areas, you can skip to
 sec-automatic-natural-language-understanding\_; we will repeat any
 important points in later chapters, and if you miss anything you can
-easily consult the online reference material at |NLTK-URL|. If the
+easily consult the online reference material at [NLTK](https://www.nltk.org/). If the
 material is completely new to you, this chapter will raise more
 questions than it answers, questions that are addressed in the rest of
 this book.
@@ -61,12 +61,12 @@ interpreter.
 ### Getting Started with Python
 
 One of the friendly things about Python is that it allows you to type
-directly into the interactive interpreter |mdash| the program that will
+directly into the interactive interpreter — the program that will
 be running your Python programs. You can access the Python interpreter
 using a simple graphical interface called the Interactive DeveLopment
-Environment (|IDLE|). On a Mac you can find this under
-*Applications*|rarr|*MacPython*, and on Windows under *All
-Programs*|rarr|*Python*. Under Unix you can run Python from the shell by
+Environment (IDLE). On a Mac you can find this under
+*Applications*→*MacPython*, and on Windows under *All
+Programs*→*Python*. Under Unix you can run Python from the shell by
 typing `idle` (if this is not installed, try typing `python`). The
 interpreter will print a blurb about your Python version; simply check
 that you are running Python 3.2 or later (here it is for 3.4.2):
@@ -74,7 +74,7 @@ that you are running Python 3.2 or later (here it is for 3.4.2):
 > **note**
 >
 > If you are unable to run the Python interpreter, you probably don't
-> have Python installed correctly. Please visit |PYTHON-URL| for
+> have Python installed correctly. Please visit [Python](https://www.python.org/) for
 > detailed instructions. NLTK 3.0 works for Python 2.6 and 2.7. If you
 > are using one of these older versions, note that the `/` operator
 > rounds fractional results downwards (so `1/3` will give you `0`). In
@@ -93,7 +93,7 @@ for another instruction.
 
 > **note**
 >
-> |TRY| Enter a few more expressions of your own. You can use asterisk
+> **Try this** Enter a few more expressions of your own. You can use asterisk
 > (`*`) for multiplication and slash (`/`) for division, and parentheses
 > for bracketing expressions.
 
@@ -127,10 +127,10 @@ with language data.
 ### Getting Started with NLTK
 
 Before going further you should install |NLTK3|, downloadable for free
-from |NLTK-URL|. Follow the instructions there to download the version
+from [NLTK](https://www.nltk.org/). Follow the instructions there to download the version
 required for your platform.
 
-Once you've installed |NLTK|, start up the Python interpreter as before,
+Once you've installed NLTK, start up the Python interpreter as before,
 and install the data required for the book by typing the following two
 commands at the Python prompt, then selecting the `book` collection as
 shown in
@@ -197,7 +197,7 @@ fast.
 
 > **note**
 >
-> |TRY| Try searching for other words; to save re-typing, you might be
+> **Try this** Try searching for other words; to save re-typing, you might be
 > able to use up-arrow, Ctrl-up-arrow or Alt-p to access the previous
 > command and modify the word being searched. You can also try searches
 > on some of the other texts we have included. For example, search
@@ -243,7 +243,7 @@ separate them with a comma:
 
 > **note**
 >
-> |TRY| Pick another pair of words and compare their usage in two
+> **Try this** Pick another pair of words and compare their usage in two
 > different texts, using the `similar()` and `common_contexts()`
 > functions.
 
@@ -264,14 +264,14 @@ parentheses exactly right.
 
 > **note**
 >
-> |IMPORTANT| You need to have Python's NumPy and Matplotlib packages
+> **Important** You need to have Python's NumPy and Matplotlib packages
 > installed in order to produce the graphical plots used in this book.
-> Please see |NLTK-URL| for installation instructions.
+> Please see [NLTK](https://www.nltk.org/) for installation instructions.
 
 > **note**
 >
 > You can also plot the frequency of word usage through time using
-> |GOOGLE-NGRAM|
+> [Google Ngram Viewer](https://books.google.com/ngrams)
 
 Now, just for fun, let's try generating some random text in the various
 styles we have just seen. To do this, we type the name of the text
@@ -309,8 +309,8 @@ of Genesis:
 > &gt;&gt;&gt; len(text3) 44764 &gt;&gt;&gt;
 
 So Genesis has 44,764 words and punctuation symbols, or "tokens." A
-token is the technical name for a sequence of characters |mdash| such as
-`hairy`, `his`, or `:)` |mdash| that we want to treat as a group. When
+token is the technical name for a sequence of characters — such as
+`hairy`, `his`, or `:)` — that we want to treat as a group. When
 we count the number of tokens in a text, say, the phrase
 to be or not to be, we are counting occurrences of these sequences.
 Thus, in our example phrase there are two occurrences of to, two of be,
@@ -337,7 +337,7 @@ of the vocabulary indirectly, by asking for the number of items in the
 set, and again we can use `len` to obtain this number len-set\_.
 Although it has 44,764 tokens, this book has only 2,789 distinct words,
 or "word types." A word type is the form or spelling of the word
-independently of its specific occurrences in a text |mdash| that is, the
+independently of its specific occurrences in a text — that is, the
 word considered as a unique item of vocabulary. Our count of 2,789 items
 will include punctuation symbols, so we will generally call these unique
 items types instead of word types.
@@ -360,7 +360,7 @@ a specific word:
 
 > **note**
 >
-> |TRY| How many times does the word lol appear in `text5`? How much is
+> **Try this** How many times does the word lol appear in `text5`? How much is
 > this as a percentage of the total number of words in this text?
 
 You may want to repeat such calculations on several texts, but it is
@@ -407,9 +407,9 @@ functions:
 To recap, we use or call a function such as `lexical_diversity()` by
 typing its name, followed by an open parenthesis, the name of the text,
 and then a close parenthesis. These parentheses will show up often;
-their role is to separate the name of a task |mdash| such as
-`lexical_diversity()` |mdash| from the data that the task is to be
-performed on |mdash| such as `text3`. The data value that we place in
+their role is to separate the name of a task — such as
+`lexical_diversity()` — from the data that the task is to be
+performed on — such as `text3`. The data value that we place in
 the parentheses when we call a function is an argument to the function.
 
 You have already encountered several functions in this chapter, such as
@@ -455,7 +455,7 @@ our own `lexical_diversity()` function to it apply-function\_.
 > lexical\_diversity(sent1) \# \[\_apply-function\] 1.0 &gt;&gt;&gt;
 
 Some more lists have been defined for you, one for the opening sentence
-of each of our texts, `sent2` |dots| `sent9`. We inspect two of them
+of each of our texts, `sent2` … `sent9`. We inspect two of them
 here; you can see the rest for yourself using the Python interpreter (if
 you get an error which says that `sent2` is not defined, you need to
 first type `from nltk.book import *`).
@@ -467,7 +467,7 @@ first type `from nltk.book import *`).
 
 > **note**
 >
-> |TRY| Make up a few sentences of your own, by typing a name, equals
+> **Try this** Make up a few sentences of your own, by typing a name, equals
 > sign, and a list of words, like this:
 > `ex1 = ['Monty', 'Python', 'and', 'the', 'Holy', 'Grail']`. Repeat
 > some of the other Python operations we saw earlier in
@@ -509,7 +509,7 @@ As we have seen, a text in Python is a list of words, represented using
 a combination of brackets and quotes. Just as with an ordinary page of
 text, we can count up the total number of words in `text1` with
 `len(text1)`, and count the occurrences in a text of a particular word
-|mdash| say, `'heaven'` |mdash| using `text1.count('heaven')`.
+— say, `'heaven'` — using `text1.count('heaven')`.
 
 With some patience, we can pick out the 1st, 173rd, or even 14,278th
 word in a printed text. Analogously, we can identify the elements of a
@@ -580,7 +580,7 @@ indexes 5, 6, and 7:
 > sent\[5\] 'word6' &gt;&gt;&gt; sent\[6\] 'word7' &gt;&gt;&gt;
 > sent\[7\] 'word8' &gt;&gt;&gt;
 
-By convention, `m:n` means elements m|dots|n-1. As the next example
+By convention, `m:n` means elements m…n-1. As the next example
 shows, we can omit the first number if the slice begins at the start of
 the list slice2\_, and we can omit the second number if the slice goes
 to the end slice3\_:
@@ -612,7 +612,7 @@ an error list-error\_.
 
 > **note**
 >
-> |TRY| Take a few minutes to define a sentence of your own and modify
+> **Try this** Take a few minutes to define a sentence of your own and modify
 > individual words and groups of words (slices) using the same methods
 > used earlier. Check your understanding by trying the exercises on
 > lists at the end of this chapter.
@@ -657,8 +657,8 @@ lists.
 > continuation lines, but some indentation usually makes them easier to
 > read.
 
-It is good to choose meaningful variable names to remind you |mdash| and
-to help anyone else who reads your Python code |mdash| what your code is
+It is good to choose meaningful variable names to remind you — and
+to help anyone else who reads your Python code — what your code is
 meant to do. Python does not try to make sense of the names; it blindly
 follows your instructions, and does not object if you do something
 confusing, such as `one = 'two'` or `two = 3`. The only restriction is
@@ -711,8 +711,8 @@ string into a list, as follows:
 > &gt;&gt;&gt; 'Monty Python'.split() \['Monty', 'Python'\] &gt;&gt;&gt;
 
 We will come back to the topic of strings in chap-words\_. For the time
-being, we have two important building blocks |mdash| lists and strings
-|mdash| and are ready to get back to some language analysis.
+being, we have two important building blocks — lists and strings
+— and are ready to get back to some language analysis.
 
 Computing with Language: Simple Statistics
 ------------------------------------------
@@ -749,7 +749,7 @@ go about finding the 50 most frequent words of a book. One method would
 be to keep a tally for each vocabulary item, like that shown in
 [fig-tally](..%20figure::%20../images/tally.png:scale:%2020:100:25). The
 tally would need thousands of rows, and it would be an exceedingly
-laborious process |mdash| so laborious that we would rather assign the
+laborious process — so laborious that we would rather assign the
 task to a machine.
 
 > Counting Words Appearing in a Text (a frequency distribution)
@@ -782,14 +782,14 @@ a `FreqDist` to find the 50 most frequent words of *Moby Dick*:
 
 When we first invoke `FreqDist`, we pass the name of the text as an
 argument freq-dist-call\_. We can inspect the total number of words
-("outcomes") that have been counted up freq-dist-inspect\_ |mdash|
+("outcomes") that have been counted up freq-dist-inspect\_ —
 260,819 in the case of *Moby Dick*. The expression `most_common(50)`
 gives us a list of the 50 most frequently occurring types in the text
 freq-dist-most-common\_.
 
 > **note**
 >
-> |TRY| Try the preceding frequency distribution example for yourself,
+> **Try this** Try the preceding frequency distribution example for yourself,
 > for `text2`. Be careful to use the correct parentheses and uppercase
 > letters. If you get an error message
 > `NameError: name 'FreqDist' is not defined`, you need to start your
@@ -851,14 +851,14 @@ syntax more carefully later.
 
 > **note**
 >
-> |TRY| Try out the previous statements in the Python interpreter, and
+> **Try this** Try out the previous statements in the Python interpreter, and
 > experiment with changing the text and changing the length condition.
 > Does it make a difference to your results if you change the variable
 > names, e.g., using `[word for word in vocab if ...]`?
 
 Let's return to our task of finding words that characterize a text.
-Notice that the long words in `text4` reflect its national focus |mdash|
-constitutionally, transcontinental |mdash| whereas those in `text5`
+Notice that the long words in `text4` reflect its national focus —
+constitutionally, transcontinental — whereas those in `text5`
 reflect its informal content: boooooooooooglyyyyyy and
 yuuuuuuuuuuuummmmmmmmmmmm. Have we succeeded in automatically extracting
 words that typify a text? Well, these very long words are often hapaxes
@@ -998,7 +998,7 @@ relational
 operators is shown in tab-inequalities\_.
 
 We can use these to select different words from a sentence of news text.
-Here are some examples |mdash| only the operator is changed from one
+Here are some examples — only the operator is changed from one
 line to the next. They all use `sent7`, the first sentence from `text7`
 (*Wall Street Journal*). As before, if you get an error saying that
 `sent7` is undefined, you need to first type: `from nltk.book import *`
@@ -1041,7 +1041,7 @@ conjunction and disjunction: $c$~1~ `and` $c$~2~, $c$~1~ `or` $c$~2~.
 
 > **note**
 >
-> |TRY| Run the following examples and try to explain what is going on
+> **Try this** Run the following examples and try to explain what is going on
 > in each one. Next, try to make up some conditions of your own.
 
 ### Operating on Every Element
@@ -1216,7 +1216,7 @@ current capabilities.
 On a more philosophical level, a long-standing challenge within
 artificial intelligence has been to build intelligent machines, and a
 major part of intelligent behaviour is understanding language. For many
-years this goal has been seen as too difficult. However, as |NLP|
+years this goal has been seen as too difficult. However, as NLP
 technologies become more mature, and robust methods for analyzing
 unrestricted text become more widespread, the prospect of natural
 language understanding has re-emerged as a plausible goal.
@@ -1239,9 +1239,9 @@ laid out beside the court. In other words, we automatically disambiguate
 words using context, exploiting the simple fact that nearby words have
 closely related meanings. As another example of this contextual effect,
 consider the word by, which has several meanings, e.g.: the book by
-Chesterton (agentive |mdash| Chesterton was the author of the book);
-the cup by the stove (locative |mdash| the stove is where the cup is);
-and submit by Friday (temporal |mdash| Friday is the time of the
+Chesterton (agentive — Chesterton was the author of the book);
+the cup by the stove (locative — the stove is where the cup is);
+and submit by Friday (temporal — Friday is the time of the
 submitting). Observe in
 [ex-lost-children](..%20ex::..%20ex::%20The%20lost%20children%20were%20found%20by%20the%20%60searchers%60:em:%20%20(agentive)..%20ex::%20The%20lost%20children%20were%20found%20by%20the%20%60mountain%60:em:%20%20%20(locative)..%20ex::%20The%20lost%20children%20were%20found%20by%20the%20%60afternoon%60:em:%20%20(temporal))
 that the meaning of the italicized word helps us interpret the meaning
@@ -1250,7 +1250,7 @@ of by.
 ### Pronoun Resolution
 
 A deeper kind of language understanding is to work out "who did what to
-whom" |mdash| i.e., to detect the subjects and objects of verbs. You
+whom" — i.e., to detect the subjects and objects of verbs. You
 learnt to do this in elementary school, but it's harder than you might
 think. In the sentence the thieves stole the paintings it is easy to
 tell who performed the stealing action. Consider three possible
@@ -1261,9 +1261,9 @@ ambiguous).
 
 Answering this question involves finding the antecedent of the pronoun
 they, either thieves or paintings. Computational techniques for tackling
-this problem include anaphora resolution |mdash| identifying what a
-pronoun or noun phrase refers to |mdash| and semantic role labeling
-|mdash| identifying how a noun phrase relates to the verb (as agent,
+this problem include anaphora resolution — identifying what a
+pronoun or noun phrase refers to — and semantic role labeling
+— identifying how a noun phrase relates to the verb (as agent,
 patient, instrument, and so on).
 
 ### Generating Language Output
@@ -1295,7 +1295,7 @@ language understanding, ultimately seeking to provide high-quality,
 idiomatic translation between any pair of languages. Its roots go back
 to the early days of the Cold War, when the promise of automatic
 translation led to substantial government sponsorship, and with it, the
-genesis of |NLP| itself.
+genesis of NLP itself.
 
 Today, practical translation systems exist for particular pairs of
 languages, and some are integrated into web search engines. However,
@@ -1331,7 +1331,7 @@ misinterpreted the grammatical structure.
 
 > **note**
 >
-> |TRY| Try this yourself using `http://translationparty.com/`
+> **Try this** Try this yourself using `http://translationparty.com/`
 
 Machine translation is difficult because a given word could have several
 possible translations (depending on its meaning), and because word order
@@ -1391,7 +1391,7 @@ for the system to provide a useful service.
 > the process.
 
 Dialogue systems give us an opportunity to mention the commonly assumed
-pipeline for |NLP|.
+pipeline for NLP.
 [fig-sds](..%20figure::%20../images/dialogue.png:scale:%2025:32:30)
 shows the architecture of a simple dialogue system. Along the top of the
 diagram, moving from left to right, is a "pipeline" of some language
@@ -1405,7 +1405,7 @@ processing components draw on to do their work.
 
 > **note**
 >
-> |TRY| For an example of a primitive dialogue system, try having a
+> **Try this** For an example of a primitive dialogue system, try having a
 > conversation with an NLTK chatbot. To see the available chatbots, run
 > `nltk.chat.chatbots()`. (Remember to `import nltk` first.)
 
@@ -1440,7 +1440,7 @@ is an editor of a book, then he/she has not written (all of) that book;
 (iii) if someone is editor or author of eighteen books, then one cannot
 conclude that he/she is author of eighteen books.
 
-### Limitations of |NLP|
+### Limitations of NLP
 
 Despite the research-led advances in tasks like RTE, natural language
 systems that have been deployed for real-world applications still cannot
@@ -1449,12 +1449,12 @@ and robust manner. We can wait for these difficult artificial
 intelligence problems to be solved, but in the meantime it is necessary
 to live with some severe limitations on the reasoning and knowledge
 capabilities of natural language systems. Accordingly, right from the
-beginning, an important goal of |NLP| research has been to make progress
+beginning, an important goal of NLP research has been to make progress
 on the difficult task of building technologies that "understand
 language," using superficial yet powerful techniques instead of
 unrestricted knowledge and reasoning capabilities. Indeed, this is one
 of the goals of this book, and we hope to equip you with the knowledge
-and skills to build useful |NLP| systems, and to contribute to the
+and skills to build useful NLP systems, and to contribute to the
 long-term aspiration of building intelligent machines.
 
 Summary
@@ -1496,26 +1496,26 @@ This chapter has introduced new concepts in programming, natural
 language processing, and linguistics, all mixed in together. Many of
 them are consolidated in the following chapters. However, you may also
 want to consult the online materials provided with this chapter (at
-|NLTK-URL|), including links to additional background materials, and
-links to online |NLP| systems. You may also like to read up on some
-linguistics and |NLP|-related concepts in Wikipedia (e.g., collocations,
+[NLTK](https://www.nltk.org/)), including links to additional background materials, and
+links to online NLP systems. You may also like to read up on some
+linguistics and NLP-related concepts in Wikipedia (e.g., collocations,
 the Turing Test, the type-token distinction).
 
 You should acquaint yourself with the Python documentation available at
-|PYTHON-DOCS|, including the many tutorials and comprehensive reference
+[Python Documentation](https://docs.python.org/3/), including the many tutorials and comprehensive reference
 materials linked there. A Beginner's Guide to Python is available at
 `http://wiki.python.org/moin/BeginnersGuide`. Miscellaneous questions
 about Python might be answered in the FAQ at
 `http://python.org/doc/faq/general/`.
 
-As you delve into |NLTK|, you might want to subscribe to the mailing
+As you delve into NLTK, you might want to subscribe to the mailing
 list where new releases of the toolkit are announced. There is also an
 NLTK-Users mailing list, where users help each other as they learn how
-to use Python and |NLTK| for language analysis work. Details of these
-lists are available at |NLTK-URL|.
+to use Python and NLTK for language analysis work. Details of these
+lists are available at [NLTK](https://www.nltk.org/).
 
 For more information on the topics covered in
-sec-automatic-natural-language-understanding\_, and on |NLP| more
+sec-automatic-natural-language-understanding\_, and on NLP more
 generally, you might like to consult one of the following excellent
 books:
 
@@ -1530,11 +1530,11 @@ books:
     in 2010). \[Mitkov02handbook\]\_
 
 The Association for Computational Linguistics is the international
-organization that represents the field of |NLP|. The ACL website
+organization that represents the field of NLP. The ACL website
 (`http://www.aclweb.org/`) hosts many useful resources, including:
 information about international and regional conferences and workshops;
 the ACL Wiki with links to hundreds of useful resources; and the
-ACL Anthology, which contains most of the |NLP| research literature from
+ACL Anthology, which contains most of the NLP research literature from
 the past 50+ years, fully indexed and freely downloadable.
 
 Some excellent introductory Linguistics textbooks are:
@@ -1545,28 +1545,28 @@ that use the techniques described in this book.
 Exercises
 ---------
 
-1.  |easy| Try using the Python interpreter as a calculator, and typing
+1.  ☆ Try using the Python interpreter as a calculator, and typing
     expressions like `12 / (4 + 1)`.
-2.  |easy| Given an alphabet of 26 letters, there are 26 to the power
+2.  ☆ Given an alphabet of 26 letters, there are 26 to the power
     10, or `26 ** 10`, ten-letter strings we can form. That works out to
     `141167095653376`. How many hundred-letter strings are possible?
-3.  |easy| The Python multiplication operation can be applied to lists.
+3.  ☆ The Python multiplication operation can be applied to lists.
     What happens when you type `['Monty', 'Python'] * 20`, or
     `3 * sent1`?
-4.  |easy| Review sec-computing-with-language-texts-and-words\_ on
+4.  ☆ Review sec-computing-with-language-texts-and-words\_ on
     computing with language. How many words are there in `text2`? How
     many distinct words are there?
-5.  |easy| Compare the lexical diversity scores for humor and romance
+5.  ☆ Compare the lexical diversity scores for humor and romance
     fiction in tab-brown-types\_. Which genre is more lexically diverse?
-6.  |easy| Produce a dispersion plot of the four main protagonists in
+6.  ☆ Produce a dispersion plot of the four main protagonists in
     *Sense and Sensibility*: Elinor, Marianne, Edward, and Willoughby.
     What can you observe about the different roles played by the males
     and females in this novel? Can you identify the couples?
-7.  |easy| Find the collocations in `text5`.
-8.  |easy| Consider the following Python expression: `len(set(text4))`.
+7.  ☆ Find the collocations in `text5`.
+8.  ☆ Consider the following Python expression: `len(set(text4))`.
     State the purpose of this expression. Describe the two steps
     involved in performing this computation.
-9.  |easy| Review sec-a-closer-look-at-python-texts-as-lists-of-words\_
+9.  ☆ Review sec-a-closer-look-at-python-texts-as-lists-of-words\_
     on lists and strings.
     a)  Define a string and assign it to a variable, e.g.,
         `my_string = 'My String'` (but put something more interesting in
@@ -1578,58 +1578,58 @@ Exercises
         that the strings are joined together without any spaces. How
         could you fix this?
 
-10. |easy| Define a variable `my_sent` to be a list of words, using the
+10. ☆ Define a variable `my_sent` to be a list of words, using the
     syntax `my_sent = ["My", "sent"]` (but with your own words, or a
     favorite saying).
     a)  Use `' '.join(my_sent)` to convert this into a string.
     b)  Use `split()` to split the string back into the list form you
         had to start with.
 
-11. |easy| Define several variables containing lists of words, e.g.,
+11. ☆ Define several variables containing lists of words, e.g.,
     `phrase1`, `phrase2`, and so on. Join them together in various
     combinations (using the plus operator) to form whole sentences. What
     is the relationship between `len(phrase1 + phrase2)` and
     `len(phrase1) + len(phrase2)`?
-12. |easy| Consider the following two expressions, which have the
-    same value. Which one will typically be more relevant in |NLP|? Why?
+12. ☆ Consider the following two expressions, which have the
+    same value. Which one will typically be more relevant in NLP? Why?
     a)  `"Monty Python"[6:12]`
     b)  `["Monty", "Python"][1]`
 
-13. |easy| We have seen how to represent a sentence as a list of words,
+13. ☆ We have seen how to represent a sentence as a list of words,
     where each word is a sequence of characters. What does `sent1[2][2]`
     do? Why? Experiment with other index values.
-14. |easy| The first sentence of `text3` is provided to you in the
+14. ☆ The first sentence of `text3` is provided to you in the
     variable `sent3`. The index of the in `sent3` is 1, because
     `sent3[1]` gives us `'the'`. What are the indexes of the two other
     occurrences of this word in `sent3`?
-15. |easy| Review the discussion of conditionals in
+15. ☆ Review the discussion of conditionals in
     sec-making-decisions\_. Find all words in the Chat Corpus (`text5`)
     starting with the letter b. Show them in alphabetical order.
-16. |easy| Type the expression `list(range(10))` at the interpreter
+16. ☆ Type the expression `list(range(10))` at the interpreter
     prompt. Now try `list(range(10, 20))`, `list(range(10, 20, 2))`, and
     `list(range(20, 10, -2))`. We will see a variety of uses for this
     built-in function in later chapters.
-17. |soso| Use `text9.index()` to find the index of the word sunset.
+17. ☆☆ Use `text9.index()` to find the index of the word sunset.
     You'll need to insert this word as an argument between the
     parentheses. By a process of trial and error, find the slice for the
     complete sentence that contains this word.
-18. |soso| Using list addition, and the `set` and `sorted` operations,
+18. ☆☆ Using list addition, and the `set` and `sorted` operations,
     compute the vocabulary of the sentences `sent1` ... `sent8`.
-19. |soso| What is the difference between the following two lines? Which
+19. ☆☆ What is the difference between the following two lines? Which
     one will give a larger value? Will this be the case for other texts?
-20. |soso| What is the difference between the following two tests:
+20. ☆☆ What is the difference between the following two tests:
     `w.isupper()` and `not w.islower()`?
-21. |soso| Write the slice expression that extracts the last two words
+21. ☆☆ Write the slice expression that extracts the last two words
     of `text2`.
-22. |soso| Find all the four-letter words in the Chat Corpus (`text5`).
+22. ☆☆ Find all the four-letter words in the Chat Corpus (`text5`).
     With the help of a frequency distribution (`FreqDist`), show these
     words in decreasing order of frequency.
-23. |soso| Review the discussion of looping with conditions in
+23. ☆☆ Review the discussion of looping with conditions in
     sec-making-decisions\_. Use a combination of `for` and `if`
     statements to loop over the words of the movie script for *Monty
     Python and the Holy Grail* (`text6`) and `print` all the uppercase
     words, one per line.
-24. |soso| Write expressions for finding all words in `text6` that meet
+24. ☆☆ Write expressions for finding all words in `text6` that meet
     the conditions listed below. The result should be in the form of a
     list of words: `['word1', 'word2', ...]`.
     a)  Ending in ize
@@ -1638,22 +1638,22 @@ Exercises
     d)  Having all lowercase letters except for an initial capital
         (i.e., `titlecase`)
 
-25. |soso| Define `sent` to be the list of words
+25. ☆☆ Define `sent` to be the list of words
     `['she', 'sells', 'sea', 'shells', 'by', 'the', 'sea', 'shore']`.
     Now write code to perform the following tasks:
     a)  Print all words beginning with sh
     b)  Print all words longer than four characters
 
-26. |soso| What does the following Python code do?
+26. ☆☆ What does the following Python code do?
     `sum(len(w) for w in text1)` Can you use it to work out the average
     word length of a text?
-27. |soso| Define a function called `vocab_size(text)` that has a single
+27. ☆☆ Define a function called `vocab_size(text)` that has a single
     parameter for the text, and which returns the vocabulary size of
     the text.
-28. |soso| Define a function `percent(word, text)` that calculates how
+28. ☆☆ Define a function `percent(word, text)` that calculates how
     often a given word occurs in a text, and expresses the result as
     a percentage.
-29. |soso| We have been using sets to store vocabularies. Try the
+29. ☆☆ We have been using sets to store vocabularies. Try the
     following Python expression: `set(sent3) < set(text1)`. Experiment
     with this using different arguments to `set()`. What does it do? Can
     you think of a practical application for this?

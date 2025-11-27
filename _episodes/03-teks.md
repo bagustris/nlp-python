@@ -33,14 +33,14 @@ The goal of this chapter is to answer the following questions:
     a file?
 
 In order to address these questions, we will be covering key concepts in
-|NLP|, including tokenization and stemming. Along the way you will
+NLP, including tokenization and stemming. Along the way you will
 consolidate your Python knowledge and learn about strings, files, and
-regular expressions. Since so much text on the web is in |HTML| format,
+regular expressions. Since so much text on the web is in HTML format,
 we will also see how to dispense with markup.
 
 > **note**
 >
-> |IMPORTANT| From this chapter onwards, our program samples will assume
+> **Important** From this chapter onwards, our program samples will assume
 > you begin your interactive session or your program with the following
 > import statements:
 >
@@ -53,7 +53,7 @@ Accessing Text from the Web and from Disk
 
 ### Electronic Books
 
-A small sample of texts from Project Gutenberg appears in the |NLTK|
+A small sample of texts from Project Gutenberg appears in the NLTK
 corpus collection. However, you may be interested in analyzing other
 texts from Project Gutenberg. You can browse the catalog of 25,000 free
 online books at `http://www.gutenberg.org/catalog/`, and obtain a URL to
@@ -96,9 +96,9 @@ our familiar structure, a list of words and punctuation.
 > tokens\[:10\] \['The', 'Project', 'Gutenberg', 'EBook', 'of', 'Crime',
 > 'and', 'Punishment', ',', 'by'\]
 
-Notice that |NLTK| was needed for tokenization, but not for any of the
-earlier tasks of opening a |URL| and reading it into a string. If we now
-take the further step of creating an |NLTK| text from this list, we can
+Notice that NLTK was needed for tokenization, but not for any of the
+earlier tasks of opening a URL and reading it into a string. If we now
+take the further step of creating an NLTK text from this list, we can
 carry out all of the other linguistic processing we saw in
 chap-introduction\_, along with the regular list operations like
 slicing:
@@ -143,7 +143,7 @@ material we need.
 
 ### Dealing with HTML
 
-Much of the text on the web is in the form of |HTML| documents. You can
+Much of the text on the web is in the form of HTML documents. You can
 use a web browser to save a page as text to a local file, then access
 this as described in the section on files below. However, if you're
 going to do this often, it's easiest to get Python to do the work
@@ -156,10 +156,10 @@ urban legend passed along by the BBC as established scientific fact:
 > &gt;&gt;&gt; html\[:60\] '&lt;!doctype html public "-//W3C//DTD HTML
 > 4.0 Transitional//EN'
 
-You can type `print(html)` to see the |HTML| content in all its glory,
+You can type `print(html)` to see the HTML content in all its glory,
 including meta tags, an image map, JavaScript, forms, and tables.
 
-To get text out of |HTML| we will use a Python library called
+To get text out of HTML we will use a Python library called
 *BeautifulSoup*, available from
 `http://www.crummy.com/software/BeautifulSoup/`:
 
@@ -211,7 +211,7 @@ the use of search engine APIs).
 
 > **note**
 >
-> |TRY| Search the web for `"the of"` (inside quotes). Based on the
+> **Try this** Search the web for `"the of"` (inside quotes). Based on the
 > large count, can we conclude that the of is a frequent collocation in
 > English?
 
@@ -239,7 +239,7 @@ a blog, as shown below:
 > ...\]
 
 With some further work, we can write programs to create a small corpus
-of blog posts, and use this as the basis for our |NLP| work.
+of blog posts, and use this as the basis for our NLP work.
 
 ### Reading Local Files
 
@@ -249,11 +249,11 @@ function, followed by the `read()` method. Suppose you have a file
 
 > **note**
 >
-> |TRY| Create a file called `document.txt` using a text editor, and
+> **Try this** Create a file called `document.txt` using a text editor, and
 > type in a few lines of text, and save it as plain text. If you are
-> using |IDLE|, select the *New Window* command in the *File* menu,
+> using IDLE, select the *New Window* command in the *File* menu,
 > typing the required text into this window, and then saving the file as
-> `document.txt` inside the directory that |IDLE| offers in the pop-up
+> `document.txt` inside the directory that IDLE offers in the pop-up
 > dialogue box. Next, in the Python interpreter, open the file using
 > `f = open('document.txt')`, then inspect its contents using
 > `print(f.read())`.
@@ -263,8 +263,8 @@ interpreter couldn't find your file, you would have seen an error like
 this:
 
 To check that the file that you are trying to open is really in the
-right directory, use |IDLE|'s *Open* command in the *File* menu; this
-will display a list of all the files in the directory where |IDLE| is
+right directory, use IDLE's *Open* command in the *File* menu; this
+will display a list of all the files in the directory where IDLE is
 running. An alternative is to examine the current directory from within
 Python:
 
@@ -272,7 +272,7 @@ Another possible problem you might have encountered when accessing a
 text file is the newline conventions, which are different for different
 operating systems. The built-in `open()` function has a second parameter
 for controlling how the file is opened: `open('document.txt', 'rU')`
-|mdash| `'r'` means to open the file for reading (the default), and
+— `'r'` means to open the file for reading (the default), and
 `'U'` stands for "Universal", which lets us ignore the different
 conventions used for marking newlines.
 
@@ -292,7 +292,7 @@ We can also read a file one line at a time using a `for` loop:
 Here we use the `strip()` method to remove the newline character at the
 end of the input line.
 
-|NLTK|'s corpus files can also be accessed using these methods. We
+NLTK's corpus files can also be accessed using these methods. We
 simply have to use `nltk.data.find()` to get the filename for any corpus
 item. Then we can open and read it in the way we just demonstrated
 above:
@@ -303,8 +303,8 @@ above:
 
 ### Extracting Text from PDF, MSWord and other Binary Formats
 
-ASCII text and |HTML| text are human readable formats. Text often comes
-in binary formats |mdash| like PDF and MSWord |mdash| that can only be
+ASCII text and HTML text are human readable formats. Text often comes
+in binary formats — like PDF and MSWord — that can only be
 opened using specialized software. Third-party libraries such as `pypdf`
 and `pywin32` provide access to these formats. Extracting text from
 multi-column documents is particularly challenging. For once-off
@@ -312,7 +312,7 @@ conversion of a few documents, it is simpler to open the document with a
 suitable application, then save it as text to your local drive, and
 access it as described below. If the document is already on the web, you
 can enter its URL in Google's search box. The search result often
-includes a link to an |HTML| version of the document, which you can save
+includes a link to an HTML version of the document, which you can save
 as text.
 
 ### Capturing User Input
@@ -376,7 +376,7 @@ Strings: Text Processing at the Lowest Level
 It's time to examine a fundamental data type that we've been studiously
 avoiding so far. In earlier chapters we focused on a text as a list of
 words. We didn't look too closely at words and how they are handled in
-the programming language. By using |NLTK|'s corpus interface we were
+the programming language. By using NLTK's corpus interface we were
 able to ignore the files that these texts had come from. The contents of
 a word, and of a file, are represented by programming languages as a
 fundamental data type known as a string. In this section we explore
@@ -443,7 +443,7 @@ words. We can even multiply strings string-multiplication\_:
 
 > **note**
 >
-> |TRY| Try running the following code, then try to use your
+> **Try this** Try running the following code, then try to use your
 > understanding of the string `+` and `*` operations to figure out how
 > it works. Be careful to distinguish between the string `' '`, which is
 > a single whitespace character, and `''`, which is the empty string.
@@ -498,7 +498,7 @@ in various ways, as shown below:
 As we saw in sec-a-closer-look-at-python-texts-as-lists-of-words\_ for
 lists, strings are indexed, starting from zero. When we index a string,
 we get one of its characters (or letters). A single character is nothing
-special |mdash| it's just a string of length `1`.
+special — it's just a string of length `1`.
 
 > &gt;&gt;&gt; monty\[0\] 'M' &gt;&gt;&gt; monty\[3\] 't' &gt;&gt;&gt;
 > monty\[5\] ' '
@@ -568,7 +568,7 @@ correspond to `monty[6]` ... `monty[9]` but not `monty[10]`. This is
 because a slice starts at the first index but finishes one before the
 end index.
 
-We can also slice with negative indexes |mdash| the same basic rule of
+We can also slice with negative indexes — the same basic rule of
 starting from the start index and stopping one before the end index
 applies; here we stop before the space character.
 
@@ -594,7 +594,7 @@ We can also find the position of a substring within a string, using
 
 > **note**
 >
-> |TRY| Make up a sentence and assign it to a variable, e.g.
+> **Try this** Make up a sentence and assign it to a variable, e.g.
 > `sent = 'my sentence...'`. Now write slice expressions to pull out
 > individual words. (This is obviously not a convenient way to process
 > the words of a text!)
@@ -624,13 +624,13 @@ concatenating them. However, we cannot join strings and lists:
 When we open a file for reading into a Python program, we get a string
 corresponding to the contents of the whole file. If we use a `for` loop
 to process the elements of this string, all we can pick out are the
-individual characters |mdash| we don't get to choose the granularity. By
+individual characters — we don't get to choose the granularity. By
 contrast, the elements of a list can be as big or small as we like: for
 example, they could be paragraphs, sentences, phrases, words,
 characters. So lists have the advantage that we can be flexible about
 the elements they contain, and correspondingly flexible about any
 downstream processing. Consequently, one of the first things we are
-likely to do in a piece of |NLP| code is tokenize a string into a list
+likely to do in a piece of NLP code is tokenize a string into a list
 of strings (sec-tokenization\_). Conversely, when we want to write our
 results to a file, or to a terminal, we will usually format them as a
 string (sec-formatting\_).
@@ -641,10 +641,10 @@ the added power that you can change their elements:
 > &gt;&gt;&gt; beatles\[0\] = "John Lennon" &gt;&gt;&gt; del
 > beatles\[-1\] &gt;&gt;&gt; beatles \['John Lennon', 'Paul', 'George'\]
 
-On the other hand if we try to do that with a *string* |mdash| changing
-the 0th character in `query` to `'F'` |mdash| we get:
+On the other hand if we try to do that with a *string* — changing
+the 0th character in `query` to `'F'` — we get:
 
-|nopar| This is because strings are immutable |mdash| you can't change a
+ This is because strings are immutable — you can't change a
 string once you have created it. However, lists are mutable, and their
 contents can be modified at any time. As a result, lists support
 operations that modify the original value rather than producing a new
@@ -652,7 +652,7 @@ value.
 
 > **note**
 >
-> |TRY| Consolidate your knowledge of strings by trying some of the
+> **Try this** Consolidate your knowledge of strings by trying some of the
 > exercises on strings at the end of this chapter.
 
 Text Processing with Unicode
@@ -662,9 +662,9 @@ Our programs will often need to deal with different languages, and
 different character sets. The concept of "plain text" is a fiction. If
 you live in the English-speaking world you probably use ASCII, possibly
 without realizing it. If you live in Europe you might use one of the
-extended Latin character sets, containing such characters as "|oslash|"
-for Danish and Norwegian, "|odacute|" for Hungarian, "|ntilde|" for
-Spanish and Breton, and "|ncaron|" for Czech and Slovak. In this
+extended Latin character sets, containing such characters as "ø"
+for Danish and Norwegian, "ő" for Hungarian, "ñ" for
+Spanish and Breton, and "ň" for Czech and Slovak. In this
 section, we will give an overview of how to use Unicode for processing
 texts that use non-ASCII character sets.
 
@@ -683,10 +683,10 @@ language. Other encodings (such as UTF-8) use multiple bytes and can
 represent the full range of Unicode characters.
 
 Text in files will be in a particular encoding, so we need some
-mechanism for translating it into Unicode |mdash| translation into
+mechanism for translating it into Unicode — translation into
 Unicode is called decoding. Conversely, to write out Unicode to a file
 or a terminal, we first need to translate it into a suitable encoding
-|mdash| this translation out of Unicode is called encoding, and is
+— this translation out of Unicode is called encoding, and is
 illustrated in
 [fig-unicode](..%20figure::%20../images/unicode.png:scale:%2010:15:15).
 
@@ -742,9 +742,9 @@ then we can convert all non-ASCII characters into their two-digit
 
 The first line above illustrates a Unicode escape string preceded by the
 `\u` escape string, namely `\u0144` . The relevant Unicode character
-will be dislayed on the screen as the glyph |nacute|. In the third line
+will be dislayed on the screen as the glyph ń. In the third line
 of the preceding example, we see `\xf3`, which corresponds to the glyph
-|oacute|, and is within the 128-255 range.
+ó, and is within the 128-255 range.
 
 In Python 3, source code is encoded using UTF-8 by default, and you can
 include Unicode characters in strings if you are using IDLE or another
@@ -768,7 +768,7 @@ sequence.
 > should also check that you have the necessary fonts installed on your
 > system. It may be necessary to configure your locale to render UTF-8
 > encoded characters, then use `print(nacute.encode('utf8'))` in order
-> to see the |nacute| displayed in your terminal.
+> to see the ń displayed in your terminal.
 
 We can also see how this character is represented as a sequence of bytes
 inside a text file:
@@ -797,11 +797,11 @@ followed by their Unicode name.
 If you replace `c.encode('utf8')` in unicode-info\_ with `c`, and if
 your system supports UTF-8, you should see an output like the following:
 
-|oacute| U+00f3 LATIN SMALL LETTER O WITH ACUTE\
-|sacute| U+015b LATIN SMALL LETTER S WITH ACUTE\
-|Sacute| U+015a LATIN CAPITAL LETTER S WITH ACUTE\
-|aogonek| U+0105 LATIN SMALL LETTER A WITH OGONEK\
-|lstroke| U+0142 LATIN SMALL LETTER L WITH STROKE
+ó U+00f3 LATIN SMALL LETTER O WITH ACUTE\
+ś U+015b LATIN SMALL LETTER S WITH ACUTE\
+Ś U+015a LATIN CAPITAL LETTER S WITH ACUTE\
+ą U+0105 LATIN SMALL LETTER A WITH OGONEK\
+ł U+0142 LATIN SMALL LETTER L WITH STROKE
 
 Alternatively, you may need to replace the encoding `'utf8'` in the
 example by `'latin2'`, again depending on the details of your system.
@@ -819,7 +819,7 @@ character", cf tab-re-symbols\_).
 > &gt;&gt;&gt; m = re.search('u015bw\*', line) &gt;&gt;&gt; m.group()
 > 'u015bwiatowej'
 
-|NLTK| tokenizers allow Unicode strings as input, and correspondingly
+NLTK tokenizers allow Unicode strings as input, and correspondingly
 yield Unicode strings as output.
 
 > &gt;&gt;&gt; word\_tokenize(line) \['niemców', 'pod', 'koniec', 'ii',
@@ -860,7 +860,7 @@ patterns we are interested in.
 > As usual, we'll adopt a problem-based approach and present new
 > features only as they are needed to solve practical problems. In our
 > discussion we will mark regular expressions using chevrons like this:
-> |patt|.
+> pattern.
 
 To use regular expressions in Python we need to import the `re` library
 using: `import re`. We also need a list of words to search; we'll use
@@ -873,7 +873,7 @@ to remove any proper names.
 ### Using Basic Meta-Characters
 
 Let's find words ending with ed using the regular expression
-|l|`ed$`|r|. We will use the `re.search(p, s)` function to check whether
+«`ed$`». We will use the `re.search(p, s)` function to check whether
 the pattern `p` can be found somewhere inside the string `s`. We need to
 specify the characters of interest, and use the dollar sign which has a
 special behavior in the context of regular expressions in that it
@@ -894,12 +894,12 @@ period:
 
 > **note**
 >
-> |TRY| The caret symbol `^` matches the start of a string, just like
+> **Try this** The caret symbol `^` matches the start of a string, just like
 > the `$` matches the end. What results do we get with the above example
-> if we leave out both of these, and search for |l|`..j..t..`|r|?
+> if we leave out both of these, and search for «`..j..t..`»?
 
 Finally, the `?` symbol specifies that the previous character is
-optional. Thus |l|`^e-?mail$`|r| will match both email and e-mail. We
+optional. Thus «`^e-?mail$`» will match both email and e-mail. We
 could count the total number of occurrences of this word (in either
 spelling) in a text using
 `sum(1 for w in text if re.search('^e-?mail$', w))`.
@@ -914,26 +914,26 @@ words that are entered with the same sequence of keystrokes are known as
 textonyms. For example, both hole and golf are entered by pressing the
 sequence 4653. What other words could be produced with the same
 sequence? Here we use the regular expression
-|l|`^[ghi][mno][jlk][def]$`|r|:
+«`^[ghi][mno][jlk][def]$`»:
 
 > &gt;&gt;&gt; \[w for w in wordlist if
 > re.search('\^\[ghi\]\[mno\]\[jlk\]\[def\]\$', w)\] \['gold', 'golf',
 > 'hold', 'hole'\]
 
-The first part of the expression, |l|`^[ghi]`|r|, matches the start of a
+The first part of the expression, «`^[ghi]`», matches the start of a
 word followed by g, h, or i. The next part of the expression,
-|l|`[mno]`|r|, constrains the second character to be m, n, or o. The
+«`[mno]`», constrains the second character to be m, n, or o. The
 third and fourth characters are also constrained. Only four words
 satisfy all these constraints. Note that the order of characters inside
 the square brackets is not significant, so we could have written
-|l|`^[hig][nom][ljk][fed]$`|r| and matched the same words.
+«`^[hig][nom][ljk][fed]$`» and matched the same words.
 
 > **note**
 >
-> |TRY| Look for some "finger-twisters", by searching for words that
-> only use part of the number-pad. For example |l|`^[ghijklmno]+$`|r|,
-> or more concisely, |l|`^[g-o]+$`|r|, will match words that only use
-> keys 4, 5, 6 in the center row, and |l|`^[a-fj-o]+$`|r| will match
+> **Try this** Look for some "finger-twisters", by searching for words that
+> only use part of the number-pad. For example «`^[ghijklmno]+$`»,
+> or more concisely, «`^[g-o]+$`», will match words that only use
+> keys 4, 5, 6 in the center row, and «`^[a-fj-o]+$`» will match
 > words that use keys 2, 3, 5, 6 in the top-right corner. What do `-`
 > and `+` mean?
 
@@ -955,17 +955,17 @@ It should be clear that `+` simply means "one or more instances of the
 preceding item", which could be an individual character like `m`, a set
 like `[fed]` or a range like `[d-f]`. Now let's replace `+` with `*`,
 which means "zero or more instances of the preceding item". The regular
-expression |l|`^m*i*n*e*$`|r| will match everything that we found using
-|l|`^m+i+n+e+$`|r|, but also words where some of the letters don't
+expression «`^m*i*n*e*$`» will match everything that we found using
+«`^m+i+n+e+$`», but also words where some of the letters don't
 appear at all, e.g. me, min, and mmmmm. Note that the `+` and `*`
 symbols are sometimes referred to as Kleene closures, or simply
 closures.
 
 The `^` operator has another function when it appears as the first
-character inside square brackets. For example |l|`[^aeiouAEIOU]`|r|
+character inside square brackets. For example «`[^aeiouAEIOU]`»
 matches any character other than a vowel. We can search the NPS Chat
 Corpus for words that are made up entirely of non-vowel characters using
-|l|`^[^aeiouAEIOU]+$`|r| to find items like these: `:):):)`, `grrr`,
+«`^[^aeiouAEIOU]+$`» to find items like these: `:):):)`, `grrr`,
 `cyb3r` and `zzzzzzzz`. Notice this includes non-alphabetic characters.
 
 Here are some more examples of regular expressions being used to find
@@ -992,7 +992,7 @@ symbols: `\`, `{}`, `()`, and `|`:
 
 > **note**
 >
-> |TRY| Study the above examples and try to work out what the `\`, `{}`,
+> **Try this** Study the above examples and try to work out what the `\`, `{}`,
 > `()`, and `|` notations mean before you read on.
 
 You probably worked out that a backslash means that the following
@@ -1002,10 +1002,10 @@ matches a period. The braced expressions, like `{3,5}`, specify the
 number of repeats of the previous item. The pipe character indicates a
 choice between the material on its left or its right. Parentheses
 indicate the scope of an operator: they can be used together with the
-pipe (or disjunction) symbol like this: |l|`w(i|e|ai|oo)t`|r|, matching
+pipe (or disjunction) symbol like this: «`w(ieai|oo)t`», matching
 wit, wet, wait, and woot. It is instructive to see what happens when you
 omit the parentheses from the last expression above, and search for
-|l|`ed|ing$`|r|.
+«`ed|ing$`».
 
 The meta-characters we have seen are summarized in
 tab-regexp-meta-characters1\_.
@@ -1021,7 +1021,7 @@ letter `r`, to indicate that it is a raw string. For example, the raw
 string `r'\band\b'` contains two `\b` symbols that are interpreted by
 the `re` library as matching word boundaries instead of backspace
 characters. If you get into the habit of using `r'...'` for regular
-expressions |mdash| as we will do from now on |mdash| you will avoid
+expressions — as we will do from now on — you will avoid
 having to think about these complications.
 
 Useful Applications of Regular Expressions
@@ -1056,7 +1056,7 @@ determine their relative frequency:
 
 > **note**
 >
-> |TRY| In the W3C Date Time Format, dates are represented like this:
+> **Try this** In the W3C Date Time Format, dates are represented like this:
 > 2009-12-31. Replace the `?` in the following Python code with a
 > regular expression, in order to convert the string `'2009-12-31'` to a
 > list of integers `[2009, 12, 31]`:
@@ -1127,7 +1127,7 @@ Here's how we can do this:
 
 This program processes each word `w` in turn, and for each one, finds
 every substring that matches the regular expression
-|l|`[ptksvr][aeiou]`|r|. In the case of the word kasuari, it finds ka,
+«`[ptksvr][aeiou]`». In the case of the word kasuari, it finds ka,
 su and ri. Therefore, the `cv_word_pairs` list will contain
 `('ka', 'kasuari')`, `('su', 'kasuari')` and `('ri', 'kasuari')`. One
 further step, using `nltk.Index()`, converts this into a useful index.
@@ -1150,13 +1150,13 @@ suffix:
 > word.endswith(suffix): ... return word\[:-len(suffix)\] ... return
 > word
 
-Although we will ultimately use |NLTK|'s built-in stemmers, it's
+Although we will ultimately use NLTK's built-in stemmers, it's
 interesting to see how we can use regular expressions for this task. Our
 first step is to build up a disjunction of all the suffixes. We need to
 enclose it in parentheses in order to limit the scope of the
 disjunction.
 
-> &gt;&gt;&gt; re.findall(r'\^.\*(ing|ly|ed|ious|ies|ive|es|s|ment)\$',
+> &gt;&gt;&gt; re.findall(r'\^.\*(ing-lyed-iousies-iveessment)\$',
 > 'processing') \['ing'\]
 
 Here, `re.findall()` just gave us the suffix even though the regular
@@ -1168,21 +1168,21 @@ of many arcane subtleties of regular expressions. Here's the revised
 version.
 
 > &gt;&gt;&gt;
-> re.findall(r'\^.\*(?:ing|ly|ed|ious|ies|ive|es|s|ment)\$',
+> re.findall(r'\^.\*(?:ing-lyed-iousies-iveessment)\$',
 > 'processing') \['processing'\]
 
 However, we'd actually like to split the word into stem and suffix. So
 we should just parenthesize both parts of the regular expression:
 
 > &gt;&gt;&gt;
-> re.findall(r'\^(.\*)(ing|ly|ed|ious|ies|ive|es|s|ment)\$',
+> re.findall(r'\^(.\*)(ing-lyed-iousies-iveessment)\$',
 > 'processing') \[('process', 'ing')\]
 
 This looks promising, but still has a problem. Let's look at a different
 word, processes:
 
 > &gt;&gt;&gt;
-> re.findall(r'\^(.\*)(ing|ly|ed|ious|ies|ive|es|s|ment)\$',
+> re.findall(r'\^(.\*)(ing-lyed-iousies-iveessment)\$',
 > 'processes') \[('processe', 's')\]
 
 The regular expression incorrectly found an -s suffix instead of an -es
@@ -1192,14 +1192,14 @@ the input as possible. If we use the "non-greedy" version of the star
 operator, written `*?`, we get what we want:
 
 > &gt;&gt;&gt;
-> re.findall(r'\^(.\*?)(ing|ly|ed|ious|ies|ive|es|s|ment)\$',
+> re.findall(r'\^(.\*?)(ing-lyed-iousies-iveessment)\$',
 > 'processes') \[('process', 'es')\]
 
 This works even when we allow an empty suffix, by making the content of
 the second parentheses optional:
 
 > &gt;&gt;&gt;
-> re.findall(r'\^(.\*?)(ing|ly|ed|ious|ies|ive|es|s|ment)?\$',
+> re.findall(r'\^(.\*?)(ing-lyed-iousies-iveessment)?\$',
 > 'language') \[('language', '')\]
 
 This approach still has many problems (can you spot them?) but we will
@@ -1207,7 +1207,7 @@ move on to define a function to perform stemming, and apply it to a
 whole text:
 
 > &gt;&gt;&gt; def stem(word): ... regexp =
-> r'\^(.\*?)(ing|ly|ed|ious|ies|ive|es|s|ment)?\$' ... stem, suffix =
+> r'\^(.\*?)(ing-lyed-iousies-iveessment)?\$' ... stem, suffix =
 > re.findall(regexp, word)\[0\] ... return stem ... &gt;&gt;&gt; raw =
 > """DENNIS: Listen, strange women lying in ponds distributing swords
 > ... is no basis for a system of government. Supreme executive power
@@ -1231,7 +1231,7 @@ multiple words in a text (where a text is a list of tokens). For
 example, `"<a> <man>"` finds all instances of a man in the text. The
 angle brackets are used to mark token boundaries, and any whitespace
 between the angle brackets is ignored (behaviors that are unique to
-|NLTK|'s `findall()` method for texts). In the following example, we
+NLTK's `findall()` method for texts). In the following example, we
 include `<.*>` single-token-wildcard\_ which will match any single
 token, and enclose it in parentheses so only the matched word (e.g.
 monied) and not the matched phrase (e.g. a monied man) is produced. The
@@ -1255,7 +1255,7 @@ words starting with the letter l letter-l\_.
 
 > **note**
 >
-> |TRY| Consolidate your understanding of regular expression patterns
+> **Try this** Consolidate your understanding of regular expression patterns
 > and substitutions using `nltk.re_show(`*p, s*`)` which annotates the
 > string *s* to show every place where pattern *p* was matched, and
 > `nltk.app.nemo()` which provides a graphical interface for exploring
@@ -1301,7 +1301,7 @@ didn't think carefully enough about suitable patterns.
 
 > **note**
 >
-> |TRY| Look for instances of the pattern as x as y to discover
+> **Try this** Look for instances of the pattern as x as y to discover
 > information about entities and their properties.
 
 Normalizing Text
@@ -1325,7 +1325,7 @@ define the data we will use in this section:
 
 ### Stemmers
 
-|NLTK| includes several off-the-shelf stemmers, and if you ever need a
+NLTK includes several off-the-shelf stemmers, and if you ever need a
 stemmer you should use one of these in preference to crafting your own
 using regular expressions, since these handle a wide range of irregular
 cases. The Porter and Lancaster stemmers follow their own rules for
@@ -1388,7 +1388,7 @@ Regular Expressions for Tokenizing Text
 Tokenization is the task of cutting a string into identifiable
 linguistic units that constitute a piece of language data. Although it
 is a fundamental task, we have been able to delay it until now because
-many corpora are already tokenized, and because |NLTK| includes some
+many corpora are already tokenized, and because NLTK includes some
 tokenizers. Now that you are familiar with regular expressions, you can
 learn how to use them to tokenize text, and to have much more control
 over the process.
@@ -1422,7 +1422,7 @@ spaces, tabs, or newlines split-whitespace\_:
 > 'well', 'without--Maybe', "it's", 'always', 'pepper', 'that', 'makes',
 > 'people', "hot-tempered,'..."\]
 
-The regular expression |l|`[ \t\n]+`|r| matches one or more space, tab
+The regular expression «`[ \t\n]+`» matches one or more space, tab
 (`\t`) or newline (`\n`). Other whitespace characters, such as
 carriage-return and form-feed should really be included too. Instead, we
 will use a built-in `re` abbreviation, `\s`, which means any whitespace
@@ -1431,7 +1431,7 @@ character. The above statement can be rewritten as
 
 > **note**
 >
-> |IMPORTANT| Remember to prefix regular expressions with the letter `r`
+> **Important** Remember to prefix regular expressions with the letter `r`
 > (meaning "raw"), which instructs the Python interpreter to treat the
 > string literally, rather than processing any backslashed characters it
 > contains.
@@ -1457,7 +1457,7 @@ but without the empty strings, with `re.findall(r'\w+', raw)`, using a
 pattern that matches the words instead of the spaces. Now that we're
 matching the words, we're in a position to extend the regular expression
 to cover a wider range of cases. The regular expression
-|l|`\w+|\S\w*`|r| will first try to match any sequence of word
+«`\w+|\S\w*`» will first try to match any sequence of word
 characters. If no match is found, it will try to match any
 *non*-whitespace character (`\S` is the complement of `\s`) followed by
 further word characters. This means that punctuation is grouped with any
@@ -1473,7 +1473,7 @@ punctuation characters are separated.
 > '-tempered', ',', "'", '.', '.', '.'\]
 
 Let's generalize the `\w+` in the above expression to permit
-word-internal hyphens and apostrophes: |l|`\w+([-']\w+)*`|r|. This
+word-internal hyphens and apostrophes: «`\w+([-']\w+)*`». This
 expression means `\w+` followed by zero or more instances of `[-']\w+`;
 it would match hot-tempered and it's. (We need to include `?:` in this
 expression for reasons discussed earlier.) We'll also add a pattern to
@@ -1488,7 +1488,7 @@ enclose.
 > 'without', '--', 'Maybe', "it's", 'always', 'pepper', 'that', 'makes',
 > 'people', 'hot-tempered', ',', "'", '...'\]
 
-The above expression also included |l|`[-.(]+`|r| which causes the
+The above expression also included «`[-.(]+`» which causes the
 double hyphen, ellipsis, and open parenthesis to be tokenized
 separately.
 
@@ -1534,7 +1534,7 @@ must decide what counts as a token depending on the application domain.
 
 When developing a tokenizer it helps to have access to raw text which
 has been manually tokenized, in order to compare the output of your
-tokenizer with high-quality (or "gold-standard") tokens. The |NLTK|
+tokenizer with high-quality (or "gold-standard") tokens. The NLTK
 corpus collection includes a sample of Penn Treebank data, including the
 raw Wall Street Journal text (`nltk.corpus.treebank_raw.raw()`) and the
 tokenized version (`nltk.corpus.treebank.words()`).
@@ -1606,10 +1606,10 @@ sec-further-examples-of-supervised-classification\_.
 
 For some writing systems, tokenizing text is made more difficult by the
 fact that there is no visual representation of word boundaries. For
-example, in Chinese, the three-character string: |ai4||guo2||ren2| (ai4
+example, in Chinese, the three-character string: |ai4guo2ren2| (ai4
 "love" (verb), guo2 "country", ren2 "person") could be tokenized as
-|ai4||guo2| / |ren2|, "country-loving person" or as |ai4| /
-|guo2||ren2|, "love country-person."
+|ai4guo2| / |ren2|, "country-loving person" or as |ai4| /
+|guo2ren2|, "love country-person."
 
 A similar problem arises in the processing of spoken language, where the
 hearer must segment a continuous speech stream into individual words. A
@@ -1766,7 +1766,7 @@ concatenate them as one big string, using `' '` as a spacer between the
 items. I.e. `join()` is a method of the string that you want to use as
 the glue. (Many people find this notation for `join()`
 counter-intuitive.) The `join()` method only works on a list of strings
-|mdash| what we have been calling a text |mdash| a complex type that
+— what we have been calling a text — a complex type that
 enjoys some privileges in Python.
 
 ### Strings and Formats
@@ -1780,8 +1780,8 @@ object:
 > 'hellonworld'
 
 The `print` command yields Python's attempt to produce the most
-human-readable form of an object. The second method |mdash| naming the
-variable at a prompt |mdash| shows us a string that can be used to
+human-readable form of an object. The second method — naming the
+variable at a prompt — shows us a string that can be used to
 recreate this object. It is important to keep in mind that both of these
 are just strings, displayed for the benefit of you, the user. They do
 not give us any clue as to the actual internal representation of the
@@ -1991,10 +1991,10 @@ Summary
 -   Texts found on the web may contain unwanted material (such as
     headers, footers, markup), that need to be removed before we do any
     linguistic processing.
--   Tokenization is the segmentation of a text into basic units |mdash|
-    or tokens |mdash| such as words and punctuation. Tokenization based
+-   Tokenization is the segmentation of a text into basic units —
+    or tokens — such as words and punctuation. Tokenization based
     on whitespace is inadequate for many applications because it bundles
-    punctuation together with words. |NLTK| provides an off-the-shelf
+    punctuation together with words. NLTK provides an off-the-shelf
     tokenizer `nltk.word_tokenize()`.
 -   Lemmatization is a process that maps the various forms of a word
     (such as appeared, appears) to the canonical or citation form of the
@@ -2018,15 +2018,15 @@ Summary
 Further Reading
 ---------------
 
-Extra materials for this chapter are posted at |NLTK-URL|, including
+Extra materials for this chapter are posted at [NLTK](https://www.nltk.org/), including
 links to freely available resources on the web. Remember to consult the
-Python reference materials at |PYTHON-DOCS|. (For example, this
+Python reference materials at [Python Documentation](https://docs.python.org/3/). (For example, this
 documentation covers "universal newline support," explaining how to work
 with the different newline conventions used by various operating
 systems.)
 
-For more examples of processing words with |NLTK|, see the tokenization,
-stemming and corpus HOWTOs at |NLTK-HOWTO-URL|. Chapters 2 and 3 of
+For more examples of processing words with NLTK, see the tokenization,
+stemming and corpus HOWTOs at [NLTK HOWTO](https://www.nltk.org/howto/). Chapters 2 and 3 of
 \[JurafskyMartin2008\]\_ contain more advanced material on regular
 expressions and morphology. For more extensive discussion of text
 processing with Python see \[Mertz2003TPP\]\_. For information about
@@ -2077,25 +2077,25 @@ x and other ys is described by \[Hearst1992HYP\]\_.
 Exercises
 ---------
 
-1.  |easy| Define a string `s = 'colorless'`. Write a Python statement
+1.  ☆ Define a string `s = 'colorless'`. Write a Python statement
     that changes this to "colourless" using only the slice and
     concatenation operations.
-2.  |easy| We can use the slice notation to remove morphological endings
+2.  ☆ We can use the slice notation to remove morphological endings
     on words. For example, `'dogs'[:-1]` removes the last character of
     `dogs`, leaving `dog`. Use slice notation to remove the affixes from
     these words (we've inserted a hyphen to indicate the affix boundary,
     but omit this from your strings): `dish-es`, `run-ning`,
     `nation-ality`, `un-do`, `pre-heat`.
-3.  |easy| We saw how we can generate an `IndexError` by indexing beyond
+3.  ☆ We saw how we can generate an `IndexError` by indexing beyond
     the end of a string. Is it possible to construct an index that goes
     too far to the left, before the start of the string?
-4.  |easy| We can specify a "step" size for the slice. The following
+4.  ☆ We can specify a "step" size for the slice. The following
     returns every second character within the slice: `monty[6:11:2]`. It
     also works in the reverse direction: `monty[10:5:-2]` Try these for
     yourself, then experiment with different step values.
-5.  |easy| What happens if you ask the interpreter to evaluate
+5.  ☆ What happens if you ask the interpreter to evaluate
     `monty[::-1]`? Explain why this is a reasonable result.
-6.  |easy| Describe the class of strings matched by the following
+6.  ☆ Describe the class of strings matched by the following
     regular expressions.
 
     a)  `[a-zA-Z]+`
@@ -2107,7 +2107,7 @@ Exercises
 
     Test your answers using `nltk.re_show()`.
 
-7.  |easy| Write regular expressions to match the following classes of
+7.  ☆ Write regular expressions to match the following classes of
     strings:
 
     > a)  A single determiner (assume that a, an, and the are the
@@ -2115,12 +2115,12 @@ Exercises
     > b)  An arithmetic expression using integers, addition, and
     >     multiplication, such as `2*3+8`.
 
-8.  |easy| Write a utility function that takes a URL as its argument,
+8.  ☆ Write a utility function that takes a URL as its argument,
     and returns the contents of the URL, with all HTML markup removed.
     Use `from urllib import request` and then
     `request.urlopen('http://nltk.org/').read().decode('utf8')` to
     access the contents of the URL.
-9.  |easy| Save some text into a file `corpus.txt`. Define a function
+9.  ☆ Save some text into a file `corpus.txt`. Define a function
     `load(f)` that reads from the file named in its sole argument, and
     returns a string containing the text of the file.
     a)  Use `nltk.regexp_tokenize()` to create a tokenizer that
@@ -2131,7 +2131,7 @@ Exercises
         tokenizes the following kinds of expression: monetary amounts;
         dates; names of people and organizations.
 
-10. |easy| Rewrite the following loop as a list comprehension:
+10. ☆ Rewrite the following loop as a list comprehension:
 
     > &gt;&gt;&gt; sent = \['The', 'dog', 'gave', 'John', 'the',
     > 'newspaper'\] &gt;&gt;&gt; result = \[\] &gt;&gt;&gt; for word in
@@ -2139,25 +2139,25 @@ Exercises
     > result.append(word\_len) &gt;&gt;&gt; result \[('The', 3), ('dog',
     > 3), ('gave', 4), ('John', 4), ('the', 3), ('newspaper', 9)\]
 
-11. |easy| Define a string `raw` containing a sentence of your own
+11. ☆ Define a string `raw` containing a sentence of your own
     choosing. Now, split `raw` on some character other than space, such
     as `'s'`.
-12. |easy| Write a `for` loop to print out the characters of a string,
+12. ☆ Write a `for` loop to print out the characters of a string,
     one per line.
-13. |easy| What is the difference between calling `split` on a string
+13. ☆ What is the difference between calling `split` on a string
     with no argument or with `' '` as the argument, e.g. `sent.split()`
     versus `sent.split(' ')`? What happens when the string being split
     contains tab characters, consecutive space characters, or a sequence
     of tabs and spaces? (In IDLE you will need to use `'\t'` to enter a
     tab character.)
-14. |easy| Create a variable `words` containing a list of words.
+14. ☆ Create a variable `words` containing a list of words.
     Experiment with `words.sort()` and `sorted(words)`. What is the
     difference?
-15. |easy| Explore the difference between strings and integers by typing
+15. ☆ Explore the difference between strings and integers by typing
     the following at a Python prompt: `"3" * 7` and `3 * 7`. Try
     converting between strings and integers using `int("3")` and
     `str(3)`.
-16. |easy| Use a text editor to create a file called `prog.py`
+16. ☆ Use a text editor to create a file called `prog.py`
     containing the single line `monty = 'Monty Python'`. Next, start up
     a new session with the Python interpreter, and enter the expression
     `monty` at the prompt. You will get an error from the interpreter.
@@ -2168,50 +2168,50 @@ Exercises
     `import prog`, in which case Python should be able to evaluate the
     expression `prog.monty` at the prompt.
 
-17. |easy| What happens when the formatting strings `%6s` and `%-6s` are
+17. ☆ What happens when the formatting strings `%6s` and `%-6s` are
     used to display strings that are longer than six characters?
-18. |soso| Read in some text from a corpus, tokenize it, and print the
+18. ☆☆ Read in some text from a corpus, tokenize it, and print the
     list of all wh-word types that occur. (wh-words in English are used
     in questions, relative clauses and exclamations: who, which, what,
     and so on.) Print them in order. Are any words duplicated in this
     list, because of the presence of case distinctions or punctuation?
-19. |soso| Create a file consisting of words and (made up) frequencies,
+19. ☆☆ Create a file consisting of words and (made up) frequencies,
     where each line consists of a word, the space character, and a
     positive integer, e.g. `fuzzy 53`. Read the file into a Python list
     using `open(filename).readlines()`. Next, break each line into its
     two fields using `split()`, and convert the number into an integer
     using `int()`. The result should be a list of the form:
     `[['fuzzy', 53], ...]`.
-20. |soso| Write code to access a favorite webpage and extract some text
+20. ☆☆ Write code to access a favorite webpage and extract some text
     from it. For example, access a weather site and extract the forecast
     top temperature for your town or city today.
-21. |soso| Write a function `unknown()` that takes a URL as its
+21. ☆☆ Write a function `unknown()` that takes a URL as its
     argument, and returns a list of unknown words that occur on that
     webpage. In order to do this, extract all substrings consisting of
     lowercase letters (using `re.findall()`) and remove any items from
     this set that occur in the Words Corpus (`nltk.corpus.words`). Try
     to categorize these words manually and discuss your findings.
-22. |soso| Examine the results of processing the URL
+22. ☆☆ Examine the results of processing the URL
     `http://news.bbc.co.uk/` using the regular expressions
     suggested above. You will see that there is still a fair amount of
     non-textual data there, particularly Javascript commands. You may
     also find that sentence breaks have not been properly preserved.
     Define further regular expressions that improve the extraction of
     text from this web page.
-23. |soso| Are you able to write a regular expression to tokenize text
+23. ☆☆ Are you able to write a regular expression to tokenize text
     in such a way that the word don't is tokenized into do and n't?
-    Explain why this regular expression won't work: |l|`n't|\w+`|r|.
-24. |soso| Try to write code to convert text into *hAck3r*, using
-    regular expressions and substitution, where `e` |rarr| `3`, `i`
-    |rarr| `1`, `o` |rarr| `0`, `l` |rarr| `|`, `s` |rarr| `5`, `.`
-    |rarr| `5w33t!`, `ate` |rarr| `8`. Normalize the text to lowercase
+    Explain why this regular expression won't work: «`n't|\w+`».
+24. ☆☆ Try to write code to convert text into *hAck3r*, using
+    regular expressions and substitution, where `e` → `3`, `i`
+    → `1`, `o` → `0`, `l` → `|`, `s` → `5`, `.`
+    → `5w33t!`, `ate` → `8`. Normalize the text to lowercase
     before converting it. Add more substitutions of your own. Now try to
     map `s` to two different values: `$` for word-initial `s`, and `5`
     for word-internal `s`.
-25. |soso| *Pig Latin* is a simple transformation of English text. Each
+25. ☆☆ *Pig Latin* is a simple transformation of English text. Each
     word of the text is converted as follows: move any consonant (or
     consonant cluster) that appears at the start of the word to the end,
-    then append ay, e.g. string |rarr| ingstray, idle |rarr| idleay.
+    then append ay, e.g. string → ingstray, idle → idleay.
     `http://en.wikipedia.org/wiki/Pig_Latin`
     a)  Write a function to convert a word to Pig Latin.
     b)  Write code that converts text, instead of individual words.
@@ -2220,10 +2220,10 @@ Exercises
         when `y` is used as a consonant (e.g. `yellow`) vs a vowel (e.g.
         `style`).
 
-26. |soso| Download some text from a language that has vowel
+26. ☆☆ Download some text from a language that has vowel
     harmony (e.g. Hungarian), extract the vowel sequences of words, and
     create a vowel bigram table.
-27. |soso| Python's `random` module includes a function `choice()` which
+27. ☆☆ Python's `random` module includes a function `choice()` which
     randomly chooses an item from a sequence, e.g. `choice("aehh ")`
     will produce one of four possible characters, with the letter `h`
     being twice as frequent as the others. Write a generator expression
@@ -2233,7 +2233,7 @@ Exercises
     should get a result that looks like uncontrolled sneezing or
     maniacal laughter: `he  haha ee  heheeh eha`. Use `split()` and
     `join()` again to normalize the whitespace in this string.
-28. |soso| Consider the numeric expressions in the following sentence
+28. ☆☆ Consider the numeric expressions in the following sentence
     from the MedLine Corpus:
     The corresponding free cortisol fractions in these
     sera were 4.53 +/- 0.15% and 8.16 +/- 0.23%, respectively. Should we
@@ -2244,28 +2244,28 @@ Exercises
     that it's not a "real" word at all, since it wouldn't appear in any
     dictionary? Discuss these different possibilities. Can you think of
     application domains that motivate at least two of these answers?
-29. |soso| Readability measures are used to score the reading difficulty
+29. ☆☆ Readability measures are used to score the reading difficulty
     of a text, for the purposes of selecting texts of appropriate
-    difficulty for language learners. Let us define |mu|~w~ to be the
-    average number of letters per word, and |mu|~s~ to be the average
+    difficulty for language learners. Let us define μ~w~ to be the
+    average number of letters per word, and μ~s~ to be the average
     number of words per sentence, in a given text. The Automated
-    Readability Index (ARI) of the text is defined to be: `4.71` |mu|~w~
-    `+ 0.5` |mu|~s~ `- 21.43`. Compute the ARI score for various
+    Readability Index (ARI) of the text is defined to be: `4.71` μ~w~
+    `+ 0.5` μ~s~ `- 21.43`. Compute the ARI score for various
     sections of the Brown Corpus, including section `f` (lore) and
     `j` (learned). Make use of the fact that `nltk.corpus.brown.words()`
     produces a sequence of words, while `nltk.corpus.brown.sents()`
     produces a sequence of sentences.
-30. |soso| Use the Porter Stemmer to normalize some tokenized text,
+30. ☆☆ Use the Porter Stemmer to normalize some tokenized text,
     calling the stemmer on each word. Do the same thing with the
     Lancaster Stemmer and see if you observe any differences.
-31. |soso| Define the variable `saying` to contain the list
+31. ☆☆ Define the variable `saying` to contain the list
     `['After', 'all', 'is', 'said', 'and', 'done', ',', 'more', 'is', 'said', 'than', 'done', '.']`.
     Process this list using a `for` loop, and store the length of each
     word in a new list `lengths`. Hint: begin by assigning the empty
     list to `lengths`, using `lengths = []`. Then each time through the
     loop, use `append()` to add another length value to the list. Now do
     the same thing using a list comprehension.
-32. |soso| Define a variable `silly` to contain the string:
+32. ☆☆ Define a variable `silly` to contain the string:
     `'newly formed bland ideas are inexpressible in an infuriating way'`.
     (This happens to be the legitimate interpretation that bilingual
     English-Spanish speakers can assign to Chomsky's famous nonsense
@@ -2281,7 +2281,7 @@ Exercises
         separated with whitespace.
     d)  Print the words of `silly` in alphabetical order, one per line.
 
-33. |soso| The `index()` function can be used to look up items in
+33. ☆☆ The `index()` function can be used to look up items in
     sequences. For example, `'inexpressible'.index('e')` tells us the
     index of the first position of the letter `e`.
     a)  What happens when you look up a substring, e.g.
@@ -2293,27 +2293,27 @@ Exercises
         list `phrase` consisting of all the words up to (but
         not including) `in` in `silly`.
 
-34. |soso| Write code to convert nationality adjectives like Canadian
+34. ☆☆ Write code to convert nationality adjectives like Canadian
     and Australian to their corresponding nouns Canada and Australia
     (see
     `http://en.wikipedia.org/wiki/List_of_adjectival_forms_of_place_names`).
-35. |soso| Read the LanguageLog post on phrases of the form
+35. ☆☆ Read the LanguageLog post on phrases of the form
     as best as p can and as best p can, where p is a pronoun.
     Investigate this phenomenon with the help of a corpus and the
     `findall()` method for searching tokenized text described in
     sec-useful-applications-of-regular-expressions\_.
     `http://itre.cis.upenn.edu/~myl/languagelog/archives/002733.html`
-36. |soso| Study the lolcat version of the book of Genesis, accessible
+36. ☆☆ Study the lolcat version of the book of Genesis, accessible
     as `nltk.corpus.genesis.words('lolcat.txt')`, and the rules for
     converting text into lolspeak at
     `http://www.lolcatbible.com/index.php?title=How_to_speak_lolcat`.
     Define regular expressions to convert English words into
     corresponding lolspeak words.
-37. |soso| Read about the `re.sub()` function for string substitution
+37. ☆☆ Read about the `re.sub()` function for string substitution
     using regular expressions, using `help(re.sub)` and by consulting
     the further readings for this chapter. Use `re.sub` in writing code
     to remove HTML tags from an HTML file, and to normalize whitespace.
-38. |hard| An interesting challenge for tokenization is words that have
+38. ☆☆☆ An interesting challenge for tokenization is words that have
     been split across a line-break. E.g. if *long-term* is split, then
     we have the string `long-\nterm`.
     a)  Write a regular expression that identifies words that are
@@ -2323,13 +2323,13 @@ Exercises
     c)  How might you identify words that should not remain hyphenated
         once the newline is removed, e.g. `'encyclo-\npedia'`?x
 
-39. |hard| Read the Wikipedia entry on *Soundex*. Implement this
+39. ☆☆☆ Read the Wikipedia entry on *Soundex*. Implement this
     algorithm in Python.
-40. |hard| Obtain raw texts from two or more genres and compute their
+40. ☆☆☆ Obtain raw texts from two or more genres and compute their
     respective reading difficulty scores as in the earlier exercise on
     reading difficulty. E.g. compare ABC Rural News and ABC Science News
     (`nltk.corpus.abc`). Use Punkt to perform sentence segmentation.
-41. |hard| Rewrite the following nested loop as a nested list
+41. ☆☆☆ Rewrite the following nested loop as a nested list
     comprehension:
 
     > &gt;&gt;&gt; words = \['attribution', 'confabulation',
@@ -2340,24 +2340,24 @@ Exercises
     > vsequences.add(''.join(vowels)) &gt;&gt;&gt; sorted(vsequences)
     > \['aiuio', 'eaiou', 'eouio', 'euoia', 'oauaio', 'uiieioa'\]
 
-42. |hard| Use WordNet to create a semantic index for a text collection.
+42. ☆☆☆ Use WordNet to create a semantic index for a text collection.
     Extend the concordance search program in code-stemmer-indexing\_,
     indexing each word using the offset of its first synset, e.g.
     `wn.synsets('dog')[0].offset` (and optionally the offset of some of
     its ancestors in the hypernym hierarchy).
-43. |hard| With the help of a multilingual corpus such as the Universal
+43. ☆☆☆ With the help of a multilingual corpus such as the Universal
     Declaration of Human Rights Corpus (`nltk.corpus.udhr`), and
-    |NLTK|'s frequency distribution and rank correlation functionality
+    NLTK's frequency distribution and rank correlation functionality
     (`nltk.FreqDist`, `nltk.spearman_correlation`), develop a system
     that guesses the language of a previously unseen text. For
     simplicity, work with a single character encoding and just a
     few languages.
-44. |hard| Write a program that processes a text and discovers cases
+44. ☆☆☆ Write a program that processes a text and discovers cases
     where a word has been used with a novel sense. For each word,
     compute the WordNet similarity between all synsets of the word and
     all synsets of the words in its context. (Note that this is a crude
     approach; doing it well is a difficult, open research problem.)
-45. |hard| Read the article on normalization of non-standard words
+45. ☆☆☆ Read the article on normalization of non-standard words
     \[Sproat2001NOR\]\_, and implement a similar system for
     text normalization.
 

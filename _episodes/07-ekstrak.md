@@ -20,7 +20,7 @@ For any given question, it's likely that someone has written the answer
 down somewhere. The amount of natural language text that is available in
 electronic form is truly staggering, and is increasing every day.
 However, the complexity of natural language can make it very difficult
-to access the information in that text. The state of the art in |NLP| is
+to access the information in that text. The state of the art in NLP is
 still a long way from being able to build general-purpose
 representations of meaning from unrestricted text. If we instead focus
 our efforts on a limited set of questions or "entity relations," such as
@@ -244,7 +244,7 @@ cover:
 
 > **note**
 >
-> |TRY| Try to come up with tag patterns to cover these cases. Test them
+> **Try this** Try to come up with tag patterns to cover these cases. Test them
 > using the graphical interface `nltk.app.chunkparser()`. Continue to
 > refine your tag patterns with the help of the feedback given by this
 > tool.
@@ -311,7 +311,7 @@ tags. We can do the same work more easily with a chunker, as follows:
 
 > **note**
 >
-> |TRY| Encapsulate the above example inside a function `find_chunks()`
+> **Try this** Encapsulate the above example inside a function `find_chunks()`
 > that takes a chunk string like `"CHUNK: {<V.*> <TO> <V.*>}"` as an
 > argument. Use it to search the corpus for several other patterns, such
 > as four or more nouns in a row, e.g. `"NOUNS: {<N.*>{4,}}"`
@@ -376,7 +376,7 @@ manipulated directly. An example is shown in
 
 > **note**
 >
-> |NLTK| uses trees for its internal representation of chunks, but
+> NLTK uses trees for its internal representation of chunks, but
 > provides methods for reading and writing such trees to the IOB format.
 
 Developing and Evaluating Chunkers
@@ -385,7 +385,7 @@ Developing and Evaluating Chunkers
 Now you have a taste of what chunking does, but we haven't explained how
 to evaluate chunkers. As usual, this requires a suitably annotated
 corpus. We begin by looking at the mechanics of converting IOB format
-into an |NLTK| tree, then at how this is done on a larger scale using a
+into an NLTK tree, then at how this is done on a larger scale using a
 chunked corpus. We will see how to score the accuracy of a chunker
 relative to a corpus, then look at some more data-driven ways to search
 for NP chunks. Our focus throughout will be on expanding the coverage of
@@ -409,7 +409,7 @@ representation from one of these multi-line strings. Moreover, it
 permits us to choose any subset of the three chunk types to use, here
 just for `NP` chunks:
 
-We can use the |NLTK| corpus module to access a larger amount of chunked
+We can use the NLTK corpus module to access a larger amount of chunked
 text. The CoNLL 2000 corpus contains 270k words of Wall Street Journal
 text, divided into "train" and "test" portions, annotated with
 part-of-speech tags and chunk tags in the IOB format. We can access the
@@ -666,7 +666,7 @@ the sentence if there is no determiner before index `i`. .
 
 > **note**
 >
-> |TRY| Try adding different features to the feature extractor function
+> **Try this** Try adding different features to the feature extractor function
 > `npchunk_features`, and see if you can further improve the performance
 > of the NP chunker.
 
@@ -732,7 +732,7 @@ any homogeneous hierarchical structure that spans a sequence of
 linguistic forms (e.g. morphological structure, discourse structure). In
 the general case, leaves and node values do not have to be strings.
 
-In |NLTK|, we create a tree by giving a node label and a list of
+In NLTK, we create a tree by giving a node label and a list of
 children:
 
 > &gt;&gt;&gt; tree1 = nltk.Tree('NP', \['Alice'\]) &gt;&gt;&gt;
@@ -886,10 +886,10 @@ Once named entities have been identified in a text, we then want to
 extract the relations that exist between them. As indicated earlier, we
 will typically be looking for relations between specified types of named
 entity. One way of approaching this task is to initially look for all
-triples of the form (*X*, |alpha|, *Y*), where *X* and *Y* are named
-entities of the required types, and |alpha| is the string of words that
+triples of the form (*X*, α, *Y*), where *X* and *Y* are named
+entities of the required types, and α is the string of words that
 intervenes between *X* and *Y*. We can then use regular expressions to
-pull out just those instances of |alpha| that express the relation that
+pull out just those instances of α that express the relation that
 we are looking for. The following example searches for strings that
 contain the word in. The special regular expression `(?!\b.+ing\b)` is a
 negative lookahead assertion that allows us to disregard strings such as
@@ -940,7 +940,7 @@ the binary relation symbol is specified as the value of parameter
 
 > **note**
 >
-> |TRY| Replace the last line relsym\_, by
+> **Try this** Replace the last line relsym\_, by
 >
 > :   `print(nltk.rtuple(rel, lcon=True, rcon=True))`. This will show
 >     you the actual words that intervene between the two NEs and also
@@ -983,9 +983,9 @@ Summary
 Further Reading
 ---------------
 
-Extra materials for this chapter are posted at |NLTK-URL|, including
+Extra materials for this chapter are posted at [NLTK](https://www.nltk.org/), including
 links to freely available resources on the web. For more examples of
-chunking with |NLTK|, please see the Chunking HOWTO at |NLTK-HOWTO-URL|.
+chunking with NLTK, please see the Chunking HOWTO at [NLTK HOWTO](https://www.nltk.org/howto/).
 
 The popularity of chunking is due in great part to pioneering work by
 Abney e.g., \[Abney1996PST\]\_. Abney's Cass chunker is described in
@@ -996,8 +996,8 @@ The word chink initially meant a sequence of stopwords, according to a
 
 The IOB format (or sometimes BIO Format) was developed for `NP` chunking
 by \[Ramshaw1995TCU\]\_, and was used for the shared `NP` bracketing
-task run by the *Conference on Natural Language Learning* (|CoNLL|) in
-1999. The same format was adopted by |CoNLL| 2000 for annotating a
+task run by the *Conference on Natural Language Learning* (CoNLL) in
+1999. The same format was adopted by CoNLL 2000 for annotating a
 section of Wall Street Journal text as part of a shared task on `NP`
 chunking.
 
@@ -1009,35 +1009,35 @@ medicine, see \[Ananiadou2006\]\_.
 Exercises
 ---------
 
-1.  |easy| The IOB format categorizes tagged tokens as `I`, `O` and `B`.
+1.  ☆ The IOB format categorizes tagged tokens as `I`, `O` and `B`.
     Why are three tags necessary? What problem would be caused if we
     used `I` and `O` tags exclusively?
-2.  |easy| Write a tag pattern to match noun phrases containing plural
+2.  ☆ Write a tag pattern to match noun phrases containing plural
     head nouns, e.g. "many/JJ researchers/NNS", "two/CD weeks/NNS",
     "both/DT new/JJ positions/NNS". Try to do this by generalizing the
     tag pattern that handled singular noun phrases.
-3.  |easy| Pick one of the three chunk types in the CoNLL corpus.
+3.  ☆ Pick one of the three chunk types in the CoNLL corpus.
     Inspect the CoNLL corpus and try to observe any patterns in the POS
     tag sequences that make up this kind of chunk. Develop a simple
     chunker using the regular expression chunker `nltk.RegexpParser`.
     Discuss any tag sequences that are difficult to chunk reliably.
-4.  |easy| An early definition of *chunk* was the material that occurs
+4.  ☆ An early definition of *chunk* was the material that occurs
     between chinks. Develop a chunker that starts by putting the whole
     sentence in a single chunk, and then does the rest of its work
     solely by chinking. Determine which tags (or tag sequences) are most
     likely to make up chinks with the help of your own utility program.
     Compare the performance and simplicity of this approach relative to
     a chunker based entirely on chunk rules.
-5.  |soso| Write a tag pattern to cover noun phrases that contain
+5.  ☆☆ Write a tag pattern to cover noun phrases that contain
     gerunds, e.g. "the/DT receiving/VBG end/NN", "assistant/NN
     managing/VBG editor/NN". Add these patterns to the grammar, one
     per line. Test your work using some tagged sentences of your
     own devising.
-6.  |soso| Write one or more tag patterns to handle coordinated noun
+6.  ☆☆ Write one or more tag patterns to handle coordinated noun
     phrases, e.g. "July/NNP and/CC August/NNP", "all/DT your/PRP\$
     managers/NNS and/CC supervisors/NNS", "company/NN courts/NNS
     and/CC adjudicators/NNS".
-7.  |soso| Carry out the following evaluation tasks for any of the
+7.  ☆☆ Carry out the following evaluation tasks for any of the
     chunkers you have developed earlier. (Note that most chunking
     corpora contain some internal inconsistencies, such that any
     reasonable rule-based approach will produce errors.)
@@ -1048,31 +1048,31 @@ Exercises
     c)  Compare the performance of your chunker to the baseline chunker
         discussed in the evaluation section of this chapter.
 
-8.  |soso| Develop a chunker for one of the chunk types in the CoNLL
+8.  ☆☆ Develop a chunker for one of the chunk types in the CoNLL
     corpus using a regular-expression based chunk grammar `RegexpChunk`.
     Use any combination of rules for chunking, chinking, merging
     or splitting.
-9.  |soso| Sometimes a word is incorrectly tagged, e.g. the head noun in
+9.  ☆☆ Sometimes a word is incorrectly tagged, e.g. the head noun in
     "12/CD or/CC so/RB cases/VBZ". Instead of requiring manual
     correction of tagger output, good chunkers are able to work with the
     erroneous output of taggers. Look for other examples of correctly
     chunked noun phrases with incorrect tags.
-10. |soso| The bigram chunker scores about 90% accuracy. Study its
+10. ☆☆ The bigram chunker scores about 90% accuracy. Study its
     errors and try to work out why it doesn't get 100% accuracy.
     Experiment with trigram chunking. Are you able to improve the
     performance any more?
-11. |hard| Apply the n-gram and Brill tagging methods to IOB chunk
+11. ☆☆☆ Apply the n-gram and Brill tagging methods to IOB chunk
     tagging. Instead of assigning POS tags to words, here we will assign
     IOB tags to the POS tags. E.g. if the tag `DT` (determiner) often
     occurs at the start of a chunk, it will be tagged `B` (begin).
     Evaluate the performance of these chunking methods relative to the
     regular expression chunking methods covered in this chapter.
-12. |hard| We saw in chap-tag\_ that it is possible to establish an
+12. ☆☆☆ We saw in chap-tag\_ that it is possible to establish an
     upper limit to tagging performance by looking for ambiguous n-grams,
     n-grams that are tagged in more than one possible way in the
     training data. Apply the same method to determine an upper bound on
     the performance of an n-gram chunker.
-13. |hard| Pick one of the three chunk types in the CoNLL corpus. Write
+13. ☆☆☆ Pick one of the three chunk types in the CoNLL corpus. Write
     functions to do the following tasks for your chosen type:
     a)  List all the tag sequences that occur with each instance of this
         chunk type.
@@ -1082,7 +1082,7 @@ Exercises
     c)  Inspect the high-frequency tag sequences. Use these as the basis
         for developing a better chunker.
 
-14. |hard| The baseline chunker presented in the evaluation section
+14. ☆☆☆ The baseline chunker presented in the evaluation section
     tends to create larger chunks than it should. For example, the
     phrase: `[every/DT time/NN] [she/PRP] sees/VBZ [a/DT newspaper/NN]`
     contains two consecutive chunks, and our baseline chunker will
@@ -1092,11 +1092,11 @@ Exercises
     rules that will split up these chunks. Combine these with the
     existing baseline chunker and re-evaluate it, to see if you have
     discovered an improved baseline.
-15. |hard| Develop an `NP` chunker that converts POS-tagged text into a
+15. ☆☆☆ Develop an `NP` chunker that converts POS-tagged text into a
     list of tuples, where each tuple consists of a verb followed by a
     sequence of noun phrases and prepositions, e.g.
     `the little cat sat on the mat` becomes `('sat', 'on', 'NP')`...
-16. |hard| The Penn Treebank contains a section of tagged Wall Street
+16. ☆☆☆ The Penn Treebank contains a section of tagged Wall Street
     Journal text that has been chunked into noun phrases. The format
     uses square brackets, and we have encountered it several times
     during this chapter. The Treebank corpus can be accessed using:
@@ -1116,12 +1116,12 @@ Exercises
         file, and then use `for line in open(filename)` to access it
         from Python.)
 
-17. |hard| An n-gram chunker can use information other than the current
+17. ☆☆☆ An n-gram chunker can use information other than the current
     part-of-speech tag and the $n-1$ previous chunk tags. Investigate
     other models of the context, such as the $n-1$ previous
     part-of-speech tags, or some combination of previous chunk tags
     along with previous and following part-of-speech tags.
-18. |hard| Consider the way an n-gram tagger uses recent tags to inform
+18. ☆☆☆ Consider the way an n-gram tagger uses recent tags to inform
     its tagging choice. Now observe how a chunker may re-use this
     sequence information. For example, both tasks will make use of the
     information that nouns tend to follow adjectives (in English). It

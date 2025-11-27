@@ -34,7 +34,7 @@ Along the way, we'll cover some fundamental techniques in NLP, including
 sequence labeling, n-gram models, backoff, and evaluation. These
 techniques are useful in many areas, and tagging gives us a simple
 context in which to present them. We will also see how tagging is the
-second step in the typical |NLP| pipeline, following tokenization.
+second step in the typical NLP pipeline, following tokenization.
 
 The process of classifying words into their parts of speech and labeling
 them accordingly is known as part-of-speech tagging, POS-tagging, or
@@ -61,7 +61,7 @@ is `NN`, a noun; and different is `JJ`, an adjective.
 
 > **note**
 >
-> |NLTK| provides documentation for each tag, which can be queried using
+> NLTK provides documentation for each tag, which can be queried using
 > the tag, e.g. `nltk.help.upenn_tagset('RB')`, or a regular expression,
 > e.g. `nltk.help.upenn_tagset('NN.*')`. Some corpora have README files
 > with tagset documentation, see `nltk.corpus.???.readme()`,
@@ -84,7 +84,7 @@ POS-tagging.)
 
 > **note**
 >
-> |TRY| Many words, like ski and race, can be used as nouns or verbs
+> **Try this** Many words, like ski and race, can be used as nouns or verbs
 > with no difference in pronunciation. Can you think of others? Hint:
 > think of a commonplace object and try to put the word to before it to
 > see if it can also be a verb, or think of an action and try to put the
@@ -154,7 +154,7 @@ file from the Brown Corpus with a text editor:
 > that/cs any/dti irregularities/nns took/vbd place/nn ./.
 
 Other corpora use a variety of formats for storing part-of-speech tags.
-|NLTK|'s corpus readers provide a uniform interface so that you don't
+NLTK's corpus readers provide a uniform interface so that you don't
 have to be concerned with the different file formats. In contrast with
 the file fragment shown above, the corpus reader for the Brown Corpus
 represents the data as shown below. Note that part-of-speech tags have
@@ -166,7 +166,7 @@ since the Brown Corpus was published.
 > nltk.corpus.brown.tagged\_words(tagset='universal') \[('The', 'DET'),
 > ('Fulton', 'NOUN'), ...\]
 
-Whenever a corpus contains tagged text, the |NLTK| corpus interface will
+Whenever a corpus contains tagged text, the NLTK corpus interface will
 have a `tagged_words()` method. Here are some more examples, again using
 the output format illustrated for the Brown Corpus:
 
@@ -238,7 +238,7 @@ of the Brown corpus:
 
 > **note**
 >
-> |TRY| Plot the above frequency distribution using
+> **Try this** Plot the above frequency distribution using
 > `tag_fd.plot(cumulative=True)`. What percentage of words are tagged
 > using the first five tags of the above list?
 
@@ -333,7 +333,7 @@ form of the auxiliary verb have. Is this generally true?
 
 > **note**
 >
-> |TRY| Given the list of past participles produced by
+> **Try this** Given the list of past participles produced by
 > `list(cfd2['VN'])`, try to collect a list of all the word-tag pairs
 > that immediately precede items in that list.
 
@@ -356,7 +356,7 @@ they). Each dictionary and grammar classifies these words differently.
 
 > **note**
 >
-> |TRY| If you are uncertain about some of these parts of speech, study
+> **Try this** If you are uncertain about some of these parts of speech, study
 > them using `nltk.app.concordance()`, or watch some of the *Schoolhouse
 > Rock!* grammar videos available at YouTube, or consult the Further
 > Reading section at the end of this chapter.
@@ -428,7 +428,7 @@ each context can help us clarify the distinctions between the tags.
 
 > **note**
 >
-> |TRY| Open the POS concordance tool `nltk.app.concordance()` and load
+> **Try this** Open the POS concordance tool `nltk.app.concordance()` and load
 > the complete Brown Corpus (simplified tagset). Now pick some of the
 > above words and see how the tag of the word correlates with the
 > context of the word. E.g. search for `near` to see all forms mixed
@@ -532,7 +532,7 @@ entered; this is because dictionaries are not sequences but mappings
 and the keys are not inherently ordered.
 
 Alternatively, to just find the keys, we can convert the dictionary to a
-list dict-to-list\_ |mdash| or use the dictionary in a context where a
+list dict-to-list\_ — or use the dictionary in a context where a
 list is expected, as the parameter of `sorted()` dict-sorted\_, or in a
 `for` loop dict-for-loop\_.
 
@@ -619,7 +619,7 @@ parameter which can be used to create the default value, e.g. `int`,
 >
 > These default values are actually functions that convert other objects
 > to the specified type (e.g. `int("2")`, `list("2")`). When they are
-> called with no parameter |mdash| `int()`, `list()` |mdash| they return
+> called with no parameter — `int()`, `list()` — they return
 > `0` and `[]` respectively.
 
 The above examples specified the default value of a dictionary entry to
@@ -647,8 +647,8 @@ dictionary automatically-added\_.
 > def g(): ... return 'NOUN' &gt;&gt;&gt; g() 'NOUN'
 
 Let's see how default dictionaries could be used in a more substantial
-language processing task. Many language processing tasks |mdash|
-including tagging |mdash| struggle to correctly process the hapaxes of a
+language processing task. Many language processing tasks —
+including tagging — struggle to correctly process the hapaxes of a
 text. They can perform better with a fixed vocabulary and a guarantee
 that no new words will appear. We can preprocess a text to replace
 low-frequency words with a special "out of vocabulary" token `UNK`, with
@@ -730,7 +730,7 @@ why this program works.)
 > anagrams\[key\].append(word) ... &gt;&gt;&gt; anagrams\['aeilnrt'\]
 > \['entrail', 'latrine', 'ratline', 'reliant', 'retinal', 'trenail'\]
 
-Since accumulating words like this is such a common task, |NLTK|
+Since accumulating words like this is such a common task, NLTK
 provides a more convenient way of creating a `defaultdict(list)`, in the
 form of `nltk.Index()`.
 
@@ -810,7 +810,7 @@ part-of-speech, as follows:
 
 Now we have inverted the `pos` dictionary, and can look up any
 part-of-speech and find all words having that part-of-speech. We can do
-the same thing even more simply using |NLTK|'s support for indexing as
+the same thing even more simply using NLTK's support for indexing as
 follows:
 
 > &gt;&gt;&gt; pos2 = nltk.Index((value, key) for (key, value) in
@@ -894,7 +894,7 @@ its right about a fifth of the time.
 > ...\] &gt;&gt;&gt; regexp\_tagger.evaluate(brown\_tagged\_sents)
 > 0.20326391789486245
 
-The final regular expression |l|`.*`|r| is a catch-all that tags
+The final regular expression «`.*`» is a catch-all that tags
 everything as a noun. This is equivalent to the default tagger (only
 much less efficient). Instead of re-specifying this as part of the
 regular expression tagger, is there a way to combine this tagger with
@@ -902,7 +902,7 @@ the default tagger? We will see how to do this shortly.
 
 > **note**
 >
-> |TRY| See if you can come up with patterns to improve the performance
+> **Try this** See if you can come up with patterns to improve the performance
 > of the above regular expression tagger. (Note that
 > sec-supervised-classification\_ describes a way partially automate
 > such work.)
@@ -911,7 +911,7 @@ the default tagger? We will see how to do this shortly.
 
 A lot of high-frequency words do not have the `NN` tag. Let's find the
 hundred most frequent words and store their most likely tag. We can then
-use this information as the model for a "lookup tagger" (an |NLTK|
+use this information as the model for a "lookup tagger" (an NLTK
 `UnigramTagger`):
 
 > &gt;&gt;&gt; fd = nltk.FreqDist(brown.words(categories='news'))
@@ -964,7 +964,7 @@ plotting package, discussed in sec-libraries\_.)
 
 In the above examples, you will have noticed an emphasis on accuracy
 scores. In fact, evaluating the performance of such tools is a central
-theme in |NLP|. Recall the processing pipeline in fig-sds\_; any errors
+theme in NLP. Recall the processing pipeline in fig-sds\_; any errors
 in the output of one module are greatly multiplied in the downstream
 modules.
 
@@ -1135,7 +1135,7 @@ follows:
 3.  If the unigram tagger is also unable to find a tag, use a
     default tagger.
 
-Most |NLTK| taggers permit a backoff-tagger to be specified. The
+Most NLTK taggers permit a backoff-tagger to be specified. The
 backoff-tagger may itself have a backoff tagger:
 
 > &gt;&gt;&gt; t0 = nltk.DefaultTagger('NN') &gt;&gt;&gt; t1 =
@@ -1145,7 +1145,7 @@ backoff-tagger may itself have a backoff tagger:
 
 > **note**
 >
-> |TRY| Extend the above example by defining a `TrigramTagger` called
+> **Try this** Extend the above example by defining a `TrigramTagger` called
 > `t3`, which backs off to `t2`.
 
 Note that we specify the backoff tagger when the tagger is initialized
@@ -1332,7 +1332,7 @@ Brill taggers have another interesting property: the rules are
 linguistically interpretable. Compare this with the n-gram taggers,
 which employ a potentially massive table of n-grams. We cannot learn
 much from direct inspection of such a table, in comparison to the rules
-learned by the Brill tagger. code-brill-demo\_ demonstrates |NLTK|'s
+learned by the Brill tagger. code-brill-demo\_ demonstrates NLTK's
 Brill tagger.
 
 > &gt;&gt;&gt; from nltk.tbl import demo as brill\_demo &gt;&gt;&gt;
@@ -1387,10 +1387,10 @@ semantic clues to determine the category of a word.
 
 The internal structure of a word may give useful clues as to the word's
 category. For example, -ness is a suffix that combines with an adjective
-to produce a noun, e.g. happy |rarr| happiness, ill |rarr| illness. So
+to produce a noun, e.g. happy → happiness, ill → illness. So
 if we encounter a word that ends in -ness, this is very likely to be a
 noun. Similarly, -ment is a suffix that combines with some verbs to
-produce a noun, e.g. govern |rarr| government and establish |rarr|
+produce a noun, e.g. govern → government and establish →
 establishment.
 
 English verbs can also be morphologically complex. For instance, the
@@ -1445,7 +1445,7 @@ by virtue of their syntactic role. Consider, for example, the selection
 of distinct grammatical forms of the word go illustrated in the
 following sentences:
 
-Each of these forms |mdash| go, goes, gone, and went |mdash| is
+Each of these forms — go, goes, gone, and went — is
 morphologically distinct from the others. Consider the form, goes. This
 occurs in a restricted set of grammatical contexts, and requires a third
 person singular subject. Thus, the following sentences are
@@ -1489,7 +1489,7 @@ Summary
     as `NN`, `VB`,
 -   The process of automatically assigning parts of speech to words in
     text is called part-of-speech tagging, POS tagging, or just tagging.
--   Automatic tagging is an important step in the |NLP| pipeline, and is
+-   Automatic tagging is an important step in the NLP pipeline, and is
     useful in a variety of situations including: predicting the behavior
     of previously unseen words, analyzing word usage in corpora, and
     text-to-speech systems.
@@ -1523,9 +1523,9 @@ Summary
 Further Reading
 ---------------
 
-Extra materials for this chapter are posted at |NLTK-URL|, including
+Extra materials for this chapter are posted at [NLTK](https://www.nltk.org/), including
 links to freely available resources on the web. For more examples of
-tagging with |NLTK|, please see the Tagging HOWTO at |NLTK-HOWTO-URL|.
+tagging with NLTK, please see the Tagging HOWTO at [NLTK HOWTO](https://www.nltk.org/howto/).
 Chapters 4 and 5 of \[JurafskyMartin2008\]\_ contain more advanced
 material on n-grams and part-of-speech tagging. The "Universal Tagset"
 is described by \[Petrov2011\]\_. Other approaches to tagging involve
@@ -1557,7 +1557,7 @@ brackets enclose the word that is tagged.
 
 Note that tagging is also performed at higher levels. Here is an example
 of dialogue act tagging, from the NPS Chat Corpus \[Forsyth2007\]\_
-included with |NLTK|. Each turn of the dialogue is categorized as to its
+included with NLTK. Each turn of the dialogue is categorized as to its
 communicative function:
 
     Statement  User117 Dude..., I wanted some of that
@@ -1570,57 +1570,57 @@ communicative function:
 Exercises
 ---------
 
-1.  |easy| Search the web for "spoof newspaper headlines", to find such
+1.  ☆ Search the web for "spoof newspaper headlines", to find such
     gems as: British Left Waffles on Falkland Islands, and
     Juvenile Court to Try Shooting Defendant. Manually tag these
     headlines to see if knowledge of the part-of-speech tags removes
     the ambiguity.
-2.  |easy| Working with someone else, take turns to pick a word that can
+2.  ☆ Working with someone else, take turns to pick a word that can
     be either a noun or a verb (e.g. contest); the opponent has to
     predict which one is likely to be the most frequent in the Brown
     corpus; check the opponent's prediction, and tally the score over
     several turns.
-3.  |easy| Tokenize and tag the following sentence:
+3.  ☆ Tokenize and tag the following sentence:
     They wind back the clock, while we chase after the wind. What
     different pronunciations and parts of speech are involved?
-4.  |easy| Review the mappings in tab-linguistic-objects\_. Discuss any
+4.  ☆ Review the mappings in tab-linguistic-objects\_. Discuss any
     other examples of mappings you can think of. What type of
     information do they map from and to?
-5.  |easy| Using the Python interpreter in interactive mode, experiment
+5.  ☆ Using the Python interpreter in interactive mode, experiment
     with the dictionary examples in this chapter. Create a dictionary
     `d`, and add some entries. What happens if you try to access a
     non-existent entry, e.g. `d['xyz']`?
-6.  |easy| Try deleting an element from a dictionary `d`, using the
+6.  ☆ Try deleting an element from a dictionary `d`, using the
     syntax `del d['abc']`. Check that the item was deleted.
-7.  |easy| Create two dictionaries, `d1` and `d2`, and add some entries
+7.  ☆ Create two dictionaries, `d1` and `d2`, and add some entries
     to each. Now issue the command `d1.update(d2)`. What did this do?
     What might it be useful for?
-8.  |easy| Create a dictionary `e`, to represent a single lexical entry
+8.  ☆ Create a dictionary `e`, to represent a single lexical entry
     for some word of your choice. Define keys like `headword`,
     `part-of-speech`, `sense`, and `example`, and assign them
     suitable values.
-9.  |easy| Satisfy yourself that there are restrictions on the
+9.  ☆ Satisfy yourself that there are restrictions on the
     distribution of go and went, in the sense that they cannot be freely
     interchanged in the kinds of contexts illustrated in
     [ex-go](..%20ex::..%20ex::%20*Go*%20away!..%20ex::%20%20He%20sometimes%20*goes*%20to%20the%20cafe...%20ex::%20%20All%20the%20cakes%20have%20*gone*...%20ex::%20%20We%20*went*%20on%20the%20excursion.)
     in sec-how-to-determine-the-category-of-a-word\_.
-10. |easy| Train a unigram tagger and run it on some new text. Observe
+10. ☆ Train a unigram tagger and run it on some new text. Observe
     that some words are not assigned a tag. Why not?
-11. |easy| Learn about the affix tagger (type `help(nltk.AffixTagger)`).
+11. ☆ Learn about the affix tagger (type `help(nltk.AffixTagger)`).
     Train an affix tagger and run it on some new text. Experiment with
     different settings for the affix length and the minimum word length.
     Discuss your findings.
-12. |easy| Train a bigram tagger with no backoff tagger, and run it on
+12. ☆ Train a bigram tagger with no backoff tagger, and run it on
     some of the training data. Next, run it on some new data. What
     happens to the performance of the tagger? Why?
-13. |easy| We can use a dictionary to specify the values to be
+13. ☆ We can use a dictionary to specify the values to be
     substituted into a formatting string. Read Python's library
     documentation for formatting strings
     `http://docs.python.org/lib/typesseq-strings.html` and use this
     method to display today's date in two different formats.
-14. |soso| Use `sorted()` and `set()` to get a sorted list of tags used
+14. ☆☆ Use `sorted()` and `set()` to get a sorted list of tags used
     in the Brown corpus, removing duplicates.
-15. |soso| Write programs to process the Brown Corpus and find answers
+15. ☆☆ Write programs to process the Brown Corpus and find answers
     to the following questions:
     1)  Which nouns are more common in their plural form, rather than
         their singular form? (Only consider regular plurals, formed with
@@ -1632,7 +1632,7 @@ Exercises
     4)  Which tags are nouns most commonly found after? What do these
         tags represent?
 
-16. |soso| Explore the following issues that arise in connection with
+16. ☆☆ Explore the following issues that arise in connection with
     the lookup tagger:
     a)  What happens to the tagger performance for the various model
         sizes when a backoff tagger is omitted?
@@ -1643,11 +1643,11 @@ Exercises
         preferable to minimize memory usage, or to maximize performance
         with no regard for memory usage?
 
-17. |soso| What is the upper limit of performance for a lookup tagger,
+17. ☆☆ What is the upper limit of performance for a lookup tagger,
     assuming no limit to the size of its table? (Hint: write a program
     to work out what percentage of tokens of a word are assigned the
     most likely tag for that word, on average.)
-18. |soso| Generate some statistics for tagged data to answer the
+18. ☆☆ Generate some statistics for tagged data to answer the
     following questions:
     a)  What proportion of word types are always assigned the same
         part-of-speech tag?
@@ -1656,7 +1656,7 @@ Exercises
     c)  What percentage of word *tokens* in the Brown Corpus involve
         these ambiguous words?
 
-19. |soso| The `evaluate()` method works out how accurately the tagger
+19. ☆☆ The `evaluate()` method works out how accurately the tagger
     performs on this text. For example, if the supplied tagged text was
     `[('the', 'DT'), ('dog', 'NN')]` and the tagger produced the output
     `[('the', 'NN'), ('dog', 'NN')]`, then the score would be `0.5`.
@@ -1674,7 +1674,7 @@ Exercises
         (be sure to use the `api.py` file and not the compiled `api.pyc`
         binary file).
 
-20. |soso| Write code to search the Brown Corpus for particular words
+20. ☆☆ Write code to search the Brown Corpus for particular words
     and phrases according to tags, to answer the following questions:
     a)  Produce an alphabetically sorted list of the distinct words
         tagged as `MD`.
@@ -1684,11 +1684,11 @@ Exercises
         NN (eg. in the lab).
     d)  What is the ratio of masculine to feminine pronouns?
 
-21. |soso| In tab-absolutely\_ we saw a table involving frequency counts
+21. ☆☆ In tab-absolutely\_ we saw a table involving frequency counts
     for the verbs adore, love, like, prefer and preceding qualifiers
     absolutely and definitely. Investigate the full range of adverbs
     that appear before these four verbs.
-22. |soso| We defined the `regexp_tagger` that can be used as a
+22. ☆☆ We defined the `regexp_tagger` that can be used as a
     fall-back tagger for unknown words. This tagger only checks for
     cardinal numbers. By testing for particular prefix or suffix
     strings, it should be possible to guess other tags. For example, we
@@ -1696,17 +1696,17 @@ Exercises
     regular expression tagger (using `RegexpTagger()`) that tests for at
     least five other patterns in the spelling of words. (Use inline
     documentation to explain the rules.)
-23. |soso| Consider the regular expression tagger developed in the
+23. ☆☆ Consider the regular expression tagger developed in the
     exercises in the previous section. Evaluate the tagger using its
     `accuracy()` method, and try to come up with ways to improve
     its performance. Discuss your findings. How does objective
     evaluation help in the development process?
-24. |soso| How serious is the sparse data problem? Investigate the
+24. ☆☆ How serious is the sparse data problem? Investigate the
     performance of n-gram taggers as $n$ increases from 1 to 6. Tabulate
     the accuracy score. Estimate the training data required for these
     taggers, assuming a vocabulary size of 10^5^ and a tagset size of
     10^2^.
-25. |soso| Obtain some tagged data for another language, and train and
+25. ☆☆ Obtain some tagged data for another language, and train and
     evaluate a variety of taggers on it. If the language is
     morphologically complex, or if there are any orthographic
     clues (e.g. capitalization) to word classes, consider developing a
@@ -1715,40 +1715,40 @@ Exercises
     your tagger(s) compare with the same taggers run on English data?
     Discuss any issues you encounter in applying these methods to
     the language.
-26. |soso| code-baseline-tagger\_ plotted a curve showing change in the
+26. ☆☆ code-baseline-tagger\_ plotted a curve showing change in the
     performance of a lookup tagger as the model size was increased. Plot
     the performance curve for a unigram tagger, as the amount of
     training data is varied.
-27. |soso| Inspect the confusion matrix for the bigram tagger `t2`
+27. ☆☆ Inspect the confusion matrix for the bigram tagger `t2`
     defined in sec-n-gram-tagging\_, and identify one or more sets of
     tags to collapse. Define a dictionary to do the mapping, and
     evaluate the tagger on the simplified data.
-28. |soso| Experiment with taggers using the simplified tagset (or make
+28. ☆☆ Experiment with taggers using the simplified tagset (or make
     one of your own by discarding all but the first character of each
     tag name). Such a tagger has fewer distinctions to make, but much
     less information on which to base its work. Discuss your findings.
-29. |soso| Recall the example of a bigram tagger which encountered a
+29. ☆☆ Recall the example of a bigram tagger which encountered a
     word it hadn't seen during training, and tagged the rest of the
     sentence as `None`. It is possible for a bigram tagger to fail part
     way through a sentence even if it contains no unseen words (even if
     the sentence was used during training). In what circumstance can
     this happen? Can you write a program to find some examples of this?
-30. |soso| Preprocess the Brown News data by replacing low frequency
+30. ☆☆ Preprocess the Brown News data by replacing low frequency
     words with UNK, but leaving the tags untouched. Now train and
     evaluate a bigram tagger on this data. How much does this help? What
     is the contribution of the unigram tagger and default tagger now?
-31. |soso| Modify the program in code-baseline-tagger\_ to use a
+31. ☆☆ Modify the program in code-baseline-tagger\_ to use a
     logarithmic scale on the *x*-axis, by replacing `pylab.plot()` with
     `pylab.semilogx()`. What do you notice about the shape of the
     resulting plot? Does the gradient tell you anything?
-32. |soso| Consult the documentation for the Brill tagger demo function,
+32. ☆☆ Consult the documentation for the Brill tagger demo function,
     using `help(nltk.tag.brill.demo)`. Experiment with the tagger by
     setting different values for the parameters. Is there any trade-off
     between training time (corpus size) and performance?
-33. |soso| Write code that builds a dictionary of dictionaries of sets.
+33. ☆☆ Write code that builds a dictionary of dictionaries of sets.
     Use it to store the set of POS tags that can follow a given word
-    having a given POS tag, i.e. word~i~ |rarr| tag~i~ |rarr| tag~i+1~.
-34. |hard| There are 264 distinct words in the Brown Corpus having
+    having a given POS tag, i.e. word~i~ → tag~i~ → tag~i+1~.
+34. ☆☆☆ There are 264 distinct words in the Brown Corpus having
     exactly three possible tags.
     a)  Print a table with the integers 1..10 in one column, and the
         number of distinct words in the corpus having 1..10 distinct
@@ -1757,10 +1757,10 @@ Exercises
         out sentences from the corpus containing the word, one for each
         possible tag.
 
-35. |hard| Write a program to classify contexts involving the word must
+35. ☆☆☆ Write a program to classify contexts involving the word must
     according to the tag of the following word. Can this be used to
     discriminate between the epistemic and deontic uses of must?
-36. |hard| Create a regular expression tagger and various unigram and
+36. ☆☆☆ Create a regular expression tagger and various unigram and
     n-gram taggers, incorporating backoff, and train them on part of the
     Brown corpus.
     a)  Create three different combinations of the taggers. Test the
@@ -1768,7 +1768,7 @@ Exercises
     b)  Try varying the size of the training corpus. How does it affect
         your results?
 
-37. |hard| Our approach for tagging an unknown word has been to consider
+37. ☆☆☆ Our approach for tagging an unknown word has been to consider
     the letters of the word (using `RegexpTagger()`), or to ignore the
     word altogether and tag it as a noun (using `nltk.DefaultTagger()`).
     These methods will not do well for texts having new words that are
@@ -1785,36 +1785,36 @@ Exercises
         before the usual default tagger.
     c)  Evaluate the contribution of this new unigram tagger.
 
-38. |hard| Consider the code in sec-n-gram-tagging\_ which determines
+38. ☆☆☆ Consider the code in sec-n-gram-tagging\_ which determines
     the upper bound for accuracy of a trigram tagger. Review Abney's
     discussion concerning the impossibility of exact
     tagging \[Abney1996PST\]\_. Explain why correct tagging of these
     examples requires access to other kinds of information than just
     words and tags. How might you estimate the scale of this problem?
-39. |hard| Use some of the estimation techniques in `nltk.probability`,
+39. ☆☆☆ Use some of the estimation techniques in `nltk.probability`,
     such as *Lidstone* or *Laplace* estimation, to develop a statistical
     tagger that does a better job than n-gram backoff taggers in cases
     where contexts encountered during testing were not seen
     during training.
-40. |hard| Inspect the diagnostic files created by the Brill tagger
+40. ☆☆☆ Inspect the diagnostic files created by the Brill tagger
     `rules.out` and `errors.out`. Obtain the demonstration code by
     accessing the source code (at `http://www.nltk.org/code`) and create
     your own version of the Brill tagger. Delete some of the rule
     templates, based on what you learned from inspecting `rules.out`.
     Add some new rule templates which employ contexts that might help to
     correct the errors you saw in `errors.out`.
-41. |hard| Develop an n-gram backoff tagger that permits "anti-n-grams"
+41. ☆☆☆ Develop an n-gram backoff tagger that permits "anti-n-grams"
     such as `["the", "the"]` to be specified when a tagger is
     initialized. An anti-ngram is assigned a count of zero and is used
     to prevent backoff for this n-gram (e.g. to avoid estimating P(the
     | the) as just P(the)).
-42. |hard| Investigate three different ways to define the split between
+42. ☆☆☆ Investigate three different ways to define the split between
     training and testing data when developing a tagger using the Brown
     Corpus: genre (`category`), source (`fileid`), and sentence. Compare
     their relative performance and discuss which method is the
     most legitimate. (You might use n-fold cross validation, discussed
     in sec-evaluation\_, to improve the accuracy of the evaluations.)
-43. |hard| Develop your own `NgramTagger` class that inherits from
+43. ☆☆☆ Develop your own `NgramTagger` class that inherits from
     NLTK's class, and which encapsulates the method of collapsing the
     vocabulary of the tagged training and testing data that was
     described in this chapter. Make sure that the unigram and default

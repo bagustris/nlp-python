@@ -17,7 +17,7 @@ keypoints:
 ## Managing linguistic data
 
 Structured collections of annotated linguistic data are essential in
-most areas of |NLP|, however, we still face many obstacles in using
+most areas of NLP, however, we still face many obstacles in using
 them. The goal of this chapter is to answer the following questions:
 
 1.  How do we design a new language resource and ensure that its
@@ -130,8 +130,8 @@ there is a sharp division between the original linguistic event captured
 as an audio recording, and the annotations of that event. The same holds
 true of text corpora, in the sense that the original text usually has an
 external source, and is considered to be an immutable artifact. Any
-transformations of that artifact which involve human judgment |mdash|
-even something as simple as tokenization |mdash| are subject to later
+transformations of that artifact which involve human judgment —
+even something as simple as tokenization — are subject to later
 revision, thus it is important to retain the source material in a form
 that is as close to the original as possible.
 
@@ -170,7 +170,7 @@ and techniques from both fields.
 
 ### Fundamental Data Types
 
-> Basic Linguistic Data Types |mdash| Lexicons and Texts: amid their
+> Basic Linguistic Data Types — Lexicons and Texts: amid their
 > diversity, lexicons have a record structure, while annotated texts
 > have a temporal organization.
 
@@ -301,13 +301,13 @@ performance of any automatic system that is trained on this corpus.
 > part-of-speech tagging, but an exceptional score for semantic role
 > labeling.
 
-The Kappa coefficient |kappa| measures agreement between two people
+The Kappa coefficient κ measures agreement between two people
 making category judgments, correcting for expected chance agreement. For
 example, suppose an item is to be annotated, and four coding options are
 equally likely. Then two people coding randomly would be expected to
 agree 25% of the time. Thus, an agreement of 25% will be assigned
-|kappa| = 0, and better levels of agreement will be scaled accordingly.
-For an agreement of 50%, we would get |kappa| = 0.333, as 50 is a third
+κ = 0, and better levels of agreement will be scaled accordingly.
+For an agreement of 50%, we would get κ = 0.333, as 50 is a third
 of the way from 25 to 100. Many other agreement measures exist; see
 `help(nltk.metrics.agreement)` for details.
 
@@ -681,7 +681,7 @@ to change, since it would cause such references to break silently.)
 ### Standards and Tools
 
 For a corpus to be widely useful, it needs to be available in a widely
-supported format. However, the cutting edge of |NLP| research depends on
+supported format. However, the cutting edge of NLP research depends on
 new kinds of annotations, which by definition are not widely supported.
 In general, adequate tools for creation, publication and use of
 linguistic data are not widely available. Most projects must develop
@@ -689,13 +689,13 @@ their own set of tools for internal use, which is no help to others who
 lack the necessary resources. Furthermore, we do not have adequate,
 generally-accepted standards for expressing the structure and content of
 corpora. Without such standards, general-purpose tools are impossible
-|mdash| though at the same time, without available tools, adequate
+— though at the same time, without available tools, adequate
 standards are unlikely to be developed, used and accepted.
 
 One response to this situation has been to forge ahead with developing a
 generic format which is sufficiently expressive to capture a wide
 variety of annotation types (see sec-further-reading-data\_ for
-examples). The challenge for |NLP| is to write programs that cope with
+examples). The challenge for NLP is to write programs that cope with
 the generality of such formats. For example, if the programming task
 involves tree data, and the file format permits arbitrary directed
 graphs, then input data must be validated to check for tree properties
@@ -705,8 +705,8 @@ to ignore them when the data was loaded, but not invalidate or
 obliterate those layers when the tree data was saved back to the file.
 
 Another response has been to write one-off scripts to manipulate corpus
-formats; such scripts litter the filespaces of many |NLP| researchers.
-|NLTK|'s corpus readers are a more systematic approach, founded on the
+formats; such scripts litter the filespaces of many NLP researchers.
+NLTK's corpus readers are a more systematic approach, founded on the
 premise that the work of parsing a corpus format should only be done
 once (per programming language).
 
@@ -714,7 +714,7 @@ once (per programming language).
 
 Instead of focussing on a common format, we believe it is more promising
 to develop a common interface (cf. `nltk.corpus`). Consider the case of
-treebanks, an important corpus type for work in |NLP|. There are many
+treebanks, an important corpus type for work in NLP. There are many
 ways to store a phrase structure tree in a file. We can use nested
 parentheses, or nested XML elements, or a dependency notation with a
 (child-id, parent-id) pair on each line, or an XML version of the
@@ -726,7 +726,7 @@ that this approach follows accepted practice within computer science,
 viz. abstract data types, object oriented design, and the three layer
 architecture
 ([fig-three-layer-arch](..%20figure::%20../images/three-layer-arch.png:scale:%2030)).
-The last of these |mdash| from the world of relational databases |mdash|
+The last of these — from the world of relational databases —
 allows end-user applications to use a common model (the "relational
 model") and a common language (SQL), to abstract away from the
 idiosyncrasies of file storage, and allowing innovations in filesystem
@@ -737,7 +737,7 @@ data formats.
 In this context, when creating a new corpus for dissemination, it is
 expedient to use an existing widely-used format wherever possible. When
 this is not possible, the corpus could be accompanied with software
-|mdash| such as an `nltk.corpus` module |mdash| that supports existing
+— such as an `nltk.corpus` module — that supports existing
 interface methods.
 
 ### Special Considerations when Working with Endangered Languages
@@ -759,7 +759,7 @@ tapestry stretching through time and space.
 However, most of the world's languages face extinction. In response to
 this, many linguists are hard at work documenting the languages,
 constructing rich records of this important facet of the world's
-linguistic heritage. What can the field of |NLP| offer to help with this
+linguistic heritage. What can the field of NLP offer to help with this
 effort? Developing taggers, parsers, named-entity recognizers, etc, is
 not an early priority, and there is usually insufficient data for
 developing such tools in any case. Instead, the most frequently voiced
@@ -832,7 +832,7 @@ function provides a simple interface to the user:
 This is just one illustration where a simple program can facilitate
 access to lexical data in a context where the writing system of a
 language may not be standardized, or where users of the language may not
-have a good command of spellings. Other simple applications of |NLP| in
+have a good command of spellings. Other simple applications of NLP in
 this area include: building indexes to facilitate access to data,
 gleaning wordlists from texts, locating examples of word usage in
 constructing a lexicon, detecting prevalent or exceptional patterns in
@@ -1025,7 +1025,7 @@ four levels of nesting. Let's dig down into Act IV:
 
 > **note**
 >
-> |TRY| Repeat some of the above methods, for one of the other
+> **Try this** Repeat some of the above methods, for one of the other
 > Shakespeare plays included in the corpus, such as Romeo and Juliet or
 > Macbeth; for a list, see `nltk.corpus.shakespeare.fileids()`.
 
@@ -1255,7 +1255,7 @@ is shown in
 >
 > :   lexfunc: {&lt;lf&gt;(&lt;lv&gt;&lt;ln|le&gt;*)*} example:
 >     {&lt;rf|xv&gt;&lt;xn|xe&gt;*} sense:
->     {&lt;sn&gt;&lt;ps&gt;&lt;pn|gv|dv|gn|gp|dn|rn|ge|de|re&gt;*&lt;example&gt;*&lt;lexfunc&gt;*}
+>     {&lt;sn&gt;&lt;ps&gt;&lt;pngvdvgn-gpdnrn≥de|re&gt;*&lt;example&gt;*&lt;lexfunc&gt;*}
 >     record: {&lt;lx&gt;&lt;hm&gt;&lt;sense&gt;+&lt;dt&gt;}
 >
 > > """
@@ -1274,7 +1274,7 @@ is shown in
 Describing Language Resources using OLAC Metadata
 -------------------------------------------------
 
-Members of the |NLP| community have a common need for discovering
+Members of the NLP community have a common need for discovering
 language resources with high precision and recall. The solution which
 has been developed by the Digital Libraries community involves metadata
 aggregation.
@@ -1395,7 +1395,7 @@ form:
 
 The Linguistic Data Consortium hosts the NLTK Data Repository, an
 open-access archive where community members can upload corpora and saved
-models. These resources can be easily accessed using |NLTK|'s downloader
+models. These resources can be easily accessed using NLTK's downloader
 tool.
 
 Summary
@@ -1425,7 +1425,7 @@ Summary
 Further Reading
 ---------------
 
-Extra materials for this chapter are posted at |NLTK-URL|, including
+Extra materials for this chapter are posted at [NLTK](https://www.nltk.org/), including
 links to freely available resources on the web.
 
 The primary sources of linguistic corpora are the *Linguistic Data
@@ -1482,64 +1482,64 @@ For more information about the Open Language Archives Community, visit
 Exercises
 ---------
 
-1.  |soso| In code-add-cv-field\_ the new field appeared at the bottom
+1.  ☆☆ In code-add-cv-field\_ the new field appeared at the bottom
     of the entry. Modify this program so that it inserts the new
     subelement right after the `lx` field. (Hint: create the new `cv`
     field using `Element('cv')`, assign a text value to it, then use the
     `insert()` method of the parent element.)
-2.  |soso| Write a function that deletes a specified field from a
+2.  ☆☆ Write a function that deletes a specified field from a
     lexical entry. (We could use this to sanitize our lexical data
     before giving it to others, e.g. by removing fields containing
     irrelevant or uncertain content.)
-3.  |soso| Write a program that scans an HTML dictionary file to find
+3.  ☆☆ Write a program that scans an HTML dictionary file to find
     entries having an illegal part-of-speech field, and reports the
     *headword* for each entry.
-4.  |soso| Write a program to find any parts of speech (`ps` field) that
+4.  ☆☆ Write a program to find any parts of speech (`ps` field) that
     occurred less than ten times. Perhaps these are typing mistakes?
-5.  |soso| We saw a method for discovering cases of whole-word
+5.  ☆☆ We saw a method for discovering cases of whole-word
     reduplication. Write a function to find words that may contain
     partial reduplication. Use the `re.search()` method, and the
     following regular expression: `(..+)\1`
-6.  |soso| We saw a method for adding a `cv` field. There is an
+6.  ☆☆ We saw a method for adding a `cv` field. There is an
     interesting issue with keeping this up-to-date when someone modifies
     the content of the `lx` field on which it is based. Write a version
     of this program to add a `cv` field, replacing any existing
     `cv` field.
-7.  |soso| Write a function to add a new field `syl` which gives a count
+7.  ☆☆ Write a function to add a new field `syl` which gives a count
     of the number of syllables in the word.
-8.  |soso| Write a function which displays the complete entry for a
+8.  ☆☆ Write a function which displays the complete entry for a
     lexeme. When the lexeme is incorrectly spelled it should display the
     entry for the most similarly spelled lexeme.
-9.  |soso| Write a function that takes a lexicon and finds which pairs
+9.  ☆☆ Write a function that takes a lexicon and finds which pairs
     of consecutive fields are most frequent (e.g. `ps` is often followed
     by `pt`). (This might help us to discover some of the structure of a
     lexical entry.)
-10. |soso| Create a spreadsheet using office software, containing one
+10. ☆☆ Create a spreadsheet using office software, containing one
     lexical entry per row, consisting of a headword, a part of speech,
     and a gloss. Save the spreadsheet in CSV format. Write Python code
     to read the CSV file and print it in Toolbox format, using `lx` for
     the headword, `ps` for the part of speech, and `gl` for the gloss.
-11. |soso| Index the words of Shakespeare's plays, with the help of
+11. ☆☆ Index the words of Shakespeare's plays, with the help of
     `nltk.Index`. The resulting data structure should permit lookup on
     individual words such as music, returning a list of references to
     acts, scenes and speeches, of the form
     `[(3, 2, 9), (5, 1, 23), ...]`, where `(3, 2, 9)` indicates Act 3
     Scene 2 Speech 9.
-12. |soso| Construct a conditional frequency distribution which records
+12. ☆☆ Construct a conditional frequency distribution which records
     the word length for each speech in The Merchant of Venice,
     conditioned on the name of the character, e.g. `cfd['PORTIA'][12]`
     would give us the number of speeches by Portia consisting of
     12 words.
-13. |hard| Obtain a comparative wordlist in CSV format, and write a
+13. ☆☆☆ Obtain a comparative wordlist in CSV format, and write a
     program that prints those cognates having an edit-distance of at
     least three from each other.
-14. |hard| Build an index of those lexemes which appear in example
+14. ☆☆☆ Build an index of those lexemes which appear in example
     sentences. Suppose the lexeme for a given entry is *w*. Then add a
     single cross-reference field `xrf` to this entry, referencing the
     headwords of other entries having example sentences containing *w*.
     Do this for all entries and save the result as a
     toolbox-format file.
-15. |soso| Write a recursive function to produce an XML representation
+15. ☆☆ Write a recursive function to produce an XML representation
     for a tree, with non-terminals represented as XML elements, and
     leaves represented as text content, e.g.:
 

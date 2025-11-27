@@ -19,7 +19,7 @@ keypoints:
 Detecting patterns is a central part of Natural Language Processing.
 Words ending in -ed tend to be past tense verbs (chap-tag\_). Frequent
 use of will is indicative of news text (chap-words\_). These observable
-patterns |mdash| word structure and word frequency |mdash| happen to
+patterns — word structure and word frequency — happen to
 correlate with particular aspects of meaning, such as tense and topic.
 But how did we know where to start looking, which aspects of form to
 associate with which aspects of meaning?
@@ -164,7 +164,7 @@ feature-outcome relationships.
 
 > **note**
 >
-> |TRY| Modify the `gender_features()` function to provide the
+> **Try this** Modify the `gender_features()` function to provide the
 > classifier with features encoding the length of the name, its first
 > letter, and any other features that seem like they might be
 > informative. Retrain the classifier with these new features, and test
@@ -212,7 +212,7 @@ gender features in code-gender-features-overfitting\_.
 > 1, 'has(d)': False, 'count(b)': 0, ...}
 
 However, there are usually limits to the number of features that you
-should use with a given learning algorithm |mdash| if you provide too
+should use with a given learning algorithm — if you provide too
 many features, then the algorithm will have a higher chance of relying
 on idiosyncrasies of your training data that don't generalize well to
 new examples. This problem is known as overfitting, and can be
@@ -439,7 +439,7 @@ sec-decision-trees\_):
 > &gt;&gt;&gt; classifier.classify(pos\_features('cats')) 'NNS'
 
 One nice feature of decision tree models is that they are often fairly
-easy to interpret |mdash| we can even instruct |NLTK| to print them out
+easy to interpret — we can even instruct NLTK to print them out
 as pseudocode:
 
 > &gt;&gt;&gt; print(classifier.pseudocode(depth=4)) if endswith(,) ==
@@ -450,7 +450,7 @@ as pseudocode:
 > endswith(.) == False: return 'NN'
 
 Here, we can see that the classifier begins by checking whether a word
-ends with a comma |mdash| if so, then it will receive the special tag
+ends with a comma — if so, then it will receive the special tag
 `","`. Next, the classifier checks if the word ends in `"the"`, in which
 case it's almost certainly a determiner. This "suffix" gets used early
 by the decision tree because the word "the" is so common. Continuing on,
@@ -469,7 +469,7 @@ features, such as the length of the word, the number of syllables it
 contains, or its prefix. However, as long as the feature extractor just
 looks at the target word, we have no way to add features that depend on
 the *context* that the word appears in. But contextual features often
-provide powerful clues about the correct tag |mdash| for example, when
+provide powerful clues about the correct tag — for example, when
 tagging the word "fly," knowing that the previous word is "a" will allow
 us to determine that it is functioning as a noun, not a verb.
 
@@ -768,7 +768,7 @@ In our RTE feature detector (code-rte-features\_), we let words (i.e.,
 word types) serve as proxies for information, and our features count the
 degree of word overlap, and the degree to which there are words in the
 hypothesis but not in the text (captured by the method `hyp_extra()`).
-Not all words are equally important |mdash| Named Entity mentions such
+Not all words are equally important — Named Entity mentions such
 as the names of people, organizations and places are likely to be more
 significant, which motivates us to extract distinct information for
 `word`s and `ne`s (Named Entities). In addition, some high frequency
@@ -817,13 +817,13 @@ that the learning algorithm takes an unreasonable amount of time and
 memory to complete.
 
 If you plan to train classifiers with large amounts of training data or
-a large number of features, we recommend that you explore |NLTK|'s
+a large number of features, we recommend that you explore NLTK's
 facilities for interfacing with external machine learning packages. Once
-these packages have been installed, |NLTK| can transparently invoke them
+these packages have been installed, NLTK can transparently invoke them
 (via system calls) to train classifier models significantly faster than
-the pure-Python classifier implementations. See the |NLTK| webpage for a
+the pure-Python classifier implementations. See the NLTK webpage for a
 list of recommended machine learning packages that are supported by
-|NLTK|.
+NLTK.
 
 Evaluation
 ----------
@@ -854,7 +854,7 @@ classification task has a large number of labels, or includes very
 infrequent labels, then the size of the test set should be chosen to
 ensure that the least frequent label occurs at least 50 times.
 Additionally, if the test set contains many closely related instances
-|mdash| such as instances drawn from a single document |mdash| then the
+— such as instances drawn from a single document — then the
 size of the test set should be increased to ensure that this lack of
 diversity does not skew the evaluation results. When large amounts of
 annotated data are available, it is common to err on the side of safety
@@ -882,8 +882,8 @@ cannot be confident that evaluation results would generalize to other
 genres. What's worse, because of the call to `random.shuffle()`, the
 test set contains sentences that are taken from the same documents that
 were used for training. If there is any consistent pattern within a
-document |mdash| say, if a given word appears with a particular
-part-of-speech tag especially frequently |mdash| then that difference
+document — say, if a given word appears with a particular
+part-of-speech tag especially frequently — then that difference
 will be reflected in both the development set and the test set. A
 somewhat better approach is to ensure that the training set and test set
 are taken from different documents:
@@ -965,7 +965,7 @@ Given these four numbers, we can define the following metrics:
     identified, is $TP/(TP+FN)$.
 -   The F-Measure (or F-Score), which combines the precision and recall
     to give a single score, is defined to be the harmonic mean of the
-    precision and recall: (2 |times| *Precision* |times| *Recall*) /
+    precision and recall: (2 × *Precision* × *Recall*) /
     (*Precision* + *Recall*).
 
 ### Confusion Matrices
@@ -974,7 +974,7 @@ When performing classification tasks with three or more labels, it can
 be informative to subdivide the errors made by the model based on which
 types of mistake it made. A confusion matrix is a table where each cell
 \[$i$,$j$\] indicates how often label $j$ was predicted when the correct
-label was $i$. Thus, the diagonal entries (i.e., cells |ii|) indicate
+label was $i$. Thus, the diagonal entries (i.e., cells ii) indicate
 labels that were correctly predicted, and the off-diagonal entries
 indicate errors. In the following example, we generate a confusion
 matrix for the bigram tagger developed in sec-automatic-tagging\_:
@@ -1002,8 +1002,8 @@ matrix for the bigram tagger developed in sec-automatic-tagging\_:
 The confusion matrix indicates that common errors include a substitution
 of `NN` for `JJ` (for 1.6% of words), and of `NN` for `NNS` (for 1.5% of
 words). Note that periods (`.`) indicate cells whose value is 0, and
-that the diagonal entries |mdash| which correspond to correct
-classifications |mdash| are marked with angle brackets. .. XXX explain
+that the diagonal entries — which correspond to correct
+classifications — are marked with angle brackets. .. XXX explain
 use of "reference" in the legend above.
 
 ### Cross-Validation
@@ -1111,8 +1111,8 @@ highly varied labels, and low if many input values all have the same
 label. In particular, entropy is defined as the sum of the probability
 of each label times the log probability of that same label:
 
-> $H$ = |minus||sum|~l\\ |in|\\ labels~
-> $P(l)$ |times| $log$~2~$P(l)$.
+> $H$ = −∑~l\\ ∈\\ labels~
+> $P(l)$ × $log$~2~$P(l)$.
 >
 > > The entropy of labels in the name gender prediction task, as a
 > > function of the percentage of names in a given set that are male.
@@ -1285,7 +1285,7 @@ label likelihood.
 > compute P(features) is to simply calculate the sum over labels of
 > P(features, label):
 >
-> > $P(features)$ = |sum| ~l\\ \\in|\\ labels~
+> > $P(features)$ = ∑ ~l\\ \\in|\\ labels~
 > > $P(features, label)$
 
 The label likelihood can be expanded out as the probability of the label
@@ -1419,7 +1419,7 @@ classifier. In particular, it looks for the set of parameters that
 maximizes the total likelihood of the training corpus, which is defined
 as:
 
-> $P(features)$ = |sum|~x\\ |in|\\ corpus~ $P(label(x)|features(x))$
+> $P(features)$ = ∑~x\\ ∈\\ corpus~ $P(label(x)|features(x))$
 
 Where `P(label|features)`, the probability that an input whose features
 are `features` will have class label `label`, is defined as:
@@ -1511,7 +1511,7 @@ discussion of decision trees, we described entropy as a measure of how
 "disorganized" a set of labels was. In particular, if a single label
 dominates then entropy is low, but if the labels are more evenly
 distributed then entropy is high. In our example, we chose distribution
-(i) because its label probabilities are evenly distributed |mdash| in
+(i) because its label probabilities are evenly distributed — in
 other words, because its entropy is high. In general, the
 Maximum Entropy principle states that, among the distributions that are
 consistent with what we know, we should choose the distribution whose
@@ -1522,7 +1522,7 @@ Once again, there are many distributions that are consistent with this
 new piece of information, such as:
 
 But again, we will likely choose the distribution that makes the fewest
-unwarranted assumptions |mdash| in this case, distribution (v).
+unwarranted assumptions — in this case, distribution (v).
 
 Finally, suppose that we are told that the word "up" appears in the
 nearby context 10% of the time, and that when it does appear in the
@@ -1543,7 +1543,7 @@ that are consistent with what we know; among these, we chose the
 distribution with the highest entropy. This is exactly what the Maximum
 Entropy classifier does as well. In particular, for each joint-feature,
 the Maximum Entropy model calculates the "empirical frequency" of that
-feature |mdash| i.e., the frequency with which it occurs in the training
+feature — i.e., the frequency with which it occurs in the training
 set. It then searches for the distribution which maximizes entropy,
 while still predicting the correct frequency for each joint-feature.
 
@@ -1567,7 +1567,7 @@ following questions:
 
 The Maximum Entropy classifier, on the other hand, is an example of a
 conditional classifier. Conditional classifiers build models that
-predict $P(label|input)$ |mdash| the probability of a label *given* the
+predict $P(label|input)$ — the probability of a label *given* the
 input value. Thus, conditional models can still be used to answer
 questions 1 and 2. However, conditional models can *not* be used to
 answer the remaining questions 3-6.
@@ -1664,7 +1664,7 @@ Summary
 -   Supervised classifiers use labeled training corpora to build models
     that predict the label of an input based on specific features of
     that input.
--   Supervised classifiers can perform a wide variety of |NLP| tasks,
+-   Supervised classifiers can perform a wide variety of NLP tasks,
     including document classification, part-of-speech tagging, sentence
     segmentation, dialogue act type identification, and determining
     entailment relations, and many other tasks.
@@ -1691,7 +1691,7 @@ Summary
     optimization to find the set of feature weights that maximizes the
     probability of the training set.
 -   Most of the models that are automatically constructed from a corpus
-    are descriptive |mdash| they let us know which features are relevant
+    are descriptive — they let us know which features are relevant
     to a given patterns or construction, but they don't give any
     information about causal relationships between those features
     and patterns.
@@ -1699,16 +1699,16 @@ Summary
 Further Reading
 ---------------
 
-Please consult |NLTK-URL| for further materials on this chapter and on
+Please consult [NLTK](https://www.nltk.org/) for further materials on this chapter and on
 how to install external machine learning packages, such as Weka, Mallet,
 TADM, and MEGAM. For more examples of classification and machine
-learning with |NLTK|, please see the classification HOWTOs at
-|NLTK-HOWTO-URL|.
+learning with NLTK, please see the classification HOWTOs at
+[NLTK HOWTO](https://www.nltk.org/howto/).
 
 For a general introduction to machine learning, we recommend
 \[Alpaydin2004\]\_. For a more mathematically intense introduction to
 the theory of machine learning, see \[Hastie2009\]\_. Excellent books on
-using machine learning techniques for |NLP| include \[Abney2008\]\_,
+using machine learning techniques for NLP include \[Abney2008\]\_,
 \[Daelemans2005\]\_, \[Feldman2007\]\_, \[Segaran2007\]\_,
 \[Weiss2004\]\_. For more on smoothing techniques for language problems,
 see \[Manning1999FSN\]\_. For more on sequence modeling, and especially
@@ -1728,25 +1728,25 @@ uses classifiers to create parallel texts. Recent textbooks that cover
 text classification include \[Manning2008IR\]\_ and \[Croft2009\]\_.
 
 Much of the current research in the application of machine learning
-techniques to |NLP| problems is driven by government-sponsored
+techniques to NLP problems is driven by government-sponsored
 "challenges," where a set of research organizations are all provided
 with the same development corpus, and asked to build a system; and the
 resulting systems are compared based on a reserved test set. Examples of
 these challenge competitions include CoNLL Shared Tasks, the ACE
 competitions, the Recognizing Textual Entailment competitions, and the
-AQUAINT competitions. Consult |NLTK-URL| for a list of pointers to the
+AQUAINT competitions. Consult [NLTK](https://www.nltk.org/) for a list of pointers to the
 webpages for these challenges.
 
 Exercises
 ---------
 
-1.  |easy| Read up on one of the language technologies mentioned in this
+1.  ☆ Read up on one of the language technologies mentioned in this
     section, such as word sense disambiguation, semantic role labeling,
     question answering, machine translation, named entity detection.
     Find out what type and quantity of annotated data is required for
     developing such systems. Why do you think a large amount of data is
     required?
-2.  |easy| Using any of the three classifiers described in this chapter,
+2.  ☆ Using any of the three classifiers described in this chapter,
     and any features you can think of, build the best name gender
     classifier you can. Begin by splitting the Names Corpus into three
     subsets: 500 words for the test set, 500 words for the dev-test set,
@@ -1757,7 +1757,7 @@ Exercises
     its final performance on the test set. How does the performance on
     the test set compare to the performance on the dev-test set? Is this
     what you'd expect?
-3.  |easy| The Senseval 2 Corpus contains data intended to train
+3.  ☆ The Senseval 2 Corpus contains data intended to train
     word-sense disambiguation classifiers. It contains data for four
     words: hard, interest, line, and serve. Choose one of these four
     words, and load the corresponding data:
@@ -1769,14 +1769,14 @@ Exercises
 
     Using this dataset, build a classifier that predicts the correct
     sense tag for a given instance. See the corpus HOWTO at
-    |NLTK-HOWTO-URL| for information on using the instance objects
+    [NLTK HOWTO](https://www.nltk.org/howto/) for information on using the instance objects
     returned by the Senseval 2 Corpus.
 
-4.  |easy| Using the movie review document classifier discussed in this
+4.  ☆ Using the movie review document classifier discussed in this
     chapter, generate a list of the 30 features that the classifier
     finds to be most informative. Can you explain why these particular
     features are informative? Do you find any of them surprising?
-5.  |easy| Select one of the classification tasks described in this
+5.  ☆ Select one of the classification tasks described in this
     chapter, such as name gender detection, document classification,
     part-of-speech tagging, or dialog act classification. Using the same
     training and test data, and the same feature extractor, build three
@@ -1785,11 +1785,11 @@ Exercises
     three classifiers on your selected task. How do you think that your
     results might be different if you used a different feature
     extractor?
-6.  |easy| The synonyms strong and powerful pattern differently (try
+6.  ☆ The synonyms strong and powerful pattern differently (try
     combining them with chip and sales). What features are relevant in
     this distinction? Build a classifier that predicts when each word
     should be used.
-7.  |soso| The dialog act classifier assigns labels to individual posts,
+7.  ☆☆ The dialog act classifier assigns labels to individual posts,
     without considering the context in which the post is found. However,
     dialog acts are highly dependent on context, and some sequences of
     dialog act are much more likely than others. For example, a
@@ -1799,7 +1799,7 @@ Exercises
     what features might be useful. See the code for the consecutive
     classifier for part-of-speech tags in code-consecutive-pos-tagger\_
     to get some ideas.
-8.  |soso| Word features can be very useful for performing document
+8.  ☆☆ Word features can be very useful for performing document
     classification, since the words that appear in a document give a
     strong indication about what its semantic content is. However, many
     words occur very infrequently, and some of the most informative
@@ -1810,7 +1810,7 @@ Exercises
     chapter to use features that generalize the words that appear in a
     document, making it more likely that they will match words found in
     the training data.
-9.  |hard| The PP Attachment Corpus is a corpus describing prepositional
+9.  ☆☆☆ The PP Attachment Corpus is a corpus describing prepositional
     phrase attachment decisions. Each instance in the corpus is encoded
     as a `PPAttachment` object:
 
@@ -1831,10 +1831,10 @@ Exercises
     which preposition is used to connect a given pair of nouns. For
     example, given the pair of nouns "team" and "researchers," the
     classifier should predict the preposition "of". See the corpus HOWTO
-    at |NLTK-HOWTO-URL| for more information on using the PP
+    at [NLTK HOWTO](https://www.nltk.org/howto/) for more information on using the PP
     attachment corpus.
 
-10. |hard| Suppose you wanted to automatically generate a prose
+10. ☆☆☆ Suppose you wanted to automatically generate a prose
     description of a scene, and already had a word to uniquely describe
     each entity, such as the jar, and simply wanted to decide whether to
     use in or on in relating various items, e.g.

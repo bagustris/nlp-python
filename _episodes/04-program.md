@@ -39,11 +39,11 @@ and consult other introductions to programming if necessary; experienced
 programmers can quickly skim this chapter.
 
 In the other chapters of this book, we have organized the programming
-concepts as dictated by the needs of |NLP|. Here we revert to a more
+concepts as dictated by the needs of NLP. Here we revert to a more
 conventional approach where the material is more closely tied to the
 structure of the programming language. There's not room for a complete
 presentation of the language, so we'll just focus on the language
-constructs and idioms that are most important for |NLP|.
+constructs and idioms that are most important for NLP.
 
 Back to the Basics
 ------------------
@@ -105,7 +105,7 @@ just a reference to one and the same list in memory.
 
 > **note**
 >
-> |TRY| Use multiplication to create a list of lists:
+> **Try this** Use multiplication to create a list of lists:
 > `nested = [[]] * 3`. Now modify one of the elements of the list, and
 > observe that all the elements are changed. Use Python's `id()`
 > function to find out the numerical identifier for any object, and
@@ -132,7 +132,7 @@ overwriting an object reference.
 
 > **note**
 >
-> |IMPORTANT| To copy the items from a list `foo` to a new list `bar`,
+> **Important** To copy the items from a list `foo` to a new list `bar`,
 > you can write `bar = foo[:]`. This copies the object references inside
 > the list. To copy a structure without copying any object references,
 > use `copy.deepcopy()`.
@@ -249,7 +249,7 @@ slice, and length operation on each type:
 
 Notice in this code sample that we computed multiple values on a single
 line, separated by commas. These comma-separated expressions are
-actually just tuples |mdash| Python allows us to omit the parentheses
+actually just tuples — Python allows us to omit the parentheses
 around tuples if there is no ambiguity. When we print a tuple, the
 parentheses are always displayed. By using tuples in this way, we are
 implicitly aggregating items together.
@@ -322,7 +322,7 @@ the item at that index.
 > just by putting it in a context that expects a sequence, like
 > `list(`x`)`, or `for item in` x.
 
-For some |NLP| tasks it is necessary to cut up a sequence into two or
+For some NLP tasks it is necessary to cut up a sequence into two or
 more parts. For instance, we might want to "train" a system on 90% of
 the data and test it on the remaining 10%. To do this we decide the
 location where we want to cut the data cut-location\_, then cut the
@@ -381,7 +381,7 @@ to, so here is another example:
 > ('off', 'prep', \['Qf', 'O:f'\]) ... \]
 
 Here, a lexicon is represented as a list because it is a collection of
-objects of a single type |mdash| lexical entries |mdash| of no
+objects of a single type — lexical entries — of no
 predetermined length. An individual entry is represented as a tuple
 because it is a collection of objects with different interpretations,
 such as the orthographic form, the part of speech, and the
@@ -415,7 +415,7 @@ that do in-place modification of the list.
 
 > **note**
 >
-> |TRY| Convert `lexicon` to a tuple, using `lexicon = tuple(lexicon)`,
+> **Try this** Convert `lexicon` to a tuple, using `lexicon = tuple(lexicon)`,
 > then try each of the above operations, to confirm that none of them is
 > permitted on tuples.
 
@@ -446,8 +446,8 @@ generator expressions will be more efficient. In max-comprehension\_,
 storage for the list object must be allocated before the value of max()
 is computed. If the text is very large, this could be slow. In
 max-generator\_, the data is streamed to the calling function. Since the
-calling function simply has to find the maximum value |mdash| the word
-which comes latest in lexicographic sort order |mdash| it can process
+calling function simply has to find the maximum value — the word
+which comes latest in lexicographic sort order — it can process
 the stream of data without having to store anything more than the
 maximum value seen so far.
 
@@ -595,7 +595,7 @@ successive overlapping n-grams from a list:
 > 'John'\], \['gave', 'John', 'the'\], \['John', 'the', 'newspaper'\]\]
 
 It is quite tricky to get the range of the loop variable right. Since
-this is a common operation in |NLP|, |NLTK| supports it with functions
+this is a common operation in NLP, NLTK supports it with functions
 `bigrams(text)` and `trigrams(text)`, and a general purpose
 `ngrams(text, n)`.
 
@@ -651,7 +651,7 @@ importantly, our choice of name for the function helps make the program
 *readable*. In the case of the above example, whenever our program needs
 to read cleaned-up text from a file we don't have to clutter the program
 with four lines of code, we simply need to call `get_text()`. This
-naming helps to provide some "semantic interpretation" |mdash| it helps
+naming helps to provide some "semantic interpretation" — it helps
 a reader of our program to see what the program "means".
 
 Notice that the above function definition contains a string. The first
@@ -821,7 +821,7 @@ functions have not been invoked correctly. The author of the following
 
 The function returns sensible values for the arguments `'the'` and
 `'knight'`, but look what happens when it is passed a list list-arg\_
-|mdash| it fails to complain, even though the result which it returns is
+— it fails to complain, even though the result which it returns is
 clearly incorrect. The author of this function could take some extra
 steps to ensure that the `word` parameter of the `tag()` function is a
 string. A naive approach would be to check the type of the argument
@@ -865,8 +865,8 @@ abstraction, making its structure transparent, e.g.
 
 Appropriate use of functions makes programs more readable and
 maintainable. Additionally, it becomes possible to reimplement a
-function |mdash| replacing the function's body with more efficient code
-|mdash| without having to be concerned with the rest of the program.
+function — replacing the function's body with more efficient code
+— without having to be concerned with the rest of the program.
 
 Consider the `freq_words` function in code-freq-words1\_. It updates the
 contents of a frequency distribution that is passed in as a parameter,
@@ -913,9 +913,9 @@ Docstrings can include a doctest block, illustrating the use of the
 function and the expected output. These can be tested automatically
 using Python's `docutils` module. Docstrings should document the type of
 each parameter to the function, and the return type. At a minimum, that
-can be done in plain text. However, note that |NLTK| uses the Sphinx
+can be done in plain text. However, note that NLTK uses the Sphinx
 markup language to document parameters. This format can be automatically
-converted into richly structured API documentation (see |NLTK-URL|), and
+converted into richly structured API documentation (see [NLTK](https://www.nltk.org/)), and
 includes special handling of certain "fields" such as `param` which
 allow the inputs and outputs of functions to be clearly documented.
 code-sphinx\_ illustrates a complete docstring.
@@ -1225,7 +1225,7 @@ particular data structure such as syntax trees, or code for performing a
 particular processing task such as plotting corpus statistics.
 
 When you start writing Python modules, it helps to have some examples to
-emulate. You can locate the code for any |NLTK| module on your system
+emulate. You can locate the code for any NLTK module on your system
 using the `__file__` variable, e.g.:
 
 > &gt;&gt;&gt; nltk.metrics.distance.\_\_file\_\_
@@ -1238,7 +1238,7 @@ this will be in the same directory as the `.pyc` file. Alternatively,
 you can view the latest version of this module on the web at
 `http://code.google.com/p/nltk/source/browse/trunk/nltk/nltk/metrics/distance.py`.
 
-Like every other |NLTK| module, `distance.py` begins with a group of
+Like every other NLTK module, `distance.py` begins with a group of
 comment lines giving a one-line title of the module and identifying the
 authors. (Since the code is distributed, it also includes the URL where
 the code is available, a copyright statement, and license information.)
@@ -1271,7 +1271,7 @@ After this comes all the import statements required for the module, then
 any global variables, followed by a series of function definitions that
 make up most of the module. Other modules define "classes," the main
 building block of object-oriented programming, which falls outside the
-scope of this book. (Most |NLTK| modules also include a `demo()`
+scope of this book. (Most NLTK modules also include a `demo()`
 function which can be used to see examples of the module in use.)
 
 > **note**
@@ -1327,7 +1327,7 @@ examples of each of these.
 
 First, the input data may contain some unexpected characters. For
 example, WordNet synset names have the form `tree.n.01`, with three
-components separated using periods. The |NLTK| WordNet module initially
+components separated using periods. The NLTK WordNet module initially
 decomposed these names using `split('.')`. However, this method broke
 when someone tried to look up the word PhD, which has the synset name
 `ph.d..n.01`, containing four periods instead of the expected two. The
@@ -1338,7 +1338,7 @@ released, it was some weeks before someone detected the problem (see
 `http://code.google.com/p/nltk/issues/detail?id=297`).
 
 Second, a supplied function might not behave as expected. For example,
-while testing |NLTK|'s interface to WordNet, one of the authors noticed
+while testing NLTK's interface to WordNet, one of the authors noticed
 that no synsets had any antonyms defined, even though the underlying
 database provided a large quantity of antonym information. What looked
 like a bug in the WordNet interface turned out to be a misunderstanding
@@ -1391,7 +1391,7 @@ check your assumptions. Localize the problem by adding `print`
 statements to the program, showing the value of important variables, and
 showing how far the program has progressed.
 
-If the program produced an "exception" |mdash| a run-time error |mdash|
+If the program produced an "exception" — a run-time error —
 the interpreter will print a stack trace, pinpointing the location of
 program execution at the time of the error. If the program depends on
 input data, try to reduce this to the smallest size while still
@@ -1473,7 +1473,7 @@ was not resolved.
 As you develop your program, extend its functionality, and fix any bugs,
 it helps to maintain a suite of test cases. This is called
 regression testing, since it is meant to detect situations where the
-code "regresses" |mdash| where a change to the code has an unintended
+code "regresses" — where a change to the code has an unintended
 side-effect of breaking something that used to work. Python provides a
 simple regression testing framework in the form of the `doctest` module.
 This module searches a file of code or documentation for blocks of text
@@ -1549,8 +1549,8 @@ how many different ways they can be combined to make a sequence of
 words. If we have only one word ($n=1$), there is just one way to make
 it into a sequence. If we have a set of two words, there are two ways to
 put them into a sequence. For three words there are six possibilities.
-In general, for $n$ words, there are $n$ |times| $n$-1 |times| |dots|
-|times| 2 |times| 1 ways (i.e. the factorial of $n$). We can code this
+In general, for $n$ words, there are $n$ × $n$-1 × …
+× 2 × 1 ways (i.e. the factorial of $n$). We can code this
 up as follows:
 
 > &gt;&gt;&gt; def factorial1(n): ... result = 1 ... for i in range(n):
@@ -1818,7 +1818,7 @@ A Sample of Python Libraries
 ----------------------------
 
 Python has hundreds of third-party libraries, specialized software
-packages that extend the functionality of Python. |NLTK| is one such
+packages that extend the functionality of Python. NLTK is one such
 library. To realize the full power of Python programming, you should
 become familiar with several other libraries. Most of these will need to
 be manually installed on your computer.
@@ -1928,7 +1928,7 @@ to help identify implicit concepts in a document collection.
 > &gt;&gt;&gt; s array(\[ 6.32455532, 3.16227766\]) &gt;&gt;&gt; vt
 > array(\[\[-0.70710678, 0.70710678\], \[-0.70710678, -0.70710678\]\])
 
-|NLTK|'s clustering package `nltk.cluster` makes extensive use of NumPy
+NLTK's clustering package `nltk.cluster` makes extensive use of NumPy
 arrays, and includes support for $k$-means clustering, Gaussian EM
 clustering, group average agglomerative clustering, and dendrogram
 plots. For details, type `help(nltk.cluster)`.
@@ -1964,11 +1964,11 @@ Summary
     are not visible outside that function, unless those names are
     declared to be global.
 -   Modules permit logically-related material to be localized in a file.
-    A module serves as a namespace: names defined in a module |mdash|
-    such as variables and functions |mdash| are not visible to other
+    A module serves as a namespace: names defined in a module —
+    such as variables and functions — are not visible to other
     modules, unless those names are imported.
 -   Dynamic programming is an algorithm design technique used widely in
-    |NLP| that stores the results of previous computations in order to
+    NLP that stores the results of previous computations in order to
     avoid unnecessary recomputation.
 
 Further Reading
@@ -1977,7 +1977,7 @@ Further Reading
 This chapter has touched on many topics in programming, some specific to
 Python, and some quite general. We've just scratched the surface, and
 you may want to read more about these topics, starting with the further
-materials for this chapter available at |NLTK-URL|.
+materials for this chapter available at [NLTK](https://www.nltk.org/).
 
 The Python website provides extensive documentation. It is important to
 understand the built-in functions and standard types, described at
@@ -2004,52 +2004,52 @@ development is provided in \[Hunt2000\]\_ and \[McConnell2004\]\_.
 Exercises
 ---------
 
-1.  |easy| Find out more about sequence objects using Python's help
+1.  ☆ Find out more about sequence objects using Python's help
     facility. In the interpreter, type `help(str)`, `help(list)`, and
     `help(tuple)`. This will give you a full list of the functions
     supported by each type. Some functions have special names flanked
     with underscore; as the help documentation shows, each such function
     corresponds to something more familiar. For example
     `x.__getitem__(y)` is just a long-winded way of saying `x[y]`.
-2.  |easy| Identify three operations that can be performed on both
+2.  ☆ Identify three operations that can be performed on both
     tuples and lists. Identify three list operations that cannot be
     performed on tuples. Name a context where using a list instead of a
     tuple generates a Python error.
-3.  |easy| Find out how to create a tuple consisting of a single item.
+3.  ☆ Find out how to create a tuple consisting of a single item.
     There are at least two ways to do this.
-4.  |easy| Create a list `words = ['is', 'NLP', 'fun', '?']`. Use a
+4.  ☆ Create a list `words = ['is', 'NLP', 'fun', '?']`. Use a
     series of assignment statements (e.g. `words[1] = words[2]`) and a
     temporary variable `tmp` to transform this list into the list
     `['NLP', 'is', 'fun', '!']`. Now do the same transformation using
     tuple assignment.
-5.  |easy| Read about the built-in comparison function `cmp`, by typing
+5.  ☆ Read about the built-in comparison function `cmp`, by typing
     `help(cmp)`. How does it differ in behavior from the comparison
     operators?
-6.  |easy| Does the method for creating a sliding window of n-grams
+6.  ☆ Does the method for creating a sliding window of n-grams
     behave correctly for the two limiting cases: $n$ = 1, and $n$ =
     `len(sent)`?
-7.  |easy| We pointed out that when empty strings and empty lists occur
+7.  ☆ We pointed out that when empty strings and empty lists occur
     in the condition part of an `if` clause, they evaluate to `False`.
     In this case, they are said to be occurring in a Boolean context.
     Experiment with different kind of non-Boolean expressions in Boolean
     contexts, and see whether they evaluate as `True` or `False`.
-8.  |easy| Use the inequality operators to compare strings, e.g.
+8.  ☆ Use the inequality operators to compare strings, e.g.
     `'Monty' < 'Python'`. What happens when you do `'Z' < 'a'`? Try
     pairs of strings which have a common prefix, e.g.
     `'Monty' < 'Montague'`. Read up on "lexicographical sort" in order
     to understand what is going on here. Try comparing structured
     objects, e.g. `('Monty', 1) < ('Monty', 2)`. Does this behave as
     expected?
-9.  |easy| Write code that removes whitespace at the beginning and end
+9.  ☆ Write code that removes whitespace at the beginning and end
     of a string, and normalizes whitespace between words to be a single
     space character.
     1)  do this task using `split()` and `join()`
     2)  do this task using regular expression substitutions
 
-10. |easy| Write a program to sort words by length. Define a helper
+10. ☆ Write a program to sort words by length. Define a helper
     function `cmp_len` which uses the `cmp` comparison function on
     word lengths.
-11. |soso| Create a list of words and store it in a variable `sent1`.
+11. ☆☆ Create a list of words and store it in a variable `sent1`.
     Now assign `sent2 = sent1`. Modify one of the items in `sent1` and
     verify that `sent2` has changed.
     a)  Now try the same exercise but instead assign `sent2 = sent1[:]`.
@@ -2063,23 +2063,23 @@ Exercises
         `from copy import deepcopy`), consult its documentation, and
         test that it makes a fresh copy of any object.
 
-12. |soso| Initialize an *n*-by-*m* list of lists of empty strings using
+12. ☆☆ Initialize an *n*-by-*m* list of lists of empty strings using
     list multiplication, e.g. `word_table = [[''] * n] * m`. What
     happens when you set one of its values, e.g.
     `word_table[1][2] = "hello"`? Explain why this happens. Now write an
     expression using `range()` to construct a list of lists, and show
     that it does not have this problem.
-13. |soso| Write code to initialize a two-dimensional array of sets
+13. ☆☆ Write code to initialize a two-dimensional array of sets
     called `word_vowels` and process a list of words, adding each word
     to `word_vowels[l][v]` where `l` is the length of the word and `v`
     is the number of vowels it contains.
-14. |soso| Write a function `novel10(text)` that prints any word that
+14. ☆☆ Write a function `novel10(text)` that prints any word that
     appeared in the last 10% of a text that had not been
     encountered earlier.
-15. |soso| Write a program that takes a sentence expressed as a single
+15. ☆☆ Write a program that takes a sentence expressed as a single
     string, splits it and counts up the words. Get it to print out each
     word and the word's frequency, one per line, in alphabetical order.
-16. |soso| Read up on Gematria, a method for assigning numbers to words,
+16. ☆☆ Read up on Gematria, a method for assigning numbers to words,
     and for mapping between words having the same number to discover the
     hidden meaning of texts (`http://en.wikipedia.org/wiki/Gematria`,
     `http://essenes.net/gemcal.htm`).
@@ -2099,64 +2099,64 @@ Exercises
         replacing words with their Gematria equivalents, in order to
         discover the "hidden meaning" of the text.
 
-17. |soso| Write a function `shorten(text, n)` to process a text,
+17. ☆☆ Write a function `shorten(text, n)` to process a text,
     omitting the $n$ most frequently occurring words of the text. How
     readable is it?
-18. |soso| Write code to print out an index for a lexicon, allowing
+18. ☆☆ Write code to print out an index for a lexicon, allowing
     someone to look up words according to their meanings (or
     pronunciations; whatever properties are contained in
     lexical entries).
-19. |soso| Write a list comprehension that sorts a list of WordNet
+19. ☆☆ Write a list comprehension that sorts a list of WordNet
     synsets for proximity to a given synset. For example, given the
     synsets `minke_whale.n.01`, `orca.n.01`, `novel.n.01`, and
     `tortoise.n.01`, sort them according to their
     `shortest_path_distance()` from `right_whale.n.01`.
-20. |soso| Write a function that takes a list of words
+20. ☆☆ Write a function that takes a list of words
     (containing duplicates) and returns a list of words (with
     no duplicates) sorted by decreasing frequency. E.g. if the input
     list contained 10 instances of the word `table` and 9 instances of
     the word `chair`, then `table` would appear before `chair` in the
     output list.
-21. |soso| Write a function that takes a text and a vocabulary as its
+21. ☆☆ Write a function that takes a text and a vocabulary as its
     arguments and returns the set of words that appear in the text but
     not in the vocabulary. Both arguments can be represented as lists of
     strings. Can you do this in a single line, using `set.difference()`?
-22. |soso| Import the `itemgetter()` function from the `operator` module
+22. ☆☆ Import the `itemgetter()` function from the `operator` module
     in Python's standard library (i.e.
     `from operator import itemgetter`). Create a list `words` containing
     several words. Now try calling: `sorted(words, key=itemgetter(1))`,
     and `sorted(words, key=itemgetter(-1))`. Explain what `itemgetter()`
     is doing.
-23. |soso| Write a recursive function `lookup(trie, key)` that looks up
+23. ☆☆ Write a recursive function `lookup(trie, key)` that looks up
     a key in a trie, and returns the value it finds. Extend the function
     to return a word when it is uniquely determined by its prefix (e.g.
     `vanguard` is the only word that starts with `vang-`, so
     `lookup(trie, 'vang')` should return the same thing as
     `lookup(trie, 'vanguard')`).
-24. |soso| Read up on "keyword linkage" (chapter 5 of \[Scott2006\]\_).
-    Extract keywords from |NLTK|'s Shakespeare Corpus and using the
+24. ☆☆ Read up on "keyword linkage" (chapter 5 of \[Scott2006\]\_).
+    Extract keywords from NLTK's Shakespeare Corpus and using the
     NetworkX package, plot keyword linkage networks.
-25. |soso| Read about string edit distance and the Levenshtein
+25. ☆☆ Read about string edit distance and the Levenshtein
     Algorithm. Try the implementation provided in
     `nltk.edit_distance()`. In what way is this using dynamic
     programming? Does it use the bottom-up or top-down approach? \[See
     also `http://norvig.com/spell-correct.html`\]
-26. |soso| The Catalan numbers arise in many applications of
+26. ☆☆ The Catalan numbers arise in many applications of
     combinatorial mathematics, including the counting of parse
     trees (sec-grammar-development\_). The series can be defined as
-    follows: C~0~ = 1, and C~n+1~ = |Sigma|~0..n~ (C~i~C~n-i~).
+    follows: C~0~ = 1, and C~n+1~ = Σ~0..n~ (C~i~C~n-i~).
     a)  Write a recursive function to compute $n$th Catalan number C~n~.
     b)  Now write another function that does this computation using
         dynamic programming.
     c)  Use the `timeit` module to compare the performance of these
         functions as $n$ increases.
 
-27. |hard| Reproduce some of the results of \[Zhao07\]\_ concerning
+27. ☆☆☆ Reproduce some of the results of \[Zhao07\]\_ concerning
     authorship identification.
-28. |hard| Study gender-specific lexical choice, and see if you can
+28. ☆☆☆ Study gender-specific lexical choice, and see if you can
     reproduce some of the results of
     `http://www.clintoneast.com/articles/words.php`
-29. |hard| Write a recursive function that pretty prints a trie in
+29. ☆☆☆ Write a recursive function that pretty prints a trie in
     alphabetically sorted order, e.g.:
 
         chair: 'flesh'
@@ -2164,17 +2164,17 @@ Exercises
         --ic: 'stylish'
         ---en: 'dog'
 
-30. |hard| With the help of the trie data structure, write a recursive
+30. ☆☆☆ With the help of the trie data structure, write a recursive
     function that processes text, locating the uniqueness point in each
     word, and discarding the remainder of each word. How much
     compression does this give? How readable is the resulting text?
-31. |hard| Obtain some raw text, in the form of a single, long string.
+31. ☆☆☆ Obtain some raw text, in the form of a single, long string.
     Use Python's `textwrap` module to break it up into multiple lines.
     Now write code to add extra spaces between words, in order to
     justify the output. Each line must have the same width, and spaces
     must be approximately evenly distributed across each line. No line
     can begin or end with a space.
-32. |hard| Develop a simple extractive summarization tool, that prints
+32. ☆☆☆ Develop a simple extractive summarization tool, that prints
     the sentences of a document which contain the highest total
     word frequency. Use `FreqDist()` to count word frequencies, and use
     `sum` to sum the frequencies of the words in each sentence. Rank the
@@ -2183,15 +2183,15 @@ Exercises
     design of your program, especially your approach to this
     double sorting. Make sure the program is written as clearly
     as possible.
-33. |hard| Read the following article on semantic orientation of
+33. ☆☆☆ Read the following article on semantic orientation of
     adjectives. Use the NetworkX package to visualize a network of
     adjectives with edges to indicate same vs different
     semantic orientation. `http://www.aclweb.org/anthology/P97-1023`
-34. |hard| Design an algorithm to find the "statistically improbable
+34. ☆☆☆ Design an algorithm to find the "statistically improbable
     phrases" of a document collection.
     `http://www.amazon.com/gp/search-inside/sipshelp.html`
-35. |hard| Write a program to implement a brute-force algorithm for
-    discovering word squares, a kind of $n$ |times| $n$ crossword in
+35. ☆☆☆ Write a program to implement a brute-force algorithm for
+    discovering word squares, a kind of $n$ × $n$ crossword in
     which the entry in the $n$th row is the same as the entry in the
     $n$th column. For discussion, see
     `http://itre.cis.upenn.edu/~myl/languagelog/archives/002679.html`

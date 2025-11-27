@@ -27,7 +27,7 @@ This chapter continues to present programming concepts by example, in
 the context of a linguistic processing task. We will wait until later
 before exploring each Python construct systematically. Don't worry if
 you see an example that contains something unfamiliar; simply try it out
-and see what it does, and |mdash| if you're game |mdash| modify it by
+and see what it does, and — if you're game — modify it by
 substituting some part of the code with a different text or word. This
 way you will associate a task with a programming idiom, and learn the
 hows and whys later.
@@ -40,7 +40,7 @@ are designed to contain a careful balance of material in one or more
 genres. We examined some small text collections in chap-introduction\_,
 such as the speeches known as the US Presidential Inaugural Addresses.
 This particular corpus actually contains dozens of individual texts
-|mdash| one per address |mdash| but for convenience we glued them
+— one per address — but for convenience we glued them
 end-to-end and treated them as a single text. chap-introduction\_ also
 used various pre-defined texts that we accessed by typing
 `from nltk.book import *`. However, since we want to be able to work
@@ -49,10 +49,10 @@ see how to select individual texts, and how to work with them.
 
 ### Gutenberg Corpus
 
-|NLTK| includes a small selection of texts from the Project Gutenberg
+NLTK includes a small selection of texts from the Project Gutenberg
 electronic text archive, which contains some 25,000 free electronic
 books, hosted at `http://www.gutenberg.org/`. We begin by getting the
-Python interpreter to load the |NLTK| package, then ask to see
+Python interpreter to load the NLTK package, then ask to see
 `nltk.corpus.gutenberg.fileids()`, the file identifiers in this corpus:
 
 > &gt;&gt;&gt; import nltk &gt;&gt;&gt; nltk.corpus.gutenberg.fileids()
@@ -65,8 +65,8 @@ Python interpreter to load the |NLTK| package, then ask to see
 > 'shakespeare-hamlet.txt', 'shakespeare-macbeth.txt',
 > 'whitman-leaves.txt'\]
 
-Let's pick out the first of these texts |mdash| *Emma* by Jane Austen
-|mdash| and give it a short name, `emma`, then find out how many words
+Let's pick out the first of these texts — *Emma* by Jane Austen
+— and give it a short name, `emma`, then find out how many words
 it contains:
 
 > &gt;&gt;&gt; emma = nltk.corpus.gutenberg.words('austen-emma.txt')
@@ -84,7 +84,7 @@ it contains:
 > from sec-computing-with-language-texts-and-words\_:
 
 When we defined `emma`, we invoked the `words()` function of the
-`gutenberg` object in |NLTK|'s `corpus` package. But since it is
+`gutenberg` object in NLTK's `corpus` package. But since it is
 cumbersome to type such long names all the time, Python provides another
 version of the `import` statement, as follows:
 
@@ -147,7 +147,7 @@ sentence is a list of words:
 
 > **note**
 >
-> Most |NLTK| corpus readers include a variety of access methods apart
+> Most NLTK corpus readers include a variety of access methods apart
 > from `words()`, `raw()`, and `sents()`. Richer linguistic content is
 > available from some corpora, such as part-of-speech tags, dialogue
 > tags, syntactic trees, and so forth; we will see these in later
@@ -157,7 +157,7 @@ sentence is a list of words:
 
 Although Project Gutenberg contains thousands of books, it represents
 established literature. It is important to consider less formal language
-as well. |NLTK|'s small collection of web text includes content from a
+as well. NLTK's small collection of web text includes content from a
 Firefox discussion forum, conversations overheard in New York, the movie
 script of *Pirates of the Carribean*, personal advertisements, and wine
 reviews:
@@ -234,12 +234,12 @@ first step is to produce the counts for a particular genre. Remember to
 
 > **note**
 >
-> |TRY| Choose a different section of the Brown Corpus, and adapt the
+> **Try this** Choose a different section of the Brown Corpus, and adapt the
 > previous example to count a selection of wh words, such as what, when,
 > where, who, and why.
 
 Next, we need to obtain counts for each genre of interest. We'll use
-|NLTK|'s support for conditional frequency distributions. These are
+NLTK's support for conditional frequency distributions. These are
 presented systematically in sec-conditional-frequency-distributions\_,
 where we also unpick the following code line by line. For the moment,
 you can ignore the details and just concentrate on the output.
@@ -354,8 +354,8 @@ provides convenient ways to access several of these corpora, and has
 data packages containing corpora and corpus samples, freely downloadable
 for use in teaching and research. tab-corpora\_ lists some of the
 corpora. For information about downloading them, see
-`http://nltk.org/data`. For more examples of how to access |NLTK|
-corpora, please consult the Corpus HOWTO at |NLTK-HOWTO-URL|.
+`http://nltk.org/data`. For more examples of how to access NLTK
+corpora, please consult the Corpus HOWTO at [NLTK HOWTO](https://www.nltk.org/howto/).
 
 ### Corpora in Other Languages
 
@@ -400,7 +400,7 @@ included in the `udhr` corpus. The output is shown in
 
 > **note**
 >
-> |TRY| Pick a language of interest in `udhr.fileids()`, and define a
+> **Try this** Pick a language of interest in `udhr.fileids()`, and define a
 > variable `raw_text = udhr.raw(`*Language-Latin1*`)`. Now plot a
 > frequency distribution of the letters of the text using
 > `nltk.FreqDist(raw_text).plot()`.
@@ -431,7 +431,7 @@ structure, news collections being the most common example.
 > other corpora represent language use over time (Inaugural Address
 > Corpus).
 
-|NLTK|'s corpus readers support efficient access to a variety of
+NLTK's corpus readers support efficient access to a variety of
 corpora, and can be used to work with new corpora. tab-corpus\_ lists
 functionality provided by the corpus readers. We illustrate the
 difference between some of the corpus access methods below:
@@ -452,7 +452,7 @@ difference between some of the corpus access methods below:
 
 If you have your own collection of text files that you would like to
 access using the above methods, you can easily load them with the help
-of |NLTK|'s `PlaintextCorpusReader`. Check the location of your files on
+of NLTK's `PlaintextCorpusReader`. Check the location of your files on
 your file system; in the following example, we have taken this to be the
 directory `/usr/share/dict`. Whatever the location, set this to be the
 value of `corpus_root` corpus-root-dict\_. The second parameter of the
@@ -492,7 +492,7 @@ When the texts of a corpus are divided into several categories, by
 genre, topic, author, etc, we can maintain separate frequency
 distributions for each category. This will allow us to study systematic
 differences between the categories. In the previous section we achieved
-this using |NLTK|'s `ConditionalFreqDist` data type. A
+this using NLTK's `ConditionalFreqDist` data type. A
 conditional frequency distribution is a collection of frequency
 distributions, each one for a different "condition". The condition will
 often be the category of the text.
@@ -583,7 +583,7 @@ the word occured in a particular speech. It exploits the fact that the
 filename for each speech, e.g., `1865-Lincoln.txt` contains the year as
 the first four characters first-four-chars\_. This code generates the
 pair `('america', '1865')` for every instance of a word whose lowercased
-form starts with america |mdash| such as Americans |mdash| in the file
+form starts with america — such as Americans — in the file
 `1865-Lincoln.txt`.
 
 > &gt;&gt;&gt; from nltk.corpus import inaugural &gt;&gt;&gt; cfd =
@@ -627,7 +627,7 @@ letters.
 
 > **note**
 >
-> |TRY| Working with the news and romance genres from the Brown Corpus,
+> **Try this** Working with the news and romance genres from the Brown Corpus,
 > find out which days of the week are most newsworthy, and which are
 > most romantic. Define a variable called `days` containing a list of
 > days of the week, i.e. `['Monday', ...]`. Now tabulate the counts for
@@ -690,7 +690,7 @@ among the available words.
 > land of the land of the land
 
 Conditional frequency distributions are a useful data structure for many
-|NLP| tasks. Their commonly-used methods are summarized in
+NLP tasks. Their commonly-used methods are summarized in
 tab-conditionalfreqdist\_.
 
 More Python: Reusing Code
@@ -708,14 +708,14 @@ functions.
 The Python interactive interpreter performs your instructions as soon as
 you type them. Often, it is better to compose a multi-line program using
 a text editor, then ask Python to run the whole program at once. Using
-|IDLE|, you can do this by going to the `File` menu and opening a new
+IDLE, you can do this by going to the `File` menu and opening a new
 window. Try this now, and enter the following one-line program:
 
     print('Monty Python')
 
 Save this program in a file called `monty.py`, then go to the `Run`
 menu, and select the command `Run Module`. (We'll learn what modules are
-shortly.) The result in the main |IDLE| window should look like this:
+shortly.) The result in the main IDLE window should look like this:
 
 You can also type `from monty import *` and it will do the same thing.
 
@@ -731,7 +731,7 @@ lowercase letters and separating words with underscore, and using the
 
 > **note**
 >
-> |IMPORTANT| Our inline code examples include the `>>>` and `...`
+> **Important** Our inline code examples include the `>>>` and `...`
 > prompts as if we are interacting directly with the interpreter. As
 > they get more complicated, you should instead type them into the
 > editor, without the prompts, and run them from the editor as shown
@@ -741,7 +741,7 @@ lowercase letters and separating words with underscore, and using the
 > Note that it still includes a couple of lines with the Python prompt;
 > this is the interactive part of the task where you inspect some data
 > and invoke a function. Remember that all code samples like
-> code-random-text\_ are downloadable from |NLTK-URL|.
+> code-random-text\_ are downloadable from [NLTK](https://www.nltk.org/).
 
 ### Functions
 
@@ -842,9 +842,9 @@ of our plural function, and no confusion about which one is being used.
 
 A collection of variable and function definitions in a file is called a
 Python module. A collection of related modules is called a package.
-|NLTK|'s code for processing the Brown Corpus is an example of a module,
+NLTK's code for processing the Brown Corpus is an example of a module,
 and its collection of code for processing all the different corpora is
-an example of a package. |NLTK| itself is a set of packages, sometimes
+an example of a package. NLTK itself is a set of packages, sometimes
 called a library.
 
 > **caution**
@@ -880,11 +880,11 @@ homonyms.
 The simplest kind of lexicon is nothing more than a sorted list of
 words. Sophisticated lexicons include complex structure within and
 across the individual entries. In this section we'll look at some
-lexical resources included with |NLTK|.
+lexical resources included with NLTK.
 
 ### Wordlist Corpora
 
-|NLTK| includes some corpora that are nothing more than wordlists. The
+NLTK includes some corpora that are nothing more than wordlists. The
 Words Corpus is the `/usr/share/dict/words` file from Unix, used by some
 spell checkers. We can use it to find unusual or mis-spelt words in a
 text corpus, as shown in code-unusual\_.
@@ -1004,7 +1004,7 @@ letter of `name`.
 ### A Pronouncing Dictionary
 
 A slightly richer kind of lexical resource is a table (or spreadsheet),
-containing a word plus some properties in each row. |NLTK| includes the
+containing a word plus some properties in each row. NLTK includes the
 CMU Pronouncing Dictionary for US English, which was designed for use by
 speech synthesizers.
 
@@ -1017,8 +1017,8 @@ speech synthesizers.
 > ('firearms', \['F', 'AY1', 'R', 'AA2', 'R', 'M', 'Z'\]) ('fireball',
 > \['F', 'AY1', 'ER0', 'B', 'AO2', 'L'\])
 
-For each word, this lexicon provides a list of phonetic codes |mdash|
-distinct labels for each contrastive sound |mdash| known as phones.
+For each word, this lexicon provides a list of phonetic codes —
+distinct labels for each contrastive sound — known as phones.
 Observe that fire has two pronunciations (in US English): the
 one-syllable `F AY1 R`, and the two-syllable `F AY1 ER0`. The symbols in
 the CMU Pronouncing Dictionary are from the *Arpabet*, described in more
@@ -1138,7 +1138,7 @@ If we try to look up a non-existent key dict-key-error\_, we get a
 integer that is too large, producing an `IndexError`. The word blog is
 missing from the pronouncing dictionary, so we tweak our version by
 assigning a value for this key dict-assign\_ (this has no effect on the
-|NLTK| corpus; next time we access it, blog will still be absent).
+NLTK corpus; next time we access it, blog will still be absent).
 
 We can use any lexical resource to process a text, e.g., to filter out
 words having some lexical property (like nouns), or mapping every word
@@ -1152,7 +1152,7 @@ each word of the text in the pronunciation dictionary.
 
 ### Comparative Wordlists
 
-Another example of a tabular lexicon is the comparative wordlist. |NLTK|
+Another example of a tabular lexicon is the comparative wordlist. NLTK
 includes so-called Swadesh wordlists, lists of about 200 common words in
 several languages. The languages are identified using an ISO 639
 two-letter code.
@@ -1233,7 +1233,7 @@ this kind of corpus and we will return to this topic in chap-data\_.
 > **note**
 >
 > The Rotokas language is spoken on the island of Bougainville, Papua
-> New Guinea. This lexicon was contributed to |NLTK| by Stuart Robinson.
+> New Guinea. This lexicon was contributed to NLTK by Stuart Robinson.
 > Rotokas is notable for having an inventory of just 12 phonemes
 > (contrastive sounds), `http://en.wikipedia.org/wiki/Rotokas_language`
 
@@ -1241,7 +1241,7 @@ WordNet
 -------
 
 WordNet is a semantically-oriented dictionary of English, similar to a
-traditional thesaurus but with a richer structure. |NLTK| includes the
+traditional thesaurus but with a richer structure. NLTK includes the
 English WordNet, with 155,287 words and 117,659 synonym sets. We'll
 begin by looking at synonyms and how they are accessed in WordNet.
 
@@ -1317,7 +1317,7 @@ follows.
 
 > **note**
 >
-> |TRY| Write down all the senses of the word dish that you can think
+> **Try this** Write down all the senses of the word dish that you can think
 > of. Now, explore this word with the help of WordNet, using the same
 > operations we used above.
 
@@ -1326,7 +1326,7 @@ follows.
 WordNet synsets correspond to abstract concepts, and they don't always
 have corresponding words in English. These concepts are linked together
 in a hierarchy. Some concepts are very general, such as *Entity*,
-*State*, *Event* |mdash| these are called unique beginners or root
+*State*, *Event* — these are called unique beginners or root
 synsets. Others, such as *gas guzzler* and *hatchback*, are much more
 specific. A small portion of a concept hierarchy is illustrated in
 [fig-wn-hierarchy](..%20figure::%20../images/wordnet-hierarchy.png:scale:%2025:120:25).
@@ -1384,7 +1384,7 @@ follows:
 
 > **note**
 >
-> |TRY| Try out |NLTK|'s convenient graphical WordNet browser:
+> **Try this** Try out NLTK's convenient graphical WordNet browser:
 > `nltk.app.wordnet()`. Explore the WordNet hierarchy by following the
 > hypernym and hyponym links.
 
@@ -1459,8 +1459,8 @@ Recall that each synset has one or more hypernym paths that link it to a
 root hypernym such as `entity.n.01`. Two synsets linked to the same root
 may have several hypernyms in common (cf
 [fig-wn-hierarchy](..%20figure::%20../images/wordnet-hierarchy.png:scale:%2025:120:25)).
-If two synsets share a very specific hypernym |mdash| one that is low
-down in the hypernym hierarchy |mdash| they must be closely related.
+If two synsets share a very specific hypernym — one that is low
+down in the hypernym hierarchy — they must be closely related.
 
 > &gt;&gt;&gt; right = wn.synset('right\_whale.n.01') &gt;&gt;&gt; orca
 > = wn.synset('orca.n.01') &gt;&gt;&gt; minke =
@@ -1486,7 +1486,7 @@ depth of each synset:
 
 Similarity measures have been defined over the collection of WordNet
 synsets which incorporate the above insight. For example,
-`path_similarity` assigns a score in the range `0`|ndash|
+`path_similarity` assigns a score in the range `0`–
 `1` based on the shortest path that connects the concepts in the
 hypernym hierarchy (`-1` is returned in those cases where a path cannot
 be found). Comparing a synset with itself will return `1`. Consider the
@@ -1503,7 +1503,7 @@ objects.
 > **note**
 >
 > Several other similarity measures are available; you can type
-> `help(wn)` for more information. |NLTK| also includes VerbNet, a
+> `help(wn)` for more information. NLTK also includes VerbNet, a
 > hierarhical verb lexicon linked to WordNet. It can be accessed with
 > `nltk.corpus.verbnet`.
 
@@ -1529,7 +1529,7 @@ Summary
     interactive interpreter to read the help entry for this kind
     of object.
 -   WordNet is a semantically-oriented dictionary of English, consisting
-    of synonym sets |mdash| or synsets |mdash| and organized into
+    of synonym sets — or synsets — and organized into
     a network.
 -   Some functions are not available by default, but must be accessed
     using Python's `import` statement.
@@ -1537,9 +1537,9 @@ Summary
 Further Reading
 ---------------
 
-Extra materials for this chapter are posted at |NLTK-URL|, including
+Extra materials for this chapter are posted at [NLTK](https://www.nltk.org/), including
 links to freely available resources on the web. The corpus methods are
-summarized in the Corpus HOWTO, at |NLTK-HOWTO-URL|, and documented
+summarized in the Corpus HOWTO, at [NLTK HOWTO](https://www.nltk.org/howto/), and documented
 extensively in the online API documentation.
 
 Significant sources of published corpora are the
@@ -1553,12 +1553,12 @@ A good tool for creating annotated text corpora is called Brat, and
 available from `http://brat.nlplab.org/`.
 
 These and many other language resources have been documented using OLAC
-Metadata, and can be searched via the OLAC homepage at |OLAC-URL|.
+Metadata, and can be searched via the OLAC homepage at [OLAC](http://www.language-archives.org/).
 Corpora List is a mailing list for discussions about corpora, and you
 can find resources by searching the list archives or posting to the
 list. The most complete inventory of the world's languages is
 *Ethnologue*, `http://www.ethnologue.com/`. Of 7,000 languages, only a
-few dozen have substantial digital resources suitable for use in |NLP|.
+few dozen have substantial digital resources suitable for use in NLP.
 
 This chapter has touched on the field of Corpus Linguistics. Other
 useful books in this area include \[Biber1998\]\_, \[McEnery2006\]\_,
@@ -1580,29 +1580,29 @@ semantics, and we refer readers to chapters 7 and 20 of
 Exercises
 ---------
 
-1.  |easy| Create a variable `phrase` containing a list of words. Review
+1.  ☆ Create a variable `phrase` containing a list of words. Review
     the operations described in the previous chapter, including
     addition, multiplication, indexing, slicing, and sorting.
-2.  |easy| Use the corpus module to explore `austen-persuasion.txt`. How
+2.  ☆ Use the corpus module to explore `austen-persuasion.txt`. How
     many word tokens does this book have? How many word types?
-3.  |easy| Use the Brown corpus reader `nltk.corpus.brown.words()` or
+3.  ☆ Use the Brown corpus reader `nltk.corpus.brown.words()` or
     the Web text corpus reader `nltk.corpus.webtext.words()` to access
     some sample text in two different genres.
-4.  |easy| Read in the texts of the *State of the Union* addresses,
+4.  ☆ Read in the texts of the *State of the Union* addresses,
     using the `state_union` corpus reader. Count occurrences of `men`,
     `women`, and `people` in each document. What has happened to the
     usage of these words over time?
-5.  |easy| Investigate the holonym-meronym relations for some nouns.
+5.  ☆ Investigate the holonym-meronym relations for some nouns.
     Remember that there are three kinds of holonym-meronym relation, so
     you need to use: `member_meronyms()`, `part_meronyms()`,
     `substance_meronyms()`, `member_holonyms()`, `part_holonyms()`, and
     `substance_holonyms()`.
-6.  |easy| In the discussion of comparative wordlists, we created an
+6.  ☆ In the discussion of comparative wordlists, we created an
     object called `translate` which you could look up using words in
     both German and Spanish in order to get corresponding words in
     English. What problem might arise with this approach? Can you
     suggest a way to avoid this problem?
-7.  |easy| According to Strunk and White's *Elements of Style*, the word
+7.  ☆ According to Strunk and White's *Elements of Style*, the word
     however, used at the start of a sentence, means "in whatever way" or
     "to whatever extent", and not "nevertheless". They give this example
     of correct usage:
@@ -1612,16 +1612,16 @@ Exercises
     been considering. See also the *LanguageLog* posting "Fossilized
     prejudices about 'however'" at
     `http://itre.cis.upenn.edu/~myl/languagelog/archives/001913.html`
-8.  |soso| Define a conditional frequency distribution over the Names
+8.  ☆☆ Define a conditional frequency distribution over the Names
     corpus that allows you to see which *initial* letters are more
     frequent for males vs. females (cf.
     [fig-cfd-gender](..%20figure::%20../images/cfd-gender.png:scale:%2025)).
-9.  |soso| Pick a pair of texts and study the differences between them,
+9.  ☆☆ Pick a pair of texts and study the differences between them,
     in terms of vocabulary, vocabulary richness, genre, etc. Can you
     find pairs of words which have quite different meanings across the
     two texts, such as monstrous in *Moby Dick* and in *Sense and
     Sensibility*?
-10. |soso| Read the BBC News article: *UK's Vicky Pollards 'left
+10. ☆☆ Read the BBC News article: *UK's Vicky Pollards 'left
     behind'* `http://news.bbc.co.uk/1/hi/education/6173441.stm`. The
     article gives the following statistic about teen language: "the top
     20 words used, including yeah, no, but and like, account for around
@@ -1629,51 +1629,51 @@ Exercises
     all word tokens, for a variety of text sources? What do you conclude
     about this statistic? Read more about this on *LanguageLog*, at
     `http://itre.cis.upenn.edu/~myl/languagelog/archives/003993.html`.
-11. |soso| Investigate the table of modal distributions and look for
+11. ☆☆ Investigate the table of modal distributions and look for
     other patterns. Try to explain them in terms of your own
     impressionistic understanding of the different genres. Can you find
     other closed classes of words that exhibit significant differences
     across different genres?
-12. |soso| The CMU Pronouncing Dictionary contains multiple
+12. ☆☆ The CMU Pronouncing Dictionary contains multiple
     pronunciations for certain words. How many distinct words does it
     contain? What fraction of words in this dictionary have more than
     one possible pronunciation?
-13. |soso| What percentage of noun synsets have no hyponyms? You can get
+13. ☆☆ What percentage of noun synsets have no hyponyms? You can get
     all noun synsets using `wn.all_synsets('n')`.
-14. |soso| Define a function `supergloss(s)` that takes a synset `s` as
+14. ☆☆ Define a function `supergloss(s)` that takes a synset `s` as
     its argument and returns a string consisting of the concatenation of
     the definition of `s`, and the definitions of all the hypernyms and
     hyponyms of `s`.
-15. |soso| Write a program to find all words that occur at least three
+15. ☆☆ Write a program to find all words that occur at least three
     times in the Brown Corpus.
-16. |soso| Write a program to generate a table of lexical diversity
+16. ☆☆ Write a program to generate a table of lexical diversity
     scores (i.e. token/type ratios), as we saw in tab-brown-types\_.
     Include the full set of Brown Corpus genres
     (`nltk.corpus.brown.categories()`). Which genre has the lowest
     diversity (greatest number of tokens per type)? Is this what you
     would have expected?
-17. |soso| Write a function that finds the 50 most frequently occurring
+17. ☆☆ Write a function that finds the 50 most frequently occurring
     words of a text that are not stopwords.
-18. |soso| Write a program to print the 50 most frequent bigrams (pairs
+18. ☆☆ Write a program to print the 50 most frequent bigrams (pairs
     of adjacent words) of a text, omitting bigrams that
     contain stopwords.
-19. |soso| Write a program to create a table of word frequencies by
+19. ☆☆ Write a program to create a table of word frequencies by
     genre, like the one given in sec-extracting-text-from-corpora\_ for
     modals. Choose your own words and try to find words whose presence
     (or absence) is typical of a genre. Discuss your findings.
-20. |soso| Write a function `word_freq()` that takes a word and the name
+20. ☆☆ Write a function `word_freq()` that takes a word and the name
     of a section of the Brown Corpus as arguments, and computes the
     frequency of the word in that section of the corpus.
-21. |soso| Write a program to guess the number of syllables contained in
+21. ☆☆ Write a program to guess the number of syllables contained in
     a text, making use of the CMU Pronouncing Dictionary.
-22. |soso| Define a function `hedge(text)` which processes a text and
+22. ☆☆ Define a function `hedge(text)` which processes a text and
     produces a new version with the word `'like'` between every
     third word.
-23. |hard| **Zipf's Law**: Let *f(w)* be the frequency of a word *w* in
+23. ☆☆☆ **Zipf's Law**: Let *f(w)* be the frequency of a word *w* in
     free text. Suppose that all the words of a text are ranked according
     to their frequency, with the most frequent word first. Zipf's law
     states that the frequency of a word type is inversely proportional
-    to its rank (i.e. *f* |times| *r = k*, for some constant *k*). For
+    to its rank (i.e. *f* × *r = k*, for some constant *k*). For
     example, the 50th most common word type should occur three times as
     frequently as the 150th most common word type.
     a)  Write a function to process a large text and plot word frequency
@@ -1688,7 +1688,7 @@ Exercises
         the two plots. What do you make of Zipf's Law in the light of
         this?
 
-24. |hard| Modify the text generation program in code-random-text\_
+24. ☆☆☆ Modify the text generation program in code-random-text\_
     further, to do the following tasks:
     a)  Store the *n* most likely words in a list `words` then randomly
         choose a word from the list using `random.choice()`. (You will
@@ -1704,19 +1704,19 @@ Exercises
         with generating text in the hybrid genre. Discuss
         your observations.
 
-25. |hard| Define a function `find_language()` that takes a string as
+25. ☆☆☆ Define a function `find_language()` that takes a string as
     its argument, and returns a list of languages that have that string
     as a word. Use the `udhr` corpus and limit your searches to files in
     the Latin-1 encoding.
-26. |hard| What is the branching factor of the noun hypernym
-    hierarchy? I.e. for every noun synset that has hyponyms |mdash| or
-    children in the hypernym hierarchy |mdash| how many do they have on
+26. ☆☆☆ What is the branching factor of the noun hypernym
+    hierarchy? I.e. for every noun synset that has hyponyms — or
+    children in the hypernym hierarchy — how many do they have on
     average? You can get all noun synsets using `wn.all_synsets('n')`.
-27. |hard| The polysemy of a word is the number of senses it has. Using
+27. ☆☆☆ The polysemy of a word is the number of senses it has. Using
     WordNet, we can determine that the noun *dog* has 7 senses with:
     `len(wn.synsets('dog', 'n'))`. Compute the average polysemy of
     nouns, verbs, adjectives and adverbs according to WordNet.
-28. |hard| Use one of the predefined similarity measures to score the
+28. ☆☆☆ Use one of the predefined similarity measures to score the
     similarity of each of the following pairs of words. Rank the pairs
     in order of decreasing similarity. How close is your ranking to the
     order given here, an order that was established experimentally by

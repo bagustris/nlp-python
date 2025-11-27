@@ -88,7 +88,7 @@ A.A. Milne, *In which Piglet is Entirely Surrounded by Water*:
 > moment, luckily, a sudden loud squawk from Owl, which was really part
 > of the story, being what his aunt said, woke the Piglet up and just
 > gave him time to jerk himself back into safety and say, "How
-> interesting, and did she?" when |mdash| well, you can imagine his joy
+> interesting, and did she?" when — well, you can imagine his joy
 > when at last he saw the good ship, Brain of Pooh (Captain, C. Robin;
 > 1st Mate, P. Bear) coming over the sea to rescue him...
 
@@ -114,7 +114,7 @@ In this chapter, we will adopt the formal framework of "generative
 grammar", in which a "language" is considered to be nothing more than an
 enormous collection of all grammatical sentences, and a grammar is a
 formal notation that can be used for "generating" the members of this
-set. Grammars use recursive productions of the form `S` |rarr| `S` and
+set. Grammars use recursive productions of the form `S` → `S` and
 `S`, as we will explore in sec-context-free-grammar\_. In
 chap-semantics\_ we will extend this, to automatically build up the
 meaning of a sentence out of the meanings of its parts.
@@ -154,7 +154,7 @@ first sentence, and using a camera in the second sentence.
 
 > **note**
 >
-> |TRY| Consider the following sentences and see if you can think of two
+> **Try this** Consider the following sentences and see if you can think of two
 > quite different interpretations: Fighting animals could be dangerous.
 > Visiting relatives can be tiresome. Is ambiguity of the individual
 > words to blame? If not, what is the cause of the ambiguity?
@@ -211,7 +211,7 @@ constituent structure.
 
 Constituent structure is based on the observation that words combine
 with other words to form units. The evidence that a sequence of words
-forms such a unit is given by substitutability |mdash| that is, a
+forms such a unit is given by substitutability — that is, a
 sequence of words in a well-formed sentence can be replaced by a shorter
 sequence without rendering the sentence ill-formed. To clarify this
 idea, consider the following sentence:
@@ -271,7 +271,7 @@ Context Free Grammar
 Let's start off by looking at a simple context-free grammar. By
 convention, the left-hand-side of the first production is the
 start-symbol of the grammar, typically `S`, and all well-formed trees
-must have this symbol as their root label. In |NLTK|, context-free
+must have this symbol as their root label. In NLTK, context-free
 grammars are defined in the `nltk.grammar` module. In code-cfg1\_ we
 define a grammar and show how to parse a simple sentence admitted by the
 grammar.
@@ -289,7 +289,7 @@ productions `VP -> V NP` and `VP -> V NP PP`.
 
 > **note**
 >
-> |TRY| Try developing a simple grammar of your own, using the recursive
+> **Try this** Try developing a simple grammar of your own, using the recursive
 > descent parser application, `nltk.app.rdparser()`, shown in
 > [fig-parse-rdparsewindow](..%20figure::%20../images/parse_rdparsewindow.png:scale:%20100).
 > It comes already loaded with a sample grammar, but you can edit this
@@ -316,7 +316,7 @@ overlooking the park.
 
 If you are interested in experimenting with writing CFGs, you will find
 it helpful to create and edit your grammar in a text file, say
-`mygrammar.cfg`. You can then load it into |NLTK| and parse with it as
+`mygrammar.cfg`. You can then load it into NLTK and parse with it as
 follows:
 
 Make sure that you put a `.cfg` suffix on the filename, and that there
@@ -328,7 +328,7 @@ with tracing set to be on:
 also check what productions are currently in the grammar with the
 command `for p in grammar1.productions(): print(p)`.
 
-When you write CFGs for parsing in |NLTK|, you cannot combine
+When you write CFGs for parsing in NLTK, you cannot combine
 grammatical categories with lexical items on the righthand side of the
 same production. Thus, a production such as `PP -> 'of' NP` is
 disallowed. In addition, you are not permitted to place multi-word
@@ -391,7 +391,7 @@ Parsing With Context Free Grammar
 A parser processes input sentences according to the productions of a
 grammar, and builds one or more constituent structures that conform to
 the grammar. A grammar is a declarative specification of well-formedness
-|mdash| it is actually just a string, not a program. A parser is a
+— it is actually just a string, not a program. A parser is a
 procedural interpretation of the grammar. It searches through the space
 of trees licensed by a grammar to find one that has the required
 sentence along its fringe.
@@ -415,7 +415,7 @@ a dynamic programming technique called chart parsing.
 
 The simplest kind of parser interprets a grammar as a specification of
 how to break a high-level goal into several lower-level subgoals. The
-top-level goal is to find an `S`. The `S` |rarr| `NP VP` production
+top-level goal is to find an `S`. The `S` → `NP VP` production
 permits the parser to replace this goal with two subgoals: find an `NP`,
 then find a `VP`. Each of these subgoals can be replaced in turn by
 sub-sub-goals, using productions that have `NP` and `VP` on their
@@ -444,8 +444,8 @@ execution of this parser are shown in
 During this process, the parser is often forced to choose between
 several possible productions. For example, in going from step 3 to step
 4, it tries to find productions with `N` on the left-hand side. The
-first of these is `N` |rarr| man. When this does not work it backtracks,
-and tries other `N` productions in order, until it gets to `N` |rarr|
+first of these is `N` → man. When this does not work it backtracks,
+and tries other `N` productions in order, until it gets to `N` →
 dog, which matches the next word in the input sentence. Much later, as
 shown in step 5, it finds a complete parse. This is a tree that covers
 the entire sentence, without any dangling edges. Once a parse has been
@@ -530,7 +530,7 @@ text:
 
 > **note**
 >
-> |TRY| Run the above parser in tracing mode to see the sequence of
+> **Try this** Run the above parser in tracing mode to see the sequence of
 > shift and reduce operations, using
 > `sr_parse = nltk.ShiftReduceParser(grammar1, trace=2)`
 
@@ -576,14 +576,14 @@ productions for expanding `NP`:
 Suppose we ask you to first look at tree
 [ex-jmtree](..%20ex::..%20tree::(S%20(NP%20John)(VP%20(V%20saw)(NP%20Mary)))),
 and then decide which of the `NP` productions you'd want a recursive
-descent parser to apply first |mdash| obviously, ex-r3\_ is the right
+descent parser to apply first — obviously, ex-r3\_ is the right
 choice! How do you know that it would be pointless to apply ex-r1\_ or
 ex-r2\_ instead? Because neither of these productions will derive a
 sequence whose first word is John. That is, we can easily tell that in a
 successful parse of John saw Mary, the parser has to expand `NP` in such
-a way that `NP` derives the sequence John |alpha|. More generally, we
+a way that `NP` derives the sequence John α. More generally, we
 say that a category $B$ is a left-corner of a tree rooted in $A$ if $A$
-|DoubleRightArrow|\* $B$ |alpha|.
+⇒\* $B$ α.
 
 A left-corner parser is a top-down parser with bottom-up filtering.
 Unlike an ordinary recursive descent parser, it does not get trapped in
@@ -615,13 +615,13 @@ Dynamic programming allows us to build the `PP` in my pajamas just once.
 The first time we build it we save it in a table, then we look it up
 when we need to use it as a subconstituent of either the object `NP` or
 the higher `VP`. This table is known as a well-formed substring table,
-or |WFST| for short. (The term "substring" refers to a contiguous
+or WFST for short. (The term "substring" refers to a contiguous
 sequence of words within a sentence.) We will show how to construct the
-|WFST| bottom-up so as to systematically record what syntactic
+WFST bottom-up so as to systematically record what syntactic
 constituents have been found.
 
 Let's set our input to be the sentence in [ex-marx-elephant](..%20ex::).
-The numerically specified spans of the |WFST| are reminiscent of
+The numerically specified spans of the WFST are reminiscent of
 Python's slice notation (sec-strings\_). Another way to think about the
 data structure is shown in
 [fig-chart-positions1](..%20figure::%20../images/chart_positions1.png:scale:%2025:100:100),
@@ -630,7 +630,7 @@ a data structure known as a chart.
 > The Chart Data Structure: words are the edge labels of a linear graph
 > structure.
 
-In a |WFST|, we record the position of the words by filling in cells in
+In a WFST, we record the position of the words by filling in cells in
 a triangular matrix: the vertical axis will denote the start position of
 a substring, while the horizontal axis will denote the end position
 (thus shot will appear in the cell with coordinates (1, 2)). To simplify
@@ -638,7 +638,7 @@ this presentation, we will assume each word has a unique lexical
 category, and we will store this (not the word) in the matrix. So cell
 (1, 2) will contain the entry `V`. More generally, if our input string
 is ~a~0~a~1 ... ~a~n, and our grammar contains a production of the form
-*A* |rarr| ~a~i, then we add *A* to the cell (i, i+1).
+*A* → ~a~i, then we add *A* to the cell (i, i+1).
 
 So, for every word in `text`, we can look up in our grammar what
 category it belongs to.
@@ -647,23 +647,23 @@ category it belongs to.
 > 'pajamas'\] &gt;&gt;&gt; groucho\_grammar.productions(rhs=text\[1\])
 > \[V -&gt; 'shot'\]
 
-For our |WFST|, we create an $(n-1)$ |times| $(n-1)$ matrix as a list of
+For our WFST, we create an $(n-1)$ × $(n-1)$ matrix as a list of
 lists in Python, and initialize it with the lexical categories of each
 token, in the `init_wfst()` function in code-wfst\_. We also define a
-utility function `display()` to pretty-print the |WFST| for us. As
+utility function `display()` to pretty-print the WFST for us. As
 expected, there is a `V` in cell (1, 2).
 
 Returning to our tabular representation, given that we have `Det` in
 cell (2, 3) for the word an, and `N` in cell (3, 4) for the word
 elephant, what should we put into cell (2, 4) for an elephant? We need
-to find a production of the form *A* |rarr| `Det N`. Consulting the
+to find a production of the form *A* → `Det N`. Consulting the
 grammar, we know that we can enter `NP` in cell (2, 4).
 
 More generally, we can enter *A* in $(i, j)$ if there is a production
-*A* |rarr| *B* *C*, and we find nonterminal *B* in $(i, k)$ and *C* in
+*A* → *B* *C*, and we find nonterminal *B* in $(i, k)$ and *C* in
 $(k, j)$. The program in code-wfst\_ uses this rule to complete the
-|WFST|. By setting `trace` to `True` when calling the function
-`complete_wfst()`, we see tracing output that shows the |WFST| being
+WFST. By setting `trace` to `True` when calling the function
+`complete_wfst()`, we see tracing output that shows the WFST being
 constructed:
 
 > &gt;&gt;&gt; wfst1 = complete\_wfst(wfst0, tokens, groucho\_grammar,
@@ -689,24 +689,24 @@ at `wfst[3][4]`, we can add `NP` to `wfst[2][4]`.
 
 We conclude that there is a parse for the whole input string once we
 have constructed an `S` node in cell (0, 7), showing that we have found
-a sentence that covers the whole input. The final state of the |WFST| is
+a sentence that covers the whole input. The final state of the WFST is
 depicted in
 [fig-chart-positions2](..%20figure::%20../images/chart_positions2.png:scale:%2025:100:100).
 
 Notice that we have not used any built-in parsing functions here. We've
 implemented a complete, primitive chart parser from the ground up!
 
-|WFST|'s have several shortcomings. First, as you can see, the |WFST| is
+WFST's have several shortcomings. First, as you can see, the WFST is
 not itself a parse tree, so the technique is strictly speaking
 recognizing that a sentence is admitted by a grammar, rather than
 parsing it. Second, it requires every non-lexical grammar production to
-be binary. Although it is possible to convert an arbitrary |CFG| into
+be binary. Although it is possible to convert an arbitrary CFG into
 this form, we would prefer to use an approach without such a
 requirement. Third, as a bottom-up approach it is potentially wasteful,
 being able to propose constituents in locations that would not be
 licensed by the grammar.
 
-Finally, the |WFST| did not represent the structural ambiguity in the
+Finally, the WFST did not represent the structural ambiguity in the
 sentence (i.e. the two verb phrase readings). The `VP` in cell (1, 7)
 was actually entered twice, once for a `V NP` reading, and once for a
 `VP PP` reading. These are different hypotheses, and the second
@@ -717,7 +717,7 @@ the Further Reading section at the end of this chapter for details).
 
 > **note**
 >
-> |TRY| Try out the interactive chart parser application
+> **Try this** Try out the interactive chart parser application
 > `nltk.app.chartparser()`.
 
 Dependencies and Dependency Grammar
@@ -751,7 +751,7 @@ elephant). In contrast to phrase structure grammar, therefore,
 dependency grammars can be used to directly express grammatical
 functions as a type of dependency.
 
-Here's one way of encoding a dependency grammar in |NLTK| |mdash| note
+Here's one way of encoding a dependency grammar in NLTK — note
 that it only captures bare dependency information without specifying the
 type of dependency:
 
@@ -945,13 +945,13 @@ received expects a separate `PP` complement attached to the `VP`, while
 rejected does not. As before, we can use this information to help
 construct the grammar.
 
-The |NLTK| corpus collection includes data from the PE08 Cross-Framework
+The NLTK corpus collection includes data from the PE08 Cross-Framework
 and Cross Domain Parser Evaluation Shared Task. A collection of larger
 grammars has been prepared for the purpose of comparing different
 parsers, which can be obtained by downloading the `large_grammars`
 package (e.g. `python -m nltk.downloader large_grammars`).
 
-The |NLTK| corpus collection also includes a sample from the *Sinica
+The NLTK corpus collection also includes a sample from the *Sinica
 Treebank Corpus*, consisting of 10,000 parsed sentences drawn from the
 *Academia Sinica Balanced Corpus of Modern Chinese*. Let's load and
 display one of the trees in this corpus.
@@ -980,7 +980,7 @@ grammar for the "fish" sentences.
 
 Now we can try parsing a longer sentence, fish fish fish fish
 fish, which amongst other things, means 'fish that other fish fish are
-in the habit of fishing fish themselves'. We use the |NLTK| chart
+in the habit of fishing fish themselves'. We use the NLTK chart
 parser, which was mentioned earlier in this chapter. This sentence has
 two readings.
 
@@ -998,7 +998,7 @@ of these is for a sentence of length 23, the average length of sentences
 in the WSJ section of Penn Treebank. For a sentence of length 50 there
 would be over 10^12^ parses, and this is only half the length of the
 Piglet sentence (sec-dilemmas\_), which young children process
-effortlessly. No practical |NLP| system could construct millions of
+effortlessly. No practical NLP system could construct millions of
 trees for a sentence and choose the appropriate one in the context. It's
 clear that humans don't do this either!
 
@@ -1029,7 +1029,7 @@ shown in [fig-are](..%20figure::%20../images/are.png:scale:%2020).
 > "are" in size, and each identified using coordinates; the top left
 > cell is the a "are" of column I (after Abney).
 
-|nopar| Even though this phrase is unlikely, it is still grammatical and
+ Even though this phrase is unlikely, it is still grammatical and
 a broad-coverage parser should be able to construct a parse tree for it.
 Similarly, sentences that seem to be unambiguous, such as John saw Mary,
 turn out to have other readings we would not have anticipated (as Abney
@@ -1118,7 +1118,7 @@ Summary
     can be assigned a particular constituent or dependency structure.
 -   Given a set of syntactic categories, a context-free grammar uses a
     set of productions to say how a phrase of some category *A* can be
-    analyzed into a sequence of smaller parts |alpha|~1~ ... |alpha|~n~.
+    analyzed into a sequence of smaller parts α~1~ ... α~n~.
 -   A dependency grammar uses productions to specify what the dependents
     are of a given lexical head.
 -   Syntactic ambiguity arises when one sentence has more than one
@@ -1143,9 +1143,9 @@ Summary
 Further Reading
 ---------------
 
-Extra materials for this chapter are posted at |NLTK-URL|, including
+Extra materials for this chapter are posted at [NLTK](https://www.nltk.org/), including
 links to freely available resources on the web. For more examples of
-parsing with |NLTK|, please see the Parsing HOWTO at |NLTK-HOWTO-URL|.
+parsing with NLTK, please see the Parsing HOWTO at [NLTK HOWTO](https://www.nltk.org/howto/).
 
 There are many introductory books on syntax. \[OGrady2004\]\_ is a
 general introduction to linguistics, while \[Radford1988TG\]\_ provides
@@ -1179,22 +1179,22 @@ framework `http://www.delph-in.net/matrix/` and the XTAG Project
 Exercises
 ---------
 
-1.  |easy| Can you come up with grammatical sentences that have probably
+1.  ☆ Can you come up with grammatical sentences that have probably
     never been uttered before? (Take turns with a partner.) What does
     this tell you about human language?
-2.  |easy| Recall Strunk and White's prohibition against
+2.  ☆ Recall Strunk and White's prohibition against
     sentence-initial however used to mean "although". Do a web search
     for however used at the start of the sentence. How widely used is
     this construction?
-3.  |easy| Consider the sentence
+3.  ☆ Consider the sentence
     Kim arrived or Dana left and everyone cheered. Write down the
     parenthesized forms to show the relative scope of and and or.
     Generate tree structures corresponding to both of
     these interpretations.
-4.  |easy| The `Tree` class implements a variety of other useful
+4.  ☆ The `Tree` class implements a variety of other useful
     methods. See the `Tree` help documentation for more details, i.e.
     import the Tree class and then type `help(Tree)`.
-5.  |easy| In this exercise you will manually construct some
+5.  ☆ In this exercise you will manually construct some
     parse trees.
     a)  Write code to produce two trees, one for each reading of the
         phrase old men and women
@@ -1204,21 +1204,21 @@ Exercises
     c)  As in (a) above, draw a tree
         for The woman saw a man last Thursday.
 
-6.  |easy| Write a recursive function to traverse a tree and return the
+6.  ☆ Write a recursive function to traverse a tree and return the
     depth of the tree, such that a tree with a single node would have
     depth zero. (Hint: the depth of a subtree is the maximum depth of
     its children, plus one.)
-7.  |easy| Analyze the A.A. Milne sentence about Piglet, by underlining
+7.  ☆ Analyze the A.A. Milne sentence about Piglet, by underlining
     all of the sentences it contains then replacing these with `S` (e.g.
     the first sentence becomes `S` \`when\`:lx\` `S`). Draw a tree
     structure for this "compressed" sentence. What are the main
     syntactic constructions used for building such a long sentence?
-8.  |easy| In the recursive descent parser demo, experiment with
+8.  ☆ In the recursive descent parser demo, experiment with
     changing the sentence to be parsed by selecting *Edit Text* in the
     *Edit* menu.
-9.  |easy| Can the grammar in `grammar1` be used to describe sentences
+9.  ☆ Can the grammar in `grammar1` be used to describe sentences
     that are more than 20 words in length?
-10. |easy| Use the graphical chart-parser interface to experiment with
+10. ☆ Use the graphical chart-parser interface to experiment with
     different rule invocation strategies. Come up with your own strategy
     that you can execute manually using the graphical interface.
     Describe the steps, and report any efficiency improvements it
@@ -1226,12 +1226,12 @@ Exercises
     improvements depend on the structure of the grammar? What do you
     think of the prospects for significant performance boosts from
     cleverer rule invocation strategies?
-11. |easy| With pen and paper, manually trace the execution of a
+11. ☆ With pen and paper, manually trace the execution of a
     recursive descent parser and a shift-reduce parser, for a CFG you
     have already seen, or one of your own devising.
-12. |easy| We have seen that a chart parser adds but never removes edges
+12. ☆ We have seen that a chart parser adds but never removes edges
     from a chart. Why?
-13. |easy| Consider the sequence of words:
+13. ☆ Consider the sequence of words:
     Buffalo buffalo Buffalo buffalo buffalo buffalo Buffalo buffalo.
     This is a grammatically correct sentence, as explained at
     `http://en.wikipedia.org/wiki/Buffalo_buffalo_Buffalo_buffalo_buffalo_buffalo_Buffalo_buffalo.`
@@ -1242,17 +1242,17 @@ Exercises
     parse trees grow as the sentence gets longer? (More examples of
     these sentences can be found at
     `http://en.wikipedia.org/wiki/List_of_homophonous_phrases`).
-14. |soso| You can modify the grammar in the recursive descent parser
+14. ☆☆ You can modify the grammar in the recursive descent parser
     demo by selecting *Edit Grammar* in the *Edit* menu. Change the
     second expansion production, namely `NP -> Det N PP`, to
     `NP -> NP PP`. Using the *Step* button, try to build a parse tree.
     What happens?
-15. |soso| Extend the grammar in `grammar2` with productions that expand
+15. ☆☆ Extend the grammar in `grammar2` with productions that expand
     prepositions as intransitive, transitive and requiring a
     `PP` complement. Based on these productions, use the method of the
     preceding exercise to draw a tree for the
     sentence Lee ran away home.
-16. |soso| Pick some common verbs and complete the following tasks:
+16. ☆☆ Pick some common verbs and complete the following tasks:
     a)  Write a program to find those verbs in the Prepositional Phrase
         Attachment Corpus `nltk.corpus.ppattach`. Find any cases where
         the same verb exhibits two different attachments, but where the
@@ -1261,33 +1261,33 @@ Exercises
         in sec-whats-the-use-of-syntax\_).
     b)  Devise CFG grammar productions to cover some of these cases.
 
-17. |soso| Write a program to compare the efficiency of a top-down chart
+17. ☆☆ Write a program to compare the efficiency of a top-down chart
     parser compared with a recursive descent parser (sec-parsing\_). Use
     the same grammar and input sentences for both. Compare their
     performance using the `timeit` module (see sec-algorithm-design\_
     for an example of how to do this).
-18. |soso| Compare the performance of the top-down, bottom-up, and
+18. ☆☆ Compare the performance of the top-down, bottom-up, and
     left-corner parsers using the same grammar and three grammatical
     test sentences. Use `timeit` to log the amount of time each parser
     takes on the same sentence. Write a function that runs all three
     parsers on all three sentences, and prints a 3-by-3 grid of times,
     as well as row and column totals. Discuss your findings.
-19. |soso| Read up on "garden path" sentences. How might the
+19. ☆☆ Read up on "garden path" sentences. How might the
     computational work of a parser relate to the difficulty humans have
     with processing these sentences?
     `http://en.wikipedia.org/wiki/Garden_path_sentence`
-20. |soso| To compare multiple trees in a single window, we can use the
+20. ☆☆ To compare multiple trees in a single window, we can use the
     `draw_trees()` method. Define some trees and try it out:
 
     > &gt;&gt;&gt; from nltk.draw.tree import draw\_trees &gt;&gt;&gt;
     > draw\_trees(tree1, tree2, tree3) \# doctest: +SKIP
 
-21. |soso| Using tree positions, list the subjects of the first 100
+21. ☆☆ Using tree positions, list the subjects of the first 100
     sentences in the Penn treebank; to make the results easier to view,
     limit the extracted subjects to subtrees whose height is 2.
-22. |soso| Inspect the Prepositional Phrase Attachment Corpus and try to
+22. ☆☆ Inspect the Prepositional Phrase Attachment Corpus and try to
     suggest some factors that influence `PP` attachment.
-23. |soso| In this section we claimed that there are linguistic
+23. ☆☆ In this section we claimed that there are linguistic
     regularities that cannot be described simply in terms of n-grams.
     Consider the following sentence, particularly the position of the
     phrase in his turn. Does this illustrate a problem for an approach
@@ -1298,46 +1298,46 @@ Exercises
     > sincere liking to our "discriminated-against" public procurator.
     > (Dostoevsky: The Brothers Karamazov)
 
-24. |soso| Write a recursive function that produces a nested bracketing
+24. ☆☆ Write a recursive function that produces a nested bracketing
     for a tree, leaving out the leaf nodes, and displaying the
     non-terminal labels after their subtrees. So the above example about
     Pierre Vinken would produce:
     `[[[NNP NNP]NP , [ADJP [CD NNS]NP JJ]ADJP ,]NP-SBJ MD [VB [DT NN]NP [IN [DT JJ NN]NP]PP-CLR [NNP CD]NP-TMP]VP .]S`
     Consecutive categories should be separated by space.
-25. |soso| Download several electronic books from Project Gutenberg.
+25. ☆☆ Download several electronic books from Project Gutenberg.
     Write a program to scan these texts for any extremely long
     sentences. What is the longest sentence you can find? What syntactic
     construction(s) are responsible for such long sentences?
-26. |soso| Modify the functions `init_wfst()` and `complete_wfst()` so
-    that the contents of each cell in the |WFST| is a set of
+26. ☆☆ Modify the functions `init_wfst()` and `complete_wfst()` so
+    that the contents of each cell in the WFST is a set of
     non-terminal symbols rather than a single non-terminal.
-27. |soso| Consider the algorithm in code-wfst\_. Can you explain why
+27. ☆☆ Consider the algorithm in code-wfst\_. Can you explain why
     parsing context-free grammar is proportional to ^n^3, where *n* is
     the length of the input sentence.
-28. |soso| Process each tree of the Treebank corpus sample
+28. ☆☆ Process each tree of the Treebank corpus sample
     `nltk.corpus.treebank` and extract the productions with the help of
     `Tree.productions()`. Discard the productions that occur only once.
     Productions with the same left hand side, and similar right hand
     sides can be collapsed, resulting in an equivalent but more compact
     set of rules. Write code to output a compact grammar.
-29. |hard| One common way of defining the subject of a sentence `S` in
+29. ☆☆☆ One common way of defining the subject of a sentence `S` in
     English is as *the noun phrase that is the child of* `S` *and the
     sibling of* `VP`. Write a function that takes the tree for a
     sentence and returns the subtree corresponding to the subject of
     the sentence. What should it do if the root node of the tree passed
     to this function is not `S`, or it lacks a subject?
-30. |hard| Write a function that takes a grammar (such as the one
+30. ☆☆☆ Write a function that takes a grammar (such as the one
     defined in code-cfg1\_) and returns a random sentence generated by
     the grammar. (Use `grammar.start()` to find the start symbol of the
     grammar; `grammar.productions(lhs)` to get the list of productions
     from the grammar that have the specified left-hand side; and
     `production.rhs()` to get the right-hand side of a production.)
-31. |hard| Implement a version of the shift-reduce parser using
+31. ☆☆☆ Implement a version of the shift-reduce parser using
     backtracking, so that it finds all possible parses for a sentence,
     what might be called a "recursive ascent parser." Consult the
     Wikipedia entry for backtracking at
     `http://en.wikipedia.org/wiki/Backtracking`
-32. |hard| As we saw in chap-chunk\_, it is possible to collapse chunks
+32. ☆☆☆ As we saw in chap-chunk\_, it is possible to collapse chunks
     down to their chunk label. When we do this for sentences involving
     the word gave, we find patterns such as the following:
 
@@ -1357,13 +1357,13 @@ Exercises
         verbs be freely substituted for each other, or are their
         constraints? Discuss your findings.
 
-33. |hard| Develop a left-corner parser based on the recursive descent
+33. ☆☆☆ Develop a left-corner parser based on the recursive descent
     parser, and inheriting from `ParseI`.
-34. |hard| Extend NLTK's shift-reduce parser to incorporate
+34. ☆☆☆ Extend NLTK's shift-reduce parser to incorporate
     backtracking, so that it is guaranteed to find all parses that
     exist (i.e. it is complete).
-35. |hard| Modify the functions `init_wfst()` and `complete_wfst()` so
-    that when a non-terminal symbol is added to a cell in the |WFST|, it
+35. ☆☆☆ Modify the functions `init_wfst()` and `complete_wfst()` so
+    that when a non-terminal symbol is added to a cell in the WFST, it
     includes a record of the cells from which it was derived. Implement
-    a function that will convert a |WFST| in this form to a parse tree.
+    a function that will convert a WFST in this form to a parse tree.
 

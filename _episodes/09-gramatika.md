@@ -111,7 +111,7 @@ illustrate their use in a simple grammar.
 Since feature structures are a general data structure for representing
 information of any kind, we will briefly look at them from a more formal
 point of view, and illustrate the support for feature structures offered
-by |NLTK|. In the final part of the chapter, we demonstrate that the
+by NLTK. In the final part of the chapter, we demonstrate that the
 additional expressiveness of features opens up a wide spectrum of
 possibilities for describing sophisticated aspects of linguistic
 structure.
@@ -307,7 +307,7 @@ single one).
 ### Terminology
 
 So far, we have only seen feature values like `sg` and `pl`. These
-simple values are usually called atomic |mdash| that is, they can't be
+simple values are usually called atomic — that is, they can't be
 decomposed into subparts. A special case of atomic values are boolean
 values, that is, values that just specify whether a property is true or
 false. For example, we might want to distinguish auxiliary verbs such as
@@ -327,7 +327,7 @@ interprets them as though `+` and `-` are like any other atomic value.
 
 We have spoken of attaching "feature annotations" to syntactic
 categories. A more radical approach represents the whole category
-|mdash| that is, the non-terminal symbol plus the annotation |mdash| as
+— that is, the non-terminal symbol plus the annotation — as
 a bundle of features. For example, `N[NUM=sg]` contains part of speech
 information which can be represented as `POS=N`. An alternative notation
 for this category therefore is `[POS=N, NUM=sg]`.
@@ -351,7 +351,7 @@ for displaying AVMs;
 example. Athough feature structures rendered in the style of
 [ex-agr0](..%20ex::::) are less visually pleasing, we will stick with
 this format, since it corresponds to the output we will be getting from
-|NLTK|.
+NLTK.
 
 On the topic of representation, we also note that feature structures,
 like dictionaries, assign no particular significance to the *order* of
@@ -372,11 +372,11 @@ Processing Feature Structures
 -----------------------------
 
 In this section, we will show how feature structures can be constructed
-and manipulated in |NLTK|. We will also discuss the fundamental
+and manipulated in NLTK. We will also discuss the fundamental
 operation of unification, which allows us to combine the information
 contained in two different feature structures.
 
-Feature structures in |NLTK| are declared with the `FeatStruct()`
+Feature structures in NLTK are declared with the `FeatStruct()`
 constructor. Atomic feature values can be strings or integers.
 
 > &gt;&gt;&gt; fs1 = nltk.FeatStruct(TENSE='past', NUM='sg')
@@ -483,11 +483,11 @@ information than ex-fs03\_.
 
 This ordering is called subsumption; $FS$
 ~0~ subsumes $FS$~1~ if all the information contained in $FS$
-~0~ is also contained in $FS$~1~. We use the symbol |SquareSubsetEqual|
+~0~ is also contained in $FS$~1~. We use the symbol ⊑
 to represent subsumption.
 
 When we add the possibility of reentrancy, we need to be more careful
-about how we describe subsumption: if $FS$~0~ |SquareSubsetEqual| $FS$
+about how we describe subsumption: if $FS$~0~ ⊑ $FS$
 ~1~, then $FS$~1~ must have all the paths and reentrancies of $FS$~0~.
 Thus,
 [ex-dag02](..%20ex::..%20image::%20../images/dag02.png:scale:%2040)
@@ -516,8 +516,8 @@ and is supported by the `unify()` method.
 > = 'rue Pascal' \]
 
 Unification is formally defined as a (partial) binary operation: $FS$~0~
-|SquareUnion| $FS$~1~. Unification is symmetric, so $FS$~0~
-|SquareUnion| $FS$~1~ = $FS$~1~ |SquareUnion| $FS$~0~. The same is true
+⊔ $FS$~1~. Unification is symmetric, so $FS$~0~
+⊔ $FS$~1~ = $FS$~1~ ⊔ $FS$~0~. The same is true
 in Python:
 
 > &gt;&gt;&gt; print(fs2.unify(fs1)) \[ CITY = 'Paris' \] \[ NUMBER = 74
@@ -533,8 +533,8 @@ For example, the result of unifying ex-fs02\_ with ex-fs03\_ is
 ex-fs03\_.
 
 Unification between $FS$~0~ and $FS$
-~1~ will fail if the two feature structures share a path |pi|, but the
-value of |pi| in $FS$~0~ is a distinct atom from the value of |pi| in
+~1~ will fail if the two feature structures share a path π, but the
+value of π in $FS$~0~ is a distinct atom from the value of π in
 $FS$~1~. This is implemented by setting the result of unification to be
 `None`.
 
@@ -580,8 +580,8 @@ structure-sharing version `fs2` (also shown earlier as the graph
 Rather than just updating what was in effect Kim's "copy" of Lee's
 address, we have now updated both their addresses at the same time. More
 generally, if a unification adds information to the value of some path
-|pi|, then that unification simultaneously updates the value of
-any path that is equivalent to |pi|.
+π, then that unification simultaneously updates the value of
+any path that is equivalent to π.
 
 As we have already seen, structure sharing can also be stated using
 variables such as `?x`.
@@ -673,8 +673,8 @@ book on the table) might be represented as
 [ex-subcathpsg0](..%20ex::::):
 
 This says that the verb can combine with three arguments. The leftmost
-element in the list is the subject `NP`, while everything else |mdash|
-an `NP` followed by a `PP` in this case |mdash| comprises the
+element in the list is the subject `NP`, while everything else —
+an `NP` followed by a `PP` in this case — comprises the
 subcategorized-for complements. When a verb like put is combined with
 appropriate complements, the requirements which are specified in the
 `SUBCAT` are discharged, and only a subject `NP` is needed. This
@@ -698,9 +698,9 @@ generalizations about properties of verbs. Another property of this kind
 is the following: expressions of category `V` are heads of phrases of
 category `VP`. Similarly, `N`s are heads of `NP`s, `A`s (i.e.,
 adjectives) are heads of `AP`s, and `P`s (i.e., prepositions) are heads
-of `PP`s. Not all phrases have heads |mdash| for example, it is standard
+of `PP`s. Not all phrases have heads — for example, it is standard
 to say that coordinate phrases (e.g., the book and the bell) lack heads
-|mdash| nevertheless, we would like our grammar formalism to express the
+— nevertheless, we would like our grammar formalism to express the
 parent / head-child relation where it holds. At present, `V` and `VP`
 are just atomic symbols, and we need to find a way to relate them using
 features (as we did earlier to relate `IV` and `TV`).
@@ -737,8 +737,8 @@ is achieved by two applications of the recursive rule expanding
 
 ### Auxiliary Verbs and Inversion
 
-Inverted clauses |mdash| where the order of subject and verb is switched
-|mdash| occur in English interrogatives and also after 'negative'
+Inverted clauses — where the order of subject and verb is switched
+— occur in English interrogatives and also after 'negative'
 adverbs:
 
 > Do you like children?
@@ -782,7 +782,7 @@ appropriate filler in the sentence, such as the question word who in
 ex-gap3a\_, the preposed topic this music in ex-gap3b\_, or the wh
 phrases which card/slot in [ex-gap4](..%20ex::..%20_ex-gap4a:..%20ex::).
 It is common to say that sentences like
-[ex-gap3](..%20ex::..%20_ex-gap3a:..%20ex::) |ndash|
+[ex-gap3](..%20ex::..%20_ex-gap3a:..%20ex::) –
 [ex-gap4](..%20ex::..%20_ex-gap4a:..%20ex::) contain gaps where the
 obligatory complements have been omitted, and these gaps are sometimes
 made explicit using an underscore:
@@ -1003,8 +1003,8 @@ Summary
     successful, is the feature structure $FS$~2~ that contains the
     combined information of both $FS$~0~ and $FS$
     ~1~.
--   If unification adds information to a path |pi| in $FS$, then it also
-    adds information to every path |pi|' equivalent to |pi|.
+-   If unification adds information to a path π in $FS$, then it also
+    adds information to every path π' equivalent to π.
 -   We can use feature structures to build succinct analyses of a wide
     variety of linguistic phenomena, including verb subcategorization,
     inversion constructions, unbounded dependency constructions and
@@ -1013,7 +1013,7 @@ Summary
 Further Reading
 ---------------
 
-Please consult |NLTK-URL| for further materials on this chapter,
+Please consult [NLTK](https://www.nltk.org/) for further materials on this chapter,
 including feature structures, feature grammars, and grammar test suites.
 
 X-bar Syntax: \[Chomsky1970RN\]\_, \[Jackendoff1977XS\]\_ (The primes we
@@ -1096,28 +1096,28 @@ algorithms.
 Exercises
 ---------
 
-1.  |easy| What constraints are required to correctly parse word
+1.  ☆ What constraints are required to correctly parse word
     sequences like I am
     happy and she is happy but not \*you is happy or \*they am happy?
     Implement two solutions for the present tense paradigm of the verb
     be in English, first taking Grammar [ex-agcfg1](..%20ex::::) as your
     starting point, and then taking Grammar [ex-agr2](..%20ex::::) as
     the starting point.
-2.  |easy| Develop a variant of grammar in code-feat0cfg\_ that uses a
+2.  ☆ Develop a variant of grammar in code-feat0cfg\_ that uses a
     feature count to make the distinctions shown below:
-3.  |easy| Write a function subsumes() which holds of two feature
+3.  ☆ Write a function subsumes() which holds of two feature
     structures `fs1` and `fs2` just in case `fs1` subsumes `fs2`.
-4.  |easy| Modify the grammar illustrated in
+4.  ☆ Modify the grammar illustrated in
     [ex-subcatgpsg](..%20ex::::) to incorporate a bar feature for
     dealing with phrasal projections.
-5.  |easy| Modify the German grammar in code-germancfg\_ to incorporate
+5.  ☆ Modify the German grammar in code-germancfg\_ to incorporate
     the treatment of subcategorization presented
     in sec-extending-a-feature-based-grammar\_.
-6.  |soso| Develop a feature based grammar that will correctly describe
+6.  ☆☆ Develop a feature based grammar that will correctly describe
     the following Spanish noun phrases:
-7.  |soso| Develop your own version of the `EarleyChartParser` which
+7.  ☆☆ Develop your own version of the `EarleyChartParser` which
     only prints a trace if the input sequence fails to parse.
-8.  |soso| Consider the feature structures shown
+8.  ☆☆ Consider the feature structures shown
     in code-featstructures\_.
 
     Work out on paper what the result is of the following unifications.
@@ -1133,17 +1133,17 @@ Exercises
 
     Check your answers using Python.
 
-9.  |soso| List two feature structures that subsume \[A=?x, B=?x\].
-10. |soso| Ignoring structure sharing, give an informal algorithm for
+9.  ☆☆ List two feature structures that subsume \[A=?x, B=?x\].
+10. ☆☆ Ignoring structure sharing, give an informal algorithm for
     unifying two feature structures.
-11. |soso| Extend the German grammar in code-germancfg\_ so that it can
+11. ☆☆ Extend the German grammar in code-germancfg\_ so that it can
     handle so-called verb-second structures like the following:
-12. |soso| Seemingly synonymous verbs have slightly different syntactic
+12. ☆☆ Seemingly synonymous verbs have slightly different syntactic
     properties \[Levin1993\]\_. Consider the patterns of grammaticality
     for the verbs loaded, filled, and dumped below. Can you write
     grammar productions to handle such data?
 
-13. |hard| Morphological paradigms are rarely completely regular, in the
+13. ☆☆☆ Morphological paradigms are rarely completely regular, in the
     sense of every cell in the matrix having a different realization.
     For example, the present tense conjugation of the lexeme walk only
     has two distinct forms: walks for the 3rd person singular, and walk
@@ -1151,26 +1151,26 @@ Exercises
     analysis should not require redundantly specifying that 5 out of the
     6 possible morphological combinations have the same realization.
     Propose and implement a method for dealing with this.
-14. |hard| So-called head features are shared between the parent node
+14. ☆☆☆ So-called head features are shared between the parent node
     and head child. For example, `TENSE` is a head feature that is
     shared between a `VP` and its head `V` child. See
     \[Gazdar1985GPS\]\_ for more details. Most of the features we have
-    looked at are head features |mdash| exceptions are `SUBCAT` and
+    looked at are head features — exceptions are `SUBCAT` and
     `SLASH`. Since the sharing of head features is predictable, it
     should not need to be stated explicitly in the grammar productions.
     Develop an approach that automatically accounts for this regular
     behavior of head features.
-15. |hard| Extend |NLTK|'s treatment of feature structures to allow
+15. ☆☆☆ Extend NLTK's treatment of feature structures to allow
     unification into list-valued features, and use this to implement an
     HPSG-style analysis of subcategorization, whereby the `SUBCAT` of a
     head category is the concatenation its complements' categories with
     the `SUBCAT` value of its immediate parent.
-16. |hard| Extend |NLTK|'s treatment of feature structures to allow
+16. ☆☆☆ Extend NLTK's treatment of feature structures to allow
     productions with underspecified categories, such as
     `S[-INV] --> ?x S/?x`.
-17. |hard| Extend |NLTK|'s treatment of feature structures to allow
+17. ☆☆☆ Extend NLTK's treatment of feature structures to allow
     typed feature structures.
-18. |hard| Pick some grammatical constructions described in
+18. ☆☆☆ Pick some grammatical constructions described in
     \[Huddleston2002CGE\]\_, and develop a feature based grammar to
     account for them.
 
