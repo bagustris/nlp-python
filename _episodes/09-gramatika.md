@@ -50,8 +50,8 @@ features that have been automatically detected, we are now going to
 *declare* the features of words and phrases. We start off with a very
 simple example, using dictionaries to store features and their values.
 
-> &gt;&gt;&gt; kim = {'CAT': 'NP', 'ORTH': 'Kim', 'REF': 'k'}
-> &gt;&gt;&gt; chase = {'CAT': 'V', 'ORTH': 'chased', 'REL': 'chase'}
+> >>> kim = {'CAT': 'NP', 'ORTH': 'Kim', 'REF': 'k'}
+> >>> chase = {'CAT': 'V', 'ORTH': 'chased', 'REL': 'chase'}
 
 The objects `kim` and `chase` both have a couple of shared features,
 `CAT` (grammatical category) and `ORTH` (orthography, i.e., spelling).
@@ -71,7 +71,8 @@ of "agent", while the object has the role of "patient". Let's add this
 information, using `'sbj'` and `'obj'` as placeholders which will get
 filled once the verb combines with its grammatical arguments:
 
-> &gt;&gt;&gt; chase\['AGT'\] = 'sbj' &gt;&gt;&gt; chase\['PAT'\] =
+> >>> chase\['AGT'\] = 'sbj'
+> >>> chase\['PAT'\] =
 > 'obj'
 
 If we now process a sentence Kim chased Lee, we want to "bind" the
@@ -82,21 +83,27 @@ immediately to the left and right of the verb are the subject and object
 respectively. We also add a feature structure for Lee to complete the
 example.
 
-> &gt;&gt;&gt; sent = "Kim chased Lee" &gt;&gt;&gt; tokens =
-> sent.split() &gt;&gt;&gt; lee = {'CAT': 'NP', 'ORTH': 'Lee', 'REF':
-> 'l'} &gt;&gt;&gt; def lex2fs(word): ... for fs in \[kim, lee, chase\]:
-> ... if fs\['ORTH'\] == word: ... return fs &gt;&gt;&gt; subj, verb,
+> >>> sent = "Kim chased Lee"
+> >>> tokens =
+> sent.split()
+> >>> lee = {'CAT': 'NP', 'ORTH': 'Lee', 'REF':
+> 'l'}
+> >>> def lex2fs(word): ... for fs in \[kim, lee, chase\]:
+> ... if fs\['ORTH'\] == word: ... return fs
+> >>> subj, verb,
 > obj = lex2fs(tokens\[0\]), lex2fs(tokens\[1\]), lex2fs(tokens\[2\])
-> &gt;&gt;&gt; verb\['AGT'\] = subj\['REF'\] &gt;&gt;&gt; verb\['PAT'\]
-> = obj\['REF'\] &gt;&gt;&gt; for k in \['ORTH', 'REL', 'AGT', 'PAT'\]:
-> ... print("%-5s =&gt; %s" % (k, verb\[k\])) ORTH =&gt; chased REL
-> =&gt; chase AGT =&gt; k PAT =&gt; l
+> >>> verb\['AGT'\] = subj\['REF'\]
+> >>> verb\['PAT'\]
+> = obj\['REF'\]
+> >>> for k in \['ORTH', 'REL', 'AGT', 'PAT'\]:
+> ... print("%-5s => %s" % (k, verb\[k\])) ORTH => chased REL
+> => chase AGT => k PAT => l
 
 The same approach could be adopted for a different verb, say surprise,
 though in this case, the subject would play the role of "source" (`SRC`)
 and the object, the role of "experiencer" (`EXP`):
 
-> &gt;&gt;&gt; surprise = {'CAT': 'V', 'ORTH': 'surprised', 'REL':
+> >>> surprise = {'CAT': 'V', 'ORTH': 'surprised', 'REL':
 > 'surprise', ... 'SRC': 'sbj', 'EXP': 'obj'}
 
 Feature structures are pretty powerful, but the way in which we have
@@ -111,7 +118,7 @@ illustrate their use in a simple grammar.
 Since feature structures are a general data structure for representing
 information of any kind, we will briefly look at them from a more formal
 point of view, and illustrate the support for feature structures offered
-by |NLTK|. In the final part of the chapter, we demonstrate that the
+by NLTK. In the final part of the chapter, we demonstrate that the
 additional expressiveness of features opens up a wide spectrum of
 possibilities for describing sophisticated aspects of linguistic
 structure.
@@ -151,9 +158,9 @@ Let's see what happens when we encode these agreement constraints in a
 context-free grammar. We will begin with the simple CFG in
 [ex-agcfg0](..%20ex::::).
 
-> S -&gt; NP VP NP -&gt; Det N VP -&gt; V
+> S -> NP VP NP -> Det N VP -> V
 >
-> Det -&gt; 'this' N -&gt; 'dog' V -&gt; 'runs'
+> Det -> 'this' N -> 'dog' V -> 'runs'
 
 Grammar [ex-agcfg0](..%20ex::::) allows us to generate the sentence
 this dog runs; however, what we really want to do is also generate
@@ -162,11 +169,11 @@ run while blocking unwanted sequences like \*this dogs run and
 \*these dog runs. The most straightforward approach is to add new
 non-terminals and productions to the grammar:
 
-> S -&gt; NP\_SG VP\_SG S -&gt; NP\_PL VP\_PL NP\_SG -&gt; Det\_SG N\_SG
-> NP\_PL -&gt; Det\_PL N\_PL VP\_SG -&gt; V\_SG VP\_PL -&gt; V\_PL
+> S -> NP\_SG VP\_SG S -> NP\_PL VP\_PL NP\_SG -> Det\_SG N\_SG
+> NP\_PL -> Det\_PL N\_PL VP\_SG -> V\_SG VP\_PL -> V\_PL
 >
-> Det\_SG -&gt; 'this' Det\_PL -&gt; 'these' N\_SG -&gt; 'dog' N\_PL
-> -&gt; 'dogs' V\_SG -&gt; 'runs' V\_PL -&gt; 'run'
+> Det\_SG -> 'this' Det\_PL -> 'these' N\_SG -> 'dog' N\_PL
+> -> 'dogs' V\_SG -> 'runs' V\_PL -> 'run'
 
 In place of a single production expanding `S`, we now have two
 productions, one covering the sentences involving singular subject `NP`s
@@ -198,18 +205,18 @@ says that the category `N` has a (grammatical) feature called `NUM`
 for 'plural'). We can add similar annotations to other categories, and
 use them in lexical entries:
 
-> Det\[NUM=sg\] -&gt; 'this' Det\[NUM=pl\] -&gt; 'these'
+> Det\[NUM=sg\] -> 'this' Det\[NUM=pl\] -> 'these'
 >
-> N\[NUM=sg\] -&gt; 'dog' N\[NUM=pl\] -&gt; 'dogs' V\[NUM=sg\] -&gt;
-> 'runs' V\[NUM=pl\] -&gt; 'run'
+> N\[NUM=sg\] -> 'dog' N\[NUM=pl\] -> 'dogs' V\[NUM=sg\] ->
+> 'runs' V\[NUM=pl\] -> 'run'
 
 Does this help at all? So far, it looks just like a slightly more
 verbose alternative to what was specified in [ex-agcfg1](..%20ex::::).
 Things become more interesting when we allow *variables* over feature
 values, and use these to state constraints:
 
-> S -&gt; NP\[NUM=?n\] VP\[NUM=?n\] NP\[NUM=?n\] -&gt; Det\[NUM=?n\]
-> N\[NUM=?n\] VP\[NUM=?n\] -&gt; V\[NUM=?n\]
+> S -> NP\[NUM=?n\] VP\[NUM=?n\] NP\[NUM=?n\] -> Det\[NUM=?n\]
+> N\[NUM=?n\] VP\[NUM=?n\] -> V\[NUM=?n\]
 
 We are using `?n` as a variable over values of `NUM`; it can be
 instantiated either to `sg` or `pl`, within a given production. We can
@@ -307,7 +314,7 @@ single one).
 ### Terminology
 
 So far, we have only seen feature values like `sg` and `pl`. These
-simple values are usually called atomic |mdash| that is, they can't be
+simple values are usually called atomic — that is, they can't be
 decomposed into subparts. A special case of atomic values are boolean
 values, that is, values that just specify whether a property is true or
 false. For example, we might want to distinguish auxiliary verbs such as
@@ -320,14 +327,14 @@ respectively. These are just abbreviations, however, and the parser
 interprets them as though `+` and `-` are like any other atomic value.
 [ex-lex](..%20ex::::) shows some representative productions:
 
-> V\[TENSE=pres, +AUX\] -&gt; 'can' V\[TENSE=pres, +AUX\] -&gt; 'may'
+> V\[TENSE=pres, +AUX\] -> 'can' V\[TENSE=pres, +AUX\] -> 'may'
 >
-> V\[TENSE=pres, -AUX\] -&gt; 'walks' V\[TENSE=pres, -AUX\] -&gt;
+> V\[TENSE=pres, -AUX\] -> 'walks' V\[TENSE=pres, -AUX\] ->
 > 'likes'
 
 We have spoken of attaching "feature annotations" to syntactic
 categories. A more radical approach represents the whole category
-|mdash| that is, the non-terminal symbol plus the annotation |mdash| as
+— that is, the non-terminal symbol plus the annotation — as
 a bundle of features. For example, `N[NUM=sg]` contains part of speech
 information which can be represented as `POS=N`. An alternative notation
 for this category therefore is `[POS=N, NUM=sg]`.
@@ -351,7 +358,7 @@ for displaying AVMs;
 example. Athough feature structures rendered in the style of
 [ex-agr0](..%20ex::::) are less visually pleasing, we will stick with
 this format, since it corresponds to the output we will be getting from
-|NLTK|.
+NLTK.
 
 On the topic of representation, we also note that feature structures,
 like dictionaries, assign no particular significance to the *order* of
@@ -362,49 +369,52 @@ refactor a grammar like code-feat0cfg\_ so that agreement features are
 bundled together. A tiny grammar illustrating this idea is shown in
 [ex-agr2](..%20ex::::).
 
-> S -&gt; NP\[AGR=?n\] VP\[AGR=?n\] NP\[AGR=?n\] -&gt; PropN\[AGR=?n\]
-> VP\[TENSE=?t, AGR=?n\] -&gt; Cop\[TENSE=?t, AGR=?n\] Adj
+> S -> NP\[AGR=?n\] VP\[AGR=?n\] NP\[AGR=?n\] -> PropN\[AGR=?n\]
+> VP\[TENSE=?t, AGR=?n\] -> Cop\[TENSE=?t, AGR=?n\] Adj
 >
-> Cop\[TENSE=pres, AGR=\[NUM=sg, PER=3\]\] -&gt; 'is'
-> PropN\[AGR=\[NUM=sg, PER=3\]\] -&gt; 'Kim' Adj -&gt; 'happy'
+> Cop\[TENSE=pres, AGR=\[NUM=sg, PER=3\]\] -> 'is'
+> PropN\[AGR=\[NUM=sg, PER=3\]\] -> 'Kim' Adj -> 'happy'
 
 Processing Feature Structures
 -----------------------------
 
 In this section, we will show how feature structures can be constructed
-and manipulated in |NLTK|. We will also discuss the fundamental
+and manipulated in NLTK. We will also discuss the fundamental
 operation of unification, which allows us to combine the information
 contained in two different feature structures.
 
-Feature structures in |NLTK| are declared with the `FeatStruct()`
+Feature structures in NLTK are declared with the `FeatStruct()`
 constructor. Atomic feature values can be strings or integers.
 
-> &gt;&gt;&gt; fs1 = nltk.FeatStruct(TENSE='past', NUM='sg')
-> &gt;&gt;&gt; print(fs1) \[ NUM = 'sg' \] \[ TENSE = 'past' \]
+> >>> fs1 = nltk.FeatStruct(TENSE='past', NUM='sg')
+> >>> print(fs1) \[ NUM = 'sg' \] \[ TENSE = 'past' \]
 
 A feature structure is actually just a kind of dictionary, and so we
 access its values by indexing in the usual way. We can use our familiar
 syntax to *assign* values to features:
 
-> &gt;&gt;&gt; fs1 = nltk.FeatStruct(PER=3, NUM='pl', GND='fem')
-> &gt;&gt;&gt; print(fs1\['GND'\]) fem &gt;&gt;&gt; fs1\['CASE'\] =
+> >>> fs1 = nltk.FeatStruct(PER=3, NUM='pl', GND='fem')
+> >>> print(fs1\['GND'\]) fem
+> >>> fs1\['CASE'\] =
 > 'acc'
 
 We can also define feature structures that have complex values, as
 discussed earlier.
 
-> &gt;&gt;&gt; fs2 = nltk.FeatStruct(POS='N', AGR=fs1) &gt;&gt;&gt;
+> >>> fs2 = nltk.FeatStruct(POS='N', AGR=fs1)
+> >>>
 > print(fs2) \[ \[ CASE = 'acc' \] \] \[ AGR = \[ GND = 'fem' \] \] \[
 > \[ NUM = 'pl' \] \] \[ \[ PER = 3 \] \] \[ \] \[ POS = 'N' \]
-> &gt;&gt;&gt; print(fs2\['AGR'\]) \[ CASE = 'acc' \] \[ GND = 'fem' \]
-> \[ NUM = 'pl' \] \[ PER = 3 \] &gt;&gt;&gt;
+> >>> print(fs2\['AGR'\]) \[ CASE = 'acc' \] \[ GND = 'fem' \]
+> \[ NUM = 'pl' \] \[ PER = 3 \]
+> >>>
 > print(fs2\['AGR'\]\['PER'\]) 3
 
 An alternative method of specifying feature structures is to use a
 bracketed string consisting of feature-value pairs in the format
 `feature=value`, where values may themselves be feature structures:
 
-> &gt;&gt;&gt; print(nltk.FeatStruct("\[POS='N', AGR=\[PER=3, NUM='pl',
+> >>> print(nltk.FeatStruct("\[POS='N', AGR=\[PER=3, NUM='pl',
 > GND='fem'\]\]")) \[ \[ GND = 'fem' \] \] \[ AGR = \[ NUM = 'pl' \] \]
 > \[ \[ PER = 3 \] \] \[ \] \[ POS = 'N' \]
 
@@ -412,7 +422,7 @@ Feature structures are not inherently tied to linguistic objects; they
 are general purpose structures for representing knowledge. For example,
 we could encode information about a person in a feature structure:
 
-> &gt;&gt;&gt; print(nltk.FeatStruct(NAME='Lee', TELNO='01 27 86 42 96',
+> >>> print(nltk.FeatStruct(NAME='Lee', TELNO='01 27 86 42 96',
 > AGE=33)) \[ AGE = 33 \] \[ NAME = 'Lee' \] \[ TELNO = '01 27 86 42 96'
 > \]
 
@@ -458,20 +468,20 @@ will prefix the first occurrence of a shared feature structure with an
 integer in parentheses, such as `(1)`. Any later reference to that
 structure will use the notation `->(1)`, as shown below.
 
-> &gt;&gt;&gt; print(nltk.FeatStruct("""\[NAME='Lee',
+> >>> print(nltk.FeatStruct("""\[NAME='Lee',
 > ADDRESS=(1)\[NUMBER=74, STREET='rue Pascal'\], ...
-> SPOUSE=\[NAME='Kim', ADDRESS-&gt;(1)\]\]""")) \[ ADDRESS = (1) \[
+> SPOUSE=\[NAME='Kim', ADDRESS->(1)\]\]""")) \[ ADDRESS = (1) \[
 > NUMBER = 74 \] \] \[ \[ STREET = 'rue Pascal' \] \] \[ \] \[ NAME =
-> 'Lee' \] \[ \] \[ SPOUSE = \[ ADDRESS -&gt; (1) \] \] \[ \[ NAME =
+> 'Lee' \] \[ \] \[ SPOUSE = \[ ADDRESS -> (1) \] \] \[ \[ NAME =
 > 'Kim' \] \]
 
 The bracketed integer is sometimes called a tag or a coindex. The choice
 of integer is not significant. There can be any number of tags within a
 single feature structure.
 
-> &gt;&gt;&gt; print(nltk.FeatStruct("\[A='a', B=(1)\[C='c'\],
-> D-&gt;(1), E-&gt;(1)\]")) \[ A = 'a' \] \[ \] \[ B = (1) \[ C = 'c' \]
-> \] \[ \] \[ D -&gt; (1) \] \[ E -&gt; (1) \]
+> >>> print(nltk.FeatStruct("\[A='a', B=(1)\[C='c'\],
+> D->(1), E->(1)\]")) \[ A = 'a' \] \[ \] \[ B = (1) \[ C = 'c' \]
+> \] \[ \] \[ D -> (1) \] \[ E -> (1) \]
 
 ### Subsumption and Unification
 
@@ -483,11 +493,11 @@ information than ex-fs03\_.
 
 This ordering is called subsumption; $FS$
 ~0~ subsumes $FS$~1~ if all the information contained in $FS$
-~0~ is also contained in $FS$~1~. We use the symbol |SquareSubsetEqual|
+~0~ is also contained in $FS$~1~. We use the symbol ⊑
 to represent subsumption.
 
 When we add the possibility of reentrancy, we need to be more careful
-about how we describe subsumption: if $FS$~0~ |SquareSubsetEqual| $FS$
+about how we describe subsumption: if $FS$~0~ ⊑ $FS$
 ~1~, then $FS$~1~ must have all the paths and reentrancies of $FS$~0~.
 Thus,
 [ex-dag02](..%20ex::..%20image::%20../images/dag02.png:scale:%2040)
@@ -510,17 +520,18 @@ ex-dag043\_.
 Merging information from two feature structures is called unification
 and is supported by the `unify()` method.
 
-> &gt;&gt;&gt; fs1 = nltk.FeatStruct(NUMBER=74, STREET='rue Pascal')
-> &gt;&gt;&gt; fs2 = nltk.FeatStruct(CITY='Paris') &gt;&gt;&gt;
+> >>> fs1 = nltk.FeatStruct(NUMBER=74, STREET='rue Pascal')
+> >>> fs2 = nltk.FeatStruct(CITY='Paris')
+> >>>
 > print(fs1.unify(fs2)) \[ CITY = 'Paris' \] \[ NUMBER = 74 \] \[ STREET
 > = 'rue Pascal' \]
 
 Unification is formally defined as a (partial) binary operation: $FS$~0~
-|SquareUnion| $FS$~1~. Unification is symmetric, so $FS$~0~
-|SquareUnion| $FS$~1~ = $FS$~1~ |SquareUnion| $FS$~0~. The same is true
+⊔ $FS$~1~. Unification is symmetric, so $FS$~0~
+⊔ $FS$~1~ = $FS$~1~ ⊔ $FS$~0~. The same is true
 in Python:
 
-> &gt;&gt;&gt; print(fs2.unify(fs1)) \[ CITY = 'Paris' \] \[ NUMBER = 74
+> >>> print(fs2.unify(fs1)) \[ CITY = 'Paris' \] \[ NUMBER = 74
 > \] \[ STREET = 'rue Pascal' \]
 
 > only works with repr()
@@ -533,13 +544,16 @@ For example, the result of unifying ex-fs02\_ with ex-fs03\_ is
 ex-fs03\_.
 
 Unification between $FS$~0~ and $FS$
-~1~ will fail if the two feature structures share a path |pi|, but the
-value of |pi| in $FS$~0~ is a distinct atom from the value of |pi| in
+~1~ will fail if the two feature structures share a path π, but the
+value of π in $FS$~0~ is a distinct atom from the value of π in
 $FS$~1~. This is implemented by setting the result of unification to be
 `None`.
 
-> &gt;&gt;&gt; fs0 = nltk.FeatStruct(A='a') &gt;&gt;&gt; fs1 =
-> nltk.FeatStruct(A='b') &gt;&gt;&gt; fs2 = fs0.unify(fs1) &gt;&gt;&gt;
+> >>> fs0 = nltk.FeatStruct(A='a')
+> >>> fs1 =
+> nltk.FeatStruct(A='b')
+> >>> fs2 = fs0.unify(fs1)
+> >>>
 > print(fs2) None
 
 Now, if we look at how unification interacts with structure-sharing,
@@ -547,10 +561,10 @@ things become really interesting. First, let's define
 [ex-dag04](..%20ex::..%20image::%20../images/dag04.png:scale:%2040) in
 Python:
 
-> &gt;&gt;&gt; fs0 = nltk.FeatStruct("""\[NAME=Lee, ...
+> >>> fs0 = nltk.FeatStruct("""\[NAME=Lee, ...
 > ADDRESS=\[NUMBER=74, ... STREET='rue Pascal'\], ... SPOUSE=
 > \[NAME=Kim, ... ADDRESS=\[NUMBER=74, ... STREET='rue Pascal'\]\]\]""")
-> &gt;&gt;&gt; print(fs0) \[ ADDRESS = \[ NUMBER = 74 \] \] \[ \[ STREET
+> >>> print(fs0) \[ ADDRESS = \[ NUMBER = 74 \] \] \[ \[ STREET
 > = 'rue Pascal' \] \] \[ \] \[ NAME = 'Lee' \] \[ \] \[ \[ ADDRESS = \[
 > NUMBER = 74 \] \] \] \[ SPOUSE = \[ \[ STREET = 'rue Pascal' \] \] \]
 > \[ \[ \] \] \[ \[ NAME = 'Kim' \] \]
@@ -559,8 +573,9 @@ What happens when we augment Kim's address with a specification for
 `CITY`? Notice that `fs1` needs to include the whole path from the root
 of the feature structure down to `CITY`.
 
-> &gt;&gt;&gt; fs1 = nltk.FeatStruct("\[SPOUSE = \[ADDRESS = \[CITY =
-> Paris\]\]\]") &gt;&gt;&gt; print(fs1.unify(fs0)) \[ ADDRESS = \[
+> >>> fs1 = nltk.FeatStruct("\[SPOUSE = \[ADDRESS = \[CITY =
+> Paris\]\]\]")
+> >>> print(fs1.unify(fs0)) \[ ADDRESS = \[
 > NUMBER = 74 \] \] \[ \[ STREET = 'rue Pascal' \] \] \[ \] \[ NAME =
 > 'Lee' \] \[ \] \[ \[ \[ CITY = 'Paris' \] \] \] \[ \[ ADDRESS = \[
 > NUMBER = 74 \] \] \] \[ SPOUSE = \[ \[ STREET = 'rue Pascal' \] \] \]
@@ -570,28 +585,32 @@ By contrast, the result is very different if `fs1` is unified with the
 structure-sharing version `fs2` (also shown earlier as the graph
 [ex-dag03](..%20ex::..%20image::%20../images/dag03.png:scale:%2040)):
 
-> &gt;&gt;&gt; fs2 = nltk.FeatStruct("""\[NAME=Lee,
+> >>> fs2 = nltk.FeatStruct("""\[NAME=Lee,
 > ADDRESS=(1)\[NUMBER=74, STREET='rue Pascal'\], ... SPOUSE=\[NAME=Kim,
-> ADDRESS-&gt;(1)\]\]""") &gt;&gt;&gt; print(fs1.unify(fs2)) \[ \[ CITY
+> ADDRESS->(1)\]\]""")
+> >>> print(fs1.unify(fs2)) \[ \[ CITY
 > = 'Paris' \] \] \[ ADDRESS = (1) \[ NUMBER = 74 \] \] \[ \[ STREET =
 > 'rue Pascal' \] \] \[ \] \[ NAME = 'Lee' \] \[ \] \[ SPOUSE = \[
-> ADDRESS -&gt; (1) \] \] \[ \[ NAME = 'Kim' \] \]
+> ADDRESS -> (1) \] \] \[ \[ NAME = 'Kim' \] \]
 
 Rather than just updating what was in effect Kim's "copy" of Lee's
 address, we have now updated both their addresses at the same time. More
 generally, if a unification adds information to the value of some path
-|pi|, then that unification simultaneously updates the value of
-any path that is equivalent to |pi|.
+π, then that unification simultaneously updates the value of
+any path that is equivalent to π.
 
 As we have already seen, structure sharing can also be stated using
 variables such as `?x`.
 
-> &gt;&gt;&gt; fs1 = nltk.FeatStruct("\[ADDRESS1=\[NUMBER=74,
-> STREET='rue Pascal'\]\]") &gt;&gt;&gt; fs2 =
-> nltk.FeatStruct("\[ADDRESS1=?x, ADDRESS2=?x\]") &gt;&gt;&gt;
-> print(fs2) \[ ADDRESS1 = ?x \] \[ ADDRESS2 = ?x \] &gt;&gt;&gt;
+> >>> fs1 = nltk.FeatStruct("\[ADDRESS1=\[NUMBER=74,
+> STREET='rue Pascal'\]\]")
+> >>> fs2 =
+> nltk.FeatStruct("\[ADDRESS1=?x, ADDRESS2=?x\]")
+> >>>
+> print(fs2) \[ ADDRESS1 = ?x \] \[ ADDRESS2 = ?x \]
+> >>>
 > print(fs2.unify(fs1)) \[ ADDRESS1 = (1) \[ NUMBER = 74 \] \] \[ \[
-> STREET = 'rue Pascal' \] \] \[ \] \[ ADDRESS2 -&gt; (1) \]
+> STREET = 'rue Pascal' \] \] \[ \] \[ ADDRESS2 -> (1) \]
 
 Extending a Feature based Grammar
 ---------------------------------
@@ -607,7 +626,7 @@ kinds of verb, and used the labels `IV` and `TV` for intransitive and
 transitive verbs respectively. This allowed us to write productions like
 the following:
 
-> VP -&gt; IV VP -&gt; TV NP
+> VP -> IV VP -> TV NP
 
 Although we know that `IV` and `TV` are two kinds of `V`, they are just
 atomic nonterminal symbols from a CFG, as distinct from each other as
@@ -626,21 +645,21 @@ subcategorization class the item belongs to. While GPSG used integer
 values for `SUBCAT`, the example below adopts more mnemonic values,
 namely `intrans`, `trans` and `clause`:
 
-> VP\[TENSE=?t, NUM=?n\] -&gt; V\[SUBCAT=intrans, TENSE=?t, NUM=?n\]
-> VP\[TENSE=?t, NUM=?n\] -&gt; V\[SUBCAT=trans, TENSE=?t, NUM=?n\] NP
-> VP\[TENSE=?t, NUM=?n\] -&gt; V\[SUBCAT=clause, TENSE=?t, NUM=?n\] SBar
+> VP\[TENSE=?t, NUM=?n\] -> V\[SUBCAT=intrans, TENSE=?t, NUM=?n\]
+> VP\[TENSE=?t, NUM=?n\] -> V\[SUBCAT=trans, TENSE=?t, NUM=?n\] NP
+> VP\[TENSE=?t, NUM=?n\] -> V\[SUBCAT=clause, TENSE=?t, NUM=?n\] SBar
 >
-> V\[SUBCAT=intrans, TENSE=pres, NUM=sg\] -&gt; 'disappears' | 'walks'
-> V\[SUBCAT=trans, TENSE=pres, NUM=sg\] -&gt; 'sees' | 'likes'
-> V\[SUBCAT=clause, TENSE=pres, NUM=sg\] -&gt; 'says' | 'claims'
+> V\[SUBCAT=intrans, TENSE=pres, NUM=sg\] -> 'disappears' | 'walks'
+> V\[SUBCAT=trans, TENSE=pres, NUM=sg\] -> 'sees' | 'likes'
+> V\[SUBCAT=clause, TENSE=pres, NUM=sg\] -> 'says' | 'claims'
 >
-> V\[SUBCAT=intrans, TENSE=pres, NUM=pl\] -&gt; 'disappear' | 'walk'
-> V\[SUBCAT=trans, TENSE=pres, NUM=pl\] -&gt; 'see' | 'like'
-> V\[SUBCAT=clause, TENSE=pres, NUM=pl\] -&gt; 'say' | 'claim'
+> V\[SUBCAT=intrans, TENSE=pres, NUM=pl\] -> 'disappear' | 'walk'
+> V\[SUBCAT=trans, TENSE=pres, NUM=pl\] -> 'see' | 'like'
+> V\[SUBCAT=clause, TENSE=pres, NUM=pl\] -> 'say' | 'claim'
 >
-> V\[SUBCAT=intrans, TENSE=past, NUM=?n\] -&gt; 'disappeared' | 'walked'
-> V\[SUBCAT=trans, TENSE=past, NUM=?n\] -&gt; 'saw' | 'liked'
-> V\[SUBCAT=clause, TENSE=past, NUM=?n\] -&gt; 'said' | 'claimed'
+> V\[SUBCAT=intrans, TENSE=past, NUM=?n\] -> 'disappeared' | 'walked'
+> V\[SUBCAT=trans, TENSE=past, NUM=?n\] -> 'saw' | 'liked'
+> V\[SUBCAT=clause, TENSE=past, NUM=?n\] -> 'said' | 'claimed'
 
 When we see a lexical category like `V[SUBCAT=trans]`, we can interpret
 the `SUBCAT` specification as a pointer to a production in which
@@ -658,7 +677,7 @@ This is a label for subordinate clauses such as the complement of claim
 in the example You claim that you like
 children. We require two further productions to analyze such sentences:
 
-> SBar -&gt; Comp S Comp -&gt; 'that'
+> SBar -> Comp S Comp -> 'that'
 
 The resulting structure is the following.
 
@@ -673,15 +692,15 @@ book on the table) might be represented as
 [ex-subcathpsg0](..%20ex::::):
 
 This says that the verb can combine with three arguments. The leftmost
-element in the list is the subject `NP`, while everything else |mdash|
-an `NP` followed by a `PP` in this case |mdash| comprises the
+element in the list is the subject `NP`, while everything else —
+an `NP` followed by a `PP` in this case — comprises the
 subcategorized-for complements. When a verb like put is combined with
 appropriate complements, the requirements which are specified in the
 `SUBCAT` are discharged, and only a subject `NP` is needed. This
 category, which corresponds to what is traditionally thought of as `VP`,
 might be represented as follows.
 
-> V\[SUBCAT=&lt;NP&gt;\]
+> V\[SUBCAT=<NP>\]
 
 Finally, a sentence is a kind of verbal category that has no
 requirements for further arguments, and hence has a `SUBCAT` whose value
@@ -698,9 +717,9 @@ generalizations about properties of verbs. Another property of this kind
 is the following: expressions of category `V` are heads of phrases of
 category `VP`. Similarly, `N`s are heads of `NP`s, `A`s (i.e.,
 adjectives) are heads of `AP`s, and `P`s (i.e., prepositions) are heads
-of `PP`s. Not all phrases have heads |mdash| for example, it is standard
+of `PP`s. Not all phrases have heads — for example, it is standard
 to say that coordinate phrases (e.g., the book and the bell) lack heads
-|mdash| nevertheless, we would like our grammar formalism to express the
+— nevertheless, we would like our grammar formalism to express the
 parent / head-child relation where it holds. At present, `V` and `VP`
 are just atomic symbols, and we need to find a way to relate them using
 features (as we did earlier to relate `IV` and `TV`).
@@ -731,14 +750,14 @@ be encoded using feature structures. The nested structure in
 is achieved by two applications of the recursive rule expanding
 `N[BAR=1]`.
 
-> S -&gt; N\[BAR=2\] V\[BAR=2\] N\[BAR=2\] -&gt; Det N\[BAR=1\]
-> N\[BAR=1\] -&gt; N\[BAR=1\] P\[BAR=2\] N\[BAR=1\] -&gt; N\[BAR=0\]
-> P\[BAR=2\] N\[BAR=1\] -&gt; N\[BAR=0\]XS
+> S -> N\[BAR=2\] V\[BAR=2\] N\[BAR=2\] -> Det N\[BAR=1\]
+> N\[BAR=1\] -> N\[BAR=1\] P\[BAR=2\] N\[BAR=1\] -> N\[BAR=0\]
+> P\[BAR=2\] N\[BAR=1\] -> N\[BAR=0\]XS
 
 ### Auxiliary Verbs and Inversion
 
-Inverted clauses |mdash| where the order of subject and verb is switched
-|mdash| occur in English interrogatives and also after 'negative'
+Inverted clauses — where the order of subject and verb is switched
+— occur in English interrogatives and also after 'negative'
 adverbs:
 
 > Do you like children?
@@ -752,7 +771,7 @@ class known as auxiliaries, and as well as do, can and have include be,
 will and shall. One way of capturing such structures is with the
 following production:
 
-> S\[+INV\] -&gt; V\[+AUX\] NP VP
+> S\[+INV\] -> V\[+AUX\] NP VP
 
 That is, a clause marked as \[+INV\] consists of an auxiliary verb
 followed by a `VP`. (In a more detailed grammar, we would need to place
@@ -782,7 +801,7 @@ appropriate filler in the sentence, such as the question word who in
 ex-gap3a\_, the preposed topic this music in ex-gap3b\_, or the wh
 phrases which card/slot in [ex-gap4](..%20ex::..%20_ex-gap4a:..%20ex::).
 It is common to say that sentences like
-[ex-gap3](..%20ex::..%20_ex-gap3a:..%20ex::) |ndash|
+[ex-gap3](..%20ex::..%20_ex-gap3a:..%20ex::) –
 [ex-gap4](..%20ex::..%20_ex-gap4a:..%20ex::) contain gaps where the
 obligatory complements have been omitted, and these gaps are sometimes
 made explicit using an underscore:
@@ -841,23 +860,23 @@ slash categories, and also includes productions for inverted clauses. To
 simplify presentation, we have omitted any specification of tense on the
 verbs.
 
-> &gt;&gt;&gt; nltk.data.show\_cfg('grammars/book\_grammars/feat1.fcfg')
+> >>> nltk.data.show\_cfg('grammars/book\_grammars/feat1.fcfg')
 > % start S \# \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# \# Grammar
-> Productions \# \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# S\[-INV\] -&gt;
-> NP VP S\[-INV\]/?x -&gt; NP VP/?x S\[-INV\] -&gt; NP S/NP S\[-INV\]
-> -&gt; Adv\[+NEG\] S\[+INV\] S\[+INV\] -&gt; V\[+AUX\] NP VP
-> S\[+INV\]/?x -&gt; V\[+AUX\] NP VP/?x SBar -&gt; Comp S\[-INV\]
-> SBar/?x -&gt; Comp S\[-INV\]/?x VP -&gt; V\[SUBCAT=intrans, -AUX\] VP
-> -&gt; V\[SUBCAT=trans, -AUX\] NP VP/?x -&gt; V\[SUBCAT=trans, -AUX\]
-> NP/?x VP -&gt; V\[SUBCAT=clause, -AUX\] SBar VP/?x -&gt;
-> V\[SUBCAT=clause, -AUX\] SBar/?x VP -&gt; V\[+AUX\] VP VP/?x -&gt;
+> Productions \# \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# S\[-INV\] ->
+> NP VP S\[-INV\]/?x -> NP VP/?x S\[-INV\] -> NP S/NP S\[-INV\]
+> -> Adv\[+NEG\] S\[+INV\] S\[+INV\] -> V\[+AUX\] NP VP
+> S\[+INV\]/?x -> V\[+AUX\] NP VP/?x SBar -> Comp S\[-INV\]
+> SBar/?x -> Comp S\[-INV\]/?x VP -> V\[SUBCAT=intrans, -AUX\] VP
+> -> V\[SUBCAT=trans, -AUX\] NP VP/?x -> V\[SUBCAT=trans, -AUX\]
+> NP/?x VP -> V\[SUBCAT=clause, -AUX\] SBar VP/?x ->
+> V\[SUBCAT=clause, -AUX\] SBar/?x VP -> V\[+AUX\] VP VP/?x ->
 > V\[+AUX\] VP/?x \# \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# \# Lexical
 > Productions \# \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
-> V\[SUBCAT=intrans, -AUX\] -&gt; 'walk' | 'sing' V\[SUBCAT=trans,
-> -AUX\] -&gt; 'see' | 'like' V\[SUBCAT=clause, -AUX\] -&gt; 'say' |
-> 'claim' V\[+AUX\] -&gt; 'do' | 'can' NP\[-WH\] -&gt; 'you' | 'cats'
-> NP\[+WH\] -&gt; 'who' Adv\[+NEG\] -&gt; 'rarely' | 'never' NP/NP -&gt;
-> Comp -&gt; 'that'
+> V\[SUBCAT=intrans, -AUX\] -> 'walk' | 'sing' V\[SUBCAT=trans,
+> -AUX\] -> 'see' | 'like' V\[SUBCAT=clause, -AUX\] -> 'say' |
+> 'claim' V\[+AUX\] -> 'do' | 'can' NP\[-WH\] -> 'you' | 'cats'
+> NP\[+WH\] -> 'who' Adv\[+NEG\] -> 'rarely' | 'never' NP/NP ->
+> Comp -> 'that'
 
 The grammar in code-slashcfg\_ contains one "gap-introduction"
 production, namely `S[-INV] -> NP S/NP`. In order to percolate the slash
@@ -871,9 +890,11 @@ discharged as the empty string. Using code-slashcfg\_, we can parse the
 sequence who do you claim that you
 like
 
-> &gt;&gt;&gt; tokens = 'who do you claim that you like'.split()
-> &gt;&gt;&gt; from nltk import load\_parser &gt;&gt;&gt; cp =
-> load\_parser('grammars/book\_grammars/feat1.fcfg') &gt;&gt;&gt; for
+> >>> tokens = 'who do you claim that you like'.split()
+> >>> from nltk import load\_parser
+> >>> cp =
+> load\_parser('grammars/book\_grammars/feat1.fcfg')
+> >>> for
 > tree in cp.parse(tokens): ... print(tree) (S\[-INV\] (NP\[+WH\] who)
 > (S\[+INV\]/NP\[\] (V\[+AUX\] do) (NP\[-WH\] you) (VP\[\]/NP\[\]
 > (V\[-AUX, SUBCAT='clause'\] claim) (SBar\[\]/NP\[\] (Comp\[\] that)
@@ -886,8 +907,8 @@ A more readable version of this tree is shown in
 The grammar in code-slashcfg\_ will also allow us to parse sentences
 without gaps:
 
-> &gt;&gt;&gt; tokens = 'you claim that you like cats'.split()
-> &gt;&gt;&gt; for tree in cp.parse(tokens): ... print(tree) (S\[-INV\]
+> >>> tokens = 'you claim that you like cats'.split()
+> >>> for tree in cp.parse(tokens): ... print(tree) (S\[-INV\]
 > (NP\[-WH\] you) (VP\[\] (V\[-AUX, SUBCAT='clause'\] claim) (SBar\[\]
 > (Comp\[\] that) (S\[-INV\] (NP\[-WH\] you) (VP\[\] (V\[-AUX,
 > SUBCAT='trans'\] like) (NP\[-WH\] cats))))))
@@ -895,7 +916,8 @@ without gaps:
 In addition, it admits inverted sentences which do not involve wh
 constructions:
 
-> &gt;&gt;&gt; tokens = 'rarely do you sing'.split() &gt;&gt;&gt; for
+> >>> tokens = 'rarely do you sing'.split()
+> >>> for
 > tree in cp.parse(tokens): ... print(tree) (S\[-INV\] (Adv\[+NEG\]
 > rarely) (S\[+INV\] (V\[+AUX\] do) (NP\[-WH\] you) (VP\[\] (V\[-AUX,
 > SUBCAT='intrans'\] sing))))
@@ -917,8 +939,10 @@ As you can see, the feature objcase is used to specify the case that a
 verb governs on its object. The next example illustrates the parse tree
 for a sentence containing a verb which governs dative case.
 
-> &gt;&gt;&gt; tokens = 'ich folge den Katzen'.split() &gt;&gt;&gt; cp =
-> load\_parser('grammars/book\_grammars/german.fcfg') &gt;&gt;&gt; for
+> >>> tokens = 'ich folge den Katzen'.split()
+> >>> cp =
+> load\_parser('grammars/book\_grammars/german.fcfg')
+> >>> for
 > tree in cp.parse(tokens): ... print(tree) (S\[\] (NP\[AGR=\[NUM='sg',
 > PER=1\], CASE='nom'\] (PRO\[AGR=\[NUM='sg', PER=1\], CASE='nom'\]
 > ich)) (VP\[AGR=\[NUM='sg', PER=1\]\] (TV\[AGR=\[NUM='sg', PER=1\],
@@ -932,33 +956,34 @@ where and why a sequence fails to parse, setting the `trace` parameter
 of the `load_parser()` method can be crucial. Consider the following
 parse failure:
 
-> &gt;&gt;&gt; tokens = 'ich folge den Katze'.split() &gt;&gt;&gt; cp =
+> >>> tokens = 'ich folge den Katze'.split()
+> >>> cp =
 > load\_parser('grammars/book\_grammars/german.fcfg', trace=2)
-> &gt;&gt;&gt; for tree in cp.parse(tokens): ... print(tree)
+> >>> for tree in cp.parse(tokens): ... print(tree)
 > |.ich.fol.den.Kat.| Leaf Init Rule: |\[---\] . . .| \[0:1\] 'ich' |.
 > \[---\] . .| \[1:2\] 'folge' |. . \[---\] .| \[2:3\] 'den' |. . .
 > \[---\]| \[3:4\] 'Katze' Feature Bottom Up Predict Combine Rule:
 > |\[---\] . . .| \[0:1\] PRO\[AGR=\[NUM='sg', PER=1\], CASE='nom'\]
-> -&gt; 'ich' \* Feature Bottom Up Predict Combine Rule: |\[---\] . . .|
-> \[0:1\] NP\[AGR=\[NUM='sg', PER=1\], CASE='nom'\] -&gt;
+> -> 'ich' \* Feature Bottom Up Predict Combine Rule: |\[---\] . . .|
+> \[0:1\] NP\[AGR=\[NUM='sg', PER=1\], CASE='nom'\] ->
 > PRO\[AGR=\[NUM='sg', PER=1\], CASE='nom'\] \* Feature Bottom Up
-> Predict Combine Rule: |\[---&gt; . . .| \[0:1\] S\[\] -&gt;
+> Predict Combine Rule: |\[---> . . .| \[0:1\] S\[\] ->
 > NP\[AGR=?a, CASE='nom'\] \* VP\[AGR=?a\] {?a: \[NUM='sg', PER=1\]}
 > Feature Bottom Up Predict Combine Rule: |. \[---\] . .| \[1:2\]
-> TV\[AGR=\[NUM='sg', PER=1\], OBJCASE='dat'\] -&gt; 'folge' \* Feature
-> Bottom Up Predict Combine Rule: |. \[---&gt; . .| \[1:2\] VP\[AGR=?a\]
-> -&gt; TV\[AGR=?a, OBJCASE=?c\] \* NP\[CASE=?c\] {?a: \[NUM='sg',
+> TV\[AGR=\[NUM='sg', PER=1\], OBJCASE='dat'\] -> 'folge' \* Feature
+> Bottom Up Predict Combine Rule: |. \[---> . .| \[1:2\] VP\[AGR=?a\]
+> -> TV\[AGR=?a, OBJCASE=?c\] \* NP\[CASE=?c\] {?a: \[NUM='sg',
 > PER=1\], ?c: 'dat'} Feature Bottom Up Predict Combine Rule: |. .
 > \[---\] .| \[2:3\] Det\[AGR=\[GND='masc', NUM='sg', PER=3\],
-> CASE='acc'\] -&gt; 'den' \* |. . \[---\] .| \[2:3\]
-> Det\[AGR=\[NUM='pl', PER=3\], CASE='dat'\] -&gt; 'den' \* Feature
-> Bottom Up Predict Combine Rule: |. . \[---&gt; .| \[2:3\] NP\[AGR=?a,
-> CASE=?c\] -&gt; Det\[AGR=?a, CASE=?c\] \* N\[AGR=?a, CASE=?c\] {?a:
+> CASE='acc'\] -> 'den' \* |. . \[---\] .| \[2:3\]
+> Det\[AGR=\[NUM='pl', PER=3\], CASE='dat'\] -> 'den' \* Feature
+> Bottom Up Predict Combine Rule: |. . \[---> .| \[2:3\] NP\[AGR=?a,
+> CASE=?c\] -> Det\[AGR=?a, CASE=?c\] \* N\[AGR=?a, CASE=?c\] {?a:
 > \[NUM='pl', PER=3\], ?c: 'dat'} Feature Bottom Up Predict Combine
-> Rule: |. . \[---&gt; .| \[2:3\] NP\[AGR=?a, CASE=?c\] -&gt;
+> Rule: |. . \[---> .| \[2:3\] NP\[AGR=?a, CASE=?c\] ->
 > Det\[AGR=?a, CASE=?c\] \* N\[AGR=?a, CASE=?c\] {?a: \[GND='masc',
 > NUM='sg', PER=3\], ?c: 'acc'} Feature Bottom Up Predict Combine Rule:
-> |. . . \[---\]| \[3:4\] N\[AGR=\[GND='fem', NUM='sg', PER=3\]\] -&gt;
+> |. . . \[---\]| \[3:4\] N\[AGR=\[GND='fem', NUM='sg', PER=3\]\] ->
 > 'Katze' \*
 
 The last two `Scanner` lines in the trace show that den is recognized as
@@ -1003,8 +1028,8 @@ Summary
     successful, is the feature structure $FS$~2~ that contains the
     combined information of both $FS$~0~ and $FS$
     ~1~.
--   If unification adds information to a path |pi| in $FS$, then it also
-    adds information to every path |pi|' equivalent to |pi|.
+-   If unification adds information to a path π in $FS$, then it also
+    adds information to every path π' equivalent to π.
 -   We can use feature structures to build succinct analyses of a wide
     variety of linguistic phenomena, including verb subcategorization,
     inversion constructions, unbounded dependency constructions and
@@ -1013,7 +1038,7 @@ Summary
 Further Reading
 ---------------
 
-Please consult |NLTK-URL| for further materials on this chapter,
+Please consult [NLTK](https://www.nltk.org/) for further materials on this chapter,
 including feature structures, feature grammars, and grammar test suites.
 
 X-bar Syntax: \[Chomsky1970RN\]\_, \[Jackendoff1977XS\]\_ (The primes we
@@ -1096,28 +1121,28 @@ algorithms.
 Exercises
 ---------
 
-1.  |easy| What constraints are required to correctly parse word
+1.  ☆ What constraints are required to correctly parse word
     sequences like I am
     happy and she is happy but not \*you is happy or \*they am happy?
     Implement two solutions for the present tense paradigm of the verb
     be in English, first taking Grammar [ex-agcfg1](..%20ex::::) as your
     starting point, and then taking Grammar [ex-agr2](..%20ex::::) as
     the starting point.
-2.  |easy| Develop a variant of grammar in code-feat0cfg\_ that uses a
+2.  ☆ Develop a variant of grammar in code-feat0cfg\_ that uses a
     feature count to make the distinctions shown below:
-3.  |easy| Write a function subsumes() which holds of two feature
+3.  ☆ Write a function subsumes() which holds of two feature
     structures `fs1` and `fs2` just in case `fs1` subsumes `fs2`.
-4.  |easy| Modify the grammar illustrated in
+4.  ☆ Modify the grammar illustrated in
     [ex-subcatgpsg](..%20ex::::) to incorporate a bar feature for
     dealing with phrasal projections.
-5.  |easy| Modify the German grammar in code-germancfg\_ to incorporate
+5.  ☆ Modify the German grammar in code-germancfg\_ to incorporate
     the treatment of subcategorization presented
     in sec-extending-a-feature-based-grammar\_.
-6.  |soso| Develop a feature based grammar that will correctly describe
+6.  ☆☆ Develop a feature based grammar that will correctly describe
     the following Spanish noun phrases:
-7.  |soso| Develop your own version of the `EarleyChartParser` which
+7.  ☆☆ Develop your own version of the `EarleyChartParser` which
     only prints a trace if the input sequence fails to parse.
-8.  |soso| Consider the feature structures shown
+8.  ☆☆ Consider the feature structures shown
     in code-featstructures\_.
 
     Work out on paper what the result is of the following unifications.
@@ -1133,17 +1158,17 @@ Exercises
 
     Check your answers using Python.
 
-9.  |soso| List two feature structures that subsume \[A=?x, B=?x\].
-10. |soso| Ignoring structure sharing, give an informal algorithm for
+9.  ☆☆ List two feature structures that subsume \[A=?x, B=?x\].
+10. ☆☆ Ignoring structure sharing, give an informal algorithm for
     unifying two feature structures.
-11. |soso| Extend the German grammar in code-germancfg\_ so that it can
+11. ☆☆ Extend the German grammar in code-germancfg\_ so that it can
     handle so-called verb-second structures like the following:
-12. |soso| Seemingly synonymous verbs have slightly different syntactic
+12. ☆☆ Seemingly synonymous verbs have slightly different syntactic
     properties \[Levin1993\]\_. Consider the patterns of grammaticality
     for the verbs loaded, filled, and dumped below. Can you write
     grammar productions to handle such data?
 
-13. |hard| Morphological paradigms are rarely completely regular, in the
+13. ☆☆☆ Morphological paradigms are rarely completely regular, in the
     sense of every cell in the matrix having a different realization.
     For example, the present tense conjugation of the lexeme walk only
     has two distinct forms: walks for the 3rd person singular, and walk
@@ -1151,26 +1176,26 @@ Exercises
     analysis should not require redundantly specifying that 5 out of the
     6 possible morphological combinations have the same realization.
     Propose and implement a method for dealing with this.
-14. |hard| So-called head features are shared between the parent node
+14. ☆☆☆ So-called head features are shared between the parent node
     and head child. For example, `TENSE` is a head feature that is
     shared between a `VP` and its head `V` child. See
     \[Gazdar1985GPS\]\_ for more details. Most of the features we have
-    looked at are head features |mdash| exceptions are `SUBCAT` and
+    looked at are head features — exceptions are `SUBCAT` and
     `SLASH`. Since the sharing of head features is predictable, it
     should not need to be stated explicitly in the grammar productions.
     Develop an approach that automatically accounts for this regular
     behavior of head features.
-15. |hard| Extend |NLTK|'s treatment of feature structures to allow
+15. ☆☆☆ Extend NLTK's treatment of feature structures to allow
     unification into list-valued features, and use this to implement an
     HPSG-style analysis of subcategorization, whereby the `SUBCAT` of a
     head category is the concatenation its complements' categories with
     the `SUBCAT` value of its immediate parent.
-16. |hard| Extend |NLTK|'s treatment of feature structures to allow
+16. ☆☆☆ Extend NLTK's treatment of feature structures to allow
     productions with underspecified categories, such as
     `S[-INV] --> ?x S/?x`.
-17. |hard| Extend |NLTK|'s treatment of feature structures to allow
+17. ☆☆☆ Extend NLTK's treatment of feature structures to allow
     typed feature structures.
-18. |hard| Pick some grammatical constructions described in
+18. ☆☆☆ Pick some grammatical constructions described in
     \[Huddleston2002CGE\]\_, and develop a feature based grammar to
     account for them.
 

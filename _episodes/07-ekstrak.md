@@ -20,7 +20,7 @@ For any given question, it's likely that someone has written the answer
 down somewhere. The amount of natural language text that is available in
 electronic form is truly staggering, and is increasing every day.
 However, the complexity of natural language can make it very difficult
-to access the information in that text. The state of the art in |NLP| is
+to access the information in that text. The state of the art in NLP is
 still a long way from being able to build general-purpose
 representations of meaning from unrestricted text. If we instead focus
 our efforts on a limited set of questions or "entity relations," such as
@@ -55,11 +55,13 @@ If this location data was stored in Python as a list of tuples
 `(entity, relation, entity)`, then the question "Which organizations
 operate in Atlanta?" could be translated as follows:
 
-> &gt;&gt;&gt; locs = \[('Omnicom', 'IN', 'New York'), ... ('DDB
+> >>> locs = \[('Omnicom', 'IN', 'New York'), ... ('DDB
 > Needham', 'IN', 'New York'), ... ('Kaplan Thaler Group', 'IN', 'New
 > York'), ... ('BBDO South', 'IN', 'Atlanta'), ... ('Georgia-Pacific',
-> 'IN', 'Atlanta')\] &gt;&gt;&gt; query = \[e1 for (e1, rel, e2) in locs
-> if e2=='Atlanta'\] &gt;&gt;&gt; print(query) \['BBDO South',
+> 'IN', 'Atlanta')\]
+> >>> query = \[e1 for (e1, rel, e2) in locs
+> if e2=='Atlanta'\]
+> >>> print(query) \['BBDO South',
 > 'Georgia-Pacific'\]
 
 Things are more tricky if we try to get similar information out of text.
@@ -121,7 +123,7 @@ To perform the first three tasks, we can define a simple function that
 simply connects together NLTK's default sentence segmenter ie-segment\_,
 word tokenizer ie-tokenize\_, and part-of-speech tagger ie-postag\_:
 
-> &gt;&gt;&gt; def ie\_preprocess(document): ... sentences =
+> >>> def ie\_preprocess(document): ... sentences =
 > nltk.sent\_tokenize(document) \# \[\_ie-segment\] ... sentences =
 > \[nltk.word\_tokenize(sent) for sent in sentences\] \#
 > \[\_ie-tokenize\] ... sentences = \[nltk.pos\_tag(sent) for sent in
@@ -199,18 +201,18 @@ we create a chunk parser chunkex-cp\_, and test it on our example
 sentence chunkex-test\_. The result is a tree, which we can either print
 chunkex-print\_, or display graphically chunkex-draw\_.
 
-> &gt;&gt;&gt; sentence = \[("the", "DT"), ("little", "JJ"), ("yellow",
+> >>> sentence = \[("the", "DT"), ("little", "JJ"), ("yellow",
 > "JJ"), \# \[\_chunkex-sent\] ... ("dog", "NN"), ("barked", "VBD"),
 > ("at", "IN"), ("the", "DT"), ("cat", "NN")\]
 >
-> &gt;&gt;&gt; grammar = "NP: {&lt;DT&gt;?&lt;JJ&gt;\*&lt;NN&gt;}" \#
+> >>> grammar = "NP: {<DT>?<JJ>\*<NN>}" \#
 > \[\_chunkex-grammar\]
 >
-> &gt;&gt;&gt; cp = nltk.RegexpParser(grammar) \# \[\_chunkex-cp\]
-> &gt;&gt;&gt; result = cp.parse(sentence) \# \[\_chunkex-test\]
-> &gt;&gt;&gt; print(result) \# \[\_chunkex-print\] (S (NP the/DT
+> >>> cp = nltk.RegexpParser(grammar) \# \[\_chunkex-cp\]
+> >>> result = cp.parse(sentence) \# \[\_chunkex-test\]
+> >>> print(result) \# \[\_chunkex-print\] (S (NP the/DT
 > little/JJ yellow/JJ dog/NN) barked/VBD at/IN (NP the/DT cat/NN))
-> &gt;&gt;&gt; result.draw() \# \[\_chunkex-draw\] \# doctest: +SKIP
+> >>> result.draw() \# \[\_chunkex-draw\] \# doctest: +SKIP
 
 ### Tag Patterns
 
@@ -244,7 +246,7 @@ cover:
 
 > **note**
 >
-> |TRY| Try to come up with tag patterns to cover these cases. Test them
+> **Try this** Try to come up with tag patterns to cover these cases. Test them
 > using the graphical interface `nltk.app.chunkparser()`. Continue to
 > refine your tag patterns with the help of the feedback given by this
 > tool.
@@ -276,10 +278,12 @@ takes precedence. For example, if we apply a rule that matches two
 consecutive nouns to a text containing three consecutive nouns, then
 only the first two nouns will be chunked:
 
-> &gt;&gt;&gt; nouns = \[("money", "NN"), ("market", "NN"), ("fund",
-> "NN")\] &gt;&gt;&gt; grammar = "NP: {&lt;NN&gt;&lt;NN&gt;} \# Chunk
-> two consecutive nouns" &gt;&gt;&gt; cp = nltk.RegexpParser(grammar)
-> &gt;&gt;&gt; print(cp.parse(nouns)) (S (NP money/NN market/NN)
+> >>> nouns = \[("money", "NN"), ("market", "NN"), ("fund",
+> "NN")\]
+> >>> grammar = "NP: {<NN><NN>} \# Chunk
+> two consecutive nouns"
+> >>> cp = nltk.RegexpParser(grammar)
+> >>> print(cp.parse(nouns)) (S (NP money/NN market/NN)
 > fund/NN)
 
 Once we have created the chunk for money market, we have removed the
@@ -299,8 +303,10 @@ In sec-tagged-corpora\_ we saw how we could interrogate a tagged corpus
 to extract phrases matching a particular sequence of part-of-speech
 tags. We can do the same work more easily with a chunker, as follows:
 
-> &gt;&gt;&gt; cp = nltk.RegexpParser('CHUNK: {&lt;V.*&gt; &lt;TO&gt;
-> &lt;V.*&gt;}') &gt;&gt;&gt; brown = nltk.corpus.brown &gt;&gt;&gt; for
+> >>> cp = nltk.RegexpParser('CHUNK: {<V.*> <TO>
+> <V.*>}')
+> >>> brown = nltk.corpus.brown
+> >>> for
 > sent in brown.tagged\_sents(): ... tree = cp.parse(sent) ... for
 > subtree in tree.subtrees(): ... if subtree.label() == 'CHUNK':
 > print(subtree) ... (CHUNK combined/VBN to/TO achieve/VB) (CHUNK
@@ -311,7 +317,7 @@ tags. We can do the same work more easily with a chunker, as follows:
 
 > **note**
 >
-> |TRY| Encapsulate the above example inside a function `find_chunks()`
+> **Try this** Encapsulate the above example inside a function `find_chunks()`
 > that takes a chunk string like `"CHUNK: {<V.*> <TO> <V.*>}"` as an
 > argument. Use it to search the corpus for several other patterns, such
 > as four or more nouns in a row, e.g. `"NOUNS: {<N.*>{4,}}"`
@@ -376,7 +382,7 @@ manipulated directly. An example is shown in
 
 > **note**
 >
-> |NLTK| uses trees for its internal representation of chunks, but
+> NLTK uses trees for its internal representation of chunks, but
 > provides methods for reading and writing such trees to the IOB format.
 
 Developing and Evaluating Chunkers
@@ -385,7 +391,7 @@ Developing and Evaluating Chunkers
 Now you have a taste of what chunking does, but we haven't explained how
 to evaluate chunkers. As usual, this requires a suitably annotated
 corpus. We begin by looking at the mechanics of converting IOB format
-into an |NLTK| tree, then at how this is done on a larger scale using a
+into an NLTK tree, then at how this is done on a larger scale using a
 chunked corpus. We will see how to score the accuracy of a chunker
 relative to a corpus, then look at some more data-driven ways to search
 for NP chunks. Our focus throughout will be on expanding the coverage of
@@ -409,14 +415,15 @@ representation from one of these multi-line strings. Moreover, it
 permits us to choose any subset of the three chunk types to use, here
 just for `NP` chunks:
 
-We can use the |NLTK| corpus module to access a larger amount of chunked
+We can use the NLTK corpus module to access a larger amount of chunked
 text. The CoNLL 2000 corpus contains 270k words of Wall Street Journal
 text, divided into "train" and "test" portions, annotated with
 part-of-speech tags and chunk tags in the IOB format. We can access the
 data using `nltk.corpus.conll2000`. Here is an example that reads the
 100th sentence of the "train" portion of the corpus:
 
-> &gt;&gt;&gt; from nltk.corpus import conll2000 &gt;&gt;&gt;
+> >>> from nltk.corpus import conll2000
+> >>>
 > print(conll2000.chunked\_sents('train.txt')\[99\]) (S (PP Over/IN) (NP
 > a/DT cup/NN) (PP of/IN) (NP coffee/NN) ,/, (NP Mr./NNP Stone/NNP) (VP
 > told/VBD) (NP his/PRP\$ story/NN) ./.)
@@ -427,7 +434,7 @@ has already delivered; and `PP` chunks such as because of. Since we are
 only interested in the `NP` chunks right now, we can use the
 `chunk_types` argument to select them:
 
-> &gt;&gt;&gt; print(conll2000.chunked\_sents('train.txt',
+> >>> print(conll2000.chunked\_sents('train.txt',
 > chunk\_types=\['NP'\])\[99\]) (S Over/IN (NP a/DT cup/NN) of/IN (NP
 > coffee/NN) ,/, (NP Mr./NNP Stone/NNP) told/VBD (NP his/PRP\$ story/NN)
 > ./.)
@@ -438,10 +445,12 @@ Now that we can access a chunked corpus, we can evaluate chunkers. We
 start off by establishing a baseline for the trivial chunk parser `cp`
 that creates no chunks:
 
-> &gt;&gt;&gt; from nltk.corpus import conll2000 &gt;&gt;&gt; cp =
-> nltk.RegexpParser("") &gt;&gt;&gt; test\_sents =
+> >>> from nltk.corpus import conll2000
+> >>> cp =
+> nltk.RegexpParser("")
+> >>> test\_sents =
 > conll2000.chunked\_sents('test.txt', chunk\_types=\['NP'\])
-> &gt;&gt;&gt; print(cp.evaluate(test\_sents)) ChunkParse score: IOB
+> >>> print(cp.evaluate(test\_sents)) ChunkParse score: IOB
 > Accuracy: 43.4% Precision: 0.0% Recall: 0.0% F-Measure: 0.0%
 
 The IOB tag accuracy indicates that more than a third of the words are
@@ -451,8 +460,10 @@ zero. Now let's try a naive regular expression chunker that looks for
 tags beginning with letters that are characteristic of noun phrase tags
 (e.g. `CD`, `DT`, and `JJ`).
 
-> &gt;&gt;&gt; grammar = r"NP: {&lt;\[CDJNP\].\*&gt;+}" &gt;&gt;&gt; cp
-> = nltk.RegexpParser(grammar) &gt;&gt;&gt;
+> >>> grammar = r"NP: {<\[CDJNP\].\*>+}"
+> >>> cp
+> = nltk.RegexpParser(grammar)
+> >>>
 > print(cp.evaluate(test\_sents)) ChunkParse score: IOB Accuracy: 87.7%
 > Precision: 70.6% Recall: 67.8% F-Measure: 69.2%
 
@@ -516,11 +527,12 @@ convert the result back into a chunk tree.
 Now that we have `UnigramChunker`, we can train it using the CoNLL 2000
 corpus, and test its resulting performance:
 
-> &gt;&gt;&gt; test\_sents = conll2000.chunked\_sents('test.txt',
-> chunk\_types=\['NP'\]) &gt;&gt;&gt; train\_sents =
+> >>> test\_sents = conll2000.chunked\_sents('test.txt',
+> chunk\_types=\['NP'\])
+> >>> train\_sents =
 > conll2000.chunked\_sents('train.txt', chunk\_types=\['NP'\])
-> &gt;&gt;&gt; unigram\_chunker = UnigramChunker(train\_sents)
-> &gt;&gt;&gt; print(unigram\_chunker.evaluate(test\_sents)) ChunkParse
+> >>> unigram\_chunker = UnigramChunker(train\_sents)
+> >>> print(unigram\_chunker.evaluate(test\_sents)) ChunkParse
 > score: IOB Accuracy: 92.9% Precision: 79.9% Recall: 86.8% F-Measure:
 > 83.2%
 
@@ -529,8 +541,9 @@ of 83%. Let's take a look at what it's learned, by using its unigram
 tagger to assign a tag to each of the part-of-speech tags that appear in
 the corpus:
 
-> &gt;&gt;&gt; postags = sorted(set(pos for sent in train\_sents ... for
-> (word,pos) in sent.leaves())) &gt;&gt;&gt;
+> >>> postags = sorted(set(pos for sent in train\_sents ... for
+> (word,pos) in sent.leaves()))
+> >>>
 > print(unigram\_chunker.tagger.tag(postags)) \[('\#', 'B-NP'), ('\$',
 > 'B-NP'), ("''", 'O'), ('(', 'O'), (')', 'O'), (',', 'O'), ('.', 'O'),
 > (':', 'O'), ('CC', 'O'), ('CD', 'I-NP'), ('DT', 'B-NP'), ('EX',
@@ -556,8 +569,8 @@ line code-unigram-chunker-buildit\_ in code-unigram-chunker\_ to
 construct a `BigramTagger` rather than a `UnigramTagger`. The resulting
 chunker has slightly higher performance than the unigram chunker:
 
-> &gt;&gt;&gt; bigram\_chunker = BigramChunker(train\_sents)
-> &gt;&gt;&gt; print(bigram\_chunker.evaluate(test\_sents)) ChunkParse
+> >>> bigram\_chunker = BigramChunker(train\_sents)
+> >>> print(bigram\_chunker.evaluate(test\_sents)) ChunkParse
 > score: IOB Accuracy: 93.3% Precision: 82.3% Recall: 86.8% F-Measure:
 > 84.5%
 
@@ -603,9 +616,11 @@ part-of-speech tag of the current token. Using this feature extractor,
 our classifier-based chunker is very similar to the unigram chunker, as
 is reflected in its performance:
 
-> &gt;&gt;&gt; def npchunk\_features(sentence, i, history): ... word,
-> pos = sentence\[i\] ... return {"pos": pos} &gt;&gt;&gt; chunker =
-> ConsecutiveNPChunker(train\_sents) &gt;&gt;&gt;
+> >>> def npchunk\_features(sentence, i, history): ... word,
+> pos = sentence\[i\] ... return {"pos": pos}
+> >>> chunker =
+> ConsecutiveNPChunker(train\_sents)
+> >>>
 > print(chunker.evaluate(test\_sents)) ChunkParse score: IOB Accuracy:
 > 92.9% Precision: 79.9% Recall: 86.7% F-Measure: 83.2%
 
@@ -614,11 +629,12 @@ this feature allows the classifier to model interactions between
 adjacent tags, and results in a chunker that is closely related to the
 bigram chunker.
 
-> &gt;&gt;&gt; def npchunk\_features(sentence, i, history): ... word,
+> >>> def npchunk\_features(sentence, i, history): ... word,
 > pos = sentence\[i\] ... if i == 0: ... prevword, prevpos =
-> "&lt;START&gt;", "&lt;START&gt;" ... else: ... prevword, prevpos =
+> "<START>", "<START>" ... else: ... prevword, prevpos =
 > sentence\[i-1\] ... return {"pos": pos, "prevpos": prevpos}
-> &gt;&gt;&gt; chunker = ConsecutiveNPChunker(train\_sents) &gt;&gt;&gt;
+> >>> chunker = ConsecutiveNPChunker(train\_sents)
+> >>>
 > print(chunker.evaluate(test\_sents)) ChunkParse score: IOB Accuracy:
 > 93.6% Precision: 81.9% Recall: 87.2% F-Measure: 84.5%
 
@@ -628,12 +644,13 @@ that this feature does indeed improve the chunker's performance, by
 about 1.5 percentage points (which corresponds to about a 10% reduction
 in the error rate).
 
-> &gt;&gt;&gt; def npchunk\_features(sentence, i, history): ... word,
+> >>> def npchunk\_features(sentence, i, history): ... word,
 > pos = sentence\[i\] ... if i == 0: ... prevword, prevpos =
-> "&lt;START&gt;", "&lt;START&gt;" ... else: ... prevword, prevpos =
+> "<START>", "<START>" ... else: ... prevword, prevpos =
 > sentence\[i-1\] ... return {"pos": pos, "word": word, "prevpos":
-> prevpos} &gt;&gt;&gt; chunker = ConsecutiveNPChunker(train\_sents)
-> &gt;&gt;&gt; print(chunker.evaluate(test\_sents)) ChunkParse score:
+> prevpos}
+> >>> chunker = ConsecutiveNPChunker(train\_sents)
+> >>> print(chunker.evaluate(test\_sents)) ChunkParse score:
 > IOB Accuracy: 94.5% Precision: 84.2% Recall: 89.4% F-Measure: 86.7%
 
 Finally, we can try extending the feature extractor with a variety of
@@ -644,11 +661,11 @@ string describing the set of all part-of-speech tags that have been
 encountered since the most recent determiner, or since the beginning of
 the sentence if there is no determiner before index `i`. .
 
-> &gt;&gt;&gt; def npchunk\_features(sentence, i, history): ... word,
+> >>> def npchunk\_features(sentence, i, history): ... word,
 > pos = sentence\[i\] ... if i == 0: ... prevword, prevpos =
-> "&lt;START&gt;", "&lt;START&gt;" ... else: ... prevword, prevpos =
+> "<START>", "<START>" ... else: ... prevword, prevpos =
 > sentence\[i-1\] ... if i == len(sentence)-1: ... nextword, nextpos =
-> "&lt;END&gt;", "&lt;END&gt;" ... else: ... nextword, nextpos =
+> "<END>", "<END>" ... else: ... nextword, nextpos =
 > sentence\[i+1\] ... return {"pos": pos, ... "word": word, ...
 > "prevpos": prevpos, ... "nextpos": nextpos, \#
 > \[\_chunk-fe-lookahead\] ... "prevpos+pos": "%s+%s" % (prevpos, pos),
@@ -656,17 +673,18 @@ the sentence if there is no determiner before index `i`. .
 > ... "tags-since-dt": tags\_since\_dt(sentence, i)} \#
 > \[\_chunk-fe-complex\]
 >
-> &gt;&gt;&gt; def tags\_since\_dt(sentence, i): ... tags = set() ...
+> >>> def tags\_since\_dt(sentence, i): ... tags = set() ...
 > for word, pos in sentence\[:i\]: ... if pos == 'DT': ... tags = set()
 > ... else: ... tags.add(pos) ... return '+'.join(sorted(tags))
 >
-> &gt;&gt;&gt; chunker = ConsecutiveNPChunker(train\_sents) &gt;&gt;&gt;
+> >>> chunker = ConsecutiveNPChunker(train\_sents)
+> >>>
 > print(chunker.evaluate(test\_sents)) ChunkParse score: IOB Accuracy:
 > 96.0% Precision: 88.6% Recall: 91.0% F-Measure: 89.8%
 
 > **note**
 >
-> |TRY| Try adding different features to the feature extractor function
+> **Try this** Try adding different features to the feature extractor function
 > `npchunk_features`, and see if you can further improve the performance
 > of the NP chunker.
 
@@ -689,9 +707,10 @@ shortcomings too. Let's see what happens when we apply this chunker to a
 sentence having deeper nesting. Notice that it fails to identify the
 `VP` chunk starting at saw-vbd\_.
 
-> &gt;&gt;&gt; sentence = \[("John", "NNP"), ("thinks", "VBZ"), ("Mary",
+> >>> sentence = \[("John", "NNP"), ("thinks", "VBZ"), ("Mary",
 > "NN"), ... ("saw", "VBD"), ("the", "DT"), ("cat", "NN"), ("sit",
-> "VB"), ... ("on", "IN"), ("the", "DT"), ("mat", "NN")\] &gt;&gt;&gt;
+> "VB"), ... ("on", "IN"), ("the", "DT"), ("mat", "NN")\]
+> >>>
 > print(cp.parse(sentence)) (S (NP John/NNP) thinks/VBZ (NP Mary/NN)
 > saw/VBD \# \[\_saw-vbd\] (CLAUSE (NP the/DT cat/NN) (VP sit/VB (PP
 > on/IN (NP the/DT mat/NN)))))
@@ -701,7 +720,8 @@ patterns: after trying all of them, it repeats the process. We add an
 optional second argument `loop` to specify the number of times the set
 of patterns should be run:
 
-> &gt;&gt;&gt; cp = nltk.RegexpParser(grammar, loop=2) &gt;&gt;&gt;
+> >>> cp = nltk.RegexpParser(grammar, loop=2)
+> >>>
 > print(cp.parse(sentence)) (S (NP John/NNP) thinks/VBZ (CLAUSE (NP
 > Mary/NN) (VP saw/VBD (CLAUSE (NP the/DT cat/NN) (VP sit/VB (PP on/IN
 > (NP the/DT mat/NN)))))))
@@ -732,24 +752,31 @@ any homogeneous hierarchical structure that spans a sequence of
 linguistic forms (e.g. morphological structure, discourse structure). In
 the general case, leaves and node values do not have to be strings.
 
-In |NLTK|, we create a tree by giving a node label and a list of
+In NLTK, we create a tree by giving a node label and a list of
 children:
 
-> &gt;&gt;&gt; tree1 = nltk.Tree('NP', \['Alice'\]) &gt;&gt;&gt;
-> print(tree1) (NP Alice) &gt;&gt;&gt; tree2 = nltk.Tree('NP', \['the',
-> 'rabbit'\]) &gt;&gt;&gt; print(tree2) (NP the rabbit)
+> >>> tree1 = nltk.Tree('NP', \['Alice'\])
+> >>>
+> print(tree1) (NP Alice)
+> >>> tree2 = nltk.Tree('NP', \['the',
+> 'rabbit'\])
+> >>> print(tree2) (NP the rabbit)
 
 We can incorporate these into successively larger trees as follows:
 
-> &gt;&gt;&gt; tree3 = nltk.Tree('VP', \['chased', tree2\]) &gt;&gt;&gt;
-> tree4 = nltk.Tree('S', \[tree1, tree3\]) &gt;&gt;&gt; print(tree4) (S
+> >>> tree3 = nltk.Tree('VP', \['chased', tree2\])
+> >>>
+> tree4 = nltk.Tree('S', \[tree1, tree3\])
+> >>> print(tree4) (S
 > (NP Alice) (VP chased (NP the rabbit)))
 
 Here are some of the methods available for tree objects:
 
-> &gt;&gt;&gt; print(tree4\[1\]) (VP chased (NP the rabbit))
-> &gt;&gt;&gt; tree4\[1\].label() 'VP' &gt;&gt;&gt; tree4.leaves()
-> \['Alice', 'chased', 'the', 'rabbit'\] &gt;&gt;&gt;
+> >>> print(tree4\[1\]) (VP chased (NP the rabbit))
+> >>> tree4\[1\].label() 'VP'
+> >>> tree4.leaves()
+> \['Alice', 'chased', 'the', 'rabbit'\]
+> >>>
 > tree4\[1\]\[1\]\[1\] 'rabbit'
 
 The bracketed representation for complex trees can be difficult to read.
@@ -759,7 +786,7 @@ display window allows you to zoom in and out, to collapse and expand
 subtrees, and to print the graphical representation to a postscript file
 (for inclusion in a document).
 
-> &gt;&gt;&gt; tree3.draw() \# doctest: +SKIP
+> >>> tree3.draw() \# doctest: +SKIP
 
 ![image](../images/parse_draw.png)
 
@@ -870,12 +897,12 @@ the parameter `binary=True` binary-ne\_, then named entities are just
 tagged as `NE`; otherwise, the classifier adds category labels such as
 PERSON, ORGANIZATION, and GPE.
 
-> &gt;&gt;&gt; sent = nltk.corpus.treebank.tagged\_sents()\[22\]
-> &gt;&gt;&gt; print(nltk.ne\_chunk(sent, binary=True)) \#
+> >>> sent = nltk.corpus.treebank.tagged\_sents()\[22\]
+> >>> print(nltk.ne\_chunk(sent, binary=True)) \#
 > \[\_binary-ne\] \# doctest: +SKIP (S The/DT (NE U.S./NNP) is/VBZ
 > one/CD ... according/VBG to/TO (NE Brooke/NNP T./NNP Mossman/NNP) ...)
 >
-> &gt;&gt;&gt; print(nltk.ne\_chunk(sent)) \# doctest: +SKIP (S The/DT
+> >>> print(nltk.ne\_chunk(sent)) \# doctest: +SKIP (S The/DT
 > (GPE U.S./NNP) is/VBZ one/CD ... according/VBG to/TO (PERSON
 > Brooke/NNP T./NNP Mossman/NNP) ...)
 
@@ -886,17 +913,18 @@ Once named entities have been identified in a text, we then want to
 extract the relations that exist between them. As indicated earlier, we
 will typically be looking for relations between specified types of named
 entity. One way of approaching this task is to initially look for all
-triples of the form (*X*, |alpha|, *Y*), where *X* and *Y* are named
-entities of the required types, and |alpha| is the string of words that
+triples of the form (*X*, α, *Y*), where *X* and *Y* are named
+entities of the required types, and α is the string of words that
 intervenes between *X* and *Y*. We can then use regular expressions to
-pull out just those instances of |alpha| that express the relation that
+pull out just those instances of α that express the relation that
 we are looking for. The following example searches for strings that
 contain the word in. The special regular expression `(?!\b.+ing\b)` is a
 negative lookahead assertion that allows us to disregard strings such as
 success in supervising the transition
 of, where in is followed by a gerund.
 
-> &gt;&gt;&gt; IN = re.compile(r'.\*binb(?!b.+ing)') &gt;&gt;&gt; for
+> >>> IN = re.compile(r'.\*binb(?!b.+ing)')
+> >>> for
 > doc in nltk.corpus.ieer.parsed\_docs('NYT\_19980315'): ... for rel in
 > nltk.sem.extract\_rels('ORG', 'LOC', doc, ... corpus='ieer', pattern =
 > IN): ... print(nltk.sem.rtuple(rel)) \[ORG: 'WHYY'\] 'in' \[LOC:
@@ -925,12 +953,15 @@ The method `clause()` prints out the relations in a clausal form, where
 the binary relation symbol is specified as the value of parameter
 `relsym` relsym\_.
 
-> &gt;&gt;&gt; from nltk.corpus import conll2002 &gt;&gt;&gt; vnv = """
+> >>> from nltk.corpus import conll2002
+> >>> vnv = """
 > ... ( ... is/V| \# 3rd sing present and ... was/V| \# past forms of
 > the verb zijn ('be') ... werd/V| \# and also present ... wordt/V \#
 > past of worden ('become) ... ) ... .\* \# followed by anything ...
-> van/Prep \# followed by van ('of') ... """ &gt;&gt;&gt; VAN =
-> re.compile(vnv, re.VERBOSE) &gt;&gt;&gt; for doc in
+> van/Prep \# followed by van ('of') ... """
+> >>> VAN =
+> re.compile(vnv, re.VERBOSE)
+> >>> for doc in
 > conll2002.chunked\_sents('ned.train'): ... for rel in
 > nltk.sem.extract\_rels('PER', 'ORG', doc, ... corpus='conll2002',
 > pattern=VAN): ... print(nltk.sem.clause(rel, relsym="VAN")) \#
@@ -940,7 +971,7 @@ the binary relation symbol is specified as the value of parameter
 
 > **note**
 >
-> |TRY| Replace the last line relsym\_, by
+> **Try this** Replace the last line relsym\_, by
 >
 > :   `print(nltk.rtuple(rel, lcon=True, rcon=True))`. This will show
 >     you the actual words that intervene between the two NEs and also
@@ -983,9 +1014,9 @@ Summary
 Further Reading
 ---------------
 
-Extra materials for this chapter are posted at |NLTK-URL|, including
+Extra materials for this chapter are posted at [NLTK](https://www.nltk.org/), including
 links to freely available resources on the web. For more examples of
-chunking with |NLTK|, please see the Chunking HOWTO at |NLTK-HOWTO-URL|.
+chunking with NLTK, please see the Chunking HOWTO at [NLTK HOWTO](https://www.nltk.org/howto/).
 
 The popularity of chunking is due in great part to pioneering work by
 Abney e.g., \[Abney1996PST\]\_. Abney's Cass chunker is described in
@@ -996,8 +1027,8 @@ The word chink initially meant a sequence of stopwords, according to a
 
 The IOB format (or sometimes BIO Format) was developed for `NP` chunking
 by \[Ramshaw1995TCU\]\_, and was used for the shared `NP` bracketing
-task run by the *Conference on Natural Language Learning* (|CoNLL|) in
-1999. The same format was adopted by |CoNLL| 2000 for annotating a
+task run by the *Conference on Natural Language Learning* (CoNLL) in
+1999. The same format was adopted by CoNLL 2000 for annotating a
 section of Wall Street Journal text as part of a shared task on `NP`
 chunking.
 
@@ -1009,35 +1040,35 @@ medicine, see \[Ananiadou2006\]\_.
 Exercises
 ---------
 
-1.  |easy| The IOB format categorizes tagged tokens as `I`, `O` and `B`.
+1.  ☆ The IOB format categorizes tagged tokens as `I`, `O` and `B`.
     Why are three tags necessary? What problem would be caused if we
     used `I` and `O` tags exclusively?
-2.  |easy| Write a tag pattern to match noun phrases containing plural
+2.  ☆ Write a tag pattern to match noun phrases containing plural
     head nouns, e.g. "many/JJ researchers/NNS", "two/CD weeks/NNS",
     "both/DT new/JJ positions/NNS". Try to do this by generalizing the
     tag pattern that handled singular noun phrases.
-3.  |easy| Pick one of the three chunk types in the CoNLL corpus.
+3.  ☆ Pick one of the three chunk types in the CoNLL corpus.
     Inspect the CoNLL corpus and try to observe any patterns in the POS
     tag sequences that make up this kind of chunk. Develop a simple
     chunker using the regular expression chunker `nltk.RegexpParser`.
     Discuss any tag sequences that are difficult to chunk reliably.
-4.  |easy| An early definition of *chunk* was the material that occurs
+4.  ☆ An early definition of *chunk* was the material that occurs
     between chinks. Develop a chunker that starts by putting the whole
     sentence in a single chunk, and then does the rest of its work
     solely by chinking. Determine which tags (or tag sequences) are most
     likely to make up chinks with the help of your own utility program.
     Compare the performance and simplicity of this approach relative to
     a chunker based entirely on chunk rules.
-5.  |soso| Write a tag pattern to cover noun phrases that contain
+5.  ☆☆ Write a tag pattern to cover noun phrases that contain
     gerunds, e.g. "the/DT receiving/VBG end/NN", "assistant/NN
     managing/VBG editor/NN". Add these patterns to the grammar, one
     per line. Test your work using some tagged sentences of your
     own devising.
-6.  |soso| Write one or more tag patterns to handle coordinated noun
+6.  ☆☆ Write one or more tag patterns to handle coordinated noun
     phrases, e.g. "July/NNP and/CC August/NNP", "all/DT your/PRP\$
     managers/NNS and/CC supervisors/NNS", "company/NN courts/NNS
     and/CC adjudicators/NNS".
-7.  |soso| Carry out the following evaluation tasks for any of the
+7.  ☆☆ Carry out the following evaluation tasks for any of the
     chunkers you have developed earlier. (Note that most chunking
     corpora contain some internal inconsistencies, such that any
     reasonable rule-based approach will produce errors.)
@@ -1048,31 +1079,31 @@ Exercises
     c)  Compare the performance of your chunker to the baseline chunker
         discussed in the evaluation section of this chapter.
 
-8.  |soso| Develop a chunker for one of the chunk types in the CoNLL
+8.  ☆☆ Develop a chunker for one of the chunk types in the CoNLL
     corpus using a regular-expression based chunk grammar `RegexpChunk`.
     Use any combination of rules for chunking, chinking, merging
     or splitting.
-9.  |soso| Sometimes a word is incorrectly tagged, e.g. the head noun in
+9.  ☆☆ Sometimes a word is incorrectly tagged, e.g. the head noun in
     "12/CD or/CC so/RB cases/VBZ". Instead of requiring manual
     correction of tagger output, good chunkers are able to work with the
     erroneous output of taggers. Look for other examples of correctly
     chunked noun phrases with incorrect tags.
-10. |soso| The bigram chunker scores about 90% accuracy. Study its
+10. ☆☆ The bigram chunker scores about 90% accuracy. Study its
     errors and try to work out why it doesn't get 100% accuracy.
     Experiment with trigram chunking. Are you able to improve the
     performance any more?
-11. |hard| Apply the n-gram and Brill tagging methods to IOB chunk
+11. ☆☆☆ Apply the n-gram and Brill tagging methods to IOB chunk
     tagging. Instead of assigning POS tags to words, here we will assign
     IOB tags to the POS tags. E.g. if the tag `DT` (determiner) often
     occurs at the start of a chunk, it will be tagged `B` (begin).
     Evaluate the performance of these chunking methods relative to the
     regular expression chunking methods covered in this chapter.
-12. |hard| We saw in chap-tag\_ that it is possible to establish an
+12. ☆☆☆ We saw in chap-tag\_ that it is possible to establish an
     upper limit to tagging performance by looking for ambiguous n-grams,
     n-grams that are tagged in more than one possible way in the
     training data. Apply the same method to determine an upper bound on
     the performance of an n-gram chunker.
-13. |hard| Pick one of the three chunk types in the CoNLL corpus. Write
+13. ☆☆☆ Pick one of the three chunk types in the CoNLL corpus. Write
     functions to do the following tasks for your chosen type:
     a)  List all the tag sequences that occur with each instance of this
         chunk type.
@@ -1082,7 +1113,7 @@ Exercises
     c)  Inspect the high-frequency tag sequences. Use these as the basis
         for developing a better chunker.
 
-14. |hard| The baseline chunker presented in the evaluation section
+14. ☆☆☆ The baseline chunker presented in the evaluation section
     tends to create larger chunks than it should. For example, the
     phrase: `[every/DT time/NN] [she/PRP] sees/VBZ [a/DT newspaper/NN]`
     contains two consecutive chunks, and our baseline chunker will
@@ -1092,11 +1123,11 @@ Exercises
     rules that will split up these chunks. Combine these with the
     existing baseline chunker and re-evaluate it, to see if you have
     discovered an improved baseline.
-15. |hard| Develop an `NP` chunker that converts POS-tagged text into a
+15. ☆☆☆ Develop an `NP` chunker that converts POS-tagged text into a
     list of tuples, where each tuple consists of a verb followed by a
     sequence of noun phrases and prepositions, e.g.
     `the little cat sat on the mat` becomes `('sat', 'on', 'NP')`...
-16. |hard| The Penn Treebank contains a section of tagged Wall Street
+16. ☆☆☆ The Penn Treebank contains a section of tagged Wall Street
     Journal text that has been chunked into noun phrases. The format
     uses square brackets, and we have encountered it several times
     during this chapter. The Treebank corpus can be accessed using:
@@ -1116,12 +1147,12 @@ Exercises
         file, and then use `for line in open(filename)` to access it
         from Python.)
 
-17. |hard| An n-gram chunker can use information other than the current
+17. ☆☆☆ An n-gram chunker can use information other than the current
     part-of-speech tag and the $n-1$ previous chunk tags. Investigate
     other models of the context, such as the $n-1$ previous
     part-of-speech tags, or some combination of previous chunk tags
     along with previous and following part-of-speech tags.
-18. |hard| Consider the way an n-gram tagger uses recent tags to inform
+18. ☆☆☆ Consider the way an n-gram tagger uses recent tags to inform
     its tagging choice. Now observe how a chunker may re-use this
     sequence information. For example, both tasks will make use of the
     information that nouns tend to follow adjectives (in English). It

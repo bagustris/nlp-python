@@ -34,7 +34,7 @@ Along the way, we'll cover some fundamental techniques in NLP, including
 sequence labeling, n-gram models, backoff, and evaluation. These
 techniques are useful in many areas, and tagging gives us a simple
 context in which to present them. We will also see how tagging is the
-second step in the typical |NLP| pipeline, following tokenization.
+second step in the typical NLP pipeline, following tokenization.
 
 The process of classifying words into their parts of speech and labeling
 them accordingly is known as part-of-speech tagging, POS-tagging, or
@@ -50,8 +50,9 @@ A part-of-speech tagger, or POS-tagger, processes a sequence of words,
 and attaches a part of speech tag to each word (don't forget to
 `import nltk`):
 
-> &gt;&gt;&gt; text = word\_tokenize("And now for something completely
-> different") &gt;&gt;&gt; nltk.pos\_tag(text) \[('And', 'CC'), ('now',
+> >>> text = word\_tokenize("And now for something completely
+> different")
+> >>> nltk.pos\_tag(text) \[('And', 'CC'), ('now',
 > 'RB'), ('for', 'IN'), ('something', 'NN'), ('completely', 'RB'),
 > ('different', 'JJ')\]
 
@@ -61,7 +62,7 @@ is `NN`, a noun; and different is `JJ`, an adjective.
 
 > **note**
 >
-> |NLTK| provides documentation for each tag, which can be queried using
+> NLTK provides documentation for each tag, which can be queried using
 > the tag, e.g. `nltk.help.upenn_tagset('RB')`, or a regular expression,
 > e.g. `nltk.help.upenn_tagset('NN.*')`. Some corpora have README files
 > with tagset documentation, see `nltk.corpus.???.readme()`,
@@ -69,8 +70,9 @@ is `NN`, a noun; and different is `JJ`, an adjective.
 
 Let's look at another example, this time including some homonyms:
 
-> &gt;&gt;&gt; text = word\_tokenize("They refuse to permit us to obtain
-> the refuse permit") &gt;&gt;&gt; nltk.pos\_tag(text) \[('They',
+> >>> text = word\_tokenize("They refuse to permit us to obtain
+> the refuse permit")
+> >>> nltk.pos\_tag(text) \[('They',
 > 'PRP'), ('refuse', 'VBP'), ('to', 'TO'), ('permit', 'VB'), ('us',
 > 'PRP'), ('to', 'TO'), ('obtain', 'VB'), ('the', 'DT'), ('refuse',
 > 'NN'), ('permit', 'NN')\]
@@ -84,7 +86,7 @@ POS-tagging.)
 
 > **note**
 >
-> |TRY| Many words, like ski and race, can be used as nouns or verbs
+> **Try this** Many words, like ski and race, can be used as nouns or verbs
 > with no difference in pronunciation. Can you think of others? Hint:
 > think of a commonplace object and try to put the word to before it to
 > see if it can also be a verb, or think of an action and try to put the
@@ -122,23 +124,25 @@ consisting of the token and the tag. We can create one of these special
 tuples from the standard string representation of a tagged token, using
 the function `str2tuple()`:
 
-> &gt;&gt;&gt; tagged\_token = nltk.tag.str2tuple('fly/NN') &gt;&gt;&gt;
-> tagged\_token ('fly', 'NN') &gt;&gt;&gt; tagged\_token\[0\] 'fly'
-> &gt;&gt;&gt; tagged\_token\[1\] 'NN'
+> >>> tagged\_token = nltk.tag.str2tuple('fly/NN')
+> >>>
+> tagged\_token ('fly', 'NN')
+> >>> tagged\_token\[0\] 'fly'
+> >>> tagged\_token\[1\] 'NN'
 
 We can construct a list of tagged tokens directly from a string. The
 first step is to tokenize the string to access the individual `word/tag`
 strings, and then to convert each of these into a tuple (using
 `str2tuple()`).
 
-> &gt;&gt;&gt; sent = ''' ... The/AT grand/JJ jury/NN commented/VBD
+> >>> sent = ''' ... The/AT grand/JJ jury/NN commented/VBD
 > on/IN a/AT number/NN of/IN ... other/AP topics/NNS ,/, AMONG/IN
 > them/PPO the/AT Atlanta/NP and/CC ... Fulton/NP-tl County/NN-tl
 > purchasing/VBG departments/NNS which/WDT it/PPS ... said/VBD `/`
 > ARE/BER well/QL operated/VBN and/CC follow/VB generally/RB ...
 > accepted/VBN practices/NNS which/WDT inure/VB to/IN the/AT best/JJT
 > ... interest/NN of/IN both/ABX governments/NNS ''/'' ./. ... '''
-> &gt;&gt;&gt; \[nltk.tag.str2tuple(t) for t in sent.split()\] \[('The',
+> >>> \[nltk.tag.str2tuple(t) for t in sent.split()\] \[('The',
 > 'AT'), ('grand', 'JJ'), ('jury', 'NN'), ('commented', 'VBD'), ('on',
 > 'IN'), ('a', 'AT'), ('number', 'NN'), ... ('.', '.')\]
 
@@ -154,26 +158,29 @@ file from the Brown Corpus with a text editor:
 > that/cs any/dti irregularities/nns took/vbd place/nn ./.
 
 Other corpora use a variety of formats for storing part-of-speech tags.
-|NLTK|'s corpus readers provide a uniform interface so that you don't
+NLTK's corpus readers provide a uniform interface so that you don't
 have to be concerned with the different file formats. In contrast with
 the file fragment shown above, the corpus reader for the Brown Corpus
 represents the data as shown below. Note that part-of-speech tags have
 been converted to uppercase, since this has become standard practice
 since the Brown Corpus was published.
 
-> &gt;&gt;&gt; nltk.corpus.brown.tagged\_words() \[('The', 'AT'),
-> ('Fulton', 'NP-TL'), ...\] &gt;&gt;&gt;
+> >>> nltk.corpus.brown.tagged\_words() \[('The', 'AT'),
+> ('Fulton', 'NP-TL'), ...\]
+> >>>
 > nltk.corpus.brown.tagged\_words(tagset='universal') \[('The', 'DET'),
 > ('Fulton', 'NOUN'), ...\]
 
-Whenever a corpus contains tagged text, the |NLTK| corpus interface will
+Whenever a corpus contains tagged text, the NLTK corpus interface will
 have a `tagged_words()` method. Here are some more examples, again using
 the output format illustrated for the Brown Corpus:
 
-> &gt;&gt;&gt; print(nltk.corpus.nps\_chat.tagged\_words()) \[('now',
-> 'RB'), ('im', 'PRP'), ('left', 'VBD'), ...\] &gt;&gt;&gt;
+> >>> print(nltk.corpus.nps\_chat.tagged\_words()) \[('now',
+> 'RB'), ('im', 'PRP'), ('left', 'VBD'), ...\]
+> >>>
 > nltk.corpus.conll2000.tagged\_words() \[('Confidence', 'NN'), ('in',
-> 'IN'), ('the', 'DT'), ...\] &gt;&gt;&gt;
+> 'IN'), ('the', 'DT'), ...\]
+> >>>
 > nltk.corpus.treebank.tagged\_words() \[('Pierre', 'NNP'), ('Vinken',
 > 'NNP'), (',', ','), ...\]
 
@@ -182,8 +189,9 @@ functionality and the `readme()` methods mentioned above for
 documentation. Initially we want to avoid the complications of these
 tagsets, so we use a built-in mapping to the "Universal Tagset":
 
-> &gt;&gt;&gt; nltk.corpus.brown.tagged\_words(tagset='universal')
-> \[('The', 'DET'), ('Fulton', 'NOUN'), ...\] &gt;&gt;&gt;
+> >>> nltk.corpus.brown.tagged\_words(tagset='universal')
+> \[('The', 'DET'), ('Fulton', 'NOUN'), ...\]
+> >>>
 > nltk.corpus.treebank.tagged\_words(tagset='universal') \[('Pierre',
 > 'NOUN'), ('Vinken', 'NOUN'), (',', '.'), ...\]
 
@@ -192,14 +200,18 @@ including Chinese, Hindi, Portuguese, Spanish, Dutch and Catalan. These
 usually contain non-ASCII text, and Python always displays this in
 hexadecimal when printing a larger structure such as a list.
 
-> &gt;&gt;&gt; nltk.corpus.sinica\_treebank.tagged\_words() \[('ä',
-> 'Neu'), ('åæ', 'Nad'), ('åç', 'Nba'), ...\] &gt;&gt;&gt;
+> >>> nltk.corpus.sinica\_treebank.tagged\_words() \[('ä',
+> 'Neu'), ('åæ', 'Nad'), ('åç', 'Nba'), ...\]
+> >>>
 > nltk.corpus.indian.tagged\_words() \[('মহিষের', 'NN'), ('সন্তান',
-> 'NN'), (':', 'SYM'), ...\] &gt;&gt;&gt;
+> 'NN'), (':', 'SYM'), ...\]
+> >>>
 > nltk.corpus.mac\_morpho.tagged\_words() \[('Jersei', 'N'), ('atinge',
-> 'V'), ('mxe9dia', 'N'), ...\] &gt;&gt;&gt;
+> 'V'), ('mxe9dia', 'N'), ...\]
+> >>>
 > nltk.corpus.conll2002.tagged\_words() \[('Sao', 'NC'), ('Paulo',
-> 'VMI'), ('(', 'Fpa'), ...\] &gt;&gt;&gt;
+> 'VMI'), ('(', 'Fpa'), ...\]
+> >>>
 > nltk.corpus.cess\_cat.tagged\_words() \[('El', 'da0ms0'),
 > ('Tribunal\_Suprem', 'np0000o'), ...\]
 
@@ -227,10 +239,13 @@ tab-universal-tagset\_).
 Let's see which of these tags are the most common in the news category
 of the Brown corpus:
 
-> &gt;&gt;&gt; from nltk.corpus import brown &gt;&gt;&gt;
+> >>> from nltk.corpus import brown
+> >>>
 > brown\_news\_tagged = brown.tagged\_words(categories='news',
-> tagset='universal') &gt;&gt;&gt; tag\_fd = nltk.FreqDist(tag for
-> (word, tag) in brown\_news\_tagged) &gt;&gt;&gt;
+> tagset='universal')
+> >>> tag\_fd = nltk.FreqDist(tag for
+> (word, tag) in brown\_news\_tagged)
+> >>>
 > tag\_fd.most\_common() \[('NOUN', 30640), ('VERB', 14399), ('ADP',
 > 12355), ('.', 11928), ('DET', 11389), ('ADJ', 6706), ('ADV', 3349),
 > ('CONJ', 2717), ('PRON', 2535), ('PRT', 2264), ('NUM', 2166), ('X',
@@ -238,7 +253,7 @@ of the Brown corpus:
 
 > **note**
 >
-> |TRY| Plot the above frequency distribution using
+> **Try this** Plot the above frequency distribution using
 > `tag_fd.plot(cumulative=True)`. What percentage of words are tagged
 > using the first five tags of the above list?
 
@@ -264,10 +279,12 @@ list of bigrams whose members are themselves word-tag pairs such as
 `(('Fulton', 'NP'), ('County', 'N'))`. Then we construct a `FreqDist`
 from the tag parts of the bigrams.
 
-> &gt;&gt;&gt; word\_tag\_pairs = nltk.bigrams(brown\_news\_tagged)
-> &gt;&gt;&gt; noun\_preceders = \[a\[1\] for (a, b) in word\_tag\_pairs
-> if b\[1\] == 'NOUN'\] &gt;&gt;&gt; fdist =
-> nltk.FreqDist(noun\_preceders) &gt;&gt;&gt; \[tag for (tag, \_) in
+> >>> word\_tag\_pairs = nltk.bigrams(brown\_news\_tagged)
+> >>> noun\_preceders = \[a\[1\] for (a, b) in word\_tag\_pairs
+> if b\[1\] == 'NOUN'\]
+> >>> fdist =
+> nltk.FreqDist(noun\_preceders)
+> >>> \[tag for (tag, \_) in
 > fdist.most\_common()\] \['NOUN', 'DET', 'ADJ', 'ADP', '.', 'VERB',
 > 'CONJ', 'NUM', 'ADV', 'PRT', 'PRON', 'X'\]
 
@@ -283,9 +300,11 @@ express a relation involving the referents of one or more noun phrases.
 What are the most common verbs in news text? Let's sort all the verbs by
 frequency:
 
-> &gt;&gt;&gt; wsj =
-> nltk.corpus.treebank.tagged\_words(tagset='universal') &gt;&gt;&gt;
-> word\_tag\_fd = nltk.FreqDist(wsj) &gt;&gt;&gt; \[wt\[0\] for (wt, \_)
+> >>> wsj =
+> nltk.corpus.treebank.tagged\_words(tagset='universal')
+> >>>
+> word\_tag\_fd = nltk.FreqDist(wsj)
+> >>> \[wt\[0\] for (wt, \_)
 > in word\_tag\_fd.most\_common() if wt\[1\] == 'VERB'\] \['is', 'said',
 > 'are', 'was', 'be', 'has', 'have', 'will', 'says', 'would', 'were',
 > 'had', 'been', 'could', "'s", 'can', 'do', 'say', 'make', 'may',
@@ -299,9 +318,10 @@ as a condition and the tag as an event, and initialize a conditional
 frequency distribution with a list of condition-event pairs. This lets
 us see a frequency-ordered list of tags given a word:
 
-> &gt;&gt;&gt; cfd1 = nltk.ConditionalFreqDist(wsj) &gt;&gt;&gt;
+> >>> cfd1 = nltk.ConditionalFreqDist(wsj)
+> >>>
 > cfd1\['yield'\].most\_common() \[('VERB', 28), ('NOUN', 20)\]
-> &gt;&gt;&gt; cfd1\['cut'\].most\_common() \[('VERB', 25), ('NOUN',
+> >>> cfd1\['cut'\].most\_common() \[('VERB', 25), ('NOUN',
 > 3)\]
 
 We can reverse the order of the pairs, so that the tags are the
@@ -309,9 +329,10 @@ conditions, and the words are the events. Now we can see likely words
 for a given tag. We will do this for the WSJ tagset rather than the
 universal tagset:
 
-> &gt;&gt;&gt; wsj = nltk.corpus.treebank.tagged\_words() &gt;&gt;&gt;
+> >>> wsj = nltk.corpus.treebank.tagged\_words()
+> >>>
 > cfd2 = nltk.ConditionalFreqDist((tag, word) for (word, tag) in wsj)
-> &gt;&gt;&gt; list(cfd2\['VBN'\]) \['been', 'expected', 'made',
+> >>> list(cfd2\['VBN'\]) \['been', 'expected', 'made',
 > 'compared', 'based', 'priced', 'used', 'sold', 'named', 'designed',
 > 'held', 'fined', 'taken', 'paid', 'traded', 'said', ...\]
 
@@ -319,13 +340,17 @@ To clarify the distinction between `VBD` (past tense) and `VBN` (past
 participle), let's find words which can be both `VBD` and `VBN`, and see
 some surrounding text:
 
-> &gt;&gt;&gt; \[w for w in cfd1.conditions() if 'VBD' in cfd1\[w\] and
+> >>> \[w for w in cfd1.conditions() if 'VBD' in cfd1\[w\] and
 > 'VBN' in cfd1\[w\]\] \['Asked', 'accelerated', 'accepted', 'accused',
-> 'acquired', 'added', 'adopted', ...\] &gt;&gt;&gt; idx1 =
-> wsj.index(('kicked', 'VBD')) &gt;&gt;&gt; wsj\[idx1-4:idx1+1\]
+> 'acquired', 'added', 'adopted', ...\]
+> >>> idx1 =
+> wsj.index(('kicked', 'VBD'))
+> >>> wsj\[idx1-4:idx1+1\]
 > \[('While', 'IN'), ('program', 'NN'), ('trades', 'NNS'), ('swiftly',
-> 'RB'), ('kicked', 'VBD')\] &gt;&gt;&gt; idx2 = wsj.index(('kicked',
-> 'VBN')) &gt;&gt;&gt; wsj\[idx2-4:idx2+1\] \[('head', 'NN'), ('of',
+> 'RB'), ('kicked', 'VBD')\]
+> >>> idx2 = wsj.index(('kicked',
+> 'VBN'))
+> >>> wsj\[idx2-4:idx2+1\] \[('head', 'NN'), ('of',
 > 'IN'), ('state', 'NN'), ('has', 'VBZ'), ('kicked', 'VBN')\]
 
 In this case, we see that the past participle of kicked is preceded by a
@@ -333,7 +358,7 @@ form of the auxiliary verb have. Is this generally true?
 
 > **note**
 >
-> |TRY| Given the list of past participles produced by
+> **Try this** Given the list of past participles produced by
 > `list(cfd2['VN'])`, try to collect a list of all the word-tag pairs
 > that immediately precede items in that list.
 
@@ -356,7 +381,7 @@ they). Each dictionary and grammar classifies these words differently.
 
 > **note**
 >
-> |TRY| If you are uncertain about some of these parts of speech, study
+> **Try this** If you are uncertain about some of these parts of speech, study
 > them using `nltk.app.concordance()`, or watch some of the *Schoolhouse
 > Rock!* grammar videos available at YouTube, or consult the Further
 > Reading section at the end of this chapter.
@@ -383,8 +408,8 @@ previous chapters, this time exploiting POS tags.
 Suppose we're studying the word often and want to see how it is used in
 text. We could ask to see the words that follow often
 
-> &gt;&gt;&gt; brown\_learned\_text = brown.words(categories='learned')
-> &gt;&gt;&gt; sorted(set(b for (a, b) in
+> >>> brown\_learned\_text = brown.words(categories='learned')
+> >>> sorted(set(b for (a, b) in
 > nltk.bigrams(brown\_learned\_text) if a == 'often')) \[',', '.',
 > 'accomplished', 'analytically', 'appear', 'apt', 'associated',
 > 'assuming', 'became', 'become', 'been', 'began', 'call', 'called',
@@ -393,11 +418,13 @@ text. We could ask to see the words that follow often
 However, it's probably more instructive use the `tagged_words()` method
 to look at the part-of-speech tag of the following words:
 
-> &gt;&gt;&gt; brown\_lrnd\_tagged =
+> >>> brown\_lrnd\_tagged =
 > brown.tagged\_words(categories='learned', tagset='universal')
-> &gt;&gt;&gt; tags = \[b\[1\] for (a, b) in
-> nltk.bigrams(brown\_lrnd\_tagged) if a\[0\] == 'often'\] &gt;&gt;&gt;
-> fd = nltk.FreqDist(tags) &gt;&gt;&gt; fd.tabulate() PRT ADV ADP . VERB
+> >>> tags = \[b\[1\] for (a, b) in
+> nltk.bigrams(brown\_lrnd\_tagged) if a\[0\] == 'often'\]
+> >>>
+> fd = nltk.FreqDist(tags)
+> >>> fd.tabulate() PRT ADV ADP . VERB
 > ADJ 2 8 7 4 37 6
 
 Notice that the most high-frequency parts of speech following often are
@@ -414,11 +441,12 @@ Finally, let's look for words that are highly ambiguous as to their part
 of speech tag. Understanding why such words are tagged as they are in
 each context can help us clarify the distinctions between the tags.
 
-> &gt;&gt;&gt; brown\_news\_tagged =
+> >>> brown\_news\_tagged =
 > brown.tagged\_words(categories='news', tagset='universal')
-> &gt;&gt;&gt; data = nltk.ConditionalFreqDist((word.lower(), tag) ...
-> for (word, tag) in brown\_news\_tagged) &gt;&gt;&gt; for word in
-> sorted(data.conditions()): ... if len(data\[word\]) &gt; 3: ... tags =
+> >>> data = nltk.ConditionalFreqDist((word.lower(), tag) ...
+> for (word, tag) in brown\_news\_tagged)
+> >>> for word in
+> sorted(data.conditions()): ... if len(data\[word\]) > 3: ... tags =
 > \[tag for (tag, \_) in data\[word\].most\_common()\] ... print(word, '
 > '.join(tags)) ... best ADJ ADV NP V better ADJ ADV V DET close ADV ADJ
 > V N cut V N VN VD even ADV DET ADJ V grant NP N V -hit V VD VN N lay
@@ -428,7 +456,7 @@ each context can help us clarify the distinctions between the tags.
 
 > **note**
 >
-> |TRY| Open the POS concordance tool `nltk.app.concordance()` and load
+> **Try this** Open the POS concordance tool `nltk.app.concordance()` and load
 > the complete Brown Corpus (simplified tagset). Now pick some of the
 > above words and see how the tag of the word correlates with the
 > context of the word. E.g. search for `near` to see all forms mixed
@@ -499,11 +527,17 @@ To illustrate, we define `pos` to be an empty dictionary and then add
 four entries to it, specifying the part-of-speech of some words. We add
 entries to a dictionary using the familiar square bracket notation:
 
-> &gt;&gt;&gt; pos = {} &gt;&gt;&gt; pos {} &gt;&gt;&gt;
-> pos\['colorless'\] = 'ADJ' \# \[\_pos-colorless\] &gt;&gt;&gt; pos
-> {'colorless': 'ADJ'} &gt;&gt;&gt; pos\['ideas'\] = 'N' &gt;&gt;&gt;
-> pos\['sleep'\] = 'V' &gt;&gt;&gt; pos\['furiously'\] = 'ADV'
-> &gt;&gt;&gt; pos \# \[\_pos-inspect\] {'furiously': 'ADV', 'ideas':
+> >>> pos = {}
+> >>> pos {}
+> >>>
+> pos\['colorless'\] = 'ADJ' \# \[\_pos-colorless\]
+> >>> pos
+> {'colorless': 'ADJ'}
+> >>> pos\['ideas'\] = 'N'
+> >>>
+> pos\['sleep'\] = 'V'
+> >>> pos\['furiously'\] = 'ADV'
+> >>> pos \# \[\_pos-inspect\] {'furiously': 'ADV', 'ideas':
 > 'N', 'colorless': 'ADJ', 'sleep': 'V'}
 
 So, for example, pos-colorless\_ says that the part-of-speech of
@@ -513,13 +547,14 @@ value of `pos` pos-inspect\_ we see a set of key-value pairs. Once we
 have populated the dictionary in this way, we can employ the keys to
 retrieve values:
 
-> &gt;&gt;&gt; pos\['ideas'\] 'N' &gt;&gt;&gt; pos\['colorless'\] 'ADJ'
+> >>> pos\['ideas'\] 'N'
+> >>> pos\['colorless'\] 'ADJ'
 
 Of course, we might accidentally use a key that hasn't been assigned a
 value.
 
-> &gt;&gt;&gt; pos\['green'\] Traceback (most recent call last): File
-> "&lt;stdin&gt;", line 1, in ? KeyError: 'green'
+> >>> pos\['green'\] Traceback (most recent call last): File
+> "<stdin>", line 1, in ? KeyError: 'green'
 
 This raises an important question. Unlike lists and strings, where we
 can use `len()` to work out which integers will be legal indexes, how do
@@ -532,13 +567,15 @@ entered; this is because dictionaries are not sequences but mappings
 and the keys are not inherently ordered.
 
 Alternatively, to just find the keys, we can convert the dictionary to a
-list dict-to-list\_ |mdash| or use the dictionary in a context where a
+list dict-to-list\_ — or use the dictionary in a context where a
 list is expected, as the parameter of `sorted()` dict-sorted\_, or in a
 `for` loop dict-for-loop\_.
 
-> &gt;&gt;&gt; list(pos) \# \[\_dict-to-list\] \['ideas', 'furiously',
-> 'colorless', 'sleep'\] &gt;&gt;&gt; sorted(pos) \# \[\_dict-sorted\]
-> \['colorless', 'furiously', 'ideas', 'sleep'\] &gt;&gt;&gt; \[w for w
+> >>> list(pos) \# \[\_dict-to-list\] \['ideas', 'furiously',
+> 'colorless', 'sleep'\]
+> >>> sorted(pos) \# \[\_dict-sorted\]
+> \['colorless', 'furiously', 'ideas', 'sleep'\]
+> >>> \[w for w
 > in pos if w.endswith('s')\] \# \[\_dict-for-loop\] \['colorless',
 > 'ideas'\]
 
@@ -550,7 +587,7 @@ list is expected, as the parameter of `sorted()` dict-sorted\_, or in a
 As well as iterating over all keys in the dictionary with a `for` loop,
 we can use the `for` loop as we did for printing lists:
 
-> &gt;&gt;&gt; for word in sorted(pos): ... print(word + ":",
+> >>> for word in sorted(pos): ... print(word + ":",
 > pos\[word\]) ... colorless: ADJ furiously: ADV sleep: V ideas: N
 
 Finally, the dictionary methods `keys()`, `values()` and `items()` allow
@@ -559,10 +596,12 @@ can even sort tuples sort-tuples\_, which orders them according to their
 first element (and if the first elements are the same, it uses their
 second elements).
 
-> &gt;&gt;&gt; list(pos.keys()) \['colorless', 'furiously', 'sleep',
-> 'ideas'\] &gt;&gt;&gt; list(pos.values()) \['ADJ', 'ADV', 'V', 'N'\]
-> &gt;&gt;&gt; list(pos.items()) \[('colorless', 'ADJ'), ('furiously',
-> 'ADV'), ('sleep', 'V'), ('ideas', 'N')\] &gt;&gt;&gt; for key, val in
+> >>> list(pos.keys()) \['colorless', 'furiously', 'sleep',
+> 'ideas'\]
+> >>> list(pos.values()) \['ADJ', 'ADV', 'V', 'N'\]
+> >>> list(pos.items()) \[('colorless', 'ADJ'), ('furiously',
+> 'ADV'), ('sleep', 'V'), ('ideas', 'N')\]
+> >>> for key, val in
 > sorted(pos.items()): \# \[\_sort-tuples\] ... print(key + ":", val)
 > ... colorless: ADJ furiously: ADV ideas: N sleep: V
 
@@ -571,8 +610,10 @@ only get one value for each key. Now suppose we try to use a dictionary
 to store the fact that the word sleep can be used as both a verb and a
 noun:
 
-> &gt;&gt;&gt; pos\['sleep'\] = 'V' &gt;&gt;&gt; pos\['sleep'\] 'V'
-> &gt;&gt;&gt; pos\['sleep'\] = 'N' &gt;&gt;&gt; pos\['sleep'\] 'N'
+> >>> pos\['sleep'\] = 'V'
+> >>> pos\['sleep'\] 'V'
+> >>> pos\['sleep'\] = 'N'
+> >>> pos\['sleep'\] 'N'
 
 Initially, `pos['sleep']` is given the value `'V'`. But this is
 immediately overwritten with the new value `'N'`. In other words, there
@@ -587,17 +628,18 @@ multiple pronunciations for a single word.
 We can use the same key-value pair format to create a dictionary.
 There's a couple of ways to do this, and we will normally use the first:
 
-> &gt;&gt;&gt; pos = {'colorless': 'ADJ', 'ideas': 'N', 'sleep': 'V',
-> 'furiously': 'ADV'} &gt;&gt;&gt; pos = dict(colorless='ADJ',
+> >>> pos = {'colorless': 'ADJ', 'ideas': 'N', 'sleep': 'V',
+> 'furiously': 'ADV'}
+> >>> pos = dict(colorless='ADJ',
 > ideas='N', sleep='V', furiously='ADV')
 
 Note that dictionary keys must be immutable types, such as strings and
 tuples. If we try to define a dictionary using a mutable key, we get a
 `TypeError`:
 
-> &gt;&gt;&gt; pos = {\['ideas', 'blogs', 'adventures'\]: 'N'} Traceback
-> (most recent call last): File "&lt;stdin&gt;", line 1, in
-> &lt;module&gt; TypeError: list objects are unhashable
+> >>> pos = {\['ideas', 'blogs', 'adventures'\]: 'N'} Traceback
+> (most recent call last): File "<stdin>", line 1, in
+> <module> TypeError: list objects are unhashable
 
 ### Default Dictionaries
 
@@ -609,17 +651,21 @@ empty list. For this reason, a special kind of dictionary called a
 parameter which can be used to create the default value, e.g. `int`,
 `float`, `str`, `list`, `dict`, `tuple`.
 
-> &gt;&gt;&gt; from collections import defaultdict &gt;&gt;&gt;
-> frequency = defaultdict(int) &gt;&gt;&gt; frequency\['colorless'\] = 4
-> &gt;&gt;&gt; frequency\['ideas'\] 0 &gt;&gt;&gt; pos =
-> defaultdict(list) &gt;&gt;&gt; pos\['sleep'\] = \['NOUN', 'VERB'\]
-> &gt;&gt;&gt; pos\['ideas'\] \[\]
+> >>> from collections import defaultdict
+> >>>
+> frequency = defaultdict(int)
+> >>> frequency\['colorless'\] = 4
+> >>> frequency\['ideas'\] 0
+> >>> pos =
+> defaultdict(list)
+> >>> pos\['sleep'\] = \['NOUN', 'VERB'\]
+> >>> pos\['ideas'\] \[\]
 
 > **note**
 >
 > These default values are actually functions that convert other objects
 > to the specified type (e.g. `int("2")`, `list("2")`). When they are
-> called with no parameter |mdash| `int()`, `list()` |mdash| they return
+> called with no parameter — `int()`, `list()` — they return
 > `0` and `[]` respectively.
 
 The above examples specified the default value of a dictionary entry to
@@ -631,9 +677,11 @@ default value for any entry is `'N'` default-noun\_. When we access a
 non-existent entry non-existent\_, it is automatically added to the
 dictionary automatically-added\_.
 
-> &gt;&gt;&gt; pos = defaultdict(lambda: 'NOUN') \# \[\_default-noun\]
-> &gt;&gt;&gt; pos\['colorless'\] = 'ADJ' &gt;&gt;&gt; pos\['blog'\] \#
-> \[\_non-existent\] 'NOUN' &gt;&gt;&gt; list(pos.items()) \[('blog',
+> >>> pos = defaultdict(lambda: 'NOUN') \# \[\_default-noun\]
+> >>> pos\['colorless'\] = 'ADJ'
+> >>> pos\['blog'\] \#
+> \[\_non-existent\] 'NOUN'
+> >>> list(pos.items()) \[('blog',
 > 'NOUN'), ('colorless', 'ADJ')\] \# \[\_automatically-added\]
 
 > **note**
@@ -643,12 +691,15 @@ dictionary automatically-added\_.
 > call it using parentheses with no arguments. Thus, the definitions of
 > `f` and `g` below are equivalent:
 >
-> &gt;&gt;&gt; f = lambda: 'NOUN' &gt;&gt;&gt; f() 'NOUN' &gt;&gt;&gt;
-> def g(): ... return 'NOUN' &gt;&gt;&gt; g() 'NOUN'
+> >>> f = lambda: 'NOUN'
+> >>> f() 'NOUN'
+> >>>
+> def g(): ... return 'NOUN'
+> >>> g() 'NOUN'
 
 Let's see how default dictionaries could be used in a more substantial
-language processing task. Many language processing tasks |mdash|
-including tagging |mdash| struggle to correctly process the hapaxes of a
+language processing task. Many language processing tasks —
+including tagging — struggle to correctly process the hapaxes of a
 text. They can perform better with a fixed vocabulary and a guarantee
 that no new words will appear. We can preprocess a text to replace
 low-frequency words with a special "out of vocabulary" token `UNK`, with
@@ -659,12 +710,17 @@ We need to create a default dictionary that maps each word to its
 replacement. The most frequent $n$ words will be mapped to themselves.
 Everything else will be mapped to `UNK`.
 
-> &gt;&gt;&gt; alice = nltk.corpus.gutenberg.words('carroll-alice.txt')
-> &gt;&gt;&gt; vocab = nltk.FreqDist(alice) &gt;&gt;&gt; v1000 = \[word
-> for (word, \_) in vocab.most\_common(1000)\] &gt;&gt;&gt; mapping =
-> defaultdict(lambda: 'UNK') &gt;&gt;&gt; for v in v1000: ...
-> mapping\[v\] = v ... &gt;&gt;&gt; alice2 = \[mapping\[v\] for v in
-> alice\] &gt;&gt;&gt; alice2\[:100\] \['UNK', 'Alice', "'", 's', 'UNK',
+> >>> alice = nltk.corpus.gutenberg.words('carroll-alice.txt')
+> >>> vocab = nltk.FreqDist(alice)
+> >>> v1000 = \[word
+> for (word, \_) in vocab.most\_common(1000)\]
+> >>> mapping =
+> defaultdict(lambda: 'UNK')
+> >>> for v in v1000: ...
+> mapping\[v\] = v ...
+> >>> alice2 = \[mapping\[v\] for v in
+> alice\]
+> >>> alice2\[:100\] \['UNK', 'Alice', "'", 's', 'UNK',
 > 'in', 'UNK', 'by', 'UNK', 'UNK', 'UNK', 'UNK', 'CHAPTER', 'I', '.',
 > 'UNK', 'the', 'Rabbit', '-', 'UNK', 'Alice', 'was', 'beginning', 'to',
 > 'get', 'very', 'tired', 'of', 'sitting', 'by', 'her', 'sister', 'on',
@@ -673,7 +729,8 @@ Everything else will be mapped to `UNK`.
 > 'her', 'sister', 'was', 'UNK', ',', 'but', 'it', 'had', 'no',
 > 'pictures', 'or', 'UNK', 'in', 'it', ',', "'", 'and', 'what', 'is',
 > 'the', 'use', 'of', 'a', 'book', ",'", 'thought', 'Alice', "'",
-> 'without', 'pictures', 'or', 'conversation', "?'" ...\] &gt;&gt;&gt;
+> 'without', 'pictures', 'or', 'conversation', "?'" ...\]
+> >>>
 > len(set(alice2)) 1001
 
 ### Incrementally Updating a Dictionary
@@ -693,8 +750,9 @@ parameter specifies the sort key using a function `itemgetter()`. In
 general, `itemgetter(n)` returns a function that can be called on some
 other sequence object to obtain the $n$th element, e.g.:
 
-> &gt;&gt;&gt; pair = ('NP', 8336) &gt;&gt;&gt; pair\[1\] 8336
-> &gt;&gt;&gt; itemgetter(1)(pair) 8336
+> >>> pair = ('NP', 8336)
+> >>> pair\[1\] 8336
+> >>> itemgetter(1)(pair) 8336
 
 The last parameter of `sorted()` specifies that the items should be
 returned in reverse order, i.e. decreasing values of frequency.
@@ -712,30 +770,36 @@ about item*
 Here's another instance of this pattern, where we index words according
 to their last two letters:
 
-> &gt;&gt;&gt; last\_letters = defaultdict(list) &gt;&gt;&gt; words =
-> nltk.corpus.words.words('en') &gt;&gt;&gt; for word in words: ... key
-> = word\[-2:\] ... last\_letters\[key\].append(word) ... &gt;&gt;&gt;
+> >>> last\_letters = defaultdict(list)
+> >>> words =
+> nltk.corpus.words.words('en')
+> >>> for word in words: ... key
+> = word\[-2:\] ... last\_letters\[key\].append(word) ...
+> >>>
 > last\_letters\['ly'\] \['abactinally', 'abandonedly', 'abasedly',
 > 'abashedly', 'abashlessly', 'abbreviately', 'abdominally',
 > 'abhorrently', 'abidingly', 'abiogenetically', 'abiologically', ...\]
-> &gt;&gt;&gt; last\_letters\['zy'\] \['blazy', 'bleezy', 'blowzy',
+> >>> last\_letters\['zy'\] \['blazy', 'bleezy', 'blowzy',
 > 'boozy', 'breezy', 'bronzy', 'buzzy', 'Chazy', ...\]
 
 The following example uses the same pattern to create an anagram
 dictionary. (You might experiment with the third line to get an idea of
 why this program works.)
 
-> &gt;&gt;&gt; anagrams = defaultdict(list) &gt;&gt;&gt; for word in
+> >>> anagrams = defaultdict(list)
+> >>> for word in
 > words: ... key = ''.join(sorted(word)) ...
-> anagrams\[key\].append(word) ... &gt;&gt;&gt; anagrams\['aeilnrt'\]
+> anagrams\[key\].append(word) ...
+> >>> anagrams\['aeilnrt'\]
 > \['entrail', 'latrine', 'ratline', 'reliant', 'retinal', 'trenail'\]
 
-Since accumulating words like this is such a common task, |NLTK|
+Since accumulating words like this is such a common task, NLTK
 provides a more convenient way of creating a `defaultdict(list)`, in the
 form of `nltk.Index()`.
 
-> &gt;&gt;&gt; anagrams = nltk.Index((''.join(sorted(w)), w) for w in
-> words) &gt;&gt;&gt; anagrams\['aeilnrt'\] \['entrail', 'latrine',
+> >>> anagrams = nltk.Index((''.join(sorted(w)), w) for w in
+> words)
+> >>> anagrams\['aeilnrt'\] \['entrail', 'latrine',
 > 'ratline', 'reliant', 'retinal', 'trenail'\]
 
 > **note**
@@ -752,13 +816,16 @@ study the range of possible tags for a word, given the word itself, and
 the tag of the previous word. We will see how this information can be
 used by a POS tagger.
 
-> &gt;&gt;&gt; pos = defaultdict(lambda: defaultdict(int)) &gt;&gt;&gt;
+> >>> pos = defaultdict(lambda: defaultdict(int))
+> >>>
 > brown\_news\_tagged = brown.tagged\_words(categories='news',
-> tagset='universal') &gt;&gt;&gt; for ((w1, t1), (w2, t2)) in
+> tagset='universal')
+> >>> for ((w1, t1), (w2, t2)) in
 > nltk.bigrams(brown\_news\_tagged): \# \[\_processing-pairs\] ...
-> pos\[(t1, w2)\]\[t2\] += 1 \# \[\_tag-word-update\] ... &gt;&gt;&gt;
-> pos\[('DET', 'right')\] \# \[\_compound-key\] defaultdict(&lt;class
-> 'int'&gt;, {'ADJ': 11, 'NOUN': 5})
+> pos\[(t1, w2)\]\[t2\] += 1 \# \[\_tag-word-update\] ...
+> >>>
+> pos\[('DET', 'right')\] \# \[\_compound-key\] defaultdict(<class
+> 'int'>, {'ADJ': 11, 'NOUN': 5})
 
 This example uses a dictionary whose default value for an entry is a
 dictionary (whose default value is `int()`, i.e. zero). Notice how we
@@ -778,9 +845,11 @@ value for any key. If `d` is a dictionary and `k` is a key, we type
 `d[k]` and immediately obtain the value. Finding a key given a value is
 slower and more cumbersome:
 
-> &gt;&gt;&gt; counts = defaultdict(int) &gt;&gt;&gt; for word in
+> >>> counts = defaultdict(int)
+> >>> for word in
 > nltk.corpus.gutenberg.words('milton-paradise.txt'): ... counts\[word\]
-> += 1 ... &gt;&gt;&gt; \[key for (key, value) in counts.items() if
+> += 1 ...
+> >>> \[key for (key, value) in counts.items() if
 > value == 32\] \['brought', 'Him', 'virtue', 'Against', 'There',
 > 'thine', 'King', 'mortal', 'every', 'been'\]
 
@@ -791,9 +860,11 @@ the key-value pairs in the dictionary, and create a new dictionary of
 value-key pairs. The next example also illustrates another way of
 initializing a dictionary `pos` with key-value pairs.
 
-> &gt;&gt;&gt; pos = {'colorless': 'ADJ', 'ideas': 'N', 'sleep': 'V',
-> 'furiously': 'ADV'} &gt;&gt;&gt; pos2 = dict((value, key) for (key,
-> value) in pos.items()) &gt;&gt;&gt; pos2\['N'\] 'ideas'
+> >>> pos = {'colorless': 'ADJ', 'ideas': 'N', 'sleep': 'V',
+> 'furiously': 'ADV'}
+> >>> pos2 = dict((value, key) for (key,
+> value) in pos.items())
+> >>> pos2\['N'\] 'ideas'
 
 Let's first make our part-of-speech dictionary a bit more realistic and
 add some more words to `pos` using the dictionary `update()` method, to
@@ -802,19 +873,22 @@ technique just shown for reverse lookup will no longer work (why not?).
 Instead, we have to use `append()` to accumulate the words for each
 part-of-speech, as follows:
 
-> &gt;&gt;&gt; pos.update({'cats': 'N', 'scratch': 'V', 'peacefully':
-> 'ADV', 'old': 'ADJ'}) &gt;&gt;&gt; pos2 = defaultdict(list)
-> &gt;&gt;&gt; for key, value in pos.items(): ...
-> pos2\[value\].append(key) ... &gt;&gt;&gt; pos2\['ADV'\]
+> >>> pos.update({'cats': 'N', 'scratch': 'V', 'peacefully':
+> 'ADV', 'old': 'ADJ'})
+> >>> pos2 = defaultdict(list)
+> >>> for key, value in pos.items(): ...
+> pos2\[value\].append(key) ...
+> >>> pos2\['ADV'\]
 > \['peacefully', 'furiously'\]
 
 Now we have inverted the `pos` dictionary, and can look up any
 part-of-speech and find all words having that part-of-speech. We can do
-the same thing even more simply using |NLTK|'s support for indexing as
+the same thing even more simply using NLTK's support for indexing as
 follows:
 
-> &gt;&gt;&gt; pos2 = nltk.Index((value, key) for (key, value) in
-> pos.items()) &gt;&gt;&gt; pos2\['ADV'\] \['peacefully', 'furiously'\]
+> >>> pos2 = nltk.Index((value, key) for (key, value) in
+> pos.items())
+> >>> pos2\['ADV'\] \['peacefully', 'furiously'\]
 
 A summary of Python's dictionary methods is given in tab-dict\_.
 
@@ -828,9 +902,10 @@ this reason, we will be working with data at the level of (tagged)
 sentences rather than words. We'll begin by loading the data we will be
 using.
 
-> &gt;&gt;&gt; from nltk.corpus import brown &gt;&gt;&gt;
+> >>> from nltk.corpus import brown
+> >>>
 > brown\_tagged\_sents = brown.tagged\_sents(categories='news')
-> &gt;&gt;&gt; brown\_sents = brown.sents(categories='news')
+> >>> brown\_sents = brown.sents(categories='news')
 
 ### The Default Tagger
 
@@ -840,15 +915,18 @@ baseline for tagger performance. In order to get the best result, we tag
 each word with the most likely tag. Let's find out which tag is most
 likely (now using the unsimplified tagset):
 
-> &gt;&gt;&gt; tags = \[tag for (word, tag) in
-> brown.tagged\_words(categories='news')\] &gt;&gt;&gt;
+> >>> tags = \[tag for (word, tag) in
+> brown.tagged\_words(categories='news')\]
+> >>>
 > nltk.FreqDist(tags).max() 'NN'
 
 Now we can create a tagger that tags everything as `NN`.
 
-> &gt;&gt;&gt; raw = 'I do not like green eggs and ham, I do not like
-> them Sam I am!' &gt;&gt;&gt; tokens = nltk.word\_tokenize(raw)
-> &gt;&gt;&gt; default\_tagger = nltk.DefaultTagger('NN') &gt;&gt;&gt;
+> >>> raw = 'I do not like green eggs and ham, I do not like
+> them Sam I am!'
+> >>> tokens = nltk.word\_tokenize(raw)
+> >>> default\_tagger = nltk.DefaultTagger('NN')
+> >>>
 > default\_tagger.tag(tokens) \[('I', 'NN'), ('do', 'NN'), ('not',
 > 'NN'), ('like', 'NN'), ('green', 'NN'), ('eggs', 'NN'), ('and', 'NN'),
 > ('ham', 'NN'), (',', 'NN'), ('I', 'NN'), ('do', 'NN'), ('not', 'NN'),
@@ -859,7 +937,7 @@ Unsurprisingly, this method performs rather poorly. On a typical corpus,
 it will tag only about an eighth of the tokens correctly, as we see
 below:
 
-> &gt;&gt;&gt; default\_tagger.evaluate(brown\_tagged\_sents)
+> >>> default\_tagger.evaluate(brown\_tagged\_sents)
 > 0.13089484257215028
 
 Default taggers assign their tag to every single word, even words that
@@ -876,7 +954,7 @@ matching patterns. For instance, we might guess that any word ending in
 ed is the past participle of a verb, and any word ending with 's is a
 possessive noun. We can express these as a list of regular expressions:
 
-> &gt;&gt;&gt; patterns = \[ ... (r'.*ing\$', 'VBG'), \# gerunds ...
+> >>> patterns = \[ ... (r'.*ing\$', 'VBG'), \# gerunds ...
 > (r'.*ed\$', 'VBD'), \# simple past ... (r'.*es\$', 'VBZ'), \# 3rd
 > singular present ... (r'.*ould\$', 'MD'), \# modals ... (r'.*'s\$',
 > 'NN\$'), \# possessive nouns ... (r'.*s\$', 'NNS'), \# plural nouns
@@ -887,14 +965,16 @@ Note that these are processed in order, and the first one that matches
 is applied. Now we can set up a tagger and use it to tag a sentence. Now
 its right about a fifth of the time.
 
-> &gt;&gt;&gt; regexp\_tagger = nltk.RegexpTagger(patterns) &gt;&gt;&gt;
+> >>> regexp\_tagger = nltk.RegexpTagger(patterns)
+> >>>
 > regexp\_tagger.tag(brown\_sents\[3\])
 > \[('`', 'NN'), ('Only', 'NN'), ('a', 'NN'), ('relative', 'NN'), ('handful', 'NN'), ('of', 'NN'), ('such', 'NN'), ('reports', 'NNS'), ('was', 'NNS'), ('received', 'VBD'), ("''", 'NN'), (',', 'NN'), ('the', 'NN'), ('jury', 'NN'), ('said', 'NN'), (',', 'NN'), ('`',
 > 'NN'), ('considering', 'VBG'), ('the', 'NN'), ('widespread', 'NN'),
-> ...\] &gt;&gt;&gt; regexp\_tagger.evaluate(brown\_tagged\_sents)
+> ...\]
+> >>> regexp\_tagger.evaluate(brown\_tagged\_sents)
 > 0.20326391789486245
 
-The final regular expression |l|`.*`|r| is a catch-all that tags
+The final regular expression «`.*`» is a catch-all that tags
 everything as a noun. This is equivalent to the default tagger (only
 much less efficient). Instead of re-specifying this as part of the
 regular expression tagger, is there a way to combine this tagger with
@@ -902,7 +982,7 @@ the default tagger? We will see how to do this shortly.
 
 > **note**
 >
-> |TRY| See if you can come up with patterns to improve the performance
+> **Try this** See if you can come up with patterns to improve the performance
 > of the above regular expression tagger. (Note that
 > sec-supervised-classification\_ describes a way partially automate
 > such work.)
@@ -911,16 +991,19 @@ the default tagger? We will see how to do this shortly.
 
 A lot of high-frequency words do not have the `NN` tag. Let's find the
 hundred most frequent words and store their most likely tag. We can then
-use this information as the model for a "lookup tagger" (an |NLTK|
+use this information as the model for a "lookup tagger" (an NLTK
 `UnigramTagger`):
 
-> &gt;&gt;&gt; fd = nltk.FreqDist(brown.words(categories='news'))
-> &gt;&gt;&gt; cfd =
+> >>> fd = nltk.FreqDist(brown.words(categories='news'))
+> >>> cfd =
 > nltk.ConditionalFreqDist(brown.tagged\_words(categories='news'))
-> &gt;&gt;&gt; most\_freq\_words = fd.most\_common(100) &gt;&gt;&gt;
+> >>> most\_freq\_words = fd.most\_common(100)
+> >>>
 > likely\_tags = dict((word, cfd\[word\].max()) for (word, \_) in
-> most\_freq\_words) &gt;&gt;&gt; baseline\_tagger =
-> nltk.UnigramTagger(model=likely\_tags) &gt;&gt;&gt;
+> most\_freq\_words)
+> >>> baseline\_tagger =
+> nltk.UnigramTagger(model=likely\_tags)
+> >>>
 > baseline\_tagger.evaluate(brown\_tagged\_sents) 0.45578495136941344
 
 It should come as no surprise by now that simply knowing the tags for
@@ -928,7 +1011,8 @@ the 100 most frequent words enables us to tag a large fraction of tokens
 correctly (nearly half in fact). Let's see what it does on some untagged
 input text:
 
-> &gt;&gt;&gt; sent = brown.sents(categories='news')\[3\] &gt;&gt;&gt;
+> >>> sent = brown.sents(categories='news')\[3\]
+> >>>
 > baseline\_tagger.tag(sent) \[('`', '`'), ('Only', None), ('a', 'AT'),
 > ('relative', None), ('handful', None), ('of', 'IN'), ('such', None),
 > ('reports', None), ('was', 'BEDZ'), ('received', None), ("''", "''"),
@@ -949,7 +1033,7 @@ below. Now the lookup tagger will only store word-tag pairs for words
 other than nouns, and whenever it cannot assign a tag to a word it will
 invoke the default tagger.
 
-> &gt;&gt;&gt; baseline\_tagger = nltk.UnigramTagger(model=likely\_tags,
+> >>> baseline\_tagger = nltk.UnigramTagger(model=likely\_tags,
 > ... backoff=nltk.DefaultTagger('NN'))
 
 Let's put all this together and write a program to create and evaluate
@@ -964,7 +1048,7 @@ plotting package, discussed in sec-libraries\_.)
 
 In the above examples, you will have noticed an emphasis on accuracy
 scores. In fact, evaluating the performance of such tools is a central
-theme in |NLP|. Recall the processing pipeline in fig-sds\_; any errors
+theme in NLP. Recall the processing pipeline in fig-sds\_; any errors
 in the output of one module are greatly multiplied in the downstream
 modules.
 
@@ -1009,17 +1093,20 @@ unigram tagger behaves just like a lookup tagger
 for setting it up, called training. In the following code sample, we
 train a unigram tagger, use it to tag a sentence, then evaluate:
 
-> &gt;&gt;&gt; from nltk.corpus import brown &gt;&gt;&gt;
+> >>> from nltk.corpus import brown
+> >>>
 > brown\_tagged\_sents = brown.tagged\_sents(categories='news')
-> &gt;&gt;&gt; brown\_sents = brown.sents(categories='news')
-> &gt;&gt;&gt; unigram\_tagger =
-> nltk.UnigramTagger(brown\_tagged\_sents) &gt;&gt;&gt;
+> >>> brown\_sents = brown.sents(categories='news')
+> >>> unigram\_tagger =
+> nltk.UnigramTagger(brown\_tagged\_sents)
+> >>>
 > unigram\_tagger.tag(brown\_sents\[2007\]) \[('Various', 'JJ'), ('of',
 > 'IN'), ('the', 'AT'), ('apartments', 'NNS'), ('are', 'BER'), ('of',
 > 'IN'), ('the', 'AT'), ('terrace', 'NN'), ('type', 'NN'), (',', ','),
 > ('being', 'BEG'), ('on', 'IN'), ('the', 'AT'), ('ground', 'NN'),
 > ('floor', 'NN'), ('so', 'QL'), ('that', 'CS'), ('entrance', 'NN'),
-> ('is', 'BEZ'), ('direct', 'JJ'), ('.', '.')\] &gt;&gt;&gt;
+> ('is', 'BEZ'), ('direct', 'JJ'), ('.', '.')\]
+> >>>
 > unigram\_tagger.evaluate(brown\_tagged\_sents) 0.9349006503968017
 
 We train a `UnigramTagger` by specifying tagged sentence data as a
@@ -1036,10 +1123,14 @@ a general model would get a perfect score, but would also be useless for
 tagging new text. Instead, we should split the data, training on 90% and
 testing on the remaining 10%:
 
-> &gt;&gt;&gt; size = int(len(brown\_tagged\_sents) \* 0.9) &gt;&gt;&gt;
-> size 4160 &gt;&gt;&gt; train\_sents = brown\_tagged\_sents\[:size\]
-> &gt;&gt;&gt; test\_sents = brown\_tagged\_sents\[size:\] &gt;&gt;&gt;
-> unigram\_tagger = nltk.UnigramTagger(train\_sents) &gt;&gt;&gt;
+> >>> size = int(len(brown\_tagged\_sents) \* 0.9)
+> >>>
+> size 4160
+> >>> train\_sents = brown\_tagged\_sents\[:size\]
+> >>> test\_sents = brown\_tagged\_sents\[size:\]
+> >>>
+> unigram\_tagger = nltk.UnigramTagger(train\_sents)
+> >>>
 > unigram\_tagger.evaluate(test\_sents) 0.811721...
 
 Although the score is worse, we now have a better picture of the
@@ -1080,14 +1171,15 @@ part-of-speech tag is most likely for each context. Here we see a
 special case of an n-gram tagger, namely a bigram tagger. First we train
 it, then use it to tag untagged sentences:
 
-> &gt;&gt;&gt; bigram\_tagger = nltk.BigramTagger(train\_sents)
-> &gt;&gt;&gt; bigram\_tagger.tag(brown\_sents\[2007\]) \[('Various',
+> >>> bigram\_tagger = nltk.BigramTagger(train\_sents)
+> >>> bigram\_tagger.tag(brown\_sents\[2007\]) \[('Various',
 > 'JJ'), ('of', 'IN'), ('the', 'AT'), ('apartments', 'NNS'), ('are',
 > 'BER'), ('of', 'IN'), ('the', 'AT'), ('terrace', 'NN'), ('type',
 > 'NN'), (',', ','), ('being', 'BEG'), ('on', 'IN'), ('the', 'AT'),
 > ('ground', 'NN'), ('floor', 'NN'), ('so', 'CS'), ('that', 'CS'),
 > ('entrance', 'NN'), ('is', 'BEZ'), ('direct', 'JJ'), ('.', '.')\]
-> &gt;&gt;&gt; unseen\_sent = brown\_sents\[4203\] &gt;&gt;&gt;
+> >>> unseen\_sent = brown\_sents\[4203\]
+> >>>
 > bigram\_tagger.tag(unseen\_sent) \[('The', 'AT'), ('population',
 > 'NN'), ('of', 'IN'), ('the', 'AT'), ('Congo', 'NP'), ('is', 'BEZ'),
 > ('13.5', None), ('million', None), (',', None), ('divided', None),
@@ -1105,7 +1197,7 @@ training, simply because it never saw it during training with a `None`
 tag on the previous word. Consequently, the tagger fails to tag the rest
 of the sentence. Its overall accuracy score is very low:
 
-> &gt;&gt;&gt; bigram\_tagger.evaluate(test\_sents) 0.102063...
+> >>> bigram\_tagger.evaluate(test\_sents) 0.102063...
 
 As *n* gets larger, the specificity of the contexts increases, as does
 the chance that the data we wish to tag contains contexts that were not
@@ -1135,17 +1227,20 @@ follows:
 3.  If the unigram tagger is also unable to find a tag, use a
     default tagger.
 
-Most |NLTK| taggers permit a backoff-tagger to be specified. The
+Most NLTK taggers permit a backoff-tagger to be specified. The
 backoff-tagger may itself have a backoff tagger:
 
-> &gt;&gt;&gt; t0 = nltk.DefaultTagger('NN') &gt;&gt;&gt; t1 =
-> nltk.UnigramTagger(train\_sents, backoff=t0) &gt;&gt;&gt; t2 =
-> nltk.BigramTagger(train\_sents, backoff=t1) &gt;&gt;&gt;
+> >>> t0 = nltk.DefaultTagger('NN')
+> >>> t1 =
+> nltk.UnigramTagger(train\_sents, backoff=t0)
+> >>> t2 =
+> nltk.BigramTagger(train\_sents, backoff=t1)
+> >>>
 > t2.evaluate(test\_sents) 0.844513...
 
 > **note**
 >
-> |TRY| Extend the above example by defining a `TrigramTagger` called
+> **Try this** Extend the above example by defining a `TrigramTagger` called
 > `t3`, which backs off to `t2`.
 
 Note that we specify the backoff tagger when the tagger is initialized
@@ -1183,21 +1278,28 @@ of training a tagger every time we need one, it is convenient to save a
 trained tagger in a file for later re-use. Let's save our tagger `t2` to
 a file `t2.pkl`.
 
-> &gt;&gt;&gt; from pickle import dump &gt;&gt;&gt; output =
-> open('t2.pkl', 'wb') &gt;&gt;&gt; dump(t2, output, -1) &gt;&gt;&gt;
+> >>> from pickle import dump
+> >>> output =
+> open('t2.pkl', 'wb')
+> >>> dump(t2, output, -1)
+> >>>
 > output.close()
 
 Now, in a separate Python process, we can load our saved tagger.
 
-> &gt;&gt;&gt; from pickle import load &gt;&gt;&gt; input =
-> open('t2.pkl', 'rb') &gt;&gt;&gt; tagger = load(input) &gt;&gt;&gt;
+> >>> from pickle import load
+> >>> input =
+> open('t2.pkl', 'rb')
+> >>> tagger = load(input)
+> >>>
 > input.close()
 
 Now let's check that it can be used for tagging.
 
-> &gt;&gt;&gt; text = """The board's action shows what free enterprise
+> >>> text = """The board's action shows what free enterprise
 > ... is up against in our complex maze of regulatory laws ."""
-> &gt;&gt;&gt; tokens = text.split() &gt;&gt;&gt; tagger.tag(tokens)
+> >>> tokens = text.split()
+> >>> tagger.tag(tokens)
 > \[('The', 'AT'), ("board's", 'NN\$'), ('action', 'NN'), ('shows',
 > 'NNS'), ('what', 'WDT'), ('free', 'JJ'), ('enterprise', 'NN'), ('is',
 > 'BEZ'), ('up', 'RP'), ('against', 'IN'), ('in', 'IN'), ('our',
@@ -1211,10 +1313,12 @@ the case of a trigram tagger. How many cases of part-of-speech ambiguity
 does it encounter? We can determine the answer to this question
 empirically:
 
-> &gt;&gt;&gt; cfd = nltk.ConditionalFreqDist( ... ((x\[1\], y\[1\],
+> >>> cfd = nltk.ConditionalFreqDist( ... ((x\[1\], y\[1\],
 > z\[0\]), z\[1\]) ... for sent in brown\_tagged\_sents ... for x, y, z
-> in nltk.trigrams(sent)) &gt;&gt;&gt; ambiguous\_contexts = \[c for c
-> in cfd.conditions() if len(cfd\[c\]) &gt; 1\] &gt;&gt;&gt;
+> in nltk.trigrams(sent))
+> >>> ambiguous\_contexts = \[c for c
+> in cfd.conditions() if len(cfd\[c\]) > 1\]
+> >>>
 > sum(cfd\[c\].N() for c in ambiguous\_contexts) / cfd.N()
 > 0.049297702068029296
 
@@ -1232,10 +1336,12 @@ convenient way to look at tagging errors is the confusion matrix. It
 charts expected tags (the gold standard) against actual tags generated
 by a tagger:
 
-> &gt;&gt;&gt; test\_tags = \[tag for sent in
+> >>> test\_tags = \[tag for sent in
 > brown.sents(categories='editorial') ... for (word, tag) in
-> t2.tag(sent)\] &gt;&gt;&gt; gold\_tags = \[tag for (word, tag) in
-> brown.tagged\_words(categories='editorial')\] &gt;&gt;&gt;
+> t2.tag(sent)\]
+> >>> gold\_tags = \[tag for (word, tag) in
+> brown.tagged\_words(categories='editorial')\]
+> >>>
 > print(nltk.ConfusionMatrix(gold\_tags, test\_tags)) \# doctest: +SKIP
 
 Based on such analysis we may decide to modify the tagset. Perhaps a
@@ -1332,48 +1438,49 @@ Brill taggers have another interesting property: the rules are
 linguistically interpretable. Compare this with the n-gram taggers,
 which employ a potentially massive table of n-grams. We cannot learn
 much from direct inspection of such a table, in comparison to the rules
-learned by the Brill tagger. code-brill-demo\_ demonstrates |NLTK|'s
+learned by the Brill tagger. code-brill-demo\_ demonstrates NLTK's
 Brill tagger.
 
-> &gt;&gt;&gt; from nltk.tbl import demo as brill\_demo &gt;&gt;&gt;
+> >>> from nltk.tbl import demo as brill\_demo
+> >>>
 > brill\_demo.demo() Training Brill tagger on 80 sentences... Finding
 > initial useful rules... Found 6555 useful rules.
 >
 > > B |
 >
 > > S F r O | Score = Fixed - Broken c i o t | R Fixed = num tags
-> > changed incorrect -&gt; correct o x k h | u Broken = num tags
-> > changed correct -&gt; incorrect r e e e | l Other = num tags changed
-> > incorrect -&gt; incorrect e d n r | e
+> > changed incorrect -> correct o x k h | u Broken = num tags
+> > changed correct -> incorrect r e e e | l Other = num tags changed
+> > incorrect -> incorrect e d n r | e
 >
-> ------------------+------------------------------------------------------- 12 13 1 4 | NN -&gt; VB if the tag of the preceding word is 'TO'
+> ------------------+------------------------------------------------------- 12 13 1 4 | NN -> VB if the tag of the preceding word is 'TO'
 >
-> :   8 9 1 23 | NN -&gt; VBD if the tag of the following word is 'DT' 8
->     8 0 9 | NN -&gt; VBD if the tag of the preceding word is 'NNS' 6 9
->     3 16 | NN -&gt; NNP if the tag of words i-2...i-1 is '-NONE-' 5 8
->     3 6 | NN -&gt; NNP if the tag of the following word is 'NNP' 5 6 1
->     0 | NN -&gt; NNP if the text of words i-2...i-1 is 'like' 5 5 0 3
->     | NN -&gt; VBN if the text of the following word is '\*-1' ...
+> :   8 9 1 23 | NN -> VBD if the tag of the following word is 'DT' 8
+>     8 0 9 | NN -> VBD if the tag of the preceding word is 'NNS' 6 9
+>     3 16 | NN -> NNP if the tag of words i-2...i-1 is '-NONE-' 5 8
+>     3 6 | NN -> NNP if the tag of the following word is 'NNP' 5 6 1
+>     0 | NN -> NNP if the text of words i-2...i-1 is 'like' 5 5 0 3
+>     | NN -> VBN if the text of the following word is '\*-1' ...
 >
-> &gt;&gt;&gt; print(open("errors.out").read())
+> >>> print(open("errors.out").read())
 >
-> :   left context | word/test-&gt;gold | right context
+> :   left context | word/test->gold | right context
 >
 > --------------------------+------------------------+--------------------------
-> | Then/NN-&gt;RB | ,/, in/IN the/DT guests/N , in/IN the/DT guests/NNS
-> | '/VBD-&gt;POS | honor/NN ,/, the/DT speed '/POS honor/NN ,/, the/DT
-> | speedway/JJ-&gt;NN | hauled/VBD out/RP four/CD NN ,/, the/DT
-> speedway/NN | hauled/NN-&gt;VBD | out/RP four/CD drivers/NN DT
-> speedway/NN hauled/VBD | out/NNP-&gt;RP | four/CD drivers/NNS ,/, c
-> dway/NN hauled/VBD out/RP | four/NNP-&gt;CD | drivers/NNS ,/,
-> crews/NNS hauled/VBD out/RP four/CD | drivers/NNP-&gt;NNS | ,/,
-> crews/NNS and/CC even P four/CD drivers/NNS ,/, | crews/NN-&gt;NNS |
+> | Then/NN->RB | ,/, in/IN the/DT guests/N , in/IN the/DT guests/NNS
+> | '/VBD->POS | honor/NN ,/, the/DT speed '/POS honor/NN ,/, the/DT
+> | speedway/JJ->NN | hauled/VBD out/RP four/CD NN ,/, the/DT
+> speedway/NN | hauled/NN->VBD | out/RP four/CD drivers/NN DT
+> speedway/NN hauled/VBD | out/NNP->RP | four/CD drivers/NNS ,/, c
+> dway/NN hauled/VBD out/RP | four/NNP->CD | drivers/NNS ,/,
+> crews/NNS hauled/VBD out/RP four/CD | drivers/NNP->NNS | ,/,
+> crews/NNS and/CC even P four/CD drivers/NNS ,/, | crews/NN->NNS |
 > and/CC even/RB the/DT off NNS and/CC even/RB the/DT |
-> official/NNP-&gt;JJ | Indianapolis/NNP 500/CD a | After/VBD-&gt;IN |
+> official/NNP->JJ | Indianapolis/NNP 500/CD a | After/VBD->IN |
 > the/DT race/NN ,/, Fortun ter/IN the/DT race/NN ,/, |
-> Fortune/IN-&gt;NNP | 500/CD executives/NNS dro s/NNS drooled/VBD
-> like/IN | schoolboys/NNP-&gt;NNS | over/IN the/DT cars/NNS a
-> olboys/NNS over/IN the/DT | cars/NN-&gt;NNS | and/CC drivers/NNS ./.
+> Fortune/IN->NNP | 500/CD executives/NNS dro s/NNS drooled/VBD
+> like/IN | schoolboys/NNP->NNS | over/IN the/DT cars/NNS a
+> olboys/NNS over/IN the/DT | cars/NN->NNS | and/CC drivers/NNS ./.
 
 How to Determine the Category of a Word
 ---------------------------------------
@@ -1387,10 +1494,10 @@ semantic clues to determine the category of a word.
 
 The internal structure of a word may give useful clues as to the word's
 category. For example, -ness is a suffix that combines with an adjective
-to produce a noun, e.g. happy |rarr| happiness, ill |rarr| illness. So
+to produce a noun, e.g. happy → happiness, ill → illness. So
 if we encounter a word that ends in -ness, this is very likely to be a
 noun. Similarly, -ment is a suffix that combines with some verbs to
-produce a noun, e.g. govern |rarr| government and establish |rarr|
+produce a noun, e.g. govern → government and establish →
 establishment.
 
 English verbs can also be morphologically complex. For instance, the
@@ -1445,7 +1552,7 @@ by virtue of their syntactic role. Consider, for example, the selection
 of distinct grammatical forms of the word go illustrated in the
 following sentences:
 
-Each of these forms |mdash| go, goes, gone, and went |mdash| is
+Each of these forms — go, goes, gone, and went — is
 morphologically distinct from the others. Consider the form, goes. This
 occurs in a restricted set of grammatical contexts, and requires a third
 person singular subject. Thus, the following sentences are
@@ -1489,7 +1596,7 @@ Summary
     as `NN`, `VB`,
 -   The process of automatically assigning parts of speech to words in
     text is called part-of-speech tagging, POS tagging, or just tagging.
--   Automatic tagging is an important step in the |NLP| pipeline, and is
+-   Automatic tagging is an important step in the NLP pipeline, and is
     useful in a variety of situations including: predicting the behavior
     of previously unseen words, analyzing word usage in corpora, and
     text-to-speech systems.
@@ -1523,9 +1630,9 @@ Summary
 Further Reading
 ---------------
 
-Extra materials for this chapter are posted at |NLTK-URL|, including
+Extra materials for this chapter are posted at [NLTK](https://www.nltk.org/), including
 links to freely available resources on the web. For more examples of
-tagging with |NLTK|, please see the Tagging HOWTO at |NLTK-HOWTO-URL|.
+tagging with NLTK, please see the Tagging HOWTO at [NLTK HOWTO](https://www.nltk.org/howto/).
 Chapters 4 and 5 of \[JurafskyMartin2008\]\_ contain more advanced
 material on n-grams and part-of-speech tagging. The "Universal Tagset"
 is described by \[Petrov2011\]\_. Other approaches to tagging involve
@@ -1557,7 +1664,7 @@ brackets enclose the word that is tagged.
 
 Note that tagging is also performed at higher levels. Here is an example
 of dialogue act tagging, from the NPS Chat Corpus \[Forsyth2007\]\_
-included with |NLTK|. Each turn of the dialogue is categorized as to its
+included with NLTK. Each turn of the dialogue is categorized as to its
 communicative function:
 
     Statement  User117 Dude..., I wanted some of that
@@ -1570,57 +1677,57 @@ communicative function:
 Exercises
 ---------
 
-1.  |easy| Search the web for "spoof newspaper headlines", to find such
+1.  ☆ Search the web for "spoof newspaper headlines", to find such
     gems as: British Left Waffles on Falkland Islands, and
     Juvenile Court to Try Shooting Defendant. Manually tag these
     headlines to see if knowledge of the part-of-speech tags removes
     the ambiguity.
-2.  |easy| Working with someone else, take turns to pick a word that can
+2.  ☆ Working with someone else, take turns to pick a word that can
     be either a noun or a verb (e.g. contest); the opponent has to
     predict which one is likely to be the most frequent in the Brown
     corpus; check the opponent's prediction, and tally the score over
     several turns.
-3.  |easy| Tokenize and tag the following sentence:
+3.  ☆ Tokenize and tag the following sentence:
     They wind back the clock, while we chase after the wind. What
     different pronunciations and parts of speech are involved?
-4.  |easy| Review the mappings in tab-linguistic-objects\_. Discuss any
+4.  ☆ Review the mappings in tab-linguistic-objects\_. Discuss any
     other examples of mappings you can think of. What type of
     information do they map from and to?
-5.  |easy| Using the Python interpreter in interactive mode, experiment
+5.  ☆ Using the Python interpreter in interactive mode, experiment
     with the dictionary examples in this chapter. Create a dictionary
     `d`, and add some entries. What happens if you try to access a
     non-existent entry, e.g. `d['xyz']`?
-6.  |easy| Try deleting an element from a dictionary `d`, using the
+6.  ☆ Try deleting an element from a dictionary `d`, using the
     syntax `del d['abc']`. Check that the item was deleted.
-7.  |easy| Create two dictionaries, `d1` and `d2`, and add some entries
+7.  ☆ Create two dictionaries, `d1` and `d2`, and add some entries
     to each. Now issue the command `d1.update(d2)`. What did this do?
     What might it be useful for?
-8.  |easy| Create a dictionary `e`, to represent a single lexical entry
+8.  ☆ Create a dictionary `e`, to represent a single lexical entry
     for some word of your choice. Define keys like `headword`,
     `part-of-speech`, `sense`, and `example`, and assign them
     suitable values.
-9.  |easy| Satisfy yourself that there are restrictions on the
+9.  ☆ Satisfy yourself that there are restrictions on the
     distribution of go and went, in the sense that they cannot be freely
     interchanged in the kinds of contexts illustrated in
     [ex-go](..%20ex::..%20ex::%20*Go*%20away!..%20ex::%20%20He%20sometimes%20*goes*%20to%20the%20cafe...%20ex::%20%20All%20the%20cakes%20have%20*gone*...%20ex::%20%20We%20*went*%20on%20the%20excursion.)
     in sec-how-to-determine-the-category-of-a-word\_.
-10. |easy| Train a unigram tagger and run it on some new text. Observe
+10. ☆ Train a unigram tagger and run it on some new text. Observe
     that some words are not assigned a tag. Why not?
-11. |easy| Learn about the affix tagger (type `help(nltk.AffixTagger)`).
+11. ☆ Learn about the affix tagger (type `help(nltk.AffixTagger)`).
     Train an affix tagger and run it on some new text. Experiment with
     different settings for the affix length and the minimum word length.
     Discuss your findings.
-12. |easy| Train a bigram tagger with no backoff tagger, and run it on
+12. ☆ Train a bigram tagger with no backoff tagger, and run it on
     some of the training data. Next, run it on some new data. What
     happens to the performance of the tagger? Why?
-13. |easy| We can use a dictionary to specify the values to be
+13. ☆ We can use a dictionary to specify the values to be
     substituted into a formatting string. Read Python's library
     documentation for formatting strings
     `http://docs.python.org/lib/typesseq-strings.html` and use this
     method to display today's date in two different formats.
-14. |soso| Use `sorted()` and `set()` to get a sorted list of tags used
+14. ☆☆ Use `sorted()` and `set()` to get a sorted list of tags used
     in the Brown corpus, removing duplicates.
-15. |soso| Write programs to process the Brown Corpus and find answers
+15. ☆☆ Write programs to process the Brown Corpus and find answers
     to the following questions:
     1)  Which nouns are more common in their plural form, rather than
         their singular form? (Only consider regular plurals, formed with
@@ -1632,7 +1739,7 @@ Exercises
     4)  Which tags are nouns most commonly found after? What do these
         tags represent?
 
-16. |soso| Explore the following issues that arise in connection with
+16. ☆☆ Explore the following issues that arise in connection with
     the lookup tagger:
     a)  What happens to the tagger performance for the various model
         sizes when a backoff tagger is omitted?
@@ -1643,11 +1750,11 @@ Exercises
         preferable to minimize memory usage, or to maximize performance
         with no regard for memory usage?
 
-17. |soso| What is the upper limit of performance for a lookup tagger,
+17. ☆☆ What is the upper limit of performance for a lookup tagger,
     assuming no limit to the size of its table? (Hint: write a program
     to work out what percentage of tokens of a word are assigned the
     most likely tag for that word, on average.)
-18. |soso| Generate some statistics for tagged data to answer the
+18. ☆☆ Generate some statistics for tagged data to answer the
     following questions:
     a)  What proportion of word types are always assigned the same
         part-of-speech tag?
@@ -1656,7 +1763,7 @@ Exercises
     c)  What percentage of word *tokens* in the Brown Corpus involve
         these ambiguous words?
 
-19. |soso| The `evaluate()` method works out how accurately the tagger
+19. ☆☆ The `evaluate()` method works out how accurately the tagger
     performs on this text. For example, if the supplied tagged text was
     `[('the', 'DT'), ('dog', 'NN')]` and the tagger produced the output
     `[('the', 'NN'), ('dog', 'NN')]`, then the score would be `0.5`.
@@ -1674,7 +1781,7 @@ Exercises
         (be sure to use the `api.py` file and not the compiled `api.pyc`
         binary file).
 
-20. |soso| Write code to search the Brown Corpus for particular words
+20. ☆☆ Write code to search the Brown Corpus for particular words
     and phrases according to tags, to answer the following questions:
     a)  Produce an alphabetically sorted list of the distinct words
         tagged as `MD`.
@@ -1684,11 +1791,11 @@ Exercises
         NN (eg. in the lab).
     d)  What is the ratio of masculine to feminine pronouns?
 
-21. |soso| In tab-absolutely\_ we saw a table involving frequency counts
+21. ☆☆ In tab-absolutely\_ we saw a table involving frequency counts
     for the verbs adore, love, like, prefer and preceding qualifiers
     absolutely and definitely. Investigate the full range of adverbs
     that appear before these four verbs.
-22. |soso| We defined the `regexp_tagger` that can be used as a
+22. ☆☆ We defined the `regexp_tagger` that can be used as a
     fall-back tagger for unknown words. This tagger only checks for
     cardinal numbers. By testing for particular prefix or suffix
     strings, it should be possible to guess other tags. For example, we
@@ -1696,17 +1803,17 @@ Exercises
     regular expression tagger (using `RegexpTagger()`) that tests for at
     least five other patterns in the spelling of words. (Use inline
     documentation to explain the rules.)
-23. |soso| Consider the regular expression tagger developed in the
+23. ☆☆ Consider the regular expression tagger developed in the
     exercises in the previous section. Evaluate the tagger using its
     `accuracy()` method, and try to come up with ways to improve
     its performance. Discuss your findings. How does objective
     evaluation help in the development process?
-24. |soso| How serious is the sparse data problem? Investigate the
+24. ☆☆ How serious is the sparse data problem? Investigate the
     performance of n-gram taggers as $n$ increases from 1 to 6. Tabulate
     the accuracy score. Estimate the training data required for these
     taggers, assuming a vocabulary size of 10^5^ and a tagset size of
     10^2^.
-25. |soso| Obtain some tagged data for another language, and train and
+25. ☆☆ Obtain some tagged data for another language, and train and
     evaluate a variety of taggers on it. If the language is
     morphologically complex, or if there are any orthographic
     clues (e.g. capitalization) to word classes, consider developing a
@@ -1715,40 +1822,40 @@ Exercises
     your tagger(s) compare with the same taggers run on English data?
     Discuss any issues you encounter in applying these methods to
     the language.
-26. |soso| code-baseline-tagger\_ plotted a curve showing change in the
+26. ☆☆ code-baseline-tagger\_ plotted a curve showing change in the
     performance of a lookup tagger as the model size was increased. Plot
     the performance curve for a unigram tagger, as the amount of
     training data is varied.
-27. |soso| Inspect the confusion matrix for the bigram tagger `t2`
+27. ☆☆ Inspect the confusion matrix for the bigram tagger `t2`
     defined in sec-n-gram-tagging\_, and identify one or more sets of
     tags to collapse. Define a dictionary to do the mapping, and
     evaluate the tagger on the simplified data.
-28. |soso| Experiment with taggers using the simplified tagset (or make
+28. ☆☆ Experiment with taggers using the simplified tagset (or make
     one of your own by discarding all but the first character of each
     tag name). Such a tagger has fewer distinctions to make, but much
     less information on which to base its work. Discuss your findings.
-29. |soso| Recall the example of a bigram tagger which encountered a
+29. ☆☆ Recall the example of a bigram tagger which encountered a
     word it hadn't seen during training, and tagged the rest of the
     sentence as `None`. It is possible for a bigram tagger to fail part
     way through a sentence even if it contains no unseen words (even if
     the sentence was used during training). In what circumstance can
     this happen? Can you write a program to find some examples of this?
-30. |soso| Preprocess the Brown News data by replacing low frequency
+30. ☆☆ Preprocess the Brown News data by replacing low frequency
     words with UNK, but leaving the tags untouched. Now train and
     evaluate a bigram tagger on this data. How much does this help? What
     is the contribution of the unigram tagger and default tagger now?
-31. |soso| Modify the program in code-baseline-tagger\_ to use a
+31. ☆☆ Modify the program in code-baseline-tagger\_ to use a
     logarithmic scale on the *x*-axis, by replacing `pylab.plot()` with
     `pylab.semilogx()`. What do you notice about the shape of the
     resulting plot? Does the gradient tell you anything?
-32. |soso| Consult the documentation for the Brill tagger demo function,
+32. ☆☆ Consult the documentation for the Brill tagger demo function,
     using `help(nltk.tag.brill.demo)`. Experiment with the tagger by
     setting different values for the parameters. Is there any trade-off
     between training time (corpus size) and performance?
-33. |soso| Write code that builds a dictionary of dictionaries of sets.
+33. ☆☆ Write code that builds a dictionary of dictionaries of sets.
     Use it to store the set of POS tags that can follow a given word
-    having a given POS tag, i.e. word~i~ |rarr| tag~i~ |rarr| tag~i+1~.
-34. |hard| There are 264 distinct words in the Brown Corpus having
+    having a given POS tag, i.e. word~i~ → tag~i~ → tag~i+1~.
+34. ☆☆☆ There are 264 distinct words in the Brown Corpus having
     exactly three possible tags.
     a)  Print a table with the integers 1..10 in one column, and the
         number of distinct words in the corpus having 1..10 distinct
@@ -1757,10 +1864,10 @@ Exercises
         out sentences from the corpus containing the word, one for each
         possible tag.
 
-35. |hard| Write a program to classify contexts involving the word must
+35. ☆☆☆ Write a program to classify contexts involving the word must
     according to the tag of the following word. Can this be used to
     discriminate between the epistemic and deontic uses of must?
-36. |hard| Create a regular expression tagger and various unigram and
+36. ☆☆☆ Create a regular expression tagger and various unigram and
     n-gram taggers, incorporating backoff, and train them on part of the
     Brown corpus.
     a)  Create three different combinations of the taggers. Test the
@@ -1768,7 +1875,7 @@ Exercises
     b)  Try varying the size of the training corpus. How does it affect
         your results?
 
-37. |hard| Our approach for tagging an unknown word has been to consider
+37. ☆☆☆ Our approach for tagging an unknown word has been to consider
     the letters of the word (using `RegexpTagger()`), or to ignore the
     word altogether and tag it as a noun (using `nltk.DefaultTagger()`).
     These methods will not do well for texts having new words that are
@@ -1785,36 +1892,36 @@ Exercises
         before the usual default tagger.
     c)  Evaluate the contribution of this new unigram tagger.
 
-38. |hard| Consider the code in sec-n-gram-tagging\_ which determines
+38. ☆☆☆ Consider the code in sec-n-gram-tagging\_ which determines
     the upper bound for accuracy of a trigram tagger. Review Abney's
     discussion concerning the impossibility of exact
     tagging \[Abney1996PST\]\_. Explain why correct tagging of these
     examples requires access to other kinds of information than just
     words and tags. How might you estimate the scale of this problem?
-39. |hard| Use some of the estimation techniques in `nltk.probability`,
+39. ☆☆☆ Use some of the estimation techniques in `nltk.probability`,
     such as *Lidstone* or *Laplace* estimation, to develop a statistical
     tagger that does a better job than n-gram backoff taggers in cases
     where contexts encountered during testing were not seen
     during training.
-40. |hard| Inspect the diagnostic files created by the Brill tagger
+40. ☆☆☆ Inspect the diagnostic files created by the Brill tagger
     `rules.out` and `errors.out`. Obtain the demonstration code by
     accessing the source code (at `http://www.nltk.org/code`) and create
     your own version of the Brill tagger. Delete some of the rule
     templates, based on what you learned from inspecting `rules.out`.
     Add some new rule templates which employ contexts that might help to
     correct the errors you saw in `errors.out`.
-41. |hard| Develop an n-gram backoff tagger that permits "anti-n-grams"
+41. ☆☆☆ Develop an n-gram backoff tagger that permits "anti-n-grams"
     such as `["the", "the"]` to be specified when a tagger is
     initialized. An anti-ngram is assigned a count of zero and is used
     to prevent backoff for this n-gram (e.g. to avoid estimating P(the
     | the) as just P(the)).
-42. |hard| Investigate three different ways to define the split between
+42. ☆☆☆ Investigate three different ways to define the split between
     training and testing data when developing a tagger using the Brown
     Corpus: genre (`category`), source (`fileid`), and sentence. Compare
     their relative performance and discuss which method is the
     most legitimate. (You might use n-fold cross validation, discussed
     in sec-evaluation\_, to improve the accuracy of the evaluations.)
-43. |hard| Develop your own `NgramTagger` class that inherits from
+43. ☆☆☆ Develop your own `NgramTagger` class that inherits from
     NLTK's class, and which encapsulates the method of collapsing the
     vocabulary of the tagged training and testing data that was
     described in this chapter. Make sure that the unigram and default
