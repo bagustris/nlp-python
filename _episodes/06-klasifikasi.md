@@ -94,10 +94,12 @@ we'll start by just looking at the final letter of a given name. The
 following feature extractor function builds a dictionary containing
 relevant information about a given name:
 
-> >>> def gender\_features(word): ... return {'last\_letter':
-> word\[-1\]}
-> >>> gender\_features('Shrek') {'last\_letter':
-> 'k'}
+```python
+>>> def gender_features(word):
+...     return {'last_letter': word[-1]}
+>>> gender_features('Shrek')
+{'last_letter': 'k'}
+```
 
 The returned dictionary, known as a feature set, maps from feature names
 to their values. Feature names are case-sensitive strings that typically
@@ -118,31 +120,35 @@ such as booleans, numbers, and strings.
 Now that we've defined a feature extractor, we need to prepare a list of
 examples and corresponding class labels.
 
-> >>> from nltk.corpus import names
-> >>> labeled\_names
-> = (\[(name, 'male') for name in names.words('male.txt')\] + ...
-> \[(name, 'female') for name in names.words('female.txt')\])
-> >>> import random
-> >>> random.shuffle(labeled\_names)
+```python
+>>> from nltk.corpus import names
+>>> labeled_names = ([(name, 'male') for name in names.words('male.txt')] +
+...     [(name, 'female') for name in names.words('female.txt')])
+>>> import random
+>>> random.shuffle(labeled_names)
+```
 
 Next, we use the feature extractor to process the `names` data, and
 divide the resulting list of feature sets into a training set and a
 test set. The training set is used to train a new "naive Bayes"
 classifier.
 
-> >>> featuresets = \[(gender\_features(n), gender) for (n,
-> gender) in labeled\_names\]
-> >>> train\_set, test\_set =
-> featuresets\[500:\], featuresets\[:500\]
-> >>> classifier =
-> nltk.NaiveBayesClassifier.train(train\_set)
+```python
+>>> featuresets = [(gender_features(n), gender) for (n, gender) in labeled_names]
+>>> train_set, test_set = featuresets[500:], featuresets[:500]
+>>> classifier = nltk.NaiveBayesClassifier.train(train_set)
+```
 
 We will learn more about the naive Bayes classifier later in the
 chapter. For now, let's just test it out on some names that did not
 appear in its training data:
 
-> >>> classifier.classify(gender\_features('Neo')) 'male'
-> >>> classifier.classify(gender\_features('Trinity')) 'female'
+```python
+>>> classifier.classify(gender_features('Neo'))
+'male'
+>>> classifier.classify(gender_features('Trinity'))
+'female'
+```
 
 Observe that these character names from *The Matrix* are correctly
 classified. Although this science fiction movie is set in 2199, it still
@@ -150,16 +156,17 @@ conforms with our expectations about names and genders. We can
 systematically evaluate the classifier on a much larger quantity of
 unseen data:
 
-> >>> print(nltk.classify.accuracy(classifier, test\_set)) 0.77
+```python
+>>> print(nltk.classify.accuracy(classifier, test_set))
+0.77
+```
 
 Finally, we can examine the classifier to determine which features it
 found most effective for distinguishing the names' genders:
 
-> >>> classifier.show\_most\_informative\_features(5) Most
-> Informative Features last\_letter = 'a' female : male = 33.2 : 1.0
-> last\_letter = 'k' male : female = 32.6 : 1.0 last\_letter = 'p' male
-> : female = 19.7 : 1.0 last\_letter = 'v' male : female = 18.6 : 1.0
-> last\_letter = 'f' male : female = 17.3 : 1.0
+```python
+>>> classifier.show_most_informative_features(5) Most Informative Features last_letter = 'a' female : male = 33.2 : 1.0 last_letter = 'k' male : female = 32.6 : 1.0 last_letter = 'p' male : female = 19.7 : 1.0 last_letter = 'v' male : female = 18.6 : 1.0 last_letter = 'f' male : female = 17.3 : 1.0
+```
 
 This listing shows that the names in the training set that end in "a"
 are female 33 times more often than they are male, but names that end in
@@ -181,11 +188,11 @@ memory. In these cases, use the function `nltk.classify.apply_features`,
 which returns an object that acts like a list but does not store all the
 feature sets in memory:
 
-> >>> from nltk.classify import apply\_features
-> >>>
-> train\_set = apply\_features(gender\_features, labeled\_names\[500:\])
-> >>> test\_set = apply\_features(gender\_features,
-> labeled\_names\[:500\])
+```python
+>>> from nltk.classify import apply_features
+>>> train_set = apply_features(gender_features, labeled_names[500:])
+>>> test_set = apply_features(gender_features, labeled_names[:500])
+```
 
 ### Choosing The Right Features
 
@@ -214,8 +221,9 @@ gender features in code-gender-features-overfitting\_.
 >     name.lower().count(letter) features\["has({})".format(letter)\] =
 >     (letter in name.lower()) return features
 >
-> >>> gender\_features2('John') \# doctest: +SKIP {'count(j)':
-> 1, 'has(d)': False, 'count(b)': 0, ...}
+```python
+>>> gender_features2('John') # doctest: +SKIP {'count(j)': 1, 'has(d)': False, 'count(b)': 0, ...}
+```
 
 However, there are usually limits to the number of features that you
 should use with a given learning algorithm — if you provide too
@@ -229,14 +237,13 @@ the relatively small training set, resulting in a system whose accuracy
 is about 1% lower than the accuracy of a classifier that only pays
 attention to the final letter of each name:
 
-> >>> featuresets = \[(gender\_features2(n), gender) for (n,
-> gender) in labeled\_names\]
-> >>> train\_set, test\_set =
-> featuresets\[500:\], featuresets\[:500\]
-> >>> classifier =
-> nltk.NaiveBayesClassifier.train(train\_set)
-> >>>
-> print(nltk.classify.accuracy(classifier, test\_set)) 0.768
+```python
+>>> featuresets = [(gender_features2(n), gender) for (n, gender) in labeled_names]
+>>> train_set, test_set = featuresets[500:], featuresets[:500]
+>>> classifier = nltk.NaiveBayesClassifier.train(train_set)
+>>> print(nltk.classify.accuracy(classifier, test_set))
+0.768
+```
 
 Once an initial set of features has been chosen, a very productive
 method for refining the feature set is error analysis. First, we select
@@ -244,11 +251,11 @@ a development set, containing the corpus data for creating the model.
 This development set is then subdivided into the training set and the
 dev-test set.
 
-> >>> train\_names = labeled\_names\[1500:\]
-> >>>
-> devtest\_names = labeled\_names\[500:1500\]
-> >>> test\_names =
-> labeled\_names\[:500\]
+```python
+>>> train_names = labeled_names[1500:]
+>>> devtest_names = labeled_names[500:1500]
+>>> test_names = labeled_names[:500]
+```
 
 The training set is used to train the model, and the dev-test set is
 used to perform error analysis. The test set serves in our final
@@ -266,27 +273,25 @@ Having divided the corpus into appropriate datasets, we train a model
 using the training set err-analysis-train\_, and then run it on the
 dev-test set err-analysis-run\_.
 
-> >>> train\_set = \[(gender\_features(n), gender) for (n,
-> gender) in train\_names\]
-> >>> devtest\_set =
-> \[(gender\_features(n), gender) for (n, gender) in devtest\_names\]
-> >>> test\_set = \[(gender\_features(n), gender) for (n,
-> gender) in test\_names\]
-> >>> classifier =
-> nltk.NaiveBayesClassifier.train(train\_set) \#
-> \[\_err-analysis-train\]
-> >>>
-> print(nltk.classify.accuracy(classifier, devtest\_set)) \#
-> \[\_err-analysis-run\] 0.75
+```python
+>>> train_set = [(gender_features(n), gender) for (n, gender) in train_names]
+>>> devtest_set = [(gender_features(n), gender) for (n, gender) in devtest_names]
+>>> test_set = [(gender_features(n), gender) for (n, gender) in test_names]
+>>> classifier = nltk.NaiveBayesClassifier.train(train_set) # [_err-analysis-train]
+>>> print(nltk.classify.accuracy(classifier, devtest_set)) # [_err-analysis-run]
+0.75
+```
 
 Using the dev-test set, we can generate a list of the errors that the
 classifier makes when predicting name genders:
 
-> >>> errors = \[\]
-> >>> for (name, tag) in
-> devtest\_names: ... guess =
-> classifier.classify(gender\_features(name)) ... if guess != tag: ...
-> errors.append( (tag, guess, name) )
+```python
+>>> errors = []
+>>> for (name, tag) in devtest_names:
+...     guess = classifier.classify(gender_features(name))
+...     if guess != tag:
+...     errors.append( (tag, guess, name) )
+```
 
 We can then examine individual error cases where the model predicted the
 wrong label, and try to determine what additional pieces of information
@@ -295,13 +300,15 @@ information are tricking it into making the wrong decision). The feature
 set can then be adjusted accordingly. The names classifier that we have
 built generates about 100 errors on the dev-test corpus:
 
-> >>> for (tag, guess, name) in sorted(errors): ...
-> print('correct={:<8} guess={:<8s} name={:<30}'.format(tag,
-> guess, name)) correct=female guess=male name=Abigail ...
-> correct=female guess=male name=Cindelyn ... correct=female guess=male
-> name=Katheryn correct=female guess=male name=Kathryn ... correct=male
-> guess=female name=Aldrich ... correct=male guess=female name=Mitch ...
-> correct=male guess=female name=Rich ...
+```python
+>>> for (tag, guess, name) in sorted(errors):
+...     print('correct={:<8} guess={:<8s} name={:<30}'.format(tag, guess, name)) correct=female guess=male name=Abigail
+...     correct=female guess=male name=Cindelyn
+...     correct=female guess=male name=Katheryn correct=female guess=male name=Kathryn
+...     correct=male guess=female name=Aldrich
+...     correct=male guess=female name=Mitch
+...     correct=male guess=female name=Rich ...
+```
 
 Looking through this list of errors makes it clear that some suffixes
 that are more than one letter can be indicative of name genders. For
@@ -311,20 +318,23 @@ are usually male, even though names that end in h tend to be female. We
 therefore adjust our feature extractor to include features for
 two-letter suffixes:
 
-> >>> def gender\_features(word): ... return {'suffix1':
-> word\[-1:\], ... 'suffix2': word\[-2:\]}
+```python
+>>> def gender_features(word):
+...     return {'suffix1': word[-1:],
+...     'suffix2': word[-2:]}
+```
 
 Rebuilding the classifier with the new feature extractor, we see that
 the performance on the dev-test dataset improves by almost 2 percentage
 points (from 76.5% to 78.2%):
 
-> >>> train\_set = \[(gender\_features(n), gender) for (n,
-> gender) in train\_names\]
-> >>> devtest\_set =
-> \[(gender\_features(n), gender) for (n, gender) in devtest\_names\]
-> >>> classifier = nltk.NaiveBayesClassifier.train(train\_set)
-> >>> print(nltk.classify.accuracy(classifier, devtest\_set))
-> 0.782
+```python
+>>> train_set = [(gender_features(n), gender) for (n, gender) in train_names]
+>>> devtest_set = [(gender_features(n), gender) for (n, gender) in devtest_names]
+>>> classifier = nltk.NaiveBayesClassifier.train(train_set)
+>>> print(nltk.classify.accuracy(classifier, devtest_set))
+0.782
+```
 
 This error analysis procedure can then be repeated, checking for
 patterns in the errors that are made by the newly improved classifier.
@@ -349,13 +359,13 @@ of documents, labeled with the appropriate categories. For this example,
 we've chosen the Movie Reviews Corpus, which categorizes each review as
 positive or negative.
 
-> >>> from nltk.corpus import movie\_reviews
-> >>>
-> documents = \[(list(movie\_reviews.words(fileid)), category) ... for
-> category in movie\_reviews.categories() ... for fileid in
-> movie\_reviews.fileids(category)\]
-> >>>
-> random.shuffle(documents)
+```python
+>>> from nltk.corpus import movie_reviews
+>>> documents = [(list(movie_reviews.words(fileid)), category)
+...     for category in movie_reviews.categories()
+...     for fileid in movie_reviews.fileids(category)]
+>>> random.shuffle(documents)
+```
 
 Next, we define a feature extractor for documents, so the classifier
 will know which aspects of the data it should pay attention to
@@ -378,10 +388,9 @@ whether each of these words is present in a given document.
 >     features\['contains({})'.format(word)\] = (word in
 >     document\_words) return features
 >
-> >>>
-> print(document\_features(movie\_reviews.words('pos/cv957\_8737.txt')))
-> \# doctest: +SKIP {'contains(waste)': False, 'contains(lot)': False,
-> ...}
+```python
+>>> print(document_features(movie_reviews.words('pos/cv957_8737.txt'))) # doctest: +SKIP {'contains(waste)': False, 'contains(lot)': False, ...}
+```
 
 > **note**
 >
@@ -412,28 +421,26 @@ Instead, we can train a classifier to work out which suffixes are most
 informative. Let's begin by finding out what the most common suffixes
 are:
 
-> >>> from nltk.corpus import brown
-> >>> suffix\_fdist
-> = nltk.FreqDist()
-> >>> for word in brown.words(): ... word =
-> word.lower() ... suffix\_fdist\[word\[-1:\]\] += 1 ...
-> suffix\_fdist\[word\[-2:\]\] += 1 ... suffix\_fdist\[word\[-3:\]\] +=
-> 1
->
-> >>> common\_suffixes = \[suffix for (suffix, count) in
-> suffix\_fdist.most\_common(100)\]
-> >>> print(common\_suffixes)
-> \['e', ',', '.', 's', 'd', 't', 'he', 'n', 'a', 'of', 'the', 'y', 'r',
-> 'to', 'in', 'f', 'o', 'ed', 'nd', 'is', 'on', 'l', 'g', 'and', 'ng',
-> 'er', 'as', 'ing', 'h', 'at', 'es', 'or', 're', 'it', '\`\`', 'an',
-> "''", 'm', ';', 'i', 'ly', 'ion', ...\]
+```python
+>>> from nltk.corpus import brown
+>>> suffix_fdist = nltk.FreqDist()
+>>> for word in brown.words():
+...     word = word.lower() ... suffix_fdist[word[-1:]] += 1 ... suffix_fdist[word[-2:]] += 1 ... suffix_fdist[word[-3:]] += 1
+>>> common_suffixes = [suffix for (suffix, count) in suffix_fdist.most_common(100)]
+>>> print(common_suffixes)
+['e', ',', '.', 's', 'd', 't', 'he', 'n', 'a', 'of', 'the', 'y', 'r', 'to', 'in', 'f', 'o', 'ed', 'nd', 'is', 'on', 'l', 'g', 'and', 'ng', 'er', 'as', 'ing', 'h', 'at', 'es', 'or', 're', 'it', '\`\`', 'an', "''", 'm', ';', 'i', 'ly', 'ion', ...]
+```
 
 Next, we'll define a feature extractor function which checks a given
 word for these suffixes:
 
-> >>> def pos\_features(word): ... features = {} ... for suffix
-> in common\_suffixes: ... features\['endswith({})'.format(suffix)\] =
-> word.lower().endswith(suffix) ... return features
+```python
+>>> def pos_features(word):
+...     features = {}
+...     for suffix in common_suffixes:
+...     features['endswith({})'.format(suffix)] = word.lower().endswith(suffix)
+...     return features
+```
 
 Feature extraction functions behave like tinted glasses, highlighting
 some of the properties (colors) in our data and making it impossible to
@@ -446,31 +453,26 @@ Now that we've defined our feature extractor, we can use it to train a
 new "decision tree" classifier (to be discussed in
 sec-decision-trees\_):
 
-> >>> tagged\_words = brown.tagged\_words(categories='news')
-> >>> featuresets = \[(pos\_features(n), g) for (n,g) in
-> tagged\_words\]
->
-> >>> size = int(len(featuresets) \* 0.1)
-> >>>
-> train\_set, test\_set = featuresets\[size:\], featuresets\[:size\]
->
-> >>> classifier =
-> nltk.DecisionTreeClassifier.train(train\_set)
-> >>>
-> nltk.classify.accuracy(classifier, test\_set) 0.62705121829935351
->
-> >>> classifier.classify(pos\_features('cats')) 'NNS'
+```python
+>>> tagged_words = brown.tagged_words(categories='news')
+>>> featuresets = [(pos_features(n), g) for (n,g) in tagged_words]
+>>> size = int(len(featuresets) * 0.1)
+>>> train_set, test_set = featuresets[size:], featuresets[:size]
+>>> classifier = nltk.DecisionTreeClassifier.train(train_set)
+>>> nltk.classify.accuracy(classifier, test_set)
+0.62705121829935351
+>>> classifier.classify(pos_features('cats'))
+'NNS'
+```
 
 One nice feature of decision tree models is that they are often fairly
 easy to interpret — we can even instruct NLTK to print them out
 as pseudocode:
 
-> >>> print(classifier.pseudocode(depth=4)) if endswith(,) ==
-> True: return ',' if endswith(,) == False: if endswith(the) == True:
-> return 'AT' if endswith(the) == False: if endswith(s) == True: if
-> endswith(is) == True: return 'BEZ' if endswith(is) == False: return
-> 'VBZ' if endswith(s) == False: if endswith(.) == True: return '.' if
-> endswith(.) == False: return 'NN'
+```python
+>>> print(classifier.pseudocode(depth=4)) if endswith(,) == True: return
+',' if endswith(,) == False: if endswith(the) == True: return 'AT' if endswith(the) == False: if endswith(s) == True: if endswith(is) == True: return 'BEZ' if endswith(is) == False: return 'VBZ' if endswith(s) == False: if endswith(.) == True: return '.' if endswith(.) == False: return 'NN'
+```
 
 Here, we can see that the classifier begins by checking whether a word
 ends with a comma — if so, then it will receive the special tag
@@ -523,23 +525,21 @@ classifier.
 >
 >     return features
 >
-> >>> pos\_features(brown.sents()\[0\], 8) {'suffix(3)': 'ion',
-> 'prev-word': 'an', 'suffix(2)': 'on', 'suffix(1)': 'n'}
->
-> >>> tagged\_sents = brown.tagged\_sents(categories='news')
-> >>> featuresets = \[\]
-> >>> for tagged\_sent in
-> tagged\_sents: ... untagged\_sent = nltk.tag.untag(tagged\_sent) ...
-> for i, (word, tag) in enumerate(tagged\_sent): ... featuresets.append(
-> (pos\_features(untagged\_sent, i), tag) )
->
-> >>> size = int(len(featuresets) \* 0.1)
-> >>>
-> train\_set, test\_set = featuresets\[size:\], featuresets\[:size\]
-> >>> classifier = nltk.NaiveBayesClassifier.train(train\_set)
->
-> >>> nltk.classify.accuracy(classifier, test\_set)
-> 0.78915962207856782
+```python
+>>> pos_features(brown.sents()[0], 8)
+{'suffix(3)': 'ion', 'prev-word': 'an', 'suffix(2)': 'on', 'suffix(1)': 'n'}
+>>> tagged_sents = brown.tagged_sents(categories='news')
+>>> featuresets = []
+>>> for tagged_sent in tagged_sents:
+...     untagged_sent = nltk.tag.untag(tagged_sent)
+...     for i, (word, tag) in enumerate(tagged_sent):
+...     featuresets.append( (pos_features(untagged_sent, i), tag) )
+>>> size = int(len(featuresets) * 0.1)
+>>> train_set, test_set = featuresets[size:], featuresets[:size]
+>>> classifier = nltk.NaiveBayesClassifier.train(train_set)
+>>> nltk.classify.accuracy(classifier, test_set)
+0.78915962207856782
+```
 
 It is clear that exploiting contextual features improves the performance
 of our part-of-speech tagger. For example, the classifier learns that a
@@ -607,15 +607,14 @@ output of the tagger itself.
 > >     self.classifier.classify(featureset) history.append(tag) return
 > >     zip(sentence, history)
 > >
-> >>> tagged\_sents = brown.tagged\_sents(categories='news')
-> >>> size = int(len(tagged\_sents) \* 0.1)
-> >>>
-> train\_sents, test\_sents = tagged\_sents\[size:\],
-> tagged\_sents\[:size\]
-> >>> tagger =
-> ConsecutivePosTagger(train\_sents)
-> >>>
-> print(tagger.evaluate(test\_sents)) 0.79796012981
+```python
+>>> tagged_sents = brown.tagged_sents(categories='news')
+>>> size = int(len(tagged_sents) * 0.1)
+>>> train_sents, test_sents = tagged_sents[size:], tagged_sents[:size]
+>>> tagger = ConsecutivePosTagger(train_sents)
+>>> print(tagger.evaluate(test_sents))
+0.79796012981
+```
 
 ### Other Methods for Sequence Classification
 
@@ -666,13 +665,15 @@ The first step is to obtain some data that has already been segmented
 into sentences and convert it into a form that is suitable for
 extracting features:
 
-> >>> sents = nltk.corpus.treebank\_raw.sents()
-> >>>
-> tokens = \[\]
-> >>> boundaries = set()
-> >>> offset = 0
-> >>> for sent in sents: ... tokens.extend(sent) ... offset +=
-> len(sent) ... boundaries.add(offset-1)
+```python
+>>> sents = nltk.corpus.treebank_raw.sents()
+>>> tokens = []
+>>> boundaries = set()
+>>> offset = 0
+>>> for sent in sents:
+...     tokens.extend(sent) ... offset += len(sent)
+...     boundaries.add(offset-1)
+```
 
 Here, `tokens` is a merged list of tokens from the individual sentences,
 and `boundaries` is a set containing the indexes of all
@@ -680,28 +681,33 @@ sentence-boundary tokens. Next, we need to specify the features of the
 data that will be used in order to decide whether punctuation indicates
 a sentence-boundary:
 
-> >>> def punct\_features(tokens, i): ... return
-> {'next-word-capitalized': tokens\[i+1\]\[0\].isupper(), ...
-> 'prev-word': tokens\[i-1\].lower(), ... 'punct': tokens\[i\], ...
-> 'prev-word-is-one-char': len(tokens\[i-1\]) == 1}
+```python
+>>> def punct_features(tokens, i):
+...     return {'next-word-capitalized': tokens[i+1][0].isupper(),
+...     'prev-word': tokens[i-1].lower(), ... 'punct': tokens[i], ... 'prev-word-is-one-char': len(tokens[i-1]) == 1}
+```
 
 Based on this feature extractor, we can create a list of labeled
 featuresets by selecting all the punctuation tokens, and tagging whether
 they are boundary tokens or not:
 
-> >>> featuresets = \[(punct\_features(tokens, i), (i in
-> boundaries)) ... for i in range(1, len(tokens)-1) ... if tokens\[i\]
-> in '.?!'\]
+```python
+>>> featuresets = [(punct_features(tokens, i), (i in boundaries))
+...     for i in range(1, len(tokens)-1)
+...     if tokens[i] in
+'.?!']
+```
 
 Using these featuresets, we can train and evaluate a punctuation
 classifier:
 
-> >>> size = int(len(featuresets) \* 0.1)
-> >>>
-> train\_set, test\_set = featuresets\[size:\], featuresets\[:size\]
-> >>> classifier = nltk.NaiveBayesClassifier.train(train\_set)
-> >>> nltk.classify.accuracy(classifier, test\_set)
-> 0.936026936026936
+```python
+>>> size = int(len(featuresets) * 0.1)
+>>> train_set, test_set = featuresets[size:], featuresets[:size]
+>>> classifier = nltk.NaiveBayesClassifier.train(train_set)
+>>> nltk.classify.accuracy(classifier, test_set)
+0.936026936026936
+```
 
 To use this classifier to perform sentence segmentation, we simply check
 each punctuation mark to see whether it's labeled as a boundary; and
@@ -729,30 +735,35 @@ posts. The first step is to extract the basic messaging data. We will
 call `xml_posts()` to get a data structure representing the XML
 annotation for each post:
 
-> >>> posts = nltk.corpus.nps\_chat.xml\_posts()\[:10000\]
+```python
+>>> posts = nltk.corpus.nps_chat.xml_posts()
+[:10000]
+```
 
 Next, we'll define a simple feature extractor that checks what words the
 post contains:
 
-> >>> def dialogue\_act\_features(post): ... features = {} ...
-> for word in nltk.word\_tokenize(post): ...
-> features\['contains({})'.format(word.lower())\] = True ... return
-> features
+```python
+>>> def dialogue_act_features(post):
+...     features = {}
+...     for word in nltk.word_tokenize(post):
+...     features['contains({})'.format(word.lower())] = True
+...     return features
+```
 
 Finally, we construct the training and testing data by applying the
 feature extractor to each post (using `post.get('class')` to get a
 post's dialogue act type), and create a new classifier:
 
-> >>> featuresets = \[(dialogue\_act\_features(post.text),
-> post.get('class')) ... for post in posts\]
-> >>> size =
-> int(len(featuresets) \* 0.1)
-> >>> train\_set, test\_set =
-> featuresets\[size:\], featuresets\[:size\]
-> >>> classifier =
-> nltk.NaiveBayesClassifier.train(train\_set)
-> >>>
-> print(nltk.classify.accuracy(classifier, test\_set)) 0.67
+```python
+>>> featuresets = [(dialogue_act_features(post.text), post.get('class'))
+...     for post in posts]
+>>> size = int(len(featuresets) * 0.1)
+>>> train_set, test_set = featuresets[size:], featuresets[:size]
+>>> classifier = nltk.NaiveBayesClassifier.train(train_set)
+>>> print(nltk.classify.accuracy(classifier, test_set))
+0.67
+```
 
 ### Recognizing Textual Entailment
 
@@ -822,21 +833,20 @@ function words are filtered out as "stopwords".
 To illustrate the content of these features, we examine some attributes
 of the text/hypothesis Pair 34 shown earlier:
 
-> >>> rtepair =
-> nltk.corpus.rte.pairs(\['rte3\_dev.xml'\])\[33\]
-> >>>
-> extractor = nltk.RTEFeatureExtractor(rtepair)
-> >>>
-> print(extractor.text\_words) {'Russia', 'Organisation', 'Shanghai',
-> 'Asia', 'four', 'at', 'operation', 'SCO', ...}
-> >>>
-> print(extractor.hyp\_words) {'member', 'SCO', 'China'}
-> >>>
-> print(extractor.overlap('word')) set()
-> >>>
-> print(extractor.overlap('ne')) {'SCO', 'China'}
-> >>>
-> print(extractor.hyp\_extra('word')) {'member'}
+```python
+>>> rtepair = nltk.corpus.rte.pairs(['rte3_dev.xml'])
+[33]
+>>> extractor = nltk.RTEFeatureExtractor(rtepair)
+>>> print(extractor.text_words)
+{'Russia', 'Organisation', 'Shanghai', 'Asia', 'four', 'at', 'operation', 'SCO', ...}
+>>> print(extractor.hyp_words)
+{'member', 'SCO', 'China'}
+>>> print(extractor.overlap('word')) set()
+>>> print(extractor.overlap('ne'))
+{'SCO', 'China'}
+>>> print(extractor.hyp_extra('word'))
+{'member'}
+```
 
 These features indicate that all important words in the hypothesis are
 contained in the text, and thus there is some evidence for labeling this
@@ -911,16 +921,14 @@ extreme, we could create the training set and test set by randomly
 assigning sentences from a data source that reflects a single genre
 (news):
 
-> >>> import random
-> >>> from nltk.corpus import brown
-> >>> tagged\_sents =
-> list(brown.tagged\_sents(categories='news'))
-> >>>
-> random.shuffle(tagged\_sents)
-> >>> size =
-> int(len(tagged\_sents) \* 0.1)
-> >>> train\_set, test\_set =
-> tagged\_sents\[size:\], tagged\_sents\[:size\]
+```python
+>>> import random
+>>> from nltk.corpus import brown
+>>> tagged_sents = list(brown.tagged_sents(categories='news'))
+>>> random.shuffle(tagged_sents)
+>>> size = int(len(tagged_sents) * 0.1)
+>>> train_set, test_set = tagged_sents[size:], tagged_sents[:size]
+```
 
 In this case, our test set will be *very* similar to our training set.
 The training set and test set are taken from the same genre, and so we
@@ -934,20 +942,21 @@ will be reflected in both the development set and the test set. A
 somewhat better approach is to ensure that the training set and test set
 are taken from different documents:
 
-> >>> file\_ids = brown.fileids(categories='news')
-> >>>
-> size = int(len(file\_ids) \* 0.1)
-> >>> train\_set =
-> brown.tagged\_sents(file\_ids\[size:\])
-> >>> test\_set =
-> brown.tagged\_sents(file\_ids\[:size\])
+```python
+>>> file_ids = brown.fileids(categories='news')
+>>> size = int(len(file_ids) * 0.1)
+>>> train_set = brown.tagged_sents(file_ids[size:])
+>>> test_set = brown.tagged_sents(file_ids[:size])
+```
 
 If we want to perform a more stringent evaluation, we can draw the test
 set from documents that are less closely related to those in the
 training set:
 
-> >>> train\_set = brown.tagged\_sents(categories='news')
-> >>> test\_set = brown.tagged\_sents(categories='fiction')
+```python
+>>> train_set = brown.tagged_sents(categories='news')
+>>> test_set = brown.tagged_sents(categories='fiction')
+```
 
 If we build a classifier that performs well on this test set, then we
 can be confident that it has the power to generalize well beyond the
@@ -962,11 +971,11 @@ the correct name 60 times in a test set containing 80 names would have
 an accuracy of 60/80 = 75%. The function `nltk.classify.accuracy()` will
 calculate the accuracy of a classifier model on a given test set:
 
-> >>> classifier = nltk.NaiveBayesClassifier.train(train\_set)
-> \# doctest: +SKIP
-> >>> print('Accuracy:
-> {:4.2f}'.format(nltk.classify.accuracy(classifier, test\_set))) \#
-> doctest: +SKIP 0.75
+```python
+>>> classifier = nltk.NaiveBayesClassifier.train(train_set) # doctest: +SKIP
+>>> print('Accuracy: {:4.2f}'.format(nltk.classify.accuracy(classifier, test_set))) # doctest: +SKIP
+0.75
+```
 
 When interpreting the accuracy score of a classifier, it is important to
 take into consideration the frequencies of the individual class labels
@@ -1029,29 +1038,19 @@ labels that were correctly predicted, and the off-diagonal entries
 indicate errors. In the following example, we generate a confusion
 matrix for the bigram tagger developed in sec-automatic-tagging\_:
 
-> >>> def tag\_list(tagged\_sents): ... return \[tag for sent
-> in tagged\_sents for (word, tag) in sent\]
-> >>> def
-> apply\_tagger(tagger, corpus): ... return
-> \[tagger.tag(nltk.tag.untag(sent)) for sent in corpus\]
-> >>>
-> gold = tag\_list(brown.tagged\_sents(categories='editorial'))
-> >>> test = tag\_list(apply\_tagger(t2,
-> brown.tagged\_sents(categories='editorial')))
-> >>> cm =
-> nltk.ConfusionMatrix(gold, test)
-> >>>
-> print(cm.pretty\_format(sort\_by\_count=True, show\_percents=True,
-> truncate=9)) | N | | N I A J N V N | | N N T J . S , B P |
-> ----+----------------------------------------------------------------+
-> NN | <11.8%> 0.0% . 0.2% . 0.0% . 0.3% 0.0% | IN | 0.0%
-> <9.0%> . . . 0.0% . . . | AT | . . <8.6%> . . . . . . | JJ
-> | 1.7% . . <3.9%> . . . 0.0% 0.0% | . | . . . . <4.8%> . .
-> . . | NNS | 1.5% . . . . <3.2%> . . 0.0% | , | . . . . . .
-> <4.4%> . . | VB | 0.9% . . 0.0% . . . <2.4%> . | NP | 1.0%
-> . . 0.0% . . . . <1.8%>|
-> ----+----------------------------------------------------------------+
-> (row = reference; col = test) <BLANKLINE>
+```python
+>>> def tag_list(tagged_sents):
+...     return
+[tag for sent in tagged_sents for (word, tag) in sent]
+>>> def apply_tagger(tagger, corpus):
+...     return
+[tagger.tag(nltk.tag.untag(sent)) for sent in corpus]
+>>> gold = tag_list(brown.tagged_sents(categories='editorial'))
+>>> test = tag_list(apply_tagger(t2, brown.tagged_sents(categories='editorial')))
+>>> cm = nltk.ConfusionMatrix(gold, test)
+>>> print(cm.pretty_format(sort_by_count=True, show_percents=True, truncate=9)) | N | | N I A J N V N | | N N T J . S , B P | ----+----------------------------------------------------------------+ NN | <11.8%> 0.0% . 0.2% . 0.0% . 0.3% 0.0% | IN | 0.0% <9.0%> . . . 0.0% . . . | AT | . . <8.6%> . . . . . . | JJ | 1.7% . . <3.9%> . . . 0.0% 0.0% | . | . . . . <4.8%> . . . . | NNS | 1.5% . . . . <3.2%> . . 0.0% | , | . . . . . . <4.4%> . . | VB | 0.9% . . 0.0% . . . <2.4%> . | NP | 1.0% . . 0.0% . . . . <1.8%>| ----+----------------------------------------------------------------+ (row = reference; col = test)
+<BLANKLINE>
+```
 
 The confusion matrix indicates that common errors include a substitution
 of `NN` for `JJ` (for 1.6% of words), and of `NN` for `NNS` (for 1.5% of

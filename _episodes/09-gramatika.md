@@ -50,8 +50,11 @@ features that have been automatically detected, we are now going to
 *declare* the features of words and phrases. We start off with a very
 simple example, using dictionaries to store features and their values.
 
-> >>> kim = {'CAT': 'NP', 'ORTH': 'Kim', 'REF': 'k'}
-> >>> chase = {'CAT': 'V', 'ORTH': 'chased', 'REL': 'chase'}
+~~~ python
+>>> kim = {'CAT': 'NP', 'ORTH': 'Kim', 'REF': 'k'}
+>>> chase = {'CAT': 'V', 'ORTH': 'chased', 'REL': 'chase'}
+~~~
+{: .language-python}
 
 The objects `kim` and `chase` both have a couple of shared features,
 `CAT` (grammatical category) and `ORTH` (orthography, i.e., spelling).
@@ -71,9 +74,11 @@ of "agent", while the object has the role of "patient". Let's add this
 information, using `'sbj'` and `'obj'` as placeholders which will get
 filled once the verb combines with its grammatical arguments:
 
-> >>> chase\['AGT'\] = 'sbj'
-> >>> chase\['PAT'\] =
-> 'obj'
+~~~ python
+>>> chase['AGT'] = 'sbj'
+>>> chase['PAT'] = 'obj'
+~~~
+{: .language-python}
 
 If we now process a sentence Kim chased Lee, we want to "bind" the
 verb's agent role to the subject and the patient role to the object. We
@@ -83,28 +88,37 @@ immediately to the left and right of the verb are the subject and object
 respectively. We also add a feature structure for Lee to complete the
 example.
 
-> >>> sent = "Kim chased Lee"
-> >>> tokens =
-> sent.split()
-> >>> lee = {'CAT': 'NP', 'ORTH': 'Lee', 'REF':
-> 'l'}
-> >>> def lex2fs(word): ... for fs in \[kim, lee, chase\]:
-> ... if fs\['ORTH'\] == word: ... return fs
-> >>> subj, verb,
-> obj = lex2fs(tokens\[0\]), lex2fs(tokens\[1\]), lex2fs(tokens\[2\])
-> >>> verb\['AGT'\] = subj\['REF'\]
-> >>> verb\['PAT'\]
-> = obj\['REF'\]
-> >>> for k in \['ORTH', 'REL', 'AGT', 'PAT'\]:
-> ... print("%-5s => %s" % (k, verb\[k\])) ORTH => chased REL
-> => chase AGT => k PAT => l
+~~~ python
+>>> sent = "Kim chased Lee"
+>>> tokens = sent.split()
+>>> lee = {'CAT': 'NP', 'ORTH': 'Lee', 'REF': 'l'}
+>>> def lex2fs(word):
+...     for fs in [kim, lee, chase]:
+...     if fs['ORTH'] == word:
+...     return fs
+>>> subj, verb,
+...     obj = lex2fs(tokens[0]), lex2fs(tokens[1]), lex2fs(tokens[2])
+
+>>> verb['AGT'] = subj['REF']
+>>> verb['PAT']
+...     = obj['REF']
+
+>>> for k in ['ORTH', 'REL', 'AGT', 'PAT']:
+...     print("%-5s => %s" % (k, verb[k])) ORTH => chased REL
+...     => chase AGT => k PAT => l
+
+~~~
+{: .language-python}
 
 The same approach could be adopted for a different verb, say surprise,
 though in this case, the subject would play the role of "source" (`SRC`)
 and the object, the role of "experiencer" (`EXP`):
 
-> >>> surprise = {'CAT': 'V', 'ORTH': 'surprised', 'REL':
-> 'surprise', ... 'SRC': 'sbj', 'EXP': 'obj'}
+~~~ python
+>>> surprise = {'CAT': 'V', 'ORTH': 'surprised', 'REL': 'surprise',
+...     'SRC': 'sbj', 'EXP': 'obj'}
+~~~
+{: .language-python}
 
 Feature structures are pretty powerful, but the way in which we have
 manipulated them is extremely *ad hoc*. Our next task in this chapter is
@@ -386,45 +400,70 @@ contained in two different feature structures.
 Feature structures in NLTK are declared with the `FeatStruct()`
 constructor. Atomic feature values can be strings or integers.
 
-> >>> fs1 = nltk.FeatStruct(TENSE='past', NUM='sg')
-> >>> print(fs1) \[ NUM = 'sg' \] \[ TENSE = 'past' \]
+~~~ python
+>>> fs1 = nltk.FeatStruct(TENSE='past', NUM='sg')
+>>> print(fs1) [ NUM = 'sg' ] [ TENSE = 'past' ]
+~~~
+{: .language-python}
 
 A feature structure is actually just a kind of dictionary, and so we
 access its values by indexing in the usual way. We can use our familiar
 syntax to *assign* values to features:
 
-> >>> fs1 = nltk.FeatStruct(PER=3, NUM='pl', GND='fem')
-> >>> print(fs1\['GND'\]) fem
-> >>> fs1\['CASE'\] =
-> 'acc'
+~~~ python
+>>> fs1 = nltk.FeatStruct(PER=3, NUM='pl', GND='fem')
+>>> print(fs1['GND']) fem
+>>> fs1['CASE'] = 'acc'
+~~~
+{: .language-python}
 
 We can also define feature structures that have complex values, as
 discussed earlier.
 
-> >>> fs2 = nltk.FeatStruct(POS='N', AGR=fs1)
-> >>>
-> print(fs2) \[ \[ CASE = 'acc' \] \] \[ AGR = \[ GND = 'fem' \] \] \[
-> \[ NUM = 'pl' \] \] \[ \[ PER = 3 \] \] \[ \] \[ POS = 'N' \]
-> >>> print(fs2\['AGR'\]) \[ CASE = 'acc' \] \[ GND = 'fem' \]
-> \[ NUM = 'pl' \] \[ PER = 3 \]
-> >>>
-> print(fs2\['AGR'\]\['PER'\]) 3
+~~~ python
+>>> fs2 = nltk.FeatStruct(POS='N', AGR=fs1)
+>>>
+...     print(fs2) [ [ CASE = 'acc' ] ] [ AGR = [ GND = 'fem' ] ] [
+
+[ NUM = 'pl' ] ] [ [ PER = 3 ] ] [ ] [ POS = 'N' ]
+
+
+>>> print(fs2['AGR']) [ CASE = 'acc' ] [ GND = 'fem' ]
+[ NUM = 'pl' ] [ PER = 3 ]
+
+
+>>>
+...     print(fs2['AGR']['PER']) 3
+
+~~~
+{: .language-python}
 
 An alternative method of specifying feature structures is to use a
 bracketed string consisting of feature-value pairs in the format
 `feature=value`, where values may themselves be feature structures:
 
-> >>> print(nltk.FeatStruct("\[POS='N', AGR=\[PER=3, NUM='pl',
-> GND='fem'\]\]")) \[ \[ GND = 'fem' \] \] \[ AGR = \[ NUM = 'pl' \] \]
-> \[ \[ PER = 3 \] \] \[ \] \[ POS = 'N' \]
+~~~ python
+>>> print(nltk.FeatStruct("[POS='N', AGR=[PER=3, NUM='pl',
+...     GND='fem']]")) [ [ GND = 'fem' ] ] [ AGR = [ NUM = 'pl' ] ]
+
+[ [ PER = 3 ] ] [ ] [ POS = 'N' ]
+
+
+~~~
+{: .language-python}
 
 Feature structures are not inherently tied to linguistic objects; they
 are general purpose structures for representing knowledge. For example,
 we could encode information about a person in a feature structure:
 
-> >>> print(nltk.FeatStruct(NAME='Lee', TELNO='01 27 86 42 96',
-> AGE=33)) \[ AGE = 33 \] \[ NAME = 'Lee' \] \[ TELNO = '01 27 86 42 96'
-> \]
+~~~ python
+>>> print(nltk.FeatStruct(NAME='Lee', TELNO='01 27 86 42 96',
+...     AGE=33)) [ AGE = 33 ] [ NAME = 'Lee' ] [ TELNO = '01 27 86 42 96'
+
+...     ]
+
+~~~
+{: .language-python}
 
 In the next couple of pages, we are going to use examples like this to
 explore standard operations over feature structures. This will briefly
@@ -468,20 +507,33 @@ will prefix the first occurrence of a shared feature structure with an
 integer in parentheses, such as `(1)`. Any later reference to that
 structure will use the notation `->(1)`, as shown below.
 
-> >>> print(nltk.FeatStruct("""\[NAME='Lee',
-> ADDRESS=(1)\[NUMBER=74, STREET='rue Pascal'\], ...
-> SPOUSE=\[NAME='Kim', ADDRESS->(1)\]\]""")) \[ ADDRESS = (1) \[
-> NUMBER = 74 \] \] \[ \[ STREET = 'rue Pascal' \] \] \[ \] \[ NAME =
-> 'Lee' \] \[ \] \[ SPOUSE = \[ ADDRESS -> (1) \] \] \[ \[ NAME =
-> 'Kim' \] \]
+~~~ python
+>>> print(nltk.FeatStruct("""[NAME='Lee',
+...     ADDRESS=(1)[NUMBER=74, STREET='rue Pascal'], ...
+
+...     SPOUSE=[NAME='Kim', ADDRESS->(1)]]""")) [ ADDRESS = (1) [
+
+...     NUMBER = 74 ] ] [ [ STREET = 'rue Pascal' ] ] [ ] [ NAME =
+
+...     'Lee' ] [ ] [ SPOUSE = [ ADDRESS -> (1) ] ] [ [ NAME =
+
+...     'Kim' ] ]
+
+~~~
+{: .language-python}
 
 The bracketed integer is sometimes called a tag or a coindex. The choice
 of integer is not significant. There can be any number of tags within a
 single feature structure.
 
-> >>> print(nltk.FeatStruct("\[A='a', B=(1)\[C='c'\],
-> D->(1), E->(1)\]")) \[ A = 'a' \] \[ \] \[ B = (1) \[ C = 'c' \]
-> \] \[ \] \[ D -> (1) \] \[ E -> (1) \]
+~~~ python
+>>> print(nltk.FeatStruct("[A='a', B=(1)[C='c'],
+...     D->(1), E->(1)]")) [ A = 'a' ] [ ] [ B = (1) [ C = 'c' ]
+
+...     ] [ ] [ D -> (1) ] [ E -> (1) ]
+
+~~~
+{: .language-python}
 
 ### Subsumption and Unification
 
@@ -520,19 +572,28 @@ ex-dag043\_.
 Merging information from two feature structures is called unification
 and is supported by the `unify()` method.
 
-> >>> fs1 = nltk.FeatStruct(NUMBER=74, STREET='rue Pascal')
-> >>> fs2 = nltk.FeatStruct(CITY='Paris')
-> >>>
-> print(fs1.unify(fs2)) \[ CITY = 'Paris' \] \[ NUMBER = 74 \] \[ STREET
-> = 'rue Pascal' \]
+~~~ python
+>>> fs1 = nltk.FeatStruct(NUMBER=74, STREET='rue Pascal')
+>>> fs2 = nltk.FeatStruct(CITY='Paris')
+>>>
+...     print(fs1.unify(fs2)) [ CITY = 'Paris' ] [ NUMBER = 74 ] [ STREET
+
+...     = 'rue Pascal' ]
+
+~~~
+{: .language-python}
 
 Unification is formally defined as a (partial) binary operation: $FS$~0~
 ⊔ $FS$~1~. Unification is symmetric, so $FS$~0~
 ⊔ $FS$~1~ = $FS$~1~ ⊔ $FS$~0~. The same is true
 in Python:
 
-> >>> print(fs2.unify(fs1)) \[ CITY = 'Paris' \] \[ NUMBER = 74
-> \] \[ STREET = 'rue Pascal' \]
+~~~ python
+>>> print(fs2.unify(fs1)) [ CITY = 'Paris' ] [ NUMBER = 74
+...     ] [ STREET = 'rue Pascal' ]
+
+~~~
+{: .language-python}
 
 > only works with repr()
 
@@ -549,49 +610,83 @@ value of π in $FS$~0~ is a distinct atom from the value of π in
 $FS$~1~. This is implemented by setting the result of unification to be
 `None`.
 
-> >>> fs0 = nltk.FeatStruct(A='a')
-> >>> fs1 =
-> nltk.FeatStruct(A='b')
-> >>> fs2 = fs0.unify(fs1)
-> >>>
-> print(fs2) None
+~~~ python
+>>> fs0 = nltk.FeatStruct(A='a')
+>>> fs1 =
+...     nltk.FeatStruct(A='b')
+
+>>> fs2 = fs0.unify(fs1)
+>>> print(fs2) None
+~~~
+{: .language-python}
 
 Now, if we look at how unification interacts with structure-sharing,
 things become really interesting. First, let's define
 [ex-dag04](..%20ex::..%20image::%20../images/dag04.png:scale:%2040) in
 Python:
 
-> >>> fs0 = nltk.FeatStruct("""\[NAME=Lee, ...
-> ADDRESS=\[NUMBER=74, ... STREET='rue Pascal'\], ... SPOUSE=
-> \[NAME=Kim, ... ADDRESS=\[NUMBER=74, ... STREET='rue Pascal'\]\]\]""")
-> >>> print(fs0) \[ ADDRESS = \[ NUMBER = 74 \] \] \[ \[ STREET
-> = 'rue Pascal' \] \] \[ \] \[ NAME = 'Lee' \] \[ \] \[ \[ ADDRESS = \[
-> NUMBER = 74 \] \] \] \[ SPOUSE = \[ \[ STREET = 'rue Pascal' \] \] \]
-> \[ \[ \] \] \[ \[ NAME = 'Kim' \] \]
+~~~ python
+>>> fs0 = nltk.FeatStruct("""[NAME=Lee, ...
+...     ADDRESS=[NUMBER=74,
+
+...     STREET='rue Pascal'],
+...     SPOUSE=
+...     [NAME=Kim,
+
+...     ADDRESS=[NUMBER=74,
+...     STREET='rue Pascal']]]""")
+>>> print(fs0) [ ADDRESS = [ NUMBER = 74 ] ] [ [ STREET
+...     = 'rue Pascal' ] ] [ ] [ NAME = 'Lee' ] [ ] [ [ ADDRESS = [
+
+...     NUMBER = 74 ] ] ] [ SPOUSE = [ [ STREET = 'rue Pascal' ] ] ]
+
+[ [ ] ] [ [ NAME = 'Kim' ] ]
+
+
+~~~
+{: .language-python}
 
 What happens when we augment Kim's address with a specification for
 `CITY`? Notice that `fs1` needs to include the whole path from the root
 of the feature structure down to `CITY`.
 
-> >>> fs1 = nltk.FeatStruct("\[SPOUSE = \[ADDRESS = \[CITY =
-> Paris\]\]\]")
-> >>> print(fs1.unify(fs0)) \[ ADDRESS = \[
-> NUMBER = 74 \] \] \[ \[ STREET = 'rue Pascal' \] \] \[ \] \[ NAME =
-> 'Lee' \] \[ \] \[ \[ \[ CITY = 'Paris' \] \] \] \[ \[ ADDRESS = \[
-> NUMBER = 74 \] \] \] \[ SPOUSE = \[ \[ STREET = 'rue Pascal' \] \] \]
-> \[ \[ \] \] \[ \[ NAME = 'Kim' \] \]
+~~~ python
+>>> fs1 = nltk.FeatStruct("[SPOUSE = [ADDRESS = [CITY =
+...     Paris]]]")
+
+>>> print(fs1.unify(fs0)) [ ADDRESS = [
+...     NUMBER = 74 ] ] [ [ STREET = 'rue Pascal' ] ] [ ] [ NAME =
+
+...     'Lee' ] [ ] [ [ [ CITY = 'Paris' ] ] ] [ [ ADDRESS = [
+
+...     NUMBER = 74 ] ] ] [ SPOUSE = [ [ STREET = 'rue Pascal' ] ] ]
+
+[ [ ] ] [ [ NAME = 'Kim' ] ]
+
+
+~~~
+{: .language-python}
 
 By contrast, the result is very different if `fs1` is unified with the
 structure-sharing version `fs2` (also shown earlier as the graph
 [ex-dag03](..%20ex::..%20image::%20../images/dag03.png:scale:%2040)):
 
-> >>> fs2 = nltk.FeatStruct("""\[NAME=Lee,
-> ADDRESS=(1)\[NUMBER=74, STREET='rue Pascal'\], ... SPOUSE=\[NAME=Kim,
-> ADDRESS->(1)\]\]""")
-> >>> print(fs1.unify(fs2)) \[ \[ CITY
-> = 'Paris' \] \] \[ ADDRESS = (1) \[ NUMBER = 74 \] \] \[ \[ STREET =
-> 'rue Pascal' \] \] \[ \] \[ NAME = 'Lee' \] \[ \] \[ SPOUSE = \[
-> ADDRESS -> (1) \] \] \[ \[ NAME = 'Kim' \] \]
+~~~ python
+>>> fs2 = nltk.FeatStruct("""[NAME=Lee,
+...     ADDRESS=(1)[NUMBER=74, STREET='rue Pascal'],
+
+...     SPOUSE=[NAME=Kim,
+...     ADDRESS->(1)]]""")
+
+>>> print(fs1.unify(fs2)) [ [ CITY
+...     = 'Paris' ] ] [ ADDRESS = (1) [ NUMBER = 74 ] ] [ [ STREET =
+
+...     'rue Pascal' ] ] [ ] [ NAME = 'Lee' ] [ ] [ SPOUSE = [
+
+...     ADDRESS -> (1) ] ] [ [ NAME = 'Kim' ] ]
+
+~~~
+{: .language-python}
 
 Rather than just updating what was in effect Kim's "copy" of Lee's
 address, we have now updated both their addresses at the same time. More
@@ -602,15 +697,23 @@ any path that is equivalent to π.
 As we have already seen, structure sharing can also be stated using
 variables such as `?x`.
 
-> >>> fs1 = nltk.FeatStruct("\[ADDRESS1=\[NUMBER=74,
-> STREET='rue Pascal'\]\]")
-> >>> fs2 =
-> nltk.FeatStruct("\[ADDRESS1=?x, ADDRESS2=?x\]")
-> >>>
-> print(fs2) \[ ADDRESS1 = ?x \] \[ ADDRESS2 = ?x \]
-> >>>
-> print(fs2.unify(fs1)) \[ ADDRESS1 = (1) \[ NUMBER = 74 \] \] \[ \[
-> STREET = 'rue Pascal' \] \] \[ \] \[ ADDRESS2 -> (1) \]
+~~~ python
+>>> fs1 = nltk.FeatStruct("[ADDRESS1=[NUMBER=74,
+...     STREET='rue Pascal']]")
+
+>>> fs2 =
+...     nltk.FeatStruct("[ADDRESS1=?x, ADDRESS2=?x]")
+
+>>>
+...     print(fs2) [ ADDRESS1 = ?x ] [ ADDRESS2 = ?x ]
+
+>>>
+...     print(fs2.unify(fs1)) [ ADDRESS1 = (1) [ NUMBER = 74 ] ] [ [
+
+...     STREET = 'rue Pascal' ] ] [ ] [ ADDRESS2 -> (1) ]
+
+~~~
+{: .language-python}
 
 Extending a Feature based Grammar
 ---------------------------------
@@ -860,23 +963,33 @@ slash categories, and also includes productions for inverted clauses. To
 simplify presentation, we have omitted any specification of tense on the
 verbs.
 
-> >>> nltk.data.show\_cfg('grammars/book\_grammars/feat1.fcfg')
-> % start S \# \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# \# Grammar
-> Productions \# \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# S\[-INV\] ->
-> NP VP S\[-INV\]/?x -> NP VP/?x S\[-INV\] -> NP S/NP S\[-INV\]
-> -> Adv\[+NEG\] S\[+INV\] S\[+INV\] -> V\[+AUX\] NP VP
-> S\[+INV\]/?x -> V\[+AUX\] NP VP/?x SBar -> Comp S\[-INV\]
-> SBar/?x -> Comp S\[-INV\]/?x VP -> V\[SUBCAT=intrans, -AUX\] VP
-> -> V\[SUBCAT=trans, -AUX\] NP VP/?x -> V\[SUBCAT=trans, -AUX\]
-> NP/?x VP -> V\[SUBCAT=clause, -AUX\] SBar VP/?x ->
-> V\[SUBCAT=clause, -AUX\] SBar/?x VP -> V\[+AUX\] VP VP/?x ->
-> V\[+AUX\] VP/?x \# \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\# \# Lexical
-> Productions \# \#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
-> V\[SUBCAT=intrans, -AUX\] -> 'walk' | 'sing' V\[SUBCAT=trans,
-> -AUX\] -> 'see' | 'like' V\[SUBCAT=clause, -AUX\] -> 'say' |
-> 'claim' V\[+AUX\] -> 'do' | 'can' NP\[-WH\] -> 'you' | 'cats'
-> NP\[+WH\] -> 'who' Adv\[+NEG\] -> 'rarely' | 'never' NP/NP ->
-> Comp -> 'that'
+~~~ python
+>>> nltk.data.show_cfg('grammars/book_grammars/feat1.fcfg')
+% start S # ################### # Grammar
+Productions # ################### S[-INV] ->
+...     NP VP S[-INV]/?x -> NP VP/?x S[-INV] -> NP S/NP S[-INV]
+
+-> Adv[+NEG] S[+INV] S[+INV] -> V[+AUX] NP VP
+...     S[+INV]/?x -> V[+AUX] NP VP/?x SBar -> Comp S[-INV]
+
+...     SBar/?x -> Comp S[-INV]/?x VP -> V[SUBCAT=intrans, -AUX] VP
+
+...     -> V[SUBCAT=trans, -AUX] NP VP/?x -> V[SUBCAT=trans, -AUX]
+
+...     NP/?x VP -> V[SUBCAT=clause, -AUX] SBar VP/?x ->
+
+...     V[SUBCAT=clause, -AUX] SBar/?x VP -> V[+AUX] VP VP/?x ->
+
+V[+AUX] VP/?x # ################### # Lexical
+Productions # ###################
+...     V[SUBCAT=intrans, -AUX] -> 'walk' | 'sing' V[SUBCAT=trans,
+
+-AUX] -> 'see' | 'like' V[SUBCAT=clause, -AUX] -> 'say' |
+'claim' V[+AUX] -> 'do' | 'can' NP[-WH] -> 'you' | 'cats'
+NP[+WH] -> 'who' Adv[+NEG] -> 'rarely' | 'never' NP/NP ->
+Comp -> 'that'
+~~~
+{: .language-python}
 
 The grammar in code-slashcfg\_ contains one "gap-introduction"
 production, namely `S[-INV] -> NP S/NP`. In order to percolate the slash
@@ -890,16 +1003,24 @@ discharged as the empty string. Using code-slashcfg\_, we can parse the
 sequence who do you claim that you
 like
 
-> >>> tokens = 'who do you claim that you like'.split()
-> >>> from nltk import load\_parser
-> >>> cp =
-> load\_parser('grammars/book\_grammars/feat1.fcfg')
-> >>> for
-> tree in cp.parse(tokens): ... print(tree) (S\[-INV\] (NP\[+WH\] who)
-> (S\[+INV\]/NP\[\] (V\[+AUX\] do) (NP\[-WH\] you) (VP\[\]/NP\[\]
-> (V\[-AUX, SUBCAT='clause'\] claim) (SBar\[\]/NP\[\] (Comp\[\] that)
-> (S\[-INV\]/NP\[\] (NP\[-WH\] you) (VP\[\]/NP\[\] (V\[-AUX,
-> SUBCAT='trans'\] like) (NP\[\]/NP\[\] )))))))
+~~~ python
+>>> tokens = 'who do you claim that you like'.split()
+>>> from nltk import load_parser
+>>> cp = load_parser('grammars/book_grammars/feat1.fcfg')
+>>> for
+...     tree in cp.parse(tokens):
+
+...     print(tree) (S[-INV] (NP[+WH] who)
+...     (S[+INV]/NP[] (V[+AUX] do) (NP[-WH] you) (VP[]/NP[]
+
+...     (V[-AUX, SUBCAT='clause'] claim) (SBar[]/NP[] (Comp[] that)
+
+...     (S[-INV]/NP[] (NP[-WH] you) (VP[]/NP[] (V[-AUX,
+
+...     SUBCAT='trans'] like) (NP[]/NP[] )))))))
+
+~~~
+{: .language-python}
 
 A more readable version of this tree is shown in
 [ex-gapparse](..%20ex::..%20tree::%20(S%5B-INV%5D(NP%5B+WH%5D%20who)(S%5B+INV%5D/NP(V%5B+AUX%5D%20do)(NP%5B-WH%5D%20you)(VP/NP(V%5B-AUX,\%20SUBCAT=clause%5D%20claim)(SBar/NP(Comp%20that)(S%5B-INV%5D/NP(NP%5B-WH%5D%20you)(VP/NP(V%5B-AUX,\%20SUBCAT=trans%5D%20like)(NP/NP))))))):scale:%2060:60:50).
@@ -907,20 +1028,34 @@ A more readable version of this tree is shown in
 The grammar in code-slashcfg\_ will also allow us to parse sentences
 without gaps:
 
-> >>> tokens = 'you claim that you like cats'.split()
-> >>> for tree in cp.parse(tokens): ... print(tree) (S\[-INV\]
-> (NP\[-WH\] you) (VP\[\] (V\[-AUX, SUBCAT='clause'\] claim) (SBar\[\]
-> (Comp\[\] that) (S\[-INV\] (NP\[-WH\] you) (VP\[\] (V\[-AUX,
-> SUBCAT='trans'\] like) (NP\[-WH\] cats))))))
+~~~ python
+>>> tokens = 'you claim that you like cats'.split()
+>>> for tree in cp.parse(tokens):
+...     print(tree) (S[-INV]
+...     (NP[-WH] you) (VP[] (V[-AUX, SUBCAT='clause'] claim) (SBar[]
+
+...     (Comp[] that) (S[-INV] (NP[-WH] you) (VP[] (V[-AUX,
+
+...     SUBCAT='trans'] like) (NP[-WH] cats))))))
+
+~~~
+{: .language-python}
 
 In addition, it admits inverted sentences which do not involve wh
 constructions:
 
-> >>> tokens = 'rarely do you sing'.split()
-> >>> for
-> tree in cp.parse(tokens): ... print(tree) (S\[-INV\] (Adv\[+NEG\]
-> rarely) (S\[+INV\] (V\[+AUX\] do) (NP\[-WH\] you) (VP\[\] (V\[-AUX,
-> SUBCAT='intrans'\] sing))))
+~~~ python
+>>> tokens = 'rarely do you sing'.split()
+>>> for
+...     tree in cp.parse(tokens):
+
+...     print(tree) (S[-INV] (Adv[+NEG]
+...     rarely) (S[+INV] (V[+AUX] do) (NP[-WH] you) (VP[] (V[-AUX,
+
+...     SUBCAT='intrans'] sing))))
+
+~~~
+{: .language-python}
 
 ### Case and Gender in German
 
@@ -939,16 +1074,25 @@ As you can see, the feature objcase is used to specify the case that a
 verb governs on its object. The next example illustrates the parse tree
 for a sentence containing a verb which governs dative case.
 
-> >>> tokens = 'ich folge den Katzen'.split()
-> >>> cp =
-> load\_parser('grammars/book\_grammars/german.fcfg')
-> >>> for
-> tree in cp.parse(tokens): ... print(tree) (S\[\] (NP\[AGR=\[NUM='sg',
-> PER=1\], CASE='nom'\] (PRO\[AGR=\[NUM='sg', PER=1\], CASE='nom'\]
-> ich)) (VP\[AGR=\[NUM='sg', PER=1\]\] (TV\[AGR=\[NUM='sg', PER=1\],
-> OBJCASE='dat'\] folge) (NP\[AGR=\[GND='fem', NUM='pl', PER=3\],
-> CASE='dat'\] (Det\[AGR=\[NUM='pl', PER=3\], CASE='dat'\] den)
-> (N\[AGR=\[GND='fem', NUM='pl', PER=3\]\] Katzen))))
+~~~ python
+>>> tokens = 'ich folge den Katzen'.split()
+>>> cp = load_parser('grammars/book_grammars/german.fcfg')
+>>> for
+...     tree in cp.parse(tokens):
+
+...     print(tree) (S[] (NP[AGR=[NUM='sg',
+...     PER=1], CASE='nom'] (PRO[AGR=[NUM='sg', PER=1], CASE='nom']
+
+...     ich)) (VP[AGR=[NUM='sg', PER=1]] (TV[AGR=[NUM='sg', PER=1],
+
+...     OBJCASE='dat'] folge) (NP[AGR=[GND='fem', NUM='pl', PER=3],
+
+...     CASE='dat'] (Det[AGR=[NUM='pl', PER=3], CASE='dat'] den)
+
+...     (N[AGR=[GND='fem', NUM='pl', PER=3]] Katzen))))
+
+~~~
+{: .language-python}
 
 In developing grammars, excluding ungrammatical word sequences is often
 as challenging as parsing grammatical ones. In order to get an idea
@@ -956,35 +1100,54 @@ where and why a sequence fails to parse, setting the `trace` parameter
 of the `load_parser()` method can be crucial. Consider the following
 parse failure:
 
-> >>> tokens = 'ich folge den Katze'.split()
-> >>> cp =
-> load\_parser('grammars/book\_grammars/german.fcfg', trace=2)
-> >>> for tree in cp.parse(tokens): ... print(tree)
-> |.ich.fol.den.Kat.| Leaf Init Rule: |\[---\] . . .| \[0:1\] 'ich' |.
-> \[---\] . .| \[1:2\] 'folge' |. . \[---\] .| \[2:3\] 'den' |. . .
-> \[---\]| \[3:4\] 'Katze' Feature Bottom Up Predict Combine Rule:
-> |\[---\] . . .| \[0:1\] PRO\[AGR=\[NUM='sg', PER=1\], CASE='nom'\]
-> -> 'ich' \* Feature Bottom Up Predict Combine Rule: |\[---\] . . .|
-> \[0:1\] NP\[AGR=\[NUM='sg', PER=1\], CASE='nom'\] ->
-> PRO\[AGR=\[NUM='sg', PER=1\], CASE='nom'\] \* Feature Bottom Up
-> Predict Combine Rule: |\[---> . . .| \[0:1\] S\[\] ->
-> NP\[AGR=?a, CASE='nom'\] \* VP\[AGR=?a\] {?a: \[NUM='sg', PER=1\]}
-> Feature Bottom Up Predict Combine Rule: |. \[---\] . .| \[1:2\]
-> TV\[AGR=\[NUM='sg', PER=1\], OBJCASE='dat'\] -> 'folge' \* Feature
-> Bottom Up Predict Combine Rule: |. \[---> . .| \[1:2\] VP\[AGR=?a\]
-> -> TV\[AGR=?a, OBJCASE=?c\] \* NP\[CASE=?c\] {?a: \[NUM='sg',
-> PER=1\], ?c: 'dat'} Feature Bottom Up Predict Combine Rule: |. .
-> \[---\] .| \[2:3\] Det\[AGR=\[GND='masc', NUM='sg', PER=3\],
-> CASE='acc'\] -> 'den' \* |. . \[---\] .| \[2:3\]
-> Det\[AGR=\[NUM='pl', PER=3\], CASE='dat'\] -> 'den' \* Feature
-> Bottom Up Predict Combine Rule: |. . \[---> .| \[2:3\] NP\[AGR=?a,
-> CASE=?c\] -> Det\[AGR=?a, CASE=?c\] \* N\[AGR=?a, CASE=?c\] {?a:
-> \[NUM='pl', PER=3\], ?c: 'dat'} Feature Bottom Up Predict Combine
-> Rule: |. . \[---> .| \[2:3\] NP\[AGR=?a, CASE=?c\] ->
-> Det\[AGR=?a, CASE=?c\] \* N\[AGR=?a, CASE=?c\] {?a: \[GND='masc',
-> NUM='sg', PER=3\], ?c: 'acc'} Feature Bottom Up Predict Combine Rule:
-> |. . . \[---\]| \[3:4\] N\[AGR=\[GND='fem', NUM='sg', PER=3\]\] ->
-> 'Katze' \*
+~~~ python
+>>> tokens = 'ich folge den Katze'.split()
+>>> cp =
+...     load_parser('grammars/book_grammars/german.fcfg', trace=2)
+
+>>> for tree in cp.parse(tokens):
+...     print(tree)
+|.ich.fol.den.Kat.| Leaf Init Rule: |[---] . . .| [0:1] 'ich' |.
+[---] . .| [1:2] 'folge' |. . [---] .| [2:3] 'den' |. . .
+[---]| [3:4] 'Katze' Feature Bottom Up Predict Combine Rule:
+...     |[---] . . .| [0:1] PRO[AGR=[NUM='sg', PER=1], CASE='nom']
+
+-> 'ich' * Feature Bottom Up Predict Combine Rule: |[---] . . .|
+[0:1] NP[AGR=[NUM='sg', PER=1], CASE='nom'] ->
+...     PRO[AGR=[NUM='sg', PER=1], CASE='nom'] * Feature Bottom Up
+
+Predict Combine Rule: |[---> . . .| [0:1] S[] ->
+...     NP[AGR=?a, CASE='nom'] * VP[AGR=?a] {?a: [NUM='sg', PER=1]}
+
+...     Feature Bottom Up Predict Combine Rule: |. [---] . .| [1:2]
+
+...     TV[AGR=[NUM='sg', PER=1], OBJCASE='dat'] -> 'folge' * Feature
+
+...     Bottom Up Predict Combine Rule: |. [---> . .| [1:2] VP[AGR=?a]
+
+-> TV[AGR=?a, OBJCASE=?c] * NP[CASE=?c] {?a: [NUM='sg',
+...     PER=1], ?c: 'dat'} Feature Bottom Up Predict Combine Rule: |. .
+
+[---] .| [2:3] Det[AGR=[GND='masc', NUM='sg', PER=3],
+...     CASE='acc'] -> 'den' * |. . [---] .| [2:3]
+
+...     Det[AGR=[NUM='pl', PER=3], CASE='dat'] -> 'den' * Feature
+
+...     Bottom Up Predict Combine Rule: |. . [---> .| [2:3] NP[AGR=?a,
+
+...     CASE=?c] -> Det[AGR=?a, CASE=?c] * N[AGR=?a, CASE=?c] {?a:
+
+[NUM='pl', PER=3], ?c: 'dat'} Feature Bottom Up Predict Combine
+...     Rule: |. . [---> .| [2:3] NP[AGR=?a, CASE=?c] ->
+
+...     Det[AGR=?a, CASE=?c] * N[AGR=?a, CASE=?c] {?a: [GND='masc',
+
+...     NUM='sg', PER=3], ?c: 'acc'} Feature Bottom Up Predict Combine Rule:
+
+|. . . [---]| [3:4] N[AGR=[GND='fem', NUM='sg', PER=3]] ->
+'Katze' *
+~~~
+{: .language-python}
 
 The last two `Scanner` lines in the trace show that den is recognized as
 admitting two possible categories:

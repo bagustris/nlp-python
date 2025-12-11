@@ -54,11 +54,13 @@ Assignment would seem to be the most elementary programming concept, not
 deserving a separate discussion. However, there are some surprising
 subtleties here. Consider the following code fragment:
 
-> >>> foo = 'Monty'
-> >>> bar = foo \# \[\_assignment1\]
-> >>> foo = 'Python' \# \[\_assignment2\]
-> >>> bar
-> 'Monty'
+```python
+>>> foo = 'Monty'
+>>> bar = foo # [_assignment1]
+>>> foo = 'Python' # [_assignment2]
+>>> bar
+'Monty'
+```
 
 This behaves exactly as expected. When we write `bar = foo` in the above
 code assignment1\_, the value of `foo` (the string `'Monty'`) is
@@ -75,12 +77,13 @@ the reference of `foo` to the new variable `bar`. Now when we modify
 something inside `foo` on line assignment4\_, we can see that the
 contents of `bar` have also been changed.
 
-> >>> foo = \['Monty', 'Python'\]
-> >>> bar = foo \#
-> \[\_assignment3\]
-> >>> foo\[1\] = 'Bodkin' \#
-> \[\_assignment4\]
-> >>> bar \['Monty', 'Bodkin'\]
+```python
+>>> foo = ['Monty', 'Python']
+>>> bar = foo # [_assignment3]
+>>> foo[1] = 'Bodkin' # [_assignment4]
+>>> bar
+['Monty', 'Bodkin']
+```
 
 > List Assignment and Computer Memory: Two list objects `foo` and `bar`
 > reference the same location in the computer's memory; updating `foo`
@@ -99,14 +102,15 @@ language, such as parameter passing (sec-functions\_).
 Let's experiment some more, by creating a variable `empty` holding the
 empty list, then using it three times on the next line.
 
-> >>> empty = \[\]
-> >>> nested = \[empty, empty,
-> empty\]
-> >>> nested \[\[\], \[\], \[\]\]
-> >>>
-> nested\[1\].append('Python')
-> >>> nested \[\['Python'\],
-> \['Python'\], \['Python'\]\]
+```python
+>>> empty = []
+>>> nested = [empty, empty, empty]
+>>> nested
+[[], [], []]
+>>> nested[1].append('Python')
+>>> nested
+[['Python'], ['Python'], ['Python']]
+```
 
 Observe that changing one of the items inside our nested list of lists
 changed them all. This is because each of the three elements is actually
@@ -124,11 +128,13 @@ just a reference to one and the same list in memory.
 Now, notice that when we assign a new value to one of the elements of
 the list, it does not propagate to the others:
 
-> >>> nested = \[\[\]\] \* 3
-> >>>
-> nested\[1\].append('Python')
-> >>> nested\[1\] = \['Monty'\]
-> >>> nested \[\['Python'\], \['Monty'\], \['Python'\]\]
+```python
+>>> nested = [[]] * 3
+>>> nested[1].append('Python')
+>>> nested[1] = ['Monty']
+>>> nested
+[['Python'], ['Monty'], ['Python']]
+```
 
 We began with a list containing three references to a single empty list
 object. Then we modified that object by appending `'Python'` to it,
@@ -157,39 +163,38 @@ several copies of the same object, and demonstrate that they are not
 only identical according to `==`, but also that they are one and the
 same object:
 
-> >>> size = 5
-> >>> python = \['Python'\]
-> >>>
-> snake\_nest = \[python\] \* size
-> >>> snake\_nest\[0\] ==
-> snake\_nest\[1\] == snake\_nest\[2\] == snake\_nest\[3\] ==
-> snake\_nest\[4\] True
-> >>> snake\_nest\[0\] is
-> snake\_nest\[1\] is snake\_nest\[2\] is snake\_nest\[3\] is
-> snake\_nest\[4\] True
+```python
+>>> size = 5
+>>> python = ['Python']
+>>> snake_nest = [python] * size
+>>> snake_nest[0] == snake_nest[1] == snake_nest[2] == snake_nest[3] == snake_nest[4]
+True
+>>> snake_nest[0] is snake_nest[1] is snake_nest[2] is snake_nest[3] is snake_nest[4]
+True
+```
 
 Now let's put a new python in this nest. We can easily show that the
 objects are not all identical:
 
-> >>> import random
-> >>> position =
-> random.choice(range(size))
-> >>> snake\_nest\[position\] =
-> \['Python'\]
-> >>> snake\_nest \[\['Python'\], \['Python'\],
-> \['Python'\], \['Python'\], \['Python'\]\]
-> >>>
-> snake\_nest\[0\] == snake\_nest\[1\] == snake\_nest\[2\] ==
-> snake\_nest\[3\] == snake\_nest\[4\] True
-> >>>
-> snake\_nest\[0\] is snake\_nest\[1\] is snake\_nest\[2\] is
-> snake\_nest\[3\] is snake\_nest\[4\] False
+```python
+>>> import random
+>>> position = random.choice(range(size))
+>>> snake_nest[position] = ['Python']
+>>> snake_nest
+[['Python'], ['Python'], ['Python'], ['Python'], ['Python']]
+>>> snake_nest[0] == snake_nest[1] == snake_nest[2] == snake_nest[3] == snake_nest[4]
+True
+>>> snake_nest[0] is snake_nest[1] is snake_nest[2] is snake_nest[3] is snake_nest[4]
+False
+```
 
 You can do several pairwise tests to discover which position contains
 the interloper, but the `id()` function makes detection easier:
 
-> >>> \[id(snake) for snake in snake\_nest\] \[4557855488,
-> 4557854763, 4557855488, 4557855488, 4557855488\]
+```python
+>>> [id(snake) for snake in snake_nest]
+[4557855488, 4557854763, 4557855488, 4557855488, 4557855488]
+```
 
 This reveals that the second item of the list has a distinct identifier.
 If you try running this code snippet yourself, expect to see different
@@ -205,9 +210,13 @@ showing up in a programming language.
 In the condition part of an `if` statement, a nonempty string or list is
 evaluated as true, while an empty string or list evaluates as false.
 
-> >>> mixed = \['cat', '', \['dog'\], \[\]\]
-> >>> for
-> element in mixed: ... if element: ... print(element) ... cat \['dog'\]
+```python
+>>> mixed = ['cat', '', ['dog'], []]
+>>> for element in mixed:
+...     if element:
+...     print(element) ... cat
+['dog']
+```
 
 That is, we *don't* need to say `if len(element) > 0:` in the condition.
 
@@ -215,9 +224,13 @@ What's the difference between using `if...elif` as opposed to using a
 couple of `if` statements in a row? Well, consider the following
 situation:
 
-> >>> animals = \['cat', 'dog'\]
-> >>> if 'cat' in
-> animals: ... print(1) ... elif 'dog' in animals: ... print(2) ... 1
+```python
+>>> animals = ['cat', 'dog']
+>>> if
+...     print(1)
+...     elif 'dog' in animals:
+...     print(2) ... 1
+```
 
 Since the `if` clause of the statement is satisfied, Python never tries
 to evaluate the `elif` clause, so we never get to print out `2`. By
@@ -230,11 +243,13 @@ of the main `if` clause was *not* satisfied.
 The functions `all()` and `any()` can be applied to a list (or other
 sequence) to check whether all or any items meet some condition:
 
-> >>> sent = \['No', 'good', 'fish', 'goes', 'anywhere',
-> 'without', 'a', 'porpoise', '.'\]
-> >>> all(len(w) > 4 for w
-> in sent) False
-> >>> any(len(w) > 4 for w in sent) True
+```python
+>>> sent = ['No', 'good', 'fish', 'goes', 'anywhere', 'without', 'a', 'porpoise', '.']
+>>> all(len(w) > 4 for w in sent)
+False
+>>> any(len(w) > 4 for w in sent)
+True
+```
 
 Sequences
 ---------
@@ -248,13 +263,15 @@ However, tuples can have any number of members. Like lists and strings,
 tuples can be indexed index-tuple\_ and sliced slice-tuple\_, and have a
 length length-tuple\_.
 
-> >>> t = 'walk', 'fem', 3 \# \[\_create-tuple\]
-> >>> t
-> ('walk', 'fem', 3)
-> >>> t\[0\] \# \[\_index-tuple\] 'walk'
-> >>> t\[1:\] \# \[\_slice-tuple\] ('fem', 3)
-> >>>
-> len(t) \# \[\_length-tuple\] 3
+```python
+>>> t = 'walk', 'fem', 3 # [_create-tuple]
+>>> t ('walk', 'fem', 3)
+>>> t[0] # [_index-tuple]
+'walk'
+>>> t[1:] # [_slice-tuple] ('fem', 3)
+>>> len(t) # [_length-tuple]
+3
+```
 
 > **caution**
 >
@@ -267,17 +284,14 @@ length length-tuple\_.
 Let's compare strings, lists and tuples directly, and do the indexing,
 slice, and length operation on each type:
 
-> >>> raw = 'I turned off the spectroroute'
-> >>> text =
-> \['I', 'turned', 'off', 'the', 'spectroroute'\]
-> >>> pair =
-> (6, 'turned')
-> >>> raw\[2\], text\[3\], pair\[1\] ('t', 'the',
-> 'turned')
-> >>> raw\[-3:\], text\[-3:\], pair\[-3:\] ('ute',
-> \['off', 'the', 'spectroroute'\], (6, 'turned'))
-> >>>
-> len(raw), len(text), len(pair) (29, 5, 2)
+```python
+>>> raw = 'I turned off the spectroroute'
+>>> text = ['I', 'turned', 'off', 'the', 'spectroroute']
+>>> pair = (6, 'turned')
+>>> raw[2], text[3], pair[1] ('t', 'the', 'turned')
+>>> raw[-3:], text[-3:], pair[-3:] ('ute', ['off', 'the', 'spectroroute'], (6, 'turned'))
+>>> len(raw), len(text), len(pair) (29, 5, 2)
+```
 
 Notice in this code sample that we computed multiple values on a single
 line, separated by commas. These comma-separated expressions are
@@ -305,35 +319,38 @@ single string using the `join()` function, e.g. `':'.join(words)`.
 Some other objects, such as a `FreqDist`, can be converted into a
 sequence (using `list()` or `sorted()`) and support iteration, e.g.
 
-> >>> raw = 'Red lorry, yellow lorry, red lorry, yellow lorry.'
-> >>> text = word\_tokenize(raw)
-> >>> fdist =
-> nltk.FreqDist(text)
-> >>> sorted(fdist) \[',', '.', 'Red',
-> 'lorry', 'red', 'yellow'\]
-> >>> for key in fdist: ...
-> print(key + ':', fdist\[key\], end='; ') ... lorry: 4; red: 1; .: 1;
-> ,: 3; Red: 1; yellow: 2
+```python
+>>> raw = 'Red lorry, yellow lorry, red lorry, yellow lorry.'
+>>> text = word_tokenize(raw)
+>>> fdist = nltk.FreqDist(text)
+>>> sorted(fdist)
+[',', '.', 'Red', 'lorry', 'red', 'yellow']
+>>> for key in fdist:
+...     print(key + ':', fdist[key], end='; ') ... lorry: 4; red: 1; .: 1; ,: 3; Red: 1; yellow: 2
+```
 
 In the next example, we use tuples to re-arrange the contents of our
 list. (We can omit the parentheses because the comma has higher
 precedence than assignment.)
 
-> >>> words = \['I', 'turned', 'off', 'the', 'spectroroute'\]
-> >>> words\[2\], words\[3\], words\[4\] = words\[3\],
-> words\[4\], words\[2\]
-> >>> words \['I', 'turned', 'the',
-> 'spectroroute', 'off'\]
+```python
+>>> words = ['I', 'turned', 'off', 'the', 'spectroroute']
+>>> words[2], words[3], words[4] = words[3], words[4], words[2]
+>>> words
+['I', 'turned', 'the', 'spectroroute', 'off']
+```
 
 This is an idiomatic and readable way to move items inside a list. It is
 equivalent to the following traditional way of doing such tasks that
 does not use tuples (notice that this method needs a temporary variable
 `tmp`).
 
-> >>> tmp = words\[2\]
-> >>> words\[2\] = words\[3\]
-> >>> words\[3\] = words\[4\]
-> >>> words\[4\] = tmp
+```python
+>>> tmp = words[2]
+>>> words[2] = words[3]
+>>> words[3] = words[4]
+>>> words[4] = tmp
+```
 
 As we have seen, Python has sequence functions such as `sorted()` and
 `reversed()` that rearrange the items of a sequence. There are also
@@ -343,15 +360,16 @@ sequences and "zips" them together into a single list of tuples. Given a
 sequence `s`, `enumerate(s)` returns pairs consisting of an index and
 the item at that index.
 
-> >>> words = \['I', 'turned', 'off', 'the', 'spectroroute'\]
-> >>> tags = \['noun', 'verb', 'prep', 'det', 'noun'\]
-> >>> zip(words, tags) <zip object at ...>
-> >>>
-> list(zip(words, tags)) \[('I', 'noun'), ('turned', 'verb'), ('off',
-> 'prep'), ('the', 'det'), ('spectroroute', 'noun')\]
-> >>>
-> list(enumerate(words)) \[(0, 'I'), (1, 'turned'), (2, 'off'), (3,
-> 'the'), (4, 'spectroroute')\]
+```python
+>>> words = ['I', 'turned', 'off', 'the', 'spectroroute']
+>>> tags = ['noun', 'verb', 'prep', 'det', 'noun']
+>>> zip(words, tags)
+<zip object at ...>
+>>> list(zip(words, tags))
+[('I', 'noun'), ('turned', 'verb'), ('off', 'prep'), ('the', 'det'), ('spectroroute', 'noun')]
+>>> list(enumerate(words))
+[(0, 'I'), (1, 'turned'), (2, 'off'), (3, 'the'), (4, 'spectroroute')]
+```
 
 > **note**
 >
@@ -368,16 +386,15 @@ the data and test it on the remaining 10%. To do this we decide the
 location where we want to cut the data cut-location\_, then cut the
 sequence at that location cut-sequence\_.
 
-> >>> text = nltk.corpus.nps\_chat.words()
-> >>> cut =
-> int(0.9 \* len(text)) \# \[\_cut-location\]
-> >>>
-> training\_data, test\_data = text\[:cut\], text\[cut:\] \#
-> \[\_cut-sequence\]
-> >>> text == training\_data + test\_data \#
-> \[\_cut-preserve\] True
-> >>> len(training\_data) /
-> len(test\_data) \# \[\_cut-ratio\] 9.0
+```python
+>>> text = nltk.corpus.nps_chat.words()
+>>> cut = int(0.9 * len(text)) # [_cut-location]
+>>> training_data, test_data = text[:cut], text[cut:] # [_cut-sequence]
+>>> text == training_data + test_data # [_cut-preserve]
+True
+>>> len(training_data) / len(test_data) # [_cut-ratio]
+9.0
+```
 
 We can verify that none of the original data is lost during this
 process, nor is it duplicated cut-preserve\_. We can also verify that
@@ -390,15 +407,13 @@ Let's combine our knowledge of these three sequence types, together with
 list comprehensions, to perform the task of sorting the words in a
 string by their length.
 
-> >>> words = 'I turned off the spectroroute'.split() \#
-> \[\_string-object\]
-> >>> wordlens = \[(len(word), word) for
-> word in words\] \# \[\_tuple-comprehension\]
-> >>>
-> wordlens.sort() \# \[\_sort-method\]
-> >>> ' '.join(w for (\_,
-> w) in wordlens) \# \[\_discard-length\] 'I off the turned
-> spectroroute'
+```python
+>>> words = 'I turned off the spectroroute'.split() # [_string-object]
+>>> wordlens = [(len(word), word) for word in words] # [_tuple-comprehension]
+>>> wordlens.sort() # [_sort-method]
+>>> ' '.join(w for (\_, w) in wordlens) # [_discard-length]
+'I off the turned spectroroute'
+```
 
 Each of the above lines of code contains a significant feature. A simple
 string is actually an object with methods defined on it such as
@@ -424,8 +439,9 @@ a collection of different fields relating to some entity. This
 distinction between the use of lists and tuples takes some getting used
 to, so here is another example:
 
-> >>> lexicon = \[ ... ('the', 'det', \['Di:', <'D@'>\]), ...
-> ('off', 'prep', \['Qf', 'O:f'\]) ... \]
+```python
+>>> lexicon = [ ... ('the', 'det', ['Di:', <'D@'>]), ... ('off', 'prep', ['Qf', 'O:f']) ... ]
+```
 
 Here, a lexicon is represented as a list because it is a collection of
 objects of a single type — lexical entries — of no
@@ -457,10 +473,11 @@ are mutable, while tuples are immutable. In other words, lists can be
 modified, while tuples cannot. Here are some of the operations on lists
 that do in-place modification of the list.
 
-> >>> lexicon.sort()
-> >>> lexicon\[1\] = ('turned',
-> 'VBD', \['t3:nd', 't3\`nd'\])
-> >>> del lexicon\[0\]
+```python
+>>> lexicon.sort()
+>>> lexicon[1] = ('turned', 'VBD', ['t3:nd', 't3\`nd'])
+>>> del lexicon[0]
+```
 
 > **note**
 >
@@ -474,22 +491,23 @@ We've been making heavy use of list comprehensions, for compact and
 readable processing of texts. Here's an example where we tokenize and
 normalize a text:
 
-> >>> text = '''"When I use a word," Humpty Dumpty said in
-> rather a scornful tone, ... "it means just what I choose it to mean -
-> neither more nor less."'''
-> >>> \[w.lower() for w in
-> word\_tokenize(text)\] \['\`\`', 'when', 'i', 'use', 'a', 'word', ',',
-> "''", 'humpty', 'dumpty', 'said', ...\]
+```python
+>>> text = '''"When I use a word," Humpty Dumpty said in rather a scornful tone, ... "it means just what I choose it to mean - neither more nor less."'''
+>>> [w.lower() for w in word_tokenize(text)]
+['\`\`', 'when', 'i', 'use', 'a', 'word', ',', "''", 'humpty', 'dumpty', 'said', ...]
+```
 
 Suppose we now want to process these words further. We can do this by
 inserting the above expression inside a call to some other function
 max-comprehension\_, but Python allows us to omit the brackets
 max-generator\_.
 
-> >>> max(\[w.lower() for w in word\_tokenize(text)\]) \#
-> \[\_max-comprehension\] 'word'
-> >>> max(w.lower() for w in
-> word\_tokenize(text)) \# \[\_max-generator\] 'word'
+```python
+>>> max([w.lower() for w in word_tokenize(text)]) # [_max-comprehension]
+'word'
+>>> max(w.lower() for w in word_tokenize(text)) # [_max-generator]
+'word'
+```
 
 The second line uses a generator expression. This is more than a
 notational convenience: in many language processing situations,
@@ -553,13 +571,15 @@ with implications for efficiency. Another factor influencing program
 development is *programming style*. Consider the following program to
 compute the average length of words in the Brown Corpus:
 
-> >>> tokens = nltk.corpus.brown.words(categories='news')
-> >>> count = 0
-> >>> total = 0
-> >>> for token
-> in tokens: ... count += 1 ... total += len(token)
-> >>> total /
-> count 4.401545438271973
+```python
+>>> tokens = nltk.corpus.brown.words(categories='news')
+>>> count = 0
+>>> total = 0
+>>> for token in tokens:
+...     count += 1 ... total += len(token)
+>>> total / count
+4.401545438271973
+```
 
 In this program we use the variable `count` to keep track of the number
 of tokens seen, and `total` to store the combined length of all words.
@@ -571,9 +591,11 @@ that this program is written in a *procedural* style, dictating the
 machine operations step by step. Now consider the following program that
 computes the same thing:
 
-> >>> total = sum(len(t) for t in tokens)
-> >>>
-> print(total / len(tokens)) 4.401...
+```python
+>>> total = sum(len(t) for t in tokens)
+>>> print(total / len(tokens))
+4.401...
+```
 
 The first line uses a generator expression to sum the token lengths,
 while the second line computes the average as before. Each line of code
@@ -584,18 +606,23 @@ second program uses a built-in function, and constitutes programming at
 a more abstract level; the resulting code is more declarative. Let's
 look at an extreme example:
 
-> >>> word\_list = \[\]
-> >>> i = 0
-> >>> while i
-> < len(tokens): ... j = 0 ... while j < len(word\_list) and
-> word\_list\[j\] <= tokens\[i\]: ... j += 1 ... if j == 0 or
-> tokens\[i\] != word\_list\[j-1\]: ... word\_list.insert(j,
-> tokens\[i\]) ... i += 1 ...
+```python
+>>> word_list = []
+>>> i = 0
+>>> while i
+...     j = 0
+...     while j < len(word_list) and word_list[j] <= tokens[i]:
+...     j += 1
+...     if j == 0 or tokens[i] != word_list[j-1]:
+...     word_list.insert(j, tokens[i]) ... i += 1 ...
+```
 
 The equivalent declarative version uses familiar built-in functions, and
 its purpose is instantly recognizable:
 
-> >>> word\_list = sorted(set(tokens))
+```python
+>>> word_list = sorted(set(tokens))
+```
 
 Another case where a loop variable seems to be necessary is for printing
 a counter with each line of output. Instead, we can use `enumerate()`,
@@ -606,35 +633,40 @@ in nested tuples `(rank, (word, count))`. We print `rank+1` so that the
 counting appears to start from `1`, as required when producing a list of
 ranked items.
 
-> >>> fd = nltk.FreqDist(nltk.corpus.brown.words())
-> >>> cumulative = 0.0
-> >>> most\_common\_words =
-> \[word for (word, count) in fd.most\_common()\]
-> >>> for rank,
-> word in enumerate(most\_common\_words): ... cumulative +=
-> fd.freq(word) ... print("%3d %6.2f%% %s" % (rank + 1, cumulative \*
-> 100, word)) ... if cumulative > 0.25: ... break ... 1 5.40% the 2
-> 10.42% , 3 14.67% . 4 17.78% of 5 20.19% and 6 22.40% to 7 24.29% a 8
-> 25.97% in
+```python
+>>> fd = nltk.FreqDist(nltk.corpus.brown.words())
+>>> cumulative = 0.0
+>>> most_common_words = [word for (word, count) in fd.most_common()]
+>>> for rank, word in enumerate(most_common_words):
+...     cumulative += fd.freq(word)
+...     print("%3d %6.2f%% %s" % (rank + 1, cumulative * 100, word))
+...     if cumulative > 0.25:
+...     break
+...     1 5.40% the 2 10.42% , 3 14.67% . 4 17.78% of 5 20.19% and 6 22.40% to 7 24.29% a 8 25.97% in
+```
 
 It's sometimes tempting to use loop variables to store a maximum or
 minimum value seen so far. Let's use this method to find the longest
 word in a text.
 
-> >>> text = nltk.corpus.gutenberg.words('milton-paradise.txt')
-> >>> longest = ''
-> >>> for word in text: ... if
-> len(word) > len(longest): ... longest = word
-> >>> longest
-> 'unextinguishable'
+```python
+>>> text = nltk.corpus.gutenberg.words('milton-paradise.txt')
+>>> longest = ''
+>>> for word in text:
+...     if len(word) > len(longest):
+...     longest = word
+>>> longest
+'unextinguishable'
+```
 
 However, a more transparent solution uses two list comprehensions, both
 having forms that should be familiar by now:
 
-> >>> maxlen = max(len(word) for word in text)
-> >>>
-> \[word for word in text if len(word) == maxlen\] \['unextinguishable',
-> 'transubstantiate', 'inextinguishable', 'incomprehensible'\]
+```python
+>>> maxlen = max(len(word) for word in text)
+>>> [word for word in text if len(word) == maxlen]
+['unextinguishable', 'transubstantiate', 'inextinguishable', 'incomprehensible']
+```
 
 Note that our first solution found the first word having the longest
 length, while the second solution found *all* of the longest words
@@ -651,12 +683,12 @@ There are cases where we still want to use loop variables in a list
 comprehension. For example, we need to use a loop variable to extract
 successive overlapping n-grams from a list:
 
-> >>> sent = \['The', 'dog', 'gave', 'John', 'the',
-> 'newspaper'\]
-> >>> n = 3
-> >>> \[sent\[i:i+n\] for i in
-> range(len(sent)-n+1)\] \[\['The', 'dog', 'gave'\], \['dog', 'gave',
-> 'John'\], \['gave', 'John', 'the'\], \['John', 'the', 'newspaper'\]\]
+```python
+>>> sent = ['The', 'dog', 'gave', 'John', 'the', 'newspaper']
+>>> n = 3
+>>> [sent[i:i+n] for i in range(len(sent)-n+1)]
+[['The', 'dog', 'gave'], ['dog', 'gave', 'John'], ['gave', 'John', 'the'], ['John', 'the', 'newspaper']]
+```
 
 It is quite tricky to get the range of the loop variable right. Since
 this is a common operation in NLP, NLTK supports it with functions
@@ -668,15 +700,14 @@ multidimensional structures. For example, to build an array with *m*
 rows and *n* columns, where each cell is a set, we could use a nested
 list comprehension:
 
-> >>> m, n = 3, 7
-> >>> array = \[\[set() for i in
-> range(n)\] for j in range(m)\]
-> >>>
-> array\[2\]\[5\].add('Alice')
-> >>> pprint.pprint(array)
-> \[\[set(), set(), set(), set(), set(), set(), set()\], \[set(), set(),
-> set(), set(), set(), set(), set()\], \[set(), set(), set(), set(),
-> set(), {'Alice'}, set()\]\]
+```python
+>>> m, n = 3, 7
+>>> array = [[set() for i in range(n)] for j in range(m)]
+>>> array[2]
+[5].add('Alice')
+>>> pprint.pprint(array)
+[[set(), set(), set(), set(), set(), set(), set()], [set(), set(), set(), set(), set(), set(), set()], [set(), set(), set(), set(), set(), {'Alice'}, set()]]
+```
 
 Observe that the loop variables `i` and `j` are not used anywhere in the
 resulting object, they are just needed for a syntactically correct `for`
@@ -688,12 +719,13 @@ Note that it would be incorrect to do this work using multiplication,
 for reasons concerning object copying that were discussed earlier in
 this section.
 
-> >>> array = \[\[set()\] \* n\] \* m
-> >>>
-> array\[2\]\[5\].add(7)
-> >>> pprint.pprint(array) \[\[{7}, {7},
-> {7}, {7}, {7}, {7}, {7}\], \[{7}, {7}, {7}, {7}, {7}, {7}, {7}\],
-> \[{7}, {7}, {7}, {7}, {7}, {7}, {7}\]\]
+```python
+>>> array = [[set()] * n] * m
+>>> array[2]
+[5].add(7)
+>>> pprint.pprint(array)
+[[{7}, {7}, {7}, {7}, {7}, {7}, {7}], [{7}, {7}, {7}, {7}, {7}, {7}, {7}], [{7}, {7}, {7}, {7}, {7}, {7}, {7}]]
+```
 
 Iteration is an important programming device. It is tempting to adopt
 idioms from other languages. However, Python offers some elegant and
@@ -756,11 +788,14 @@ We pass information to functions using a function's parameters, the
 parenthesized list of variables and constants following the function's
 name in the function definition. Here's a complete example:
 
-> >>> def repeat(msg, num): \# \[\_fun-def\] ... return '
-> '.join(\[msg\] \* num)
-> >>> monty = 'Monty Python'
-> >>> repeat(monty, 3) \# \[\_fun-call\] 'Monty Python Monty
-> Python Monty Python'
+```python
+>>> def repeat(msg, num): # [_fun-def]
+...     return
+' '.join([msg] * num)
+>>> monty = 'Monty Python'
+>>> repeat(monty, 3) # [_fun-call]
+'Monty Python Monty Python Monty Python'
+```
 
 We first define the function to take two parameters, `msg` and `num`
 fun-def\_. Then we call the function and pass it two arguments, `monty`
@@ -771,19 +806,25 @@ in the function body.
 It is not necessary to have any parameters, as we see in the following
 example:
 
-> >>> def monty(): ... return "Monty Python"
-> >>>
-> monty() 'Monty Python'
+```python
+>>> def monty():
+...     return
+"Monty Python"
+>>> monty()
+'Monty Python'
+```
 
 A function usually communicates its results back to the calling program
 via the `return` statement, as we have just seen. To the calling
 program, it looks as if the function call had been replaced with the
 function's result, e.g.:
 
-> >>> repeat(monty(), 3) 'Monty Python Monty Python Monty
-> Python'
-> >>> repeat('Monty Python', 3) 'Monty Python Monty
-> Python Monty Python'
+```python
+>>> repeat(monty(), 3)
+'Monty Python Monty Python Monty Python'
+>>> repeat('Monty Python', 3)
+'Monty Python Monty Python Monty Python'
+```
 
 A Python function is not required to have a return statement. Some
 functions do their work as a side effect, printing a result, modifying a
@@ -796,13 +837,13 @@ its input. In general, functions should modify the contents of a
 parameter (`my_sort1()`), or return a value (`my_sort2()`), not both
 (`my_sort3()`).
 
-> >>> def my\_sort1(mylist): \# good: modifies its argument, no
-> return value ... mylist.sort()
-> >>> def my\_sort2(mylist): \#
-> good: doesn't touch its argument, returns value ... return
-> sorted(mylist)
-> >>> def my\_sort3(mylist): \# bad: modifies
-> its argument and also returns it ... mylist.sort() ... return mylist
+```python
+>>> def my_sort1(mylist): # good: modifies its argument, no return value ... mylist.sort()
+>>> def my_sort2(mylist): # good: doesn't touch its argument, returns value
+...     return sorted(mylist)
+>>> def my_sort3(mylist): # bad: modifies its argument and also returns it ... mylist.sort()
+...     return mylist
+```
 
 ### Parameter Passing
 
@@ -815,13 +856,19 @@ the function. We begin by assigning an empty string to `w` and an empty
 list to `p`. After calling the function, `w` is unchanged, while `p` is
 changed:
 
-> >>> def set\_up(word, properties): ... word = 'lolcat' ...
-> properties.append('noun') ... properties = 5 ...
-> >>> w = ''
-> >>> p = \[\]
-> >>> set\_up(w, p)
-> >>> w ''
-> >>> p \['noun'\]
+```python
+>>> def set_up(word, properties):
+...     word = 'lolcat'
+...     properties.append('noun')
+...     properties = 5 ...
+>>> w = ''
+>>> p = []
+>>> set_up(w, p)
+>>> w
+''
+>>> p
+['noun']
+```
 
 Notice that `w` was not changed by the function. When we called
 `set_up(w, p)`, the value of `w` (an empty string) was assigned to a new
@@ -829,10 +876,13 @@ variable `word`. Inside the function, the value of `word` was modified.
 However, that change did not propagate to `w`. This parameter passing is
 identical to the following sequence of assignments:
 
-> >>> w = ''
-> >>> word = w
-> >>> word = 'lolcat'
-> >>> w ''
+```python
+>>> w = ''
+>>> word = w
+>>> word = 'lolcat'
+>>> w
+''
+```
 
 Let's look at what happened with the list `p`. When we called
 `set_up(w, p)`, the value of `p` (a reference to an empty list) was
@@ -844,13 +894,14 @@ did not modify the contents at that memory location, but created a new
 local variable. This behavior is just as if we had done the following
 sequence of assignments:
 
-> >>> p = \[\]
-> >>> properties = p
-> >>>
-> properties.append('noun')
-> >>> properties = 5
-> >>> p
-> \['noun'\]
+```python
+>>> p = []
+>>> properties = p
+>>> properties.append('noun')
+>>> properties = 5
+>>> p
+['noun']
+```
 
 Thus, to understand Python's call-by-value parameter passing, it is
 enough to understand how assignment works. Remember that you can use the
@@ -897,13 +948,20 @@ want to program in a defensive style, providing useful warnings when
 functions have not been invoked correctly. The author of the following
 `tag()` function assumed that its argument would always be a string.
 
-> >>> def tag(word): ... if word in \['a', 'the', 'all'\]: ...
-> return 'det' ... else: ... return 'noun' ...
-> >>> tag('the')
-> 'det'
-> >>> tag('knight') 'noun'
-> >>> tag(\["'Tis",
-> 'but', 'a', 'scratch'\]) \# \[\_list-arg\] 'noun'
+```python
+>>> def tag(word):
+...     if word in ['a', 'the', 'all']:
+...     return 'det'
+...     else:
+...     return
+'noun' ...
+>>> tag('the')
+'det'
+>>> tag('knight')
+'noun'
+>>> tag(["'Tis", 'but', 'a', 'scratch']) # [_list-arg]
+'noun'
+```
 
 The function returns sensible values for the arguments `'the'` and
 `'knight'`, but look what happens when it is passed a list list-arg\_
@@ -923,9 +981,15 @@ Unicode string, which has type `unicode`, not `str`. Here's a better
 solution, using an `assert` statement together with Python's
 `basestring` type that generalizes over both `unicode` and `str`.
 
-> >>> def tag(word): ... assert isinstance(word, basestring),
-> "argument to tag() must be a string" ... if word in \['a', 'the',
-> 'all'\]: ... return 'det' ... else: ... return 'noun'
+```python
+>>> def tag(word):
+...     assert isinstance(word, basestring), "argument to tag() must be a string"
+...     if word in ['a', 'the', 'all']:
+...     return 'det'
+...     else:
+...     return
+'noun'
+```
 
 If the `assert` statement fails, it will produce an error that cannot be
 ignored, since it halts program execution. Additionally, the error
@@ -1074,17 +1138,18 @@ same data. As the following examples show, we can pass the built-in
 function `len()` or a user-defined function `last_letter()` as arguments
 to another function:
 
-> >>> sent = \['Take', 'care', 'of', 'the', 'sense', ',',
-> 'and', 'the', ... 'sounds', 'will', 'take', 'care', 'of',
-> 'themselves', '.'\]
-> >>> def extract\_property(prop): ...
-> return \[prop(word) for word in sent\] ...
-> >>>
-> extract\_property(len) \[4, 4, 2, 3, 5, 1, 3, 3, 6, 4, 4, 4, 2, 10,
-> 1\]
-> >>> def last\_letter(word): ... return word\[-1\]
-> >>> extract\_property(last\_letter) \['e', 'e', 'f', 'e',
-> 'e', ',', 'd', 'e', 's', 'l', 'e', 'e', 'f', 's', '.'\]
+```python
+>>> sent = ['Take', 'care', 'of', 'the', 'sense', ',', 'and', 'the', ... 'sounds', 'will', 'take', 'care', 'of', 'themselves', '.']
+>>> def extract_property(prop):
+...     return
+[prop(word) for word in sent] ...
+>>> extract_property(len)
+[4, 4, 2, 3, 5, 1, 3, 3, 6, 4, 4, 4, 2, 10, 1]
+>>> def last_letter(word):
+...     return word[-1]
+>>> extract_property(last_letter)
+['e', 'e', 'f', 'e', 'e', ',', 'd', 'e', 's', 'l', 'e', 'e', 'f', 's', '.']
+```
 
 The objects `len` and `last_letter` can be passed around like lists and
 dictionaries. Notice that parentheses are only used after a function
@@ -1096,24 +1161,24 @@ other functions, so-called lambda expressions. Supposing there was no
 need to use the above `last_letter()` function in multiple places, and
 thus no need to give it a name. We can equivalently write the following:
 
-> >>> extract\_property(lambda w: w\[-1\]) \['e', 'e', 'f',
-> 'e', 'e', ',', 'd', 'e', 's', 'l', 'e', 'e', 'f', 's', '.'\]
+```python
+>>> extract_property(lambda w: w[-1])
+['e', 'e', 'f', 'e', 'e', ',', 'd', 'e', 's', 'l', 'e', 'e', 'f', 's', '.']
+```
 
 Our next example illustrates passing a function to the `sorted()`
 function. When we call the latter with a single argument (the list to be
 sorted), it uses the built-in comparison function `cmp()`. However, we
 can supply our own sort function, e.g. to sort by decreasing length.
 
-> >>> sorted(sent) \[',', '.', 'Take', 'and', 'care', 'care',
-> 'of', 'of', 'sense', 'sounds', 'take', 'the', 'the', 'themselves',
-> 'will'\]
-> >>> sorted(sent, cmp) \[',', '.', 'Take', 'and',
-> 'care', 'care', 'of', 'of', 'sense', 'sounds', 'take', 'the', 'the',
-> 'themselves', 'will'\]
-> >>> sorted(sent, lambda x, y:
-> cmp(len(y), len(x))) \['themselves', 'sounds', 'sense', 'Take',
-> 'care', 'will', 'take', 'care', 'the', 'and', 'the', 'of', 'of', ',',
-> '.'\]
+```python
+>>> sorted(sent)
+[',', '.', 'Take', 'and', 'care', 'care', 'of', 'of', 'sense', 'sounds', 'take', 'the', 'the', 'themselves', 'will']
+>>> sorted(sent, cmp)
+[',', '.', 'Take', 'and', 'care', 'care', 'of', 'of', 'sense', 'sounds', 'take', 'the', 'the', 'themselves', 'will']
+>>> sorted(sent, lambda x, y: cmp(len(y), len(x)))
+['themselves', 'sounds', 'sense', 'Take', 'care', 'will', 'take', 'care', 'the', 'and', 'the', 'of', 'of', ',', '.']
+```
 
 ### Accumulative Functions
 
@@ -1138,14 +1203,17 @@ permutations of a list of words. In order to force the `permutations()`
 function to generate all its output, we wrap it with a call to `list()`
 listperm\_.
 
-> >>> def permutations(seq): ... if len(seq) <= 1: ... yield
-> seq ... else: ... for perm in permutations(seq\[1:\]): ... for i in
-> range(len(perm)+1): ... yield perm\[:i\] + seq\[0:1\] + perm\[i:\] ...
-> >>> list(permutations(\['police', 'fish', 'buffalo'\])) \#
-> \[\_listperm\] \[\['police', 'fish', 'buffalo'\], \['fish', 'police',
-> 'buffalo'\], \['fish', 'buffalo', 'police'\], \['police', 'buffalo',
-> 'fish'\], \['buffalo', 'police', 'fish'\], \['buffalo', 'fish',
-> 'police'\]\]
+```python
+>>> def permutations(seq):
+...     if len(seq) <= 1:
+...     yield seq
+...     else:
+...     for perm in permutations(seq[1:]):
+...     for i in range(len(perm)+1):
+...     yield perm[:i] + seq[0:1] + perm[i:] ...
+>>> list(permutations(['police', 'fish', 'buffalo'])) # [_listperm]
+[['police', 'fish', 'buffalo'], ['fish', 'police', 'buffalo'], ['fish', 'buffalo', 'police'], ['police', 'buffalo', 'fish'], ['buffalo', 'police', 'fish'], ['buffalo', 'fish', 'police']]
+```
 
 > **note**
 >
@@ -1166,16 +1234,16 @@ function as the first parameter of `filter()`, which applies the
 function to each item in the sequence contained in its second parameter,
 and only retains the items for which the function returns `True`.
 
-> >>> def is\_content\_word(word): ... return word.lower() not
-> in \['a', 'of', 'the', 'and', 'will', ',', '.'\]
-> >>> sent =
-> \['Take', 'care', 'of', 'the', 'sense', ',', 'and', 'the', ...
-> 'sounds', 'will', 'take', 'care', 'of', 'themselves', '.'\]
-> >>> list(filter(is\_content\_word, sent)) \['Take', 'care',
-> 'sense', 'sounds', 'take', 'care', 'themselves'\]
-> >>> \[w for
-> w in sent if is\_content\_word(w)\] \['Take', 'care', 'sense',
-> 'sounds', 'take', 'care', 'themselves'\]
+```python
+>>> def is_content_word(word):
+...     return word.lower() not in
+['a', 'of', 'the', 'and', 'will', ',', '.']
+>>> sent = ['Take', 'care', 'of', 'the', 'sense', ',', 'and', 'the', ... 'sounds', 'will', 'take', 'care', 'of', 'themselves', '.']
+>>> list(filter(is_content_word, sent))
+['Take', 'care', 'sense', 'sounds', 'take', 'care', 'themselves']
+>>> [w for w in sent if is_content_word(w)]
+['Take', 'care', 'sense', 'sounds', 'take', 'care', 'themselves']
+```
 
 Another higher-order function is `map()`, which applies a function to
 every item in a sequence. It is a general version of the
@@ -1184,24 +1252,26 @@ Here is a simple way to find the average length of a sentence in the
 news section of the Brown Corpus, followed by an equivalent version with
 list comprehension calculation:
 
-> >>> lengths = list(map(len,
-> nltk.corpus.brown.sents(categories='news')))
-> >>> sum(lengths)
-> / len(lengths) 21.75081116158339
-> >>> lengths = \[len(sent)
-> for sent in nltk.corpus.brown.sents(categories='news')\]
-> >>>
-> sum(lengths) / len(lengths) 21.75081116158339
+```python
+>>> lengths = list(map(len, nltk.corpus.brown.sents(categories='news')))
+>>> sum(lengths) / len(lengths)
+21.75081116158339
+>>> lengths = [len(sent) for sent in nltk.corpus.brown.sents(categories='news')]
+>>> sum(lengths) / len(lengths)
+21.75081116158339
+```
 
 In the above examples we specified a user-defined function
 `is_content_word()` and a built-in function `len()`. We can also provide
 a lambda expression. Here's a pair of equivalent examples which count
 the number of vowels in each word.
 
-> >>> list(map(lambda w: len(filter(lambda c: c.lower() in
-> "aeiou", w)), sent)) \[2, 2, 1, 1, 2, 0, 1, 1, 2, 1, 2, 2, 1, 3, 0\]
-> >>> \[len(c for c in w if c.lower() in "aeiou") for w in
-> sent\] \[2, 2, 1, 1, 2, 0, 1, 1, 2, 1, 2, 2, 1, 3, 0\]
+```python
+>>> list(map(lambda w: len(filter(lambda c: c.lower() in "aeiou", w)), sent))
+[2, 2, 1, 1, 2, 0, 1, 1, 2, 1, 2, 2, 1, 3, 0]
+>>> [len(c for c in w if c.lower() in "aeiou") for w in sent]
+[2, 2, 1, 1, 2, 0, 1, 1, 2, 1, 2, 2, 1, 3, 0]
+```
 
 The solutions based on list comprehensions are usually more readable
 than the solutions based on higher-order functions, and we have favored
@@ -1215,14 +1285,16 @@ assign them a default value just in case one was not provided by the
 calling program. Now the parameters can be specified in any order, and
 can be omitted.
 
-> >>> def repeat(msg='<empty>', num=1): ... return msg \*
-> num
-> >>> repeat(num=3)
-> '<empty><empty><empty>'
-> >>>
-> repeat(msg='Alice') 'Alice'
-> >>> repeat(num=5, msg='Alice')
-> 'AliceAliceAliceAliceAlice'
+```python
+>>> def repeat(msg='<empty>', num=1):
+...     return msg * num
+>>> repeat(num=3)
+'<empty><empty><empty>'
+>>> repeat(msg='Alice')
+'Alice'
+>>> repeat(num=5, msg='Alice')
+'AliceAliceAliceAliceAlice'
+```
 
 These are called keyword arguments. If we mix these two kinds of
 parameters, then we must ensure that the unnamed parameters precede the
@@ -1232,10 +1304,13 @@ unnamed and named parameters, and access them via an in-place list of
 arguments `*args` and an "in-place dictionary" of keyword arguments
 `**kwargs`. (Dictionaries will be presented in sec-dictionaries\_.)
 
-> >>> def generic(*args,*\*kwargs): ... print(args) ...
-> print(kwargs) ...
-> >>> generic(1, "African swallow",
-> monty="python") (1, 'African swallow') {'monty': 'python'}
+```python
+>>> def generic(*args,**kwargs):
+...     print(args)
+...     print(kwargs) ...
+>>> generic(1, "African swallow", monty="python") (1, 'African swallow')
+{'monty': 'python'}
+```
 
 When `*args` appears as a function parameter, it actually corresponds to
 all the unnamed parameters of the function. Here's another illustration
@@ -1243,13 +1318,13 @@ of this aspect of Python syntax, for the `zip()` function which operates
 on a variable number of arguments. We'll use the variable name `*song`
 to demonstrate that there's nothing special about the name `*args`.
 
-> >>> song = \[\['four', 'calling', 'birds'\], ... \['three',
-> 'French', 'hens'\], ... \['two', 'turtle', 'doves'\]\]
-> >>>
-> list(zip(song\[0\], song\[1\], song\[2\])) \[('four', 'three', 'two'),
-> ('calling', 'French', 'turtle'), ('birds', 'hens', 'doves')\]
-> >>> list(zip(\*song)) \[('four', 'three', 'two'), ('calling',
-> 'French', 'turtle'), ('birds', 'hens', 'doves')\]
+```python
+>>> song = [['four', 'calling', 'birds'], ... ['three', 'French', 'hens'], ... ['two', 'turtle', 'doves']]
+>>> list(zip(song[0], song[1], song[2]))
+[('four', 'three', 'two'), ('calling', 'French', 'turtle'), ('birds', 'hens', 'doves')]
+>>> list(zip(*song))
+[('four', 'three', 'two'), ('calling', 'French', 'turtle'), ('birds', 'hens', 'doves')]
+```
 
 It should be clear from the above example that typing `*song` is just a
 convenient shorthand, and equivalent to typing out
@@ -1258,14 +1333,16 @@ convenient shorthand, and equivalent to typing out
 Here's another example of the use of keyword arguments in a function
 definition, along with three equivalent ways to call the function:
 
-> >>> def freq\_words(file, min=1, num=10): ... text =
-> open(file).read() ... tokens = word\_tokenize(text) ... freqdist =
-> nltk.FreqDist(t for t in tokens if len(t) >= min) ... return
-> freqdist.most\_common(num)
-> >>> fw = freq\_words('ch01.rst',
-> 4, 10)
-> >>> fw = freq\_words('ch01.rst', min=4, num=10)
-> >>> fw = freq\_words('ch01.rst', num=10, min=4)
+```python
+>>> def freq_words(file, min=1, num=10):
+...     text = open(file).read()
+...     tokens = word_tokenize(text)
+...     freqdist = nltk.FreqDist(t for t in tokens if len(t) >= min)
+...     return freqdist.most_common(num)
+>>> fw = freq_words('ch01.rst', 4, 10)
+>>> fw = freq_words('ch01.rst', min=4, num=10)
+>>> fw = freq_words('ch01.rst', num=10, min=4)
+```
 
 A side-effect of having named arguments is that they permit optionality.
 Thus we can leave out any arguments where we are happy with the default
@@ -1274,13 +1351,19 @@ Another common use of optional arguments is to permit a flag. Here's a
 revised version of the same function that reports its progress if a
 `verbose` flag is set:
 
-> >>> def freq\_words(file, min=1, num=10, verbose=False): ...
-> freqdist = FreqDist() ... if verbose: print("Opening", file) ... text
-> = open(file).read() ... if verbose: print("Read in %d characters" %
-> len(file)) ... for word in word\_tokenize(text): ... if len(word)
-> >= min: ... freqdist\[word\] += 1 ... if verbose and freqdist.N() %
-> 100 == 0: print(".", sep="") ... if verbose: print ... return
-> freqdist.most\_common(num)
+```python
+>>> def freq_words(file, min=1, num=10, verbose=False):
+...     freqdist = FreqDist()
+...     if verbose: print("Opening", file)
+...     text = open(file).read()
+...     if verbose: print("Read in %d characters" % len(file))
+...     for word in word_tokenize(text):
+...     if len(word) >= min:
+...     freqdist[word] += 1
+...     if verbose and freqdist.N() % 100 == 0: print(".", sep="")
+...     if verbose: print
+...     return freqdist.most_common(num)
+```
 
 > **caution**
 >
@@ -1295,8 +1378,10 @@ revised version of the same function that reports its progress if a
 > close any open files once they are no longer required. Python will
 > close open files automatically if you use the `with` statement:
 >
-> >>> with open("lexicon.txt") as f: ... data = f.read() ... \#
-> process the data
+```python
+>>> with open("lexicon.txt") as f:
+...     data = f.read() ... # process the data
+```
 
 Program Development
 -------------------
@@ -1332,8 +1417,10 @@ When you start writing Python modules, it helps to have some examples to
 emulate. You can locate the code for any NLTK module on your system
 using the `__file__` variable, e.g.:
 
-> >>> nltk.metrics.distance.\_\_file\_\_
-> '/usr/lib/python2.5/site-packages/nltk/metrics/distance.pyc'
+```python
+>>> nltk.metrics.distance.\__file\_\_
+'/usr/lib/python2.5/site-packages/nltk/metrics/distance.pyc'
+```
 
 This returns the location of the compiled `.pyc` file for the module,
 and you'll probably see a different location on your machine. The file
@@ -1461,19 +1548,19 @@ all tokens of a text having a given length. The function has parameters
 for the text and the word length, and an extra parameter that allows the
 initial value of the result to be given as a parameter:
 
-> >>> def find\_words(text, wordlength, result=\[\]): ... for
-> word in text: ... if len(word) == wordlength: ... result.append(word)
-> ... return result
-> >>> find\_words(\['omg', 'teh', 'lolcat',
-> 'sitted', 'on', 'teh', 'mat'\], 3) \# \[\_find-words-1\] \['omg',
-> 'teh', 'teh', 'mat'\]
-> >>> find\_words(\['omg', 'teh',
-> 'lolcat', 'sitted', 'on', 'teh', 'mat'\], 2, \['ur'\]) \#
-> \[\_find-words-2\] \['ur', 'on'\]
-> >>> find\_words(\['omg',
-> 'teh', 'lolcat', 'sitted', 'on', 'teh', 'mat'\], 3) \#
-> \[\_find-words-3\] \['omg', 'teh', 'teh', 'mat', 'omg', 'teh', 'teh',
-> 'mat'\]
+```python
+>>> def find_words(text, wordlength, result=[]):
+...     for word in text:
+...     if len(word) == wordlength:
+...     result.append(word)
+...     return result
+>>> find_words(['omg', 'teh', 'lolcat', 'sitted', 'on', 'teh', 'mat'], 3) # [_find-words-1]
+['omg', 'teh', 'teh', 'mat']
+>>> find_words(['omg', 'teh', 'lolcat', 'sitted', 'on', 'teh', 'mat'], 2, ['ur']) # [_find-words-2]
+['ur', 'on']
+>>> find_words(['omg', 'teh', 'lolcat', 'sitted', 'on', 'teh', 'mat'], 3) # [_find-words-3]
+['omg', 'teh', 'teh', 'mat', 'omg', 'teh', 'teh', 'mat']
+```
 
 The first time we call `find_words()` find-words-1\_, we get all
 three-letter words as expected. The second time we specify an initial
@@ -1660,8 +1747,13 @@ In general, for $n$ words, there are $n$ × $n$-1 × …
 × 2 × 1 ways (i.e. the factorial of $n$). We can code this
 up as follows:
 
-> >>> def factorial1(n): ... result = 1 ... for i in range(n):
-> ... result \*= (i+1) ... return result
+```python
+>>> def factorial1(n):
+...     result = 1
+...     for i in range(n):
+...     result *= (i+1)
+...     return result
+```
 
 However, there is also a recursive algorithm for solving this problem,
 based on the following observation. Suppose we have a way to construct
@@ -1672,8 +1764,13 @@ multiply the number of solutions found for $n$-1 by the value of $n$. We
 also need the base case, to say that if we have a single word, there's
 just one ordering. We can code this up as follows:
 
-> >>> def factorial2(n): ... if n == 1: ... return 1 ... else:
-> ... return n \* factorial2(n-1)
+```python
+>>> def factorial2(n):
+...     if n == 1:
+...     return 1
+...     else:
+...     return n * factorial2(n-1)
+```
 
 These two algorithms solve the same problem. One uses iteration while
 the other uses recursion. We can use recursion to navigate a
@@ -1684,8 +1781,10 @@ these together (we will also add 1 for the synset itself). The following
 function `size1()` does this work; notice that the body of the function
 includes a recursive call to `size1()`:
 
-> >>> def size1(s): ... return 1 + sum(size1(child) for child
-> in s.hyponyms())
+```python
+>>> def size1(s):
+...     return 1 + sum(size1(child) for child in s.hyponyms())
+```
 
 We can also design an iterative solution to this problem which processes
 the hierarchy in layers. The first layer is the synset itself
@@ -1695,10 +1794,15 @@ next layer by finding the hyponyms of everything in the last layer
 update-layer\_. It also maintains a total of the number of synsets
 encountered so far update-total\_.
 
-> >>> def size2(s): ... layer = \[s\] \# \[\_first-layer\] ...
-> total = 0 ... while layer: ... total += len(layer) \#
-> \[\_update-total\] ... layer = \[h for c in layer for h in
-> c.hyponyms()\] \# \[\_update-layer\] ... return total
+```python
+>>> def size2(s):
+...     layer = [s] # [_first-layer]
+...     total = 0
+...     while layer:
+...     total += len(layer) # [_update-total]
+...     layer = [h for c in layer for h in c.hyponyms()] # [_update-layer]
+...     return total
+```
 
 Not only is the iterative solution much longer, it is harder to
 interpret. It forces us to think procedurally, and keep track of what is
@@ -1707,12 +1811,14 @@ satisfy ourselves that both solutions give the same result. We'll use
 another form of the import statement, allowing us to abbreviate the name
 `wordnet` to `wn`:
 
-> >>> from nltk.corpus import wordnet as wn
-> >>> dog =
-> wn.synset('dog.n.01')
-> >>> size1(dog) 190
-> >>>
-> size2(dog) 190
+```python
+>>> from nltk.corpus import wordnet as wn
+>>> dog = wn.synset('dog.n.01')
+>>> size1(dog)
+190
+>>> size2(dog)
+190
+```
 
 As a final example of recursion, let's use it to construct a
 deeply-nested object. A letter trie is a data structure that can be used
@@ -1739,19 +1845,18 @@ case, the word dog).
 >
 >     :   trie\['value'\] = value
 >
-> >>> trie = {}
-> >>> insert(trie, 'chat', 'cat')
-> >>> insert(trie, 'chien', 'dog')
-> >>> insert(trie,
-> 'chair', 'flesh')
-> >>> insert(trie, 'chic', 'stylish')
-> >>> trie = dict(trie) \# for nicer printing
-> >>>
-> trie\['c'\]\['h'\]\['a'\]\['t'\]\['value'\] 'cat'
-> >>>
-> pprint.pprint(trie, width=40) {'c': {'h': {'a': {'t': {'value':
-> 'cat'}}, {'i': {'r': {'value': 'flesh'}}}, 'i': {'e': {'n': {'value':
-> 'dog'}}} {'c': {'value': 'stylish'}}}}}
+```python
+>>> trie = {}
+>>> insert(trie, 'chat', 'cat')
+>>> insert(trie, 'chien', 'dog')
+>>> insert(trie, 'chair', 'flesh')
+>>> insert(trie, 'chic', 'stylish')
+>>> trie = dict(trie) # for nicer printing
+>>> trie['c']
+['h']['a']['t']['value'] 'cat'
+>>> pprint.pprint(trie, width=40)
+{'c': {'h': {'a': {'t': {'value': 'cat'}}, {'i': {'r': {'value': 'flesh'}}}, 'i': {'e': {'n': {'value': 'dog'}}} {'c': {'value': 'stylish'}}}}}
+```
 
 > **caution**
 >
@@ -1792,19 +1897,19 @@ vocabulary of 100,000 items using a list vocab-list\_ or set vocab-set\_
 of integers. The test statement will generate a random item which has a
 50% chance of being in the vocabulary vocab-statement\_.
 
-> >>> from timeit import Timer
-> >>> vocab\_size =
-> 100000
-> >>> setup\_list = "import random; vocab = range(%d)" %
-> vocab\_size \# \[\_vocab-list\]
-> >>> setup\_set = "import
-> random; vocab = set(range(%d))" % vocab\_size \# \[\_vocab-set\]
-> >>> statement = "random.randint(0, %d) in vocab" %
-> (vocab\_size \* 2) \# \[\_vocab-statement\]
-> >>>
-> print(Timer(statement, setup\_list).timeit(1000)) 2.78092288971
-> >>> print(Timer(statement, setup\_set).timeit(1000))
-> 0.0037260055542
+```python
+>>> from timeit import Timer
+>>> vocab_size = 100000
+>>> setup_list = "import random; vocab = range(%d)
+" % vocab_size # [_vocab-list]
+>>> setup_set = "import random; vocab = set(range(%d))
+" % vocab_size # [_vocab-set]
+>>> statement = "random.randint(0, %d) in vocab" % (vocab_size * 2) # [_vocab-statement]
+>>> print(Timer(statement, setup_list).timeit(1000))
+2.78092288971
+>>> print(Timer(statement, setup_set).timeit(1000))
+0.0037260055542
+```
 
 Performing 1000 list membership tests takes a total of 2.8 seconds,
 while the equivalent tests on a set take a mere 0.0037 seconds, or three
@@ -1884,10 +1989,16 @@ in [ex-v4](..%20ex::..%20parsed-literal::).
 > prosody in virahanka4(n-1)\] l = \["L" + prosody for prosody in
 > virahanka4(n-2)\] return s + l
 >
-> >>> virahanka1(4) \['SSSS', 'SSL', 'SLS', 'LSS', 'LL'\]
-> >>> virahanka2(4) \['SSSS', 'SSL', 'SLS', 'LSS', 'LL'\]
-> >>> virahanka3(4) \['SSSS', 'SSL', 'SLS', 'LSS', 'LL'\]
-> >>> virahanka4(4) \['SSSS', 'SSL', 'SLS', 'LSS', 'LL'\]
+```python
+>>> virahanka1(4)
+['SSSS', 'SSL', 'SLS', 'LSS', 'LL']
+>>> virahanka2(4)
+['SSSS', 'SSL', 'SLS', 'LSS', 'LL']
+>>> virahanka3(4)
+['SSSS', 'SSL', 'SLS', 'LSS', 'LL']
+>>> virahanka4(4)
+['SSSS', 'SSL', 'SLS', 'LSS', 'LL']
+```
 
 With this observation, we can write a little recursive function called
 `virahanka1()` to compute these meters, shown in code-virahanka\_.
@@ -1975,20 +2086,16 @@ but instead of displaying the result on a graphical terminal using
 pyplot-savefig\_. We specify the filename then print HTML markup that
 directs the web browser to load the file.
 
-> >>> from matplotlib import use, pyplot
-> >>>
-> use('Agg') \# \[\_agg-backend\]
-> >>>
-> pyplot.savefig('modals.png') \# \[\_pyplot-savefig\]
-> >>>
-> print('Content-Type: text/html')
-> >>> print()
-> >>>
-> print('<html><body>')
-> >>> print('<img
-> src="modals.png"/>')
-> >>>
-> print('</body></html>')
+```python
+>>> from matplotlib import use, pyplot
+>>> use('Agg') # [_agg-backend]
+>>> pyplot.savefig('modals.png') # [_pyplot-savefig]
+>>> print('Content-Type: text/html')
+>>> print()
+>>> print('<html><body>')
+>>> print('<img src="modals.png"/>')
+>>> print('</body></html>')
+```
 
 ### NetworkX
 
@@ -2037,30 +2144,28 @@ The NumPy package provides substantial support for numerical processing
 in Python. NumPy has a multi-dimensional array object, which is easy to
 initialize and access:
 
-> >>> from numpy import array
-> >>> cube = array(\[
-> \[\[0,0,0\], \[1,1,1\], \[2,2,2\]\], ... \[\[3,3,3\], \[4,4,4\],
-> \[5,5,5\]\], ... \[\[6,6,6\], \[7,7,7\], \[8,8,8\]\] \])
-> >>>
-> cube\[1,1,1\] 4
-> >>> cube\[2\].transpose() array(\[\[6, 7,
-> 8\], \[6, 7, 8\], \[6, 7, 8\]\])
-> >>> cube\[2,1:\]
-> array(\[\[7, 7, 7\], \[8, 8, 8\]\])
+```python
+>>> from numpy import array
+>>> cube = array([ [[0,0,0], [1,1,1], [2,2,2]],
+...     [[3,3,3], [4,4,4], [5,5,5]], ... [[6,6,6], [7,7,7], [8,8,8]] ])
+>>> cube[1,1,1]
+4
+>>> cube[2].transpose() array([[6, 7, 8], [6, 7, 8], [6, 7, 8]])
+>>> cube[2,1:] array([[7, 7, 7], [8, 8, 8]])
+```
 
 NumPy includes linear algebra functions. Here we perform singular value
 decomposition on a matrix, an operation used in latent semantic analysis
 to help identify implicit concepts in a document collection.
 
-> >>> from numpy import linalg
-> >>> a=array(\[\[4,0\],
-> \[3,-5\]\])
-> >>> u,s,vt = linalg.svd(a)
-> >>> u
-> array(\[\[-0.4472136 , -0.89442719\], \[-0.89442719, 0.4472136 \]\])
-> >>> s array(\[ 6.32455532, 3.16227766\])
-> >>> vt
-> array(\[\[-0.70710678, 0.70710678\], \[-0.70710678, -0.70710678\]\])
+```python
+>>> from numpy import linalg
+>>> a=array([[4,0], [3,-5]])
+>>> u,s,vt = linalg.svd(a)
+>>> u array([[-0.4472136 , -0.89442719], [-0.89442719, 0.4472136 ]])
+>>> s array([ 6.32455532, 3.16227766])
+>>> vt array([[-0.70710678, 0.70710678], [-0.70710678, -0.70710678]])
+```
 
 NLTK's clustering package `nltk.cluster` makes extensive use of NumPy
 arrays, and includes support for $k$-means clustering, Gaussian EM
@@ -2221,11 +2326,10 @@ Exercises
         the letters of a word, according to the letter values in
         `letter_vals`:
 
-        > >>> letter\_vals = {'a':1, 'b':2, 'c':3, 'd':4,
-        > 'e':5, 'f':80, 'g':3, 'h':8, ... 'i':10, 'j':10, 'k':20,
-        > 'l':30, 'm':40, 'n':50, 'o':70, 'p':80, 'q':100, ... 'r':200,
-        > 's':300, 't':400, 'u':6, 'v':6, 'w':800, 'x':60, 'y':10,
-        > 'z':7}
+```python
+>>> letter_vals = {'a':1, 'b':2, 'c':3, 'd':4, 'e':5, 'f':80, 'g':3, 'h':8,
+...     'i':10, 'j':10, 'k':20, 'l':30, 'm':40, 'n':50, 'o':70, 'p':80, 'q':100, ... 'r':200, 's':300, 't':400, 'u':6, 'v':6, 'w':800, 'x':60, 'y':10, 'z':7}
+```
 
     b)  Process a corpus (e.g. `nltk.corpus.state_union`) and for each
         document, count how many of its words have the number 666.
