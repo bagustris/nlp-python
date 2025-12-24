@@ -17,7 +17,7 @@ keypoints:
 ---
 
 ## Language processing and Python
-=================================
+
 
 It is easy to get our hands on millions of words of text. What can we do
 with it, assuming we can write some simple programs? In this chapter
@@ -144,8 +144,20 @@ you will see. Take care to get spelling and punctuation right, and
 remember that you don't type the `>>>`.
 
 ```python
->>> from nltk.book import * *** Introductory Examples for the NLTK Book*** Loading text1, ..., text9 and sent1, ..., sent9 Type the name of the text or sentence to view it. Type: 'texts()' or 'sents()
-' to list the materials. text1: Moby Dick by Herman Melville 1851 text2: Sense and Sensibility by Jane Austen 1811 text3: The Book of Genesis text4: Inaugural Address Corpus text5: Chat Corpus text6: Monty Python and the Holy Grail text7: Wall Street Journal text8: Personals Corpus text9: The Man Who Was Thursday by G . K . Chesterton 1908
+>>> from nltk.book import *   
+*** Introductory Examples for the NLTK Book***   
+Loading text1, ..., text9 and sent1, ..., sent9   
+Type the name of the text or sentence to view it.  
+Type: 'texts()' or 'sents()' to list the materials. 
+text1: Moby Dick by Herman Melville 1851   
+text2: Sense and Sensibility by Jane Austen 1811   
+text3: The Book of Genesis   
+text4: Inaugural Address Corpus   
+text5: Chat Corpus   
+text6: Monty Python and the Holy Grail   
+text7: Wall Street Journal  
+text8: Personals Corpus   
+text9: The Man Who Was Thursday by G . K . Chesterton 1908
 >>>
 ```
 
@@ -172,7 +184,7 @@ word, together with some context. Here we look up the word monstrous in
 `concordance`, and then placing `"monstrous"` in parentheses:
 
 ```python
->>> text1.concordance("monstrous")
+>>> text1.concordance("monstrous")  
 Displaying 11 of 11 matches: ong the former , one was of a most monstrous size . ... This came towards us , ON OF THE PSALMS . " Touching that monstrous bulk of the whale or ork we have r ll over with a heathenish array of monstrous clubs and spears . Some were thick d as you gazed , and wondered what monstrous cannibal and savage could ever hav that has survived the flood ; most monstrous and most mountainous ! That Himmal they might scout at Moby Dick as a monstrous fable , or still worse and more de th of Radney .'" CHAPTER 55 Of the monstrous Pictures of Whales . I shall ere l ing Scenes . In connexion with the monstrous pictures of whales , I am strongly ere to enter upon those still more monstrous stories of them which are to be fo ght have been rummaged out of this monstrous cabinet there is no telling . But of Whale - Bones ; for Whales of a monstrous size are oftentimes cast up dead u
 >>>
 ```
@@ -209,8 +221,10 @@ We can find out by appending the term `similar` to the name of the text
 in question, then inserting the relevant word in parentheses:
 
 ```python
->>> text1.similar("monstrous") mean part maddens doleful gamesome subtly uncommon careful untoward exasperate loving passing mouldy christian few true mystifying imperial modifies contemptible
->>> text2.similar("monstrous") very heartily so exceedingly remarkably as vast a great amazingly extremely good sweet
+>>> text1.similar("monstrous")   
+mean part maddens doleful gamesome subtly uncommon careful untoward exasperate loving passing mouldy christian few true mystifying imperial modifies contemptible
+>>> text2.similar("monstrous")   
+very heartily so exceedingly remarkably as vast a great amazingly extremely good sweet
 >>>
 ```
 
@@ -225,7 +239,8 @@ enclose these words by square brackets as well as parentheses, and
 separate them with a comma:
 
 ```python
->>> text2.common_contexts(["monstrous", "very"]) a_pretty is_pretty am_glad be_glad a_lucky
+>>> text2.common_contexts(["monstrous", "very"])   
+a_pretty is_pretty am_glad be_glad a_lucky
 >>>
 ```
 
@@ -267,7 +282,8 @@ followed by the term `generate`. (We need to include the parentheses,
 but there's nothing that goes between them.)
 
 ```python
->>> text3.generate() In the beginning of his brother is a hairy man , whose top may reach unto heaven ; and ye shall sow the land of Egypt there was no bread in all that he was taken out of the month , upon the earth . So shall thy wages be ? And they made their father ; and Isaac was old , and kissed him : and Laban with his cattle in the midst of the hands of Esau thy first born , and Phichol the chief butler unto his son Isaac , she
+>>> text3.generate()   
+In the beginning of his brother is a hairy man , whose top may reach unto heaven ; and ye shall sow the land of Egypt there was no bread in all that he was taken out of the month , upon the earth . So shall thy wages be ? And they made their father ; and Isaac was old , and kissed him : and Laban with his cattle in the midst of the hands of Esau thy first born , and Phichol the chief butler unto his son Isaac , she
 >>>
 ```
 
@@ -821,7 +837,8 @@ section before continuing further.
 >>> saying = ['After', 'all', 'is', 'said', 'and', 'done', ... 'more', 'is', 'said', 'than', 'done']
 >>> tokens = set(saying)
 >>> tokens = sorted(tokens)
->>> tokens[-2:] what output do you expect here?
+>>> tokens[-2:]  
+what output do you expect here?
 >>>
 ```
 
@@ -993,8 +1010,10 @@ individual words. The `collocations()` function does this for us. We
 will see how it works later.
 
 ```python
->>> text4.collocations() United States; fellow citizens; four years; years ago; Federal Government; General Government; American people; Vice President; Old World; Almighty God; Fellow citizens; Chief Magistrate; Chief Justice; God bless; every citizen; Indian tribes; public debt; one another; foreign nations; political parties
->>> text8.collocations() would like; medium build; social drinker; quiet nights; non smoker; long term; age open; Would like; easy going; financially secure; fun times; similar interests; Age open; weekends away; poss rship; well presented; never married; single mum; permanent relationship; slim build
+>>> text4.collocations()   
+United States; fellow citizens; four years; years ago; Federal Government; General Government; American people; Vice President; Old World; Almighty God; Fellow citizens; Chief Magistrate; Chief Justice; God bless; every citizen; Indian tribes; public debt; one another; foreign nations; political parties
+>>> text8.collocations()   
+would like; medium build; social drinker; quiet nights; non smoker; long term; age open; Would like; easy going; financially secure; fun times; similar interests; Age open; weekends away; poss rship; well presented; never married; single mum; permanent relationship; slim build
 >>>
 ```
 
@@ -1264,7 +1283,7 @@ Python doesn't try to make sense of variable names.
 >>> sent1 = ['Call', 'me', 'Ishmael', '.']
 >>> for xyzzy in sent1:
 ...     if xyzzy.endswith('l'):
-...     print(xyzzy) ... Call Ishmael
+...         print(xyzzy) ... Call Ishmael
 >>>
 ```
 
@@ -1281,11 +1300,16 @@ indented code.
 ```python
 >>> for token in sent1:
 ...     if token.islower():
-...     print(token, 'is a lowercase word')
+...         print(token, 'is a lowercase word')
 ...     elif token.istitle():
-...     print(token, 'is a titlecase word')
+...         print(token, 'is a titlecase word')
 ...     else:
-...     print(token, 'is punctuation') ... Call is a titlecase word me is a lowercase word Ishmael is a titlecase word . is punctuation
+...         print(token, 'is punctuation')  
+... 
+Call is a titlecase word   
+me is a lowercase word   
+Ishmael is a titlecase word  
+. is punctuation
 >>>
 ```
 
