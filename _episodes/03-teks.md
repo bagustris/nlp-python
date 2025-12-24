@@ -121,7 +121,8 @@ slicing:
 <class 'nltk.text.Text'>
 >>> text[1024:1062]
 ['CHAPTER', 'I', 'On', 'an', 'exceptionally', 'hot', 'evening', 'early', 'in', 'July', 'a', 'young', 'man', 'came', 'out', 'of', 'the', 'garret', 'in', 'which', 'he', 'lodged', 'in', 'S.', 'Place', 'and', 'walked', 'slowly', ',', 'as', 'though', 'in', 'hesitation', ',', 'towards', 'K.', 'bridge', '.']
->>> text.collocations() Katerina Ivanovna; Pyotr Petrovitch; Pulcheria Alexandrovna; Avdotya Romanovna; Rodion Romanovitch; Marfa Petrovna; Sofya Semyonovna; old woman; Project Gutenberg-tm; Porfiry Petrovitch; Amalia Ivanovna; great deal; Nikodim Fomitch; young man; Ilya Petrovitch; n't know; Project Gutenberg; Dmitri Prokofitch; Andrey Semyonovitch; Hay Market
+>>> text.collocations()
+Katerina Ivanovna; Pyotr Petrovitch; Pulcheria Alexandrovna; Avdotya Romanovna; Rodion Romanovitch; Marfa Petrovna; Sofya Semyonovna; old woman; Project Gutenberg-tm; Porfiry Petrovitch; Amalia Ivanovna; great deal; Nikodim Fomitch; young man; Ilya Petrovitch; n't know; Project Gutenberg; Dmitri Prokofitch; Andrey Semyonovitch; Hay Market
 ```
 
 Notice that Project Gutenberg appears as a collocation. This is because
@@ -307,7 +308,7 @@ We can also read a file one line at a time using a `for` loop:
 ```python
 >>> f = open('document.txt', 'rU')
 >>> for line in f:
-...     print(line.strip()) Time flies like an arrow. Fruit flies like a banana.
+...         print(line.strip()) Time flies like an arrow. Fruit flies like a banana.
 ```
 
 Here we use the `strip()` method to remove the newline character at the
@@ -345,8 +346,10 @@ input, call the Python function `input()`. After saving the input to a
 variable, we can manipulate it just as we have done for other strings.
 
 ```python
->>> s = input("Enter some text: ") Enter some text: On an exceptionally hot evening early in July
->>> print("You typed", len(word_tokenize(s)), "words.") You typed 8 words.
+>>> s = input("Enter some text: ")
+Enter some text: On an exceptionally hot evening early in July
+>>> print("You typed", len(word_tokenize(s)), "words.")
+You typed 8 words.
 ```
 
 ### The NLP Pipeline
@@ -397,7 +400,8 @@ So, for example, we can append to a list but not to a string:
 
 ```python
 >>> vocab.append('blog')
->>> raw.append('blog') Traceback (most recent call last): File
+>>> raw.append('blog')
+Traceback (most recent call last): File
 "<stdin>", line 1, in <module> AttributeError: 'str' object has no attribute 'append'
 ```
 
@@ -449,10 +453,12 @@ the statement is not complete after the first line.
 
 ```python
 >>> couplet = "Shall I compare thee to a Summer's day?" ... "Thou are more lovely and more temperate:" # [_string-backslash]
->>> print(couplet) Shall I compare thee to a Summer's day?Thou are more lovely and more temperate:
+>>> print(couplet)
+Shall I compare thee to a Summer's day?Thou are more lovely and more temperate:
 >>> couplet = ("Rough winds do shake the darling buds of May,"
 ...     "And Summer's lease hath all too short a date:") # [_string-parentheses]
->>> print(couplet) Rough winds do shake the darling buds of May,And Summer's lease hath all too short a date:
+>>> print(couplet)
+Rough winds do shake the darling buds of May,And Summer's lease hath all too short a date:
 ```
 
 Unfortunately the above methods do not give us a newline between the two
@@ -461,9 +467,11 @@ follows:
 
 ```python
 >>> couplet = """Shall I compare thee to a Summer's day? ... Thou are more lovely and more temperate:"""
->>> print(couplet) Shall I compare thee to a Summer's day? Thou are more lovely and more temperate:
+>>> print(couplet)
+Shall I compare thee to a Summer's day? Thou are more lovely and more temperate:
 >>> couplet = '''Rough winds do shake the darling buds of May, ... And Summer's lease hath all too short a date:'''
->>> print(couplet) Rough winds do shake the darling buds of May, And Summer's lease hath all too short a date:
+>>> print(couplet)
+Rough winds do shake the darling buds of May, And Summer's lease hath all too short a date:
 ```
 
 Now that we can define strings, we can try some simple operations on
@@ -490,9 +498,10 @@ words. We can even multiply strings string-multiplication\_:
 > >
 ```python
 >>> a = [1, 2, 3, 4, 5, 6, 7, 6, 5, 4, 3, 2, 1] >
->>> b = [' ' * 2 * (7 - i) + 'very' * i for i in a] >
+>>> b = ['
+' * 2 * (7 - i) + 'very' * i for i in a] >
 >>> for line in b:
-...     print(line)
+...         print(line)
 ```
 
 We've seen that the addition and multiplication operations apply to
@@ -520,7 +529,8 @@ the interpreter. We can also see the contents of a variable using the
 `print` statement:
 
 ```python
->>> print(monty) Monty Python
+>>> print(monty)
+Monty Python
 ```
 
 Notice that there are no quotation marks this time. When we inspect a
@@ -535,9 +545,12 @@ in various ways, as shown below:
 
 ```python
 >>> grail = 'Holy Grail'
->>> print(monty + grail) Monty PythonHoly Grail
->>> print(monty, grail) Monty Python Holy Grail
->>> print(monty, "and the", grail) Monty Python and the Holy Grail
+>>> print(monty + grail)
+Monty PythonHoly Grail
+>>> print(monty, grail)
+Monty Python Holy Grail
+>>> print(monty, "and the", grail)
+Monty Python and the Holy Grail
 ```
 
 ### Accessing Individual Characters
@@ -560,7 +573,8 @@ As with lists, if we try to access an index that is outside of the
 string we get an error:
 
 ```python
->>> monty[20] Traceback (most recent call last): File
+>>> monty[20]
+Traceback (most recent call last): File
 "<stdin>", line 1, in ? IndexError: string index out of range
 ```
 
@@ -587,7 +601,7 @@ we tell Python to print a space instead of a newline at the end.
 ```python
 >>> sent = 'colorless green ideas sleep furiously'
 >>> for char in sent:
-...     print(char, end=' ') ... c o l o r l e s s g r e e n i d e a s s l e e p f u r i o u s l y
+...         print(char, end=' ') ... c o l o r l e s s g r e e n i d e a s s l e e p f u r i o u s l y
 ```
 
 We can count individual characters as well. We should ignore the case
@@ -703,8 +717,10 @@ concatenating them. However, we cannot join strings and lists:
 'Wh'
 >>> beatles[:2]
 ['John', 'Paul']
->>> query + " I don't" "Who knows? I don't"
->>> beatles + 'Brian' Traceback (most recent call last): File
+>>> query + "
+I don't" "Who knows? I don't"
+>>> beatles + 'Brian'
+Traceback (most recent call last): File
 "<stdin>", line 1, in <module> TypeError: can only concatenate list (not "str") to list
 >>> beatles + ['Brian']
 ['John', 'Paul', 'George', 'Ringo', 'Brian']
@@ -869,7 +885,8 @@ We can also see how this character is represented as a sequence of bytes
 inside a text file:
 
 ```python
->>> nacute.encode('utf8') b'xc5x84'
+>>> nacute.encode('utf8')
+b'xc5x84'
 ```
 
 The module `unicodedata` lets us inspect the properties of Unicode
@@ -883,10 +900,11 @@ followed by their Unicode name.
 >>> import unicodedata
 >>> lines = open(path, encoding='latin2').readlines()
 >>> line = lines[2]
->>> print(line.encode('unicode_escape')) b'Niemc\\xf3w pod koniec II wojny \\u015bwiatowej na Dolny \\u015al\\u0105sk, zosta\\u0142y\\n'
+>>> print(line.encode('unicode_escape'))
+b'Niemc\\xf3w pod koniec II wojny \\u015bwiatowej na Dolny \\u015al\\u0105sk, zosta\\u0142y\\n'
 >>> for c in line: # [_unicode-info]
 ...     if ord(c) > 127:
-...     print('{} U+{:04x} {}'.format(c.encode('utf8'), ord(c), unicodedata.name(c))) b'xc3xb3' U+00f3 LATIN SMALL LETTER O WITH ACUTE b'xc5x9b' U+015b LATIN SMALL LETTER S WITH ACUTE b'xc5x9a' U+015a LATIN CAPITAL LETTER S WITH ACUTE b'xc4x85' U+0105 LATIN SMALL LETTER A WITH OGONEK b'xc5x82' U+0142 LATIN SMALL LETTER L WITH STROKE
+...         print('{} U+{:04x} {}'.format(c.encode('utf8'), ord(c), unicodedata.name(c))) b'xc3xb3' U+00f3 LATIN SMALL LETTER O WITH ACUTE b'xc5x9b' U+015b LATIN SMALL LETTER S WITH ACUTE b'xc5x9a' U+015a LATIN CAPITAL LETTER S WITH ACUTE b'xc4x85' U+0105 LATIN SMALL LETTER A WITH OGONEK b'xc5x82' U+0142 LATIN SMALL LETTER L WITH STROKE
 ```
 
 If you replace `c.encode('utf8')` in unicode-info\_ with `c`, and if
@@ -912,7 +930,8 @@ character", cf tab-re-symbols\_).
 >>> line = line.lower()
 >>> line
 'niemców pod koniec ii wojny światowej na dolny śląsk, zostałyn'
->>> line.encode('unicode_escape') b'niemc\\xf3w pod koniec ii wojny \\u015bwiatowej na dolny \\u015bl\\u0105sk, zosta\\u0142y\\n'
+>>> line.encode('unicode_escape')
+b'niemc\\xf3w pod koniec ii wojny \\u015bwiatowej na dolny \\u015bl\\u0105sk, zosta\\u0142y\\n'
 >>> import re
 >>> m = re.search('u015bw*', line)
 >>> m.group()
@@ -1207,7 +1226,8 @@ then tabulate the frequency of each pair:
 >>> rotokas_words = nltk.corpus.toolbox.words('rotokas.dic')
 >>> cvs = [cv for w in rotokas_words for cv in re.findall(r'[ptksvr][aeiou]', w)]
 >>> cfd = nltk.ConditionalFreqDist(cvs)
->>> cfd.tabulate() a e i o u k 418 148 94 420 173 p 83 31 105 34 51 r 187 63 84 89 79 s 0 0 100 2 1 t 47 8 0 148 37 v 93 27 105 48
+>>> cfd.tabulate()
+a e i o u k 418 148 94 420 173 p 83 31 105 34 51 r 187 63 84 89 79 s 0 0 100 2 1 t 47 8 0 148 37 v 93 27 105 48
 49
 ```
 
@@ -1382,7 +1402,8 @@ expressions of the form x and other ys allows us to discover hypernyms
 ```python
 >>> from nltk.corpus import brown
 >>> hobbies_learned = nltk.Text(brown.words(categories=['hobbies', 'learned']))
->>> hobbies_learned.findall(r"<w*> <and> <other> <w*s>") speed and other activities; water and other liquids; tomb and other landmarks; Statues and other monuments; pearls and other jewels; charts and other items; roads and other features; figures and other objects; military and other areas; demands and other factors; abstracts and other compilations; iron and other metals
+>>> hobbies_learned.findall(r"<w*> <and> <other> <w*s>")
+speed and other activities; water and other liquids; tomb and other landmarks; Statues and other monuments; pearls and other jewels; charts and other items; roads and other features; figures and other objects; military and other areas; demands and other factors; abstracts and other compilations; iron and other metals
 ```
 
 With enough text, this approach would give us a useful store of
@@ -1499,7 +1520,8 @@ The very simplest method for tokenizing text is to split on whitespace.
 Consider the following text from *Alice's Adventures in Wonderland*:
 
 ```python
->>> raw = """'When I'M a Duchess,' she said to herself, (not in a very hopeful tone
+>>> raw = """'When I'M a Duchess,'
+she said to herself, (not in a very hopeful tone
 ...     though), 'I won't have any pepper in my kitchen AT ALL. Soup does very ... well without--Maybe it's always pepper that makes people hot-tempered,'..."""
 ```
 
@@ -1510,7 +1532,8 @@ contain a `\n` newline character; instead we need to match any number of
 spaces, tabs, or newlines split-whitespace\_:
 
 ```python
->>> re.split(r' ', raw) # [_split-space]
+>>> re.split(r'
+', raw) # [_split-space]
 ["'When", "I'M", 'a', "Duchess,'", 'she', 'said', 'to', 'herself,', '(not', 'in', 'a', 'very', 'hopeful', 'tonenthough),', "'I", "won't", 'have', 'any', 'pepper', 'in', 'my', 'kitchen', 'AT', 'ALL.', 'Soup', 'does', 'verynwell', 'without--Maybe', "it's", 'always', 'pepper', 'that', 'makes', 'people', "hot-tempered,'..."]
 >>> re.split(r'[ tn]+', raw) # [_split-whitespace]
 ["'When", "I'M", 'a', "Duchess,'", 'she', 'said', 'to', 'herself,', '(not', 'in', 'a', 'very', 'hopeful', 'tone', 'though),', "'I", "won't", 'have', 'any', 'pepper', 'in', 'my', 'kitchen', 'AT', 'ALL.', 'Soup', 'does', 'very', 'well', 'without--Maybe', "it's", 'always', 'pepper', 'that', 'makes', 'people', "hot-tempered,'..."]
@@ -1557,7 +1580,8 @@ following letters (e.g. 's) but that sequences of two or more
 punctuation characters are separated.
 
 ```python
->>> re.findall(r'w+|Sw*', raw) ["'When", 'I', "'M", 'a', 'Duchess', ',', "'", 'she', 'said', 'to', 'herself', ',', '(not', 'in', 'a', 'very', 'hopeful', 'tone', 'though', ')
+>>> re.findall(r'w+|Sw*', raw)
+["'When", 'I', "'M", 'a', 'Duchess', ',', "'", 'she', 'said', 'to', 'herself', ',', '(not', 'in', 'a', 'very', 'hopeful', 'tone', 'though', ')
 ', ',', "'I", 'won', "'t", 'have', 'any', 'pepper', 'in', 'my', 'kitchen', 'AT', 'ALL', '.', 'Soup', 'does', 'very', 'well', 'without', '-', '-Maybe', 'it', "'s", 'always', 'pepper', 'that', 'makes', 'people', 'hot', '-tempered', ',', "'", '.', '.', '.']
 ```
 
@@ -1570,7 +1594,8 @@ match quote characters so these are kept separate from the text they
 enclose.
 
 ```python
->>> print(re.findall(r"w+(?:[-']w+)*|'|[-.(]+|Sw*", raw)) ["'", 'When', "I'M", 'a', 'Duchess', ',', "'", 'she', 'said', 'to', 'herself', ',', '(', 'not', 'in', 'a', 'very', 'hopeful', 'tone', 'though', ')', ',', "'", 'I', "won't", 'have', 'any', 'pepper', 'in', 'my', 'kitchen', 'AT', 'ALL', '.', 'Soup', 'does', 'very', 'well', 'without', '--', 'Maybe', "it's", 'always', 'pepper', 'that', 'makes', 'people', 'hot-tempered', ',', "'", '...']
+>>> print(re.findall(r"w+(?:[-']w+)*|'|[-.(]+|Sw*", raw))
+["'", 'When', "I'M", 'a', 'Duchess', ',', "'", 'she', 'said', 'to', 'herself', ',', '(', 'not', 'in', 'a', 'very', 'hopeful', 'tone', 'though', ')', ',', "'", 'I', "won't", 'have', 'any', 'pepper', 'in', 'my', 'kitchen', 'AT', 'ALL', '.', 'Soup', 'does', 'very', 'well', 'without', '--', 'Maybe', "it's", 'always', 'pepper', 'that', 'makes', 'people', 'hot-tempered', ',', "'", '...']
 ```
 
 The above expression also included «`[-.(]+`» which causes the
@@ -1792,7 +1817,8 @@ enough evidence in the data to split this any further.
 ```python
 >>> text = "doyouseethekittyseethedoggydoyoulikethekittylikethedoggy"
 >>> seg1 = "0000000000000001000000000010000000000000000100000000000"
->>> anneal(text, seg1, 5000, 1.2) 61 ['doyouseetheki', 'tty', 'see', 'thedoggy', 'doyouliketh', 'ekittylike', 'thedoggy']
+>>> anneal(text, seg1, 5000, 1.2)
+61 ['doyouseetheki', 'tty', 'see', 'thedoggy', 'doyouliketh', 'ekittylike', 'thedoggy']
 59 ['doy', 'ouseetheki', 'ttysee', 'thedoggy', 'doy', 'o', 'ulikethekittylike', 'thedoggy'] 57 ['doyou', 'seetheki', 'ttysee', 'thedoggy', 'doyou', 'liketh', 'ekittylike', 'thedoggy'] 55 ['doyou', 'seethekit', 'tysee', 'thedoggy', 'doyou', 'likethekittylike', 'thedoggy'] 54 ['doyou', 'seethekit', 'tysee', 'thedoggy', 'doyou', 'like', 'thekitty', 'like', 'thedoggy'] 52 ['doyou', 'seethekittysee', 'thedoggy', 'doyou', 'like', 'thekitty', 'like', 'thedoggy'] 43 ['doyou', 'see', 'thekitty', 'see', 'thedoggy', 'doyou', 'like', 'thekitty', 'like', 'thedoggy'] '0000100100000001001000000010000100010000000100010000000'
 ```
 
@@ -1848,8 +1874,10 @@ object:
 ```python
 >>> word = 'cat'
 >>> sentence = """hello ... world"""
->>> print(word) cat
->>> print(sentence) hello world
+>>> print(word)
+cat
+>>> print(sentence)
+hello world
 >>> word
 'cat'
 >>> sentence
@@ -1876,7 +1904,7 @@ could do:
 ```python
 >>> fdist = nltk.FreqDist(['dog', 'cat', 'dog', 'cat', 'dog', 'snake', 'dog', 'cat'])
 >>> for word in sorted(fdist):
-...     print(word, '->', fdist[word], end='; ') cat -> 3; dog -> 4; snake -> 1;
+...         print(word, '->', fdist[word], end='; ') cat -> 3; dog -> 4; snake -> 1;
 ```
 
 Print statements that contain alternating variables and constants can be
@@ -1885,7 +1913,7 @@ string formatting.
 
 ```python
 >>> for word in sorted(fdist):
-...     print('{}->{};'.format(word, fdist[word]), end=' ') cat->3; dog->4; snake->1;
+...         print('{}->{};'.format(word, fdist[word]), end=' ') cat->3; dog->4; snake->1;
 ```
 
 To understand what is going on here, let's test out the format string on
@@ -1922,7 +1950,8 @@ be called with exactly the same number of arguments.
 ```python
 >>> '{} wants a {} {}'.format ('Lee', 'sandwich', 'for lunch')
 'Lee wants a sandwich for lunch'
->>> '{} wants a {} {}'.format ('sandwich', 'for lunch') Traceback (most recent call last):
+>>> '{} wants a {} {}'.format ('sandwich', 'for lunch')
+Traceback (most recent call last):
 ...     '{} wants a {} {}'.format ('sandwich', 'for lunch') IndexError: tuple index out of range
 ```
 
@@ -1947,7 +1976,7 @@ an example using a `for` loop:
 >>> template = 'Lee wants a {} right now'
 >>> menu = ['sandwich', 'spam fritter', 'pancake']
 >>> for snack in menu:
-...     print(template.format(snack)) ... Lee wants a sandwich right now Lee wants a spam fritter right now Lee wants a pancake right now
+...         print(template.format(snack)) ... Lee wants a sandwich right now Lee wants a spam fritter right now Lee wants a pancake right now
 ```
 
 ### Lining Things Up
@@ -2025,7 +2054,7 @@ file.
 >>> output_file = open('output.txt', 'w')
 >>> words = set(nltk.corpus.genesis.words('english-kjv.txt'))
 >>> for word in sorted(words):
-...     print(word, file=output_file)
+...         print(word, file=output_file)
 ```
 
 When we write non-text data to a file we must convert it to a string
@@ -2056,7 +2085,7 @@ and which uses a complicated `print` statement:
 ```python
 >>> saying = ['After', 'all', 'is', 'said', 'and', 'done', ',', ... 'more', 'is', 'said', 'than', 'done', '.']
 >>> for word in saying:
-...     print(word, '(' + str(len(word)) + '),', end=' ') After (5), all (3), is (2), said (4), and (3), done (4), , (1), more (4), is (2), said (4), than (4), done (4), . (1),
+...         print(word, '(' + str(len(word)) + '),', end=' ') After (5), all (3), is (2), said (4), and (3), done (4), , (1), more (4), is (2), said (4), than (4), done (4), . (1),
 ```
 
 We can take care of line wrapping with the help of Python's `textwrap`
@@ -2067,9 +2096,11 @@ line:
 >>> from textwrap import fill
 >>> format = '%s (%d),'
 >>> pieces = [format % (word, len(word)) for word in saying]
->>> output = ' '.join(pieces)
+>>> output = '
+'.join(pieces)
 >>> wrapped = fill(output)
->>> print(wrapped) After (5), all (3), is (2), said (4), and (3), done (4), , (1), more (4), is (2), said (4), than (4), done (4), . (1),
+>>> print(wrapped)
+After (5), all (3), is (2), said (4), and (3), done (4), , (1), more (4), is (2), said (4), than (4), done (4), . (1),
 ```
 
 Notice that there is a linebreak between `more` and its following

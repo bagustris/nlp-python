@@ -142,7 +142,7 @@ or the shooting event.
 >>> sent = ['I', 'shot', 'an', 'elephant', 'in', 'my', 'pajamas']
 >>> parser = nltk.ChartParser(groucho_grammar)
 >>> for tree in parser.parse(sent):
-...     print(tree) ... (S (NP I) (VP (VP (V shot) (NP (Det an) (N elephant))) (PP (P in) (NP (Det my) (N pajamas))))) (S (NP I) (VP (V shot) (NP (Det an) (N elephant) (PP (P in) (NP (Det my) (N pajamas))))))
+...         print(tree) ... (S (NP I) (VP (VP (V shot) (NP (Det an) (N elephant))) (PP (P in) (NP (Det my) (N pajamas))))) (S (NP I) (VP (V shot) (NP (Det an) (N elephant) (PP (P in) (NP (Det my) (N pajamas))))))
 ```
 
 The program produces two bracketed structures, which we can depict as
@@ -459,7 +459,7 @@ NLTK provides a recursive descent parser:
 >>> rd_parser = nltk.RecursiveDescentParser(grammar1)
 >>> sent = 'Mary saw a dog'.split()
 >>> for tree in rd_parser.parse(sent):
-...     print(tree) (S (NP Mary) (VP (V saw) (NP (Det a) (N dog))))
+...         print(tree) (S (NP Mary) (VP (V saw) (NP (Det a) (N dog))))
 ```
 
 > **note**
@@ -529,7 +529,7 @@ text:
 >>> sr_parser = nltk.ShiftReduceParser(grammar1)
 >>> sent = 'Mary saw a dog'.split()
 >>> for tree in sr_parser.parse(sent):
-...     print(tree) (S (NP Mary) (VP (V saw) (NP (Det a) (N dog))))
+...         print(tree) (S (NP Mary) (VP (V saw) (NP (Det a) (N dog))))
 ```
 
 > **note**
@@ -673,7 +673,8 @@ WFST. By setting `trace` to `True` when calling the function
 constructed:
 
 ```python
->>> wfst1 = complete_wfst(wfst0, tokens, groucho_grammar, trace=True) [2] Det [3] N [4] ==> [2] NP [4]
+>>> wfst1 = complete_wfst(wfst0, tokens, groucho_grammar, trace=True)
+[2] Det [3] N [4] ==> [2] NP [4]
 [5] Det [6] N [7] ==> [5] NP [7] [1] V [2] NP [4] ==> [1] VP [4] [4] P [5] NP [7] ==> [4] PP [7] [0] NP [1] VP [4] ==> [0] S [4] [1] VP [4] PP [7] ==> [1] VP [7] [0] NP [1] VP [7] ==> [0] S [7]
 ```
 
@@ -762,7 +763,8 @@ type of dependency:
 ```python
 >>> groucho_dep_grammar = nltk.DependencyGrammar.fromstring("""
 ...     'shot' -> 'I' | 'elephant' | 'in' ... 'elephant' -> 'an' | 'in' ... 'in' -> 'pajamas' ... 'pajamas' -> 'my' ... """)
->>> print(groucho_dep_grammar) Dependency grammar with 7 productions
+>>> print(groucho_dep_grammar)
+Dependency grammar with 7 productions
 'shot' -> 'I' 'shot' -> 'elephant' 'shot' -> 'in' 'elephant' -> 'an' 'elephant' -> 'in' 'in' -> 'pajamas' 'pajamas' -> 'my'
 ```
 
@@ -783,7 +785,7 @@ grammar.
 >>> sent = 'I shot an elephant in my pajamas'.split()
 >>> trees = pdp.parse(sent)
 >>> for tree in trees:
-...     print(tree) (shot I (elephant an (in (pajamas my)))) (shot I (elephant an) (in (pajamas my)))
+...         print(tree) (shot I (elephant an (in (pajamas my)))) (shot I (elephant an) (in (pajamas my)))
 ```
 
 These bracketed dependency structures can also be displayed as trees,
@@ -926,7 +928,8 @@ a 10% sample of the Penn Treebank corpus.
 >>> from nltk.corpus import treebank
 >>> t = treebank.parsed_sents('wsj_0001.mrg')
 [0]
->>> print(t) (S (NP-SBJ (NP (NNP Pierre) (NNP Vinken)) (, ,) (ADJP (NP (CD 61) (NNS years)) (JJ old)) (, ,)) (VP (MD will) (VP (VB join) (NP (DT the) (NN board)) (PP-CLR (IN as) (NP (DT a) (JJ nonexecutive) (NN director))) (NP-TMP (NNP Nov.) (CD 29)))) (. .))
+>>> print(t)
+(S (NP-SBJ (NP (NNP Pierre) (NNP Vinken)) (, ,) (ADJP (NP (CD 61) (NNS years)) (JJ old)) (, ,)) (VP (MD will) (VP (VB join) (NP (DT the) (NN board)) (PP-CLR (IN as) (NP (DT a) (JJ nonexecutive) (NN director))) (NP-TMP (NNP Nov.) (CD 29)))) (. .))
 ```
 
 We can use this data to help develop a grammar. For example, the program
@@ -992,7 +995,7 @@ two readings.
 >>> tokens = ["fish"] * 5
 >>> cp = nltk.ChartParser(grammar)
 >>> for tree in cp.parse(tokens):
-...     print(tree) (S (NP fish) (V fish) (NP (NP fish) (Sbar (NP fish) (V fish)))) (S (NP (NP fish) (Sbar (NP fish) (V fish))) (V fish) (NP fish))
+...         print(tree) (S (NP fish) (V fish) (NP (NP fish) (Sbar (NP fish) (V fish)))) (S (NP (NP fish) (Sbar (NP fish) (V fish))) (V fish) (NP fish))
 ```
 
 As the length of this sentence goes up (3, 5, 7, ...) we get the
@@ -1104,7 +1107,7 @@ probabilities:
 ```python
 >>> viterbi_parser = nltk.ViterbiParser(grammar)
 >>> for tree in viterbi_parser.parse(['Jack', 'saw', 'telescopes']):
-...     print(tree) (S (NP Jack) (VP (TV saw) (NP telescopes))) (p=0.064)
+...         print(tree) (S (NP Jack) (VP (TV saw) (NP telescopes))) (p=0.064)
 ```
 
 Now that parse trees are assigned probabilities, it no longer matters

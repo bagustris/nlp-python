@@ -278,7 +278,8 @@ only the first two nouns will be chunked:
 >>> nouns = [("money", "NN"), ("market", "NN"), ("fund", "NN")]
 >>> grammar = "NP: {<NN><NN>} # Chunk two consecutive nouns"
 >>> cp = nltk.RegexpParser(grammar)
->>> print(cp.parse(nouns)) (S (NP money/NN market/NN) fund/NN)
+>>> print(cp.parse(nouns))
+(S (NP money/NN market/NN) fund/NN)
 ```
 
 Once we have created the chunk for money market, we have removed the
@@ -416,7 +417,8 @@ data using `nltk.corpus.conll2000`. Here is an example that reads the
 
 ```python
 >>> from nltk.corpus import conll2000
->>> print(conll2000.chunked_sents('train.txt')[99]) (S (PP Over/IN) (NP a/DT cup/NN) (PP of/IN) (NP coffee/NN) ,/, (NP Mr./NNP Stone/NNP) (VP told/VBD) (NP his/PRP\$ story/NN) ./.)
+>>> print(conll2000.chunked_sents('train.txt')[99])
+(S (PP Over/IN) (NP a/DT cup/NN) (PP of/IN) (NP coffee/NN) ,/, (NP Mr./NNP Stone/NNP) (VP told/VBD) (NP his/PRP\$ story/NN) ./.)
 ```
 
 As you can see, the CoNLL 2000 corpus contains three chunk types: `NP`
@@ -426,7 +428,8 @@ only interested in the `NP` chunks right now, we can use the
 `chunk_types` argument to select them:
 
 ```python
->>> print(conll2000.chunked_sents('train.txt', chunk_types=['NP'])[99]) (S Over/IN (NP a/DT cup/NN) of/IN (NP coffee/NN) ,/, (NP Mr./NNP Stone/NNP) told/VBD (NP his/PRP\$ story/NN) ./.)
+>>> print(conll2000.chunked_sents('train.txt', chunk_types=['NP'])[99])
+(S Over/IN (NP a/DT cup/NN) of/IN (NP coffee/NN) ,/, (NP Mr./NNP Stone/NNP) told/VBD (NP his/PRP\$ story/NN) ./.)
 ```
 
 ### Simple Evaluation and Baselines
@@ -439,7 +442,8 @@ that creates no chunks:
 >>> from nltk.corpus import conll2000
 >>> cp = nltk.RegexpParser("")
 >>> test_sents = conll2000.chunked_sents('test.txt', chunk_types=['NP'])
->>> print(cp.evaluate(test_sents)) ChunkParse score: IOB Accuracy: 43.4% Precision: 0.0% Recall: 0.0% F-Measure: 0.0%
+>>> print(cp.evaluate(test_sents))
+ChunkParse score: IOB Accuracy: 43.4% Precision: 0.0% Recall: 0.0% F-Measure: 0.0%
 ```
 
 The IOB tag accuracy indicates that more than a third of the words are
@@ -453,7 +457,8 @@ tags beginning with letters that are characteristic of noun phrase tags
 >>> grammar = r"NP: {<[CDJNP].*>+}
 "
 >>> cp = nltk.RegexpParser(grammar)
->>> print(cp.evaluate(test_sents)) ChunkParse score: IOB Accuracy: 87.7% Precision: 70.6% Recall: 67.8% F-Measure: 69.2%
+>>> print(cp.evaluate(test_sents))
+ChunkParse score: IOB Accuracy: 87.7% Precision: 70.6% Recall: 67.8% F-Measure: 69.2%
 ```
 
 As you can see, this approach achieves decent results. However, we can
@@ -520,7 +525,8 @@ corpus, and test its resulting performance:
 >>> test_sents = conll2000.chunked_sents('test.txt', chunk_types=['NP'])
 >>> train_sents = conll2000.chunked_sents('train.txt', chunk_types=['NP'])
 >>> unigram_chunker = UnigramChunker(train_sents)
->>> print(unigram_chunker.evaluate(test_sents)) ChunkParse score: IOB Accuracy: 92.9% Precision: 79.9% Recall: 86.8% F-Measure: 83.2%
+>>> print(unigram_chunker.evaluate(test_sents))
+ChunkParse score: IOB Accuracy: 92.9% Precision: 79.9% Recall: 86.8% F-Measure: 83.2%
 ```
 
 This chunker does reasonably well, achieving an overall f-measure score
@@ -550,7 +556,8 @@ chunker has slightly higher performance than the unigram chunker:
 
 ```python
 >>> bigram_chunker = BigramChunker(train_sents)
->>> print(bigram_chunker.evaluate(test_sents)) ChunkParse score: IOB Accuracy: 93.3% Precision: 82.3% Recall: 86.8% F-Measure: 84.5%
+>>> print(bigram_chunker.evaluate(test_sents))
+ChunkParse score: IOB Accuracy: 93.3% Precision: 82.3% Recall: 86.8% F-Measure: 84.5%
 ```
 
 ### Training Classifier-Based Chunkers
@@ -600,7 +607,8 @@ is reflected in its performance:
 ...     word, pos = sentence[i]
 ...     return {"pos": pos}
 >>> chunker = ConsecutiveNPChunker(train_sents)
->>> print(chunker.evaluate(test_sents)) ChunkParse score: IOB Accuracy: 92.9% Precision: 79.9% Recall: 86.7% F-Measure: 83.2%
+>>> print(chunker.evaluate(test_sents))
+ChunkParse score: IOB Accuracy: 92.9% Precision: 79.9% Recall: 86.7% F-Measure: 83.2%
 ```
 
 We can also add a feature for the previous part-of-speech tag. Adding
@@ -617,7 +625,8 @@ bigram chunker.
 ...     prevword, prevpos = sentence[i-1]
 ...     return {"pos": pos, "prevpos": prevpos}
 >>> chunker = ConsecutiveNPChunker(train_sents)
->>> print(chunker.evaluate(test_sents)) ChunkParse score: IOB Accuracy: 93.6% Precision: 81.9% Recall: 87.2% F-Measure: 84.5%
+>>> print(chunker.evaluate(test_sents))
+ChunkParse score: IOB Accuracy: 93.6% Precision: 81.9% Recall: 87.2% F-Measure: 84.5%
 ```
 
 Next, we'll try adding a feature for the current word, since we
@@ -635,7 +644,8 @@ in the error rate).
 ...     prevword, prevpos = sentence[i-1]
 ...     return {"pos": pos, "word": word, "prevpos": prevpos}
 >>> chunker = ConsecutiveNPChunker(train_sents)
->>> print(chunker.evaluate(test_sents)) ChunkParse score: IOB Accuracy: 94.5% Precision: 84.2% Recall: 89.4% F-Measure: 86.7%
+>>> print(chunker.evaluate(test_sents))
+ChunkParse score: IOB Accuracy: 94.5% Precision: 84.2% Recall: 89.4% F-Measure: 86.7%
 ```
 
 Finally, we can try extending the feature extractor with a variety of
@@ -669,7 +679,8 @@ the sentence if there is no determiner before index `i`. .
 ...     return
 '+'.join(sorted(tags))
 >>> chunker = ConsecutiveNPChunker(train_sents)
->>> print(chunker.evaluate(test_sents)) ChunkParse score: IOB Accuracy: 96.0% Precision: 88.6% Recall: 91.0% F-Measure: 89.8%
+>>> print(chunker.evaluate(test_sents))
+ChunkParse score: IOB Accuracy: 96.0% Precision: 88.6% Recall: 91.0% F-Measure: 89.8%
 ```
 
 > **note**
@@ -699,7 +710,8 @@ sentence having deeper nesting. Notice that it fails to identify the
 
 ```python
 >>> sentence = [("John", "NNP"), ("thinks", "VBZ"), ("Mary", "NN"), ... ("saw", "VBD"), ("the", "DT"), ("cat", "NN"), ("sit", "VB"), ... ("on", "IN"), ("the", "DT"), ("mat", "NN")]
->>> print(cp.parse(sentence)) (S (NP John/NNP) thinks/VBZ (NP Mary/NN) saw/VBD # [_saw-vbd] (CLAUSE (NP the/DT cat/NN) (VP sit/VB (PP on/IN (NP the/DT mat/NN)))))
+>>> print(cp.parse(sentence))
+(S (NP John/NNP) thinks/VBZ (NP Mary/NN) saw/VBD # [_saw-vbd] (CLAUSE (NP the/DT cat/NN) (VP sit/VB (PP on/IN (NP the/DT mat/NN)))))
 ```
 
 The solution to these problems is to get the chunker to loop over its
@@ -709,7 +721,8 @@ of patterns should be run:
 
 ```python
 >>> cp = nltk.RegexpParser(grammar, loop=2)
->>> print(cp.parse(sentence)) (S (NP John/NNP) thinks/VBZ (CLAUSE (NP Mary/NN) (VP saw/VBD (CLAUSE (NP the/DT cat/NN) (VP sit/VB (PP on/IN (NP the/DT mat/NN)))))))
+>>> print(cp.parse(sentence))
+(S (NP John/NNP) thinks/VBZ (CLAUSE (NP Mary/NN) (VP saw/VBD (CLAUSE (NP the/DT cat/NN) (VP sit/VB (PP on/IN (NP the/DT mat/NN)))))))
 ```
 
 > **note**
@@ -743,9 +756,11 @@ children:
 
 ```python
 >>> tree1 = nltk.Tree('NP', ['Alice'])
->>> print(tree1) (NP Alice)
+>>> print(tree1)
+(NP Alice)
 >>> tree2 = nltk.Tree('NP', ['the', 'rabbit'])
->>> print(tree2) (NP the rabbit)
+>>> print(tree2)
+(NP the rabbit)
 ```
 
 We can incorporate these into successively larger trees as follows:
@@ -753,13 +768,15 @@ We can incorporate these into successively larger trees as follows:
 ```python
 >>> tree3 = nltk.Tree('VP', ['chased', tree2])
 >>> tree4 = nltk.Tree('S', [tree1, tree3])
->>> print(tree4) (S (NP Alice) (VP chased (NP the rabbit)))
+>>> print(tree4)
+(S (NP Alice) (VP chased (NP the rabbit)))
 ```
 
 Here are some of the methods available for tree objects:
 
 ```python
->>> print(tree4[1]) (VP chased (NP the rabbit))
+>>> print(tree4[1])
+(VP chased (NP the rabbit))
 >>> tree4[1].label()
 'VP'
 >>> tree4.leaves()
@@ -919,7 +936,7 @@ of, where in is followed by a gerund.
 >>> for doc in nltk.corpus.ieer.parsed_docs('NYT_19980315'):
 ...     for rel in nltk.sem.extract_rels('ORG', 'LOC', doc,
 ...     corpus='ieer', pattern = IN):
-...     print(nltk.sem.rtuple(rel)) [ORG: 'WHYY']
+...         print(nltk.sem.rtuple(rel)) [ORG: 'WHYY']
 'in' [LOC: 'Philadelphia'] [ORG: 'McGlashan &AMP; Sarrail'] 'firm in' [LOC: 'San Mateo'] [ORG: 'Freedom Forum'] 'in' [LOC: 'Arlington'] [ORG: 'Brookings Institution'] ', the research group in' [LOC: 'Washington'] [ORG: 'Idealab'] ', a self-described business incubator based in' [LOC: 'Los Angeles'] [ORG: 'Open Text'] ', based in' [LOC: 'Waterloo'] [ORG: 'WGBH'] 'in' [LOC: 'Boston'] [ORG: 'Bastille Opera'] 'in' [LOC: 'Paris'] [ORG: 'Omnicom'] 'in' [LOC: 'New York'] [ORG: 'DDB Needham'] 'in' [LOC: 'New York'] [ORG: 'Kaplan Thaler Group'] 'in' [LOC: 'New York'] [ORG: 'BBDO South'] 'in' [LOC: 'Atlanta'] [ORG: 'Georgia-Pacific'] 'in' [LOC: 'Atlanta']
 ```
 
@@ -944,7 +961,7 @@ the binary relation symbol is specified as the value of parameter
 >>> for doc in conll2002.chunked_sents('ned.train'):
 ...     for rel in nltk.sem.extract_rels('PER', 'ORG', doc,
 ...     corpus='conll2002', pattern=VAN):
-...     print(nltk.sem.clause(rel, relsym="VAN")) # [_relsym] VAN("cornet_d'elzius", 'buitenlandse_handel') VAN('johan_rottiers', 'kardinaal_van_roey_instituut') VAN('annie_lennox', 'eurythmics')
+...         print(nltk.sem.clause(rel, relsym="VAN")) # [_relsym] VAN("cornet_d'elzius", 'buitenlandse_handel') VAN('johan_rottiers', 'kardinaal_van_roey_instituut') VAN('annie_lennox', 'eurythmics')
 ```
 
 > **note**

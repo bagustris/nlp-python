@@ -158,7 +158,7 @@ reviews:
 ```python
 >>> from nltk.corpus import webtext
 >>> for fileid in webtext.fileids():
-...     print(fileid, webtext.raw(fileid)[:65], '...')
+...         print(fileid, webtext.raw(fileid)[:65], '...')
 ...     firefox.txt Cookie Manager: "Don't allow sites that set removed cookies to se... grail.txt SCENE 1: [wind]
 [clop clop clop] KING ARTHUR: Whoa there! [clop... overheard.txt White guy: So, do you have any plans for this evening? Asian girl... pirates.txt PIRATES OF THE CARRIBEAN: DEAD MAN'S CHEST, by Ted Elliott & Terr... singles.txt 25 SEXY MALE, seeks attrac older single lady, for discreet encoun... wine.txt Lovely delicate, fragrant Rhone wine. Polished leather and strawb...
 ```
@@ -219,7 +219,7 @@ first step is to produce the counts for a particular genre. Remember to
 >>> fdist = nltk.FreqDist(w.lower() for w in news_text)
 >>> modals = ['can', 'could', 'may', 'might', 'must', 'will']
 >>> for m in modals:
-...     print(m + ':', fdist[m], end=' ') ... can: 94 could: 87 may: 93 might: 38 must: 53 will: 389
+...         print(m + ':', fdist[m], end=' ') ... can: 94 could: 87 may: 93 might: 38 must: 53 will: 389
 ```
 
 > **note**
@@ -246,7 +246,8 @@ you can ignore the details and just concentrate on the output.
 ...     for word in brown.words(categories=genre))
 >>> genres = ['news', 'religion', 'hobbies', 'science_fiction', 'romance', 'humor']
 >>> modals = ['can', 'could', 'may', 'might', 'must', 'will']
->>> cfd.tabulate(conditions=genres, samples=modals) can could may might must will news 93 86 66 38 50 389 religion 82 59 78 12 54 71 hobbies 268 58 131 22 83 264 science_fiction 16 49 4 12 8 16 romance 74 193 11 51 45 43 humor 16 30 8 8 9
+>>> cfd.tabulate(conditions=genres, samples=modals)
+can could may might must will news 93 86 66 38 50 389 religion 82 59 78 12 54 71 hobbies 268 58 131 22 83 264 science_fiction 16 49 4 12 8 16 romance 74 193 11 51 45 43 humor 16 30 8 8 9
 13
 ```
 
@@ -713,8 +714,10 @@ among the available words.
 > \[\_bigram-condition\]
 >
 ```python
->>> cfd['living'] FreqDist({'creature': 7, 'thing': 4, 'substance': 2, ',': 1, '.': 1, 'soul': 1})
->>> generate_model(cfd, 'living') living creature that he said , and the land of the land of the land
+>>> cfd['living']
+FreqDist({'creature': 7, 'thing': 4, 'substance': 2, ',': 1, '.': 1, 'soul': 1})
+>>> generate_model(cfd, 'living')
+living creature that he said , and the land of the land of the land
 ```
 
 Conditional frequency distributions are a useful data structure for many
@@ -1037,7 +1040,7 @@ speech synthesizers.
 >>> len(entries)
 133737
 >>> for entry in entries[42371:42379]:
-...     print(entry) ... ('fir', ['F', 'ER1']) ('fire', ['F', 'AY1', 'ER0']) ('fire', ['F', 'AY1', 'R']) ('firearm', ['F', 'AY1', 'ER0', 'AA2', 'R', 'M']) ('firearm', ['F', 'AY1', 'R', 'AA2', 'R', 'M']) ('firearms', ['F', 'AY1', 'ER0', 'AA2', 'R', 'M', 'Z']) ('firearms', ['F', 'AY1', 'R', 'AA2', 'R', 'M', 'Z']) ('fireball', ['F', 'AY1', 'ER0', 'B', 'AO2', 'L'])
+...         print(entry) ... ('fir', ['F', 'ER1']) ('fire', ['F', 'AY1', 'ER0']) ('fire', ['F', 'AY1', 'R']) ('firearm', ['F', 'AY1', 'ER0', 'AA2', 'R', 'M']) ('firearm', ['F', 'AY1', 'R', 'AA2', 'R', 'M']) ('firearms', ['F', 'AY1', 'ER0', 'AA2', 'R', 'M', 'Z']) ('firearms', ['F', 'AY1', 'R', 'AA2', 'R', 'M', 'Z']) ('fireball', ['F', 'AY1', 'ER0', 'B', 'AO2', 'L'])
 ```
 
 For each word, this lexicon provides a list of phonetic codes —
@@ -1058,7 +1061,7 @@ part of the entry:
 >>> for word, pron in entries: # [_word-pron]
 ...     if len(pron) == 3: # [_len-pron-three] ... ph1, ph2, ph3 = pron # [_tuple-assignment]
 ...     if ph1 == 'P' and ph3 == 'T':
-...     print(word, ph2, end=' ') ... pait EY1 pat AE1 pate EY1 patt AE1 peart ER1 peat IY1 peet IY1 peete IY1 pert ER1 pet EH1 pete IY1 pett EH1 piet IY1 piette IY1 pit IH1 pitt IH1 pot AA1 pote OW1 pott AA1 pout AW1 puett UW1 purt ER1 put UH1 putt AH1
+...         print(word, ph2, end=' ') ... pait EY1 pat AE1 pate EY1 patt AE1 peart ER1 peat IY1 peet IY1 peete IY1 pert ER1 pet EH1 pete IY1 pett EH1 piet IY1 piette IY1 pit IH1 pitt IH1 pot AA1 pote OW1 pott AA1 pout AW1 puett UW1 purt ER1 put UH1 putt AH1
 ```
 
 The above program scans the lexicon looking for entries whose
@@ -1177,7 +1180,8 @@ two-letter code.
 >>> from nltk.corpus import swadesh
 >>> swadesh.fileids()
 ['be', 'bg', 'bs', 'ca', 'cs', 'cu', 'de', 'en', 'es', 'fr', 'hr', 'it', 'la', 'mk', 'nl', 'pl', 'pt', 'ro', 'ru', 'sk', 'sl', 'sr', 'sw', 'uk']
->>> swadesh.words('en') ['I', 'you (singular), thou', 'he', 'we', 'you (plural)
+>>> swadesh.words('en')
+['I', 'you (singular), thou', 'he', 'we', 'you (plural)
 ', 'they', 'this', 'that', 'here', 'there', 'who', 'what', 'where', 'when', 'how', 'not', 'all', 'many', 'some', 'few', 'other', 'one', 'two', 'three', 'four', 'five', 'big', 'long', 'wide', ...]
 ```
 
@@ -1332,7 +1336,7 @@ word car is ambiguous, having five synsets:
 >>> wn.synsets('car')
 [Synset('car.n.01'), Synset('car.n.02'), Synset('car.n.03'), Synset('car.n.04'), Synset('cable_car.n.01')]
 >>> for synset in wn.synsets('car'):
-...     print(synset.lemma_names()) ... ['car', 'auto', 'automobile', 'machine', 'motorcar']
+...         print(synset.lemma_names()) ... ['car', 'auto', 'automobile', 'machine', 'motorcar']
 ['car', 'railcar', 'railway_car', 'railroad_car'] ['car', 'gondola'] ['car', 'elevator_car'] ['cable_car', 'car']
 ```
 
@@ -1371,7 +1375,8 @@ specific; the (immediate) hyponyms.
 ```python
 >>> motorcar = wn.synset('car.n.01')
 >>> types_of_motorcar = motorcar.hyponyms()
->>> types_of_motorcar[0] Synset('ambulance.n.01')
+>>> types_of_motorcar[0]
+Synset('ambulance.n.01')
 >>> sorted(lemma.name() for synset in types_of_motorcar for lemma in synset.lemmas())
 ['Model_T', 'S.U.V.', 'SUV', 'Stanley_Steamer', 'ambulance', 'beach_waggon', 'beach_wagon', 'bus', 'cab', 'compact', 'compact_car', 'convertible', 'coupe', 'cruiser', 'electric', 'electric_automobile', 'electric_car', 'estate_car', 'gas_guzzler', 'hack', 'hardtop', 'hatchback', 'heap', 'horseless_carriage', 'hot-rod', 'hot_rod', 'jalopy', 'jeep', 'landrover', 'limo', 'limousine', 'loaner', 'minicar', 'minivan', 'pace_car', 'patrol_car', 'phaeton', 'police_car', 'police_cruiser', 'prowl_car', 'race_car', 'racer', 'racing_car', 'roadster', 'runabout', 'saloon', 'secondhand_car', 'sedan', 'sport_car', 'sport_utility', 'sport_utility_vehicle', 'sports_car', 'squad_car', 'station_waggon', 'station_wagon', 'stock_car', 'subcompact', 'subcompact_car', 'taxi', 'taxicab', 'tourer', 'touring_car', 'two-seater', 'used-car', 'waggon', 'wagon']
 ```
@@ -1434,7 +1439,7 @@ of `mint.n.02` and the substance from which `mint.n.05` is made.
 
 ```python
 >>> for synset in wn.synsets('mint', wn.NOUN):
-...     print(synset.name() + ':', synset.definition())
+...         print(synset.name() + ':', synset.definition())
 ...     batch.n.02: (often followed by \`of') a large number or amount or extent mint.n.02: any north temperate plant of the genus Mentha with aromatic leaves and small mauve flowers mint.n.03: any member of the mint family of plants mint.n.04: the leaves of a mint plant used fresh or candied mint.n.05: a candy that is flavored with a mint oil mint.n.06: a plant where money is coined by authority of the government
 >>> wn.synset('mint.n.04').part_holonyms()
 [Synset('mint.n.02')]

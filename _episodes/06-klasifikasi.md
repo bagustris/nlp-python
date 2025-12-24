@@ -165,7 +165,8 @@ Finally, we can examine the classifier to determine which features it
 found most effective for distinguishing the names' genders:
 
 ```python
->>> classifier.show_most_informative_features(5) Most Informative Features last_letter = 'a' female : male = 33.2 : 1.0 last_letter = 'k' male : female = 32.6 : 1.0 last_letter = 'p' male : female = 19.7 : 1.0 last_letter = 'v' male : female = 18.6 : 1.0 last_letter = 'f' male : female = 17.3 : 1.0
+>>> classifier.show_most_informative_features(5)
+Most Informative Features last_letter = 'a' female : male = 33.2 : 1.0 last_letter = 'k' male : female = 32.6 : 1.0 last_letter = 'p' male : female = 19.7 : 1.0 last_letter = 'v' male : female = 18.6 : 1.0 last_letter = 'f' male : female = 17.3 : 1.0
 ```
 
 This listing shows that the names in the training set that end in "a"
@@ -302,7 +303,7 @@ built generates about 100 errors on the dev-test corpus:
 
 ```python
 >>> for (tag, guess, name) in sorted(errors):
-...     print('correct={:<8} guess={:<8s} name={:<30}'.format(tag, guess, name)) correct=female guess=male name=Abigail
+...         print('correct={:<8} guess={:<8s} name={:<30}'.format(tag, guess, name)) correct=female guess=male name=Abigail
 ...     correct=female guess=male name=Cindelyn
 ...     correct=female guess=male name=Katheryn correct=female guess=male name=Kathryn
 ...     correct=male guess=female name=Aldrich
@@ -841,7 +842,8 @@ of the text/hypothesis Pair 34 shown earlier:
 {'Russia', 'Organisation', 'Shanghai', 'Asia', 'four', 'at', 'operation', 'SCO', ...}
 >>> print(extractor.hyp_words)
 {'member', 'SCO', 'China'}
->>> print(extractor.overlap('word')) set()
+>>> print(extractor.overlap('word'))
+set()
 >>> print(extractor.overlap('ne'))
 {'SCO', 'China'}
 >>> print(extractor.hyp_extra('word'))

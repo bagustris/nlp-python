@@ -169,7 +169,8 @@ same object:
 >>> snake_nest = [python] * size
 >>> snake_nest[0] == snake_nest[1] == snake_nest[2] == snake_nest[3] == snake_nest[4]
 True
->>> snake_nest[0] is snake_nest[1] is snake_nest[2] is snake_nest[3] is snake_nest[4]
+>>> snake_nest[0]
+is snake_nest[1] is snake_nest[2] is snake_nest[3] is snake_nest[4]
 True
 ```
 
@@ -184,7 +185,8 @@ objects are not all identical:
 [['Python'], ['Python'], ['Python'], ['Python'], ['Python']]
 >>> snake_nest[0] == snake_nest[1] == snake_nest[2] == snake_nest[3] == snake_nest[4]
 True
->>> snake_nest[0] is snake_nest[1] is snake_nest[2] is snake_nest[3] is snake_nest[4]
+>>> snake_nest[0]
+is snake_nest[1] is snake_nest[2] is snake_nest[3] is snake_nest[4]
 False
 ```
 
@@ -214,7 +216,7 @@ evaluated as true, while an empty string or list evaluates as false.
 >>> mixed = ['cat', '', ['dog'], []]
 >>> for element in mixed:
 ...     if element:
-...     print(element) ... cat
+...         print(element) ... cat
 ['dog']
 ```
 
@@ -229,7 +231,7 @@ situation:
 >>> if
 ...     print(1)
 ...     elif 'dog' in animals:
-...     print(2) ... 1
+...         print(2) ... 1
 ```
 
 Since the `if` clause of the statement is satisfied, Python never tries
@@ -288,9 +290,12 @@ slice, and length operation on each type:
 >>> raw = 'I turned off the spectroroute'
 >>> text = ['I', 'turned', 'off', 'the', 'spectroroute']
 >>> pair = (6, 'turned')
->>> raw[2], text[3], pair[1] ('t', 'the', 'turned')
->>> raw[-3:], text[-3:], pair[-3:] ('ute', ['off', 'the', 'spectroroute'], (6, 'turned'))
->>> len(raw), len(text), len(pair) (29, 5, 2)
+>>> raw[2], text[3], pair[1]
+('t', 'the', 'turned')
+>>> raw[-3:], text[-3:], pair[-3:]
+('ute', ['off', 'the', 'spectroroute'], (6, 'turned'))
+>>> len(raw), len(text), len(pair)
+(29, 5, 2)
 ```
 
 Notice in this code sample that we computed multiple values on a single
@@ -326,7 +331,7 @@ sequence (using `list()` or `sorted()`) and support iteration, e.g.
 >>> sorted(fdist)
 [',', '.', 'Red', 'lorry', 'red', 'yellow']
 >>> for key in fdist:
-...     print(key + ':', fdist[key], end='; ') ... lorry: 4; red: 1; .: 1; ,: 3; Red: 1; yellow: 2
+...         print(key + ':', fdist[key], end='; ') ... lorry: 4; red: 1; .: 1; ,: 3; Red: 1; yellow: 2
 ```
 
 In the next example, we use tuples to re-arrange the contents of our
@@ -492,7 +497,8 @@ readable processing of texts. Here's an example where we tokenize and
 normalize a text:
 
 ```python
->>> text = '''"When I use a word," Humpty Dumpty said in rather a scornful tone, ... "it means just what I choose it to mean - neither more nor less."'''
+>>> text = '''"When I use a word,"
+Humpty Dumpty said in rather a scornful tone, ... "it means just what I choose it to mean - neither more nor less."'''
 >>> [w.lower() for w in word_tokenize(text)]
 ['\`\`', 'when', 'i', 'use', 'a', 'word', ',', "''", 'humpty', 'dumpty', 'said', ...]
 ```
@@ -1306,9 +1312,10 @@ arguments `*args` and an "in-place dictionary" of keyword arguments
 
 ```python
 >>> def generic(*args,**kwargs):
-...     print(args)
+...         print(args)
 ...     print(kwargs) ...
->>> generic(1, "African swallow", monty="python") (1, 'African swallow')
+>>> generic(1, "African swallow", monty="python")
+(1, 'African swallow')
 {'monty': 'python'}
 ```
 
@@ -1379,7 +1386,8 @@ revised version of the same function that reports its progress if a
 > close open files automatically if you use the `with` statement:
 >
 ```python
->>> with open("lexicon.txt") as f:
+>>> with open("lexicon.txt")
+as f:
 ...     data = f.read() ... # process the data
 ```
 
@@ -2150,8 +2158,10 @@ initialize and access:
 ...     [[3,3,3], [4,4,4], [5,5,5]], ... [[6,6,6], [7,7,7], [8,8,8]] ])
 >>> cube[1,1,1]
 4
->>> cube[2].transpose() array([[6, 7, 8], [6, 7, 8], [6, 7, 8]])
->>> cube[2,1:] array([[7, 7, 7], [8, 8, 8]])
+>>> cube[2].transpose()
+array([[6, 7, 8], [6, 7, 8], [6, 7, 8]])
+>>> cube[2,1:]
+array([[7, 7, 7], [8, 8, 8]])
 ```
 
 NumPy includes linear algebra functions. Here we perform singular value

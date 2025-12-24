@@ -103,8 +103,10 @@ This allows us to parse a query into SQL.
 >>> answer = trees[0].label()
 ['SEM']
 >>> answer = [s for s in answer if s]
->>> q = ' '.join(answer)
->>> print(q) SELECT City FROM city_table WHERE Country="china"
+>>> q = '
+'.join(answer)
+>>> print(q)
+SELECT City FROM city_table WHERE Country="china"
 ```
 
 > **note**
@@ -120,7 +122,8 @@ some results.
 ```python
 >>> from nltk.sem import chat80
 >>> rows = chat80.sql_query('corpora/city_database/city.db', q)
->>> for r in rows: print(r[0], end=" ") # [_tuple-val] canton chungking dairen harbin kowloon mukden peking shanghai sian tientsin
+>>> for r in rows: print(r[0], end="
+") # [_tuple-val] canton chungking dairen harbin kowloon mukden peking shanghai sian tientsin
 ```
 
 Since each row `r` is a one-element tuple, we print out the member of
@@ -357,7 +360,8 @@ focusing on ways of exploring logic within NLTK, we will stick to the
 following ASCII versions of the operators:
 
 ```python
->>> nltk.boolean_ops() negation - conjunction & disjunction | implication -> equivalence
+>>> nltk.boolean_ops()
+negation - conjunction & disjunction | implication -> equivalence
 <->
 ```
 
@@ -719,11 +723,14 @@ that are free in `expr`.
 
 ```python
 >>> read_expr = nltk.sem.Expression.fromstring
->>> read_expr('dog(cyril)').free() set()
+>>> read_expr('dog(cyril)').free()
+set()
 >>> read_expr('dog(x)').free()
 {Variable('x')}
->>> read_expr('own(angus, cyril)').free() set()
->>> read_expr('exists x.dog(x)').free() set()
+>>> read_expr('own(angus, cyril)').free()
+set()
+>>> read_expr('exists x.dog(x)').free()
+set()
 >>> read_expr('((some x. walk(x)) -> sing(x))').free()
 {Variable('x')}
 >>> read_expr('exists x.own(y, x)').free()
@@ -908,7 +915,8 @@ In addition, there is a `print()` format for assignments which uses a
 notation closer to that often found in logic textbooks:
 
 ```python
->>> print(g) g[c/y]
+>>> print(g)
+g[c/y]
 [o/x]
 ```
 
@@ -1116,7 +1124,8 @@ the variable `y`.
 
 ```python
 >>> fmla5 = read_expr('(person(y) & all x.(person(x) -> admire(x, y)))')
->>> m2.satisfiers(fmla5, 'y', g2) set()
+>>> m2.satisfiers(fmla5, 'y', g2)
+set()
 ```
 
 That is, there is no person that is admired by everybody. Taking a
@@ -1364,7 +1373,8 @@ escape it (with another `\`), or else use "raw strings"
 >>> expr = read_expr(r'x.(walk(x) & chew_gum(x))')
 >>> expr
 <LambdaExpression x.(walk(x) & chew_gum(x))>
->>> expr.free() set()
+>>> expr.free()
+set()
 >>> print(read_expr(r'x.(walk(x) & chew_gum(y))')) x.(walk(x) & chew_gum(y))
 ```
 
@@ -1422,7 +1432,8 @@ NLTK, we can call the `simplify()` method simplify\_.
 
 ```python
 >>> expr = read_expr(r'x.(walk(x) & chew_gum(x))(gerald)')
->>> print(expr) x.(walk(x) & chew_gum(x))(gerald)
+>>> print(expr)
+x.(walk(x) & chew_gum(x))(gerald)
 >>> print(expr.simplify()) # [_simplify] (walk(gerald) & chew_gum(gerald))
 ```
 
@@ -1492,9 +1503,11 @@ are in fact testing for α-equivalence:
 
 ```python
 >>> expr1 = read_expr('exists x.P(x)')
->>> print(expr1) exists x.P(x)
+>>> print(expr1)
+exists x.P(x)
 >>> expr2 = expr1.alpha_convert(nltk.sem.Variable('z'))
->>> print(expr2) exists z.P(z)
+>>> print(expr2)
+exists z.P(z)
 >>> expr1 == expr2
 True
 ```
@@ -1511,8 +1524,10 @@ following example.
 
 ```python
 >>> expr3 = read_expr('P.(exists x.P(x))(y.see(y, x))')
->>> print(expr3) (P.exists x.P(x))(y.see(y,x))
->>> print(expr3.simplify()) exists z1.see(z1,x)
+>>> print(expr3)
+(P.exists x.P(x))(y.see(y,x))
+>>> print(expr3.simplify())
+exists z1.see(z1,x)
 ```
 
 > **note**
@@ -1648,8 +1663,10 @@ which is what we wanted all along:
 >>> tvp = read_expr(r'X x.X(y.chase(x,y))')
 >>> np = read_expr(r'(P.exists x.(dog(x) & P(x)))')
 >>> vp = nltk.sem.ApplicationExpression(tvp, np)
->>> print(vp) (X x.X(y.chase(x,y)))(P.exists x.(dog(x) & P(x)))
->>> print(vp.simplify()) x.exists z2.(dog(z2) & chase(x,z2))
+>>> print(vp)
+(X x.X(y.chase(x,y)))(P.exists x.(dog(x) & P(x)))
+>>> print(vp.simplify())
+x.exists z2.(dog(z2) & chase(x,z2))
 ```
 
 In order to build a semantic representation for a sentence, we also need
@@ -1686,7 +1703,7 @@ at. Here's a slightly more complicated example.
 >>> sentence = 'Angus gives a bone to every dog'
 >>> tokens = sentence.split()
 >>> for tree in parser.parse(tokens):
-...     print(tree.label()['SEM']) all z2.(dog(z2) -> exists z1.(bone(z1) & give(angus,z1,z2)))
+...         print(tree.label()['SEM']) all z2.(dog(z2) -> exists z1.(bone(z1) & give(angus,z1,z2)))
 ```
 
 NLTK provides some utilities to make it easier to derive and inspect
@@ -1703,7 +1720,7 @@ only one parse tree per sentence in the list.
 >>> grammar_file = 'grammars/book_grammars/simple-sem.fcfg'
 >>> for results in nltk.interpret_sents(sents, grammar_file):
 ...     for (synrep, semrep) in results:
-...     print(synrep) (S[SEM=<walk(irene)>] (NP[-LOC, NUM='sg', SEM=<P.P(irene)>] (PropN[-LOC, NUM='sg', SEM=<P.P(irene)>] Irene)) (VP[NUM='sg', SEM=<x.walk(x)>] (IV[NUM='sg', SEM=<x.walk(x)>, TNS='pres'] walks))) (S[SEM=<exists z3.(ankle(z3) & bite(cyril,z3))>] (NP[-LOC, NUM='sg', SEM=<P.P(cyril)>] (PropN[-LOC, NUM='sg', SEM=<P.P(cyril)>] Cyril)) (VP[NUM='sg', SEM=<x.exists z3.(ankle(z3) & bite(x,z3))>] (TV[NUM='sg', SEM=<X x.X(y.bite(x,y))>, TNS='pres'] bites) (NP[NUM='sg', SEM=<Q.exists x.(ankle(x) & Q(x))>] (Det[NUM='sg', SEM=<P Q.exists x.(P(x) & Q(x))>] an) (Nom[NUM='sg', SEM=<x.ankle(x)>] (N[NUM='sg', SEM=<x.ankle(x)>] ankle)))))
+...         print(synrep) (S[SEM=<walk(irene)>] (NP[-LOC, NUM='sg', SEM=<P.P(irene)>] (PropN[-LOC, NUM='sg', SEM=<P.P(irene)>] Irene)) (VP[NUM='sg', SEM=<x.walk(x)>] (IV[NUM='sg', SEM=<x.walk(x)>, TNS='pres'] walks))) (S[SEM=<exists z3.(ankle(z3) & bite(cyril,z3))>] (NP[-LOC, NUM='sg', SEM=<P.P(cyril)>] (PropN[-LOC, NUM='sg', SEM=<P.P(cyril)>] Cyril)) (VP[NUM='sg', SEM=<x.exists z3.(ankle(z3) & bite(x,z3))>] (TV[NUM='sg', SEM=<X x.X(y.bite(x,y))>, TNS='pres'] bites) (NP[NUM='sg', SEM=<Q.exists x.(ankle(x) & Q(x))>] (Det[NUM='sg', SEM=<P Q.exists x.(P(x) & Q(x))>] an) (Nom[NUM='sg', SEM=<x.ankle(x)>] (N[NUM='sg', SEM=<x.ankle(x)>] ankle)))))
 ```
 
 We have seen now how to convert English sentences into logical forms,
@@ -1735,7 +1752,7 @@ sentence.
 >>> results = nltk.evaluate_sents([sent], grammar_file, m, g)
 [0]
 >>> for (syntree, semrep, value) in results:
-...     print(semrep)
+...         print(semrep)
 ...     print(value) all z4.(boy(z4) -> see(cyril,z4))
 True
 ```
@@ -1877,17 +1894,19 @@ and `core`.
 >>> semrep = trees[0].label()
 ['SEM']
 >>> cs_semrep = cs.CooperStore(semrep)
->>> print(cs_semrep.core) chase(z2,z4)
+>>> print(cs_semrep.core)
+chase(z2,z4)
 >>> for bo in cs_semrep.store:
-...     print(bo) bo(P.all x.(girl(x) -> P(x)),z2) bo(P.exists x.(dog(x) & P(x)),z4)
+...         print(bo) bo(P.all x.(girl(x) -> P(x)),z2) bo(P.exists x.(dog(x) & P(x)),z4)
 ```
 
 Finally we call `s_retrieve()` and check the readings.
 
 ```python
->>> cs_semrep.s_retrieve(trace=True) Permutation 1 (P.all x.(girl(x) -> P(x)))(z2.chase(z2,z4)) (P.exists x.(dog(x) & P(x)))(z4.all x.(girl(x) -> chase(x,z4))) Permutation 2 (P.exists x.(dog(x) & P(x)))(z4.chase(z2,z4)) (P.all x.(girl(x) -> P(x)))(z2.exists x.(dog(x) & chase(z2,x)))
+>>> cs_semrep.s_retrieve(trace=True)
+Permutation 1 (P.all x.(girl(x) -> P(x)))(z2.chase(z2,z4)) (P.exists x.(dog(x) & P(x)))(z4.all x.(girl(x) -> chase(x,z4))) Permutation 2 (P.exists x.(dog(x) & P(x)))(z4.chase(z2,z4)) (P.all x.(girl(x) -> P(x)))(z2.exists x.(dog(x) & chase(z2,x)))
 >>> for reading in cs_semrep.readings:
-...     print(reading) exists x.(dog(x) & all z3.(girl(z3) -> chase(z3,x))) all x.(girl(x) -> exists z4.(dog(z4) & chase(x,z4)))
+...         print(reading) exists x.(dog(x) & all z3.(girl(z3) -> chase(z3,x))) all x.(girl(x) -> exists z4.(dog(z4) & chase(x,z4)))
 ```
 
 Discourse Semantics
@@ -1966,7 +1985,8 @@ representation parse-drs\_.
 ```python
 >>> read_dexpr = nltk.sem.DrtExpression.fromstring
 >>> drs1 = read_dexpr('([x, y], [angus(x), dog(y), own(x, y)])') # [_parse-drs]
->>> print(drs1) ([x,y],[angus(x), dog(y), own(x,y)])
+>>> print(drs1)
+([x,y],[angus(x), dog(y), own(x,y)])
 ```
 
 We can use the `draw()` method draw-drs\_ to visualize the result, as
@@ -1987,7 +2007,8 @@ they are conjoined. In fact, every DRS can be translated into a
 formula of FOL, and the `fol()` method implements this translation.
 
 ```python
->>> print(drs1.fol()) exists x y.(angus(x) & dog(y) & own(x,y))
+>>> print(drs1.fol())
+exists x y.(angus(x) & dog(y) & own(x,y))
 ```
 
 In addition to the functionality available for FOL expressions, DRT
@@ -1999,8 +2020,10 @@ avoid name-clashes.
 
 ```python
 >>> drs2 = read_dexpr('([x], [walk(x)]) + ([y], [run(y)])')
->>> print(drs2) (([x],[walk(x)]) + ([y],[run(y)]))
->>> print(drs2.simplify()) ([x,y],[walk(x), run(y)])
+>>> print(drs2)
+(([x],[walk(x)]) + ([y],[run(y)]))
+>>> print(drs2.simplify())
+([x,y],[walk(x), run(y)])
 ```
 
 While all the conditions seen so far have been atomic, it is possible to
@@ -2012,7 +2035,8 @@ conditions.
 
 ```python
 >>> drs3 = read_dexpr('([], [(([x], [dog(x)]) -> ([y],[ankle(y), bite(x, y)]))])')
->>> print(drs3.fol()) all x.(dog(x) -> exists y.(ankle(y) & bite(x,y)))
+>>> print(drs3.fol())
+all x.(dog(x) -> exists y.(ankle(y) & bite(x,y)))
 ```
 
 We pointed out earlier that DRT is designed to allow anaphoric
@@ -2029,8 +2053,10 @@ method `resolve_anaphora()` replaces this with a condition of the form
 >>> drs4 = read_dexpr('([x, y], [angus(x), dog(y), own(x, y)])')
 >>> drs5 = read_dexpr('([u, z], [PRO(u), irene(z), bite(u, z)])')
 >>> drs6 = drs4 + drs5
->>> print(drs6.simplify()) ([u,x,y,z],[angus(x), dog(y), own(x,y), PRO(u), irene(z), bite(u,z)])
->>> print(drs6.simplify().resolve_anaphora()) ([u,x,y,z],[angus(x), dog(y), own(x,y), (u = [x,y,z]), irene(z), bite(u,z)])
+>>> print(drs6.simplify())
+([u,x,y,z],[angus(x), dog(y), own(x,y), PRO(u), irene(z), bite(u,z)])
+>>> print(drs6.simplify().resolve_anaphora())
+([u,x,y,z],[angus(x), dog(y), own(x,y), (u = [x,y,z]), irene(z), bite(u,z)])
 ```
 
 Since the algorithm for anaphora resolution has been separated into its
@@ -2070,7 +2096,8 @@ using `DrtParser`.
 >>> from nltk import load_parser
 >>> parser = load_parser('grammars/book_grammars/drt.fcfg', logic_parser=nltk.sem.drt.DrtParser())
 >>> trees = list(parser.parse('Angus owns a dog'.split()))
->>> print(trees[0].label()['SEM'].simplify()) ([x,z2],[Angus(x), dog(z2), own(x,z2)])
+>>> print(trees[0].label()['SEM'].simplify())
+([x,z2],[Angus(x), dog(z2), own(x,z2)])
 ```
 
 ### Discourse Processing
@@ -2104,9 +2131,11 @@ readings. In this case, the user has the option of retracting the
 sentence in question.
 
 ```python
->>> dt.add_sentence('No person dances', consistchk=True) Inconsistent discourse: d0
+>>> dt.add_sentence('No person dances', consistchk=True)
+Inconsistent discourse: d0
 ['s0-r0', 's1-r0', 's2-r0']: s0-r0: exists x.(student(x) & dance(x)) s1-r0: all x.(student(x) -> person(x)) s2-r0: -exists x.(person(x) & dance(x))
->>> dt.retract_sentence('No person dances', verbose=True) Current sentences are s0: A student dances s1: Every student is a person
+>>> dt.retract_sentence('No person dances', verbose=True)
+Current sentences are s0: A student dances s1: Every student is a person
 ```
 
 In a similar manner, we use `informchk=True` to check whether a new
@@ -2116,7 +2145,8 @@ and attempts to prove φ; it is informative if no such proof can be
 found.
 
 ```python
->>> dt.add_sentence('A person dances', informchk=True) Sentence 'A person dances' under reading 'exists x.(person(x) & dance(x))
+>>> dt.add_sentence('A person dances', informchk=True)
+Sentence 'A person dances' under reading 'exists x.(person(x) & dance(x))
 ': Not informative relative to thread 'd0'
 ```
 
@@ -2162,7 +2192,8 @@ Inadmissible readings can be filtered out by passing the parameter
 `filter=True`.
 
 ```python
->>> dt.readings(show_thread_readings=True, filter=True) d1: ['s0-r1', 's1-r0'] : ([z12,z15],[boy(z12), (([x],[dog(x)]) -> ([],[chases(x,z12)])), (z17 = z12), runs(z15)])
+>>> dt.readings(show_thread_readings=True, filter=True)
+d1: ['s0-r1', 's1-r0'] : ([z12,z15],[boy(z12), (([x],[dog(x)]) -> ([],[chases(x,z12)])), (z17 = z12), runs(z15)])
 ```
 
 Although this little discourse is extremely limited, it should give you
@@ -2327,7 +2358,8 @@ Exercises
 >>> read_expr = nltk.sem.Expression.fromstring
 >>> e2 = read_expr('pat')
 >>> e3 = nltk.sem.ApplicationExpression(e1, e2)
->>> print(e3.simplify()) exists y.love(pat, y)
+>>> print(e3.simplify())
+exists y.love(pat, y)
 ```
 
     Clearly something is missing here, namely a declaration of the value
@@ -2343,15 +2375,18 @@ Exercises
     `e3.simplify()` shown below.
 
 ```python
->>> print(e3.simplify()) exists y.(love(pat,y) | love(y,pat))
+>>> print(e3.simplify())
+exists y.(love(pat,y) | love(y,pat))
 ```
 
 ```python
->>> print(e3.simplify()) exists y.(love(pat,y) | love(y,pat))
+>>> print(e3.simplify())
+exists y.(love(pat,y) | love(y,pat))
 ```
 
 ```python
->>> print(e3.simplify()) walk(fido)
+>>> print(e3.simplify())
+walk(fido)
 ```
 
 6.  ☆ As in the preceding exercise, find a λ abstract `e1`
@@ -2360,19 +2395,22 @@ Exercises
 ```python
 >>> e2 = read_expr('chase')
 >>> e3 = nltk.sem.ApplicationExpression(e1, e2)
->>> print(e3.simplify()) x.all y.(dog(y) -> chase(x,pat))
+>>> print(e3.simplify())
+x.all y.(dog(y) -> chase(x,pat))
 ```
 
 ```python
 >>> e2 = read_expr('chase')
 >>> e3 = nltk.sem.ApplicationExpression(e1, e2)
->>> print(e3.simplify()) x.exists y.(dog(y) & chase(pat,x))
+>>> print(e3.simplify())
+x.exists y.(dog(y) & chase(pat,x))
 ```
 
 ```python
 >>> e2 = read_expr('give')
 >>> e3 = nltk.sem.ApplicationExpression(e1, e2)
->>> print(e3.simplify()) x0 x1.exists y.(present(y) & give(x1,y,x0))
+>>> print(e3.simplify())
+x0 x1.exists y.(present(y) & give(x1,y,x0))
 ```
 
 7.  ☆ As in the preceding exercise, find a λ abstract `e1`
@@ -2381,19 +2419,22 @@ Exercises
 ```python
 >>> e2 = read_expr('bark')
 >>> e3 = nltk.sem.ApplicationExpression(e1, e2)
->>> print(e3.simplify()) exists y.(dog(x) & bark(x))
+>>> print(e3.simplify())
+exists y.(dog(x) & bark(x))
 ```
 
 ```python
 >>> e2 = read_expr('bark')
 >>> e3 = nltk.sem.ApplicationExpression(e1, e2)
->>> print(e3.simplify()) bark(fido)
+>>> print(e3.simplify())
+bark(fido)
 ```
 
 ```python
 >>> e2 = read_expr('\\P. all x. (dog(x) -> P(x))')
 >>> e3 = nltk.sem.ApplicationExpression(e1, e2)
->>> print(e3.simplify()) all x.(dog(x) -> bark(x))
+>>> print(e3.simplify())
+all x.(dog(x) -> bark(x))
 ```
 
 8.  ☆☆ Develop a method for translating English sentences into
